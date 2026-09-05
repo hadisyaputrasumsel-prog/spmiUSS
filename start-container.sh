@@ -2,9 +2,19 @@
 # Ensure no leftover apache PID
 rm -f /var/run/apache2/apache2.pid
         
-# Wait 15 seconds to ensure DB is fully online before attempting migration
-echo "Sleeping 15s to wait for DB..."
-sleep 15
+# Wait for database to be ready (robust check)
+echo "Waiting for DB to be fully online..."
+max_tries=30
+count=0
+while [ $count -lt $max_tries ]; do
+    if php -r "try { new PDO('mysql:host=amirauss-db;dbname=amira_uss', 'root', 'password'); exit(0); } catch(Exception \$e) { exit(1); }"; then
+        echo "Database is ready!"
+        break
+    fi
+    echo "DB not ready, retrying..."
+    sleep 3
+    count=$((count+1))
+done
 
 # Run Laravel commands
 php artisan migrate --force || true
