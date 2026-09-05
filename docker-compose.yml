@@ -5,14 +5,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: amirauss-app:v11
+    image: amirauss-app:v12
     container_name: amirauss-app
     restart: unless-stopped
     ports:
       - "8083:80"
     environment:
       - APP_ENV=production
-      - APP_DEBUG=false
+      - APP_DEBUG=true
       - APP_URL=http://localhost:8083
       - APP_KEY=base64:yIBwSONLRAIKAu2GFpD5zXZe+hwsJF5ROtjugD65c+4=
       - DB_CONNECTION=mysql
