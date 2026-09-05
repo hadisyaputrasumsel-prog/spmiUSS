@@ -103,10 +103,19 @@
     <div style="background-color: #e1f5fe; border-left: 4px solid #039be5; padding: 12px; margin-bottom: 20px;">
         <h4 style="margin: 0 0 8px 0; font-size: 13px; color: #039be5; font-weight: bold; text-transform: uppercase;">Informasi Standar (Acuan Utama)</h4>
         
-        @if(!empty($standard->indikator))
+        @if(!empty($standard->indikator) || !empty($standard->target) || !empty($standard->acuan))
         <div style="margin-bottom: 12px;">
-            <strong style="font-size: 12px; color: #333;">Target / Indikator Standar:</strong>
-            <div style="font-size: 12px; color: #555; margin-top: 2px; line-height: 1.5;">{!! nl2br(e($standard->indikator)) !!}</div>
+            <strong style="font-size: 13px; color: #333;">Pernyataan, Indikator, dan Target Standar (Acuan Utama):</strong>
+            
+            @if(!empty($standard->indikator))
+                <div style="font-size: 12px; color: #555; margin-top: 4px; line-height: 1.5;"><strong>Indikator:</strong> {!! nl2br(e($standard->indikator)) !!}</div>
+            @endif
+            @if(!empty($standard->target))
+                <div style="font-size: 12px; color: #555; margin-top: 4px; line-height: 1.5;"><strong>Target:</strong> {!! nl2br(e($standard->target)) !!}</div>
+            @endif
+            @if(!empty($standard->acuan))
+                <div style="font-size: 12px; color: #555; margin-top: 4px; line-height: 1.5;"><strong>Acuan:</strong> {{ $standard->acuan }}</div>
+            @endif
         </div>
         @endif
         

@@ -10,7 +10,7 @@
     </a>
 </div>
 
-<form action="{{ route('standar-mutu.update', $standard->id) }}" method="POST">
+<form action="{{ route('standar-mutu.update', $standard->id) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="card" style="max-width: 1200px; margin: 0 auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
@@ -42,11 +42,33 @@
             </div>
 
             <div style="margin-bottom: 2rem;">
-                <label style="display: block; font-size: 1rem; color: var(--text-primary); margin-bottom: 1rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Target / Indikator Standar (Acuan Utama)</label>
+                <label style="display: block; font-size: 1rem; color: var(--text-primary); margin-bottom: 1rem; font-weight: 700; border-bottom: 1px solid var(--border-color); padding-bottom: 0.5rem;">Pernyataan, Indikator, dan Target Standar (Acuan Utama)</label>
                 
                 <div style="margin-bottom: 1.5rem;">
-                    <textarea name="indikator" class="form-control" rows="4" placeholder="Cth: IPK minimal 3.0; masa studi maks. 9 semester..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-primary);">{{ old('indikator', $standard->indikator) }}</textarea>
-                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Data target indikator.</small>
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Indikator (Apa yang diukur)</label>
+                    <textarea name="indikator" class="form-control" rows="3" placeholder="Cth: Rata-rata Indeks Prestasi Kumulatif (IPK) lulusan sarjana..." style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-primary);">{{ old('indikator', $standard->indikator) }}</textarea>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Target (Capaian yang harus diraih)</label>
+                    <textarea name="target" class="form-control" rows="3" placeholder="Cth: Minimal 3.0" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-primary);">{{ old('target', $standard->target) }}</textarea>
+                </div>
+                
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Acuan Utama (Referensi Dokumen)</label>
+                    <input type="text" name="acuan" value="{{ old('acuan', $standard->acuan) }}" class="form-control" placeholder="Cth: SM-USS-03-01-01 (Revisi: 23-04-2025)" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                </div>
+                
+                <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Unggah Template Borang / Dokumen Pendukung (Opsional)</label>
+                    @if($standard->template_dokumen)
+                        <div style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+                            <i data-feather="file-text" style="width: 16px; height: 16px; color: var(--status-success);"></i>
+                            <a href="{{ asset('storage/' . $standard->template_dokumen) }}" target="_blank" style="font-size: 0.875rem; color: var(--status-info); font-weight: 500; text-decoration: none;">Lihat Template Saat Ini</a>
+                        </div>
+                    @endif
+                    <input type="file" name="template_dokumen" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Biarkan kosong jika tidak ingin mengubah template yang sudah ada. Akan tersedia bagi prodi saat mengisi LED.</small>
                 </div>
             </div>
 

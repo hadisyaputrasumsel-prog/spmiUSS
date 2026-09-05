@@ -9,8 +9,10 @@ class StandardController extends Controller
 {
     public function index()
     {
-        $standards = Standard::orderBy('kode', 'asc')->paginate(15);
-        return view('standar.index', compact('standards'));
+        $groupedStandards = Standard::orderBy('kode', 'asc')->get()->groupBy(function($item) {
+            return empty($item->kelompok) ? 'Tanpa Kelompok' : $item->kelompok;
+        });
+        return view('standar.index', compact('groupedStandards'));
     }
 
     public function create()
@@ -27,6 +29,8 @@ class StandardController extends Controller
             'kelompok' => 'required|string|max:255',
             'sasaran_unit' => 'nullable|array',
             'indikator' => 'nullable|string',
+            'target' => 'nullable|string',
+            'acuan' => 'nullable|string|max:255',
             'penanggung_jawab' => 'nullable|string|max:255',
             'indikator_p1' => 'nullable|string',
             'indikator_p2' => 'nullable|string',
@@ -34,9 +38,17 @@ class StandardController extends Controller
             'indikator_p4' => 'nullable|string',
             'indikator_p5' => 'nullable|string',
             'rubrik_penilaian' => 'nullable|array',
+            'template_dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
         ]);
 
         $data = $request->all();
+
+        if ($request->hasFile('template_dokumen')) {
+            $file = $request->file('template_dokumen');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('templates', $filename, 'public');
+            $data['template_dokumen'] = $path;
+        }
 
         Standard::create($data);
 
@@ -57,6 +69,8 @@ class StandardController extends Controller
             'kelompok' => 'required|string|max:255',
             'sasaran_unit' => 'nullable|array',
             'indikator' => 'nullable|string',
+            'target' => 'nullable|string',
+            'acuan' => 'nullable|string|max:255',
             'penanggung_jawab' => 'nullable|string|max:255',
             'indikator_p1' => 'nullable|string',
             'indikator_p2' => 'nullable|string',
@@ -64,12 +78,20 @@ class StandardController extends Controller
             'indikator_p4' => 'nullable|string',
             'indikator_p5' => 'nullable|string',
             'rubrik_penilaian' => 'nullable|array',
+            'template_dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
         ]);
 
         $data = $request->all();
         
         if (!$request->has('sasaran_unit')) {
             $data['sasaran_unit'] = null;
+        }
+
+        if ($request->hasFile('template_dokumen')) {
+            $file = $request->file('template_dokumen');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('templates', $filename, 'public');
+            $data['template_dokumen'] = $path;
         }
 
         $standar_mutu->update($data);

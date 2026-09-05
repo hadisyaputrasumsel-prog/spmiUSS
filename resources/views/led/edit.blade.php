@@ -15,10 +15,26 @@
     <div style="background-color: var(--status-info-bg); border-left: 4px solid var(--status-info); padding: 1rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin-bottom: 1.5rem;">
         <h4 style="margin: 0 0 0.5rem 0; font-size: 0.875rem; color: var(--status-info); font-weight: 700; text-transform: uppercase;">Informasi Standar (Acuan)</h4>
         
-        @if(!empty($standard->indikator))
+        @if(!empty($standard->indikator) || !empty($standard->target) || !empty($standard->acuan))
         <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); border-radius: var(--radius-md); padding: 1rem; border: 1px solid var(--border-color);">
-            <strong style="color: var(--text-primary); font-size: 0.875rem; display: block; margin-bottom: 0.5rem;">Target / Indikator Standar (Acuan Utama):</strong>
-            <div style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5;">{!! nl2br(e($standard->indikator)) !!}</div>
+            <strong style="color: var(--text-primary); font-size: 0.875rem; display: block; margin-bottom: 0.5rem;">Pernyataan, Indikator, dan Target Standar (Acuan Utama):</strong>
+            @if(!empty($standard->indikator))
+                <div style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5rem;"><strong style="color:var(--text-primary);">Indikator:</strong> {!! nl2br(e($standard->indikator)) !!}</div>
+            @endif
+            @if(!empty($standard->target))
+                <div style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5rem;"><strong style="color:var(--text-primary);">Target:</strong> {!! nl2br(e($standard->target)) !!}</div>
+            @endif
+            @if(!empty($standard->acuan))
+                <div style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 0.5rem;"><strong style="color:var(--text-primary);">Acuan:</strong> {{ $standard->acuan }}</div>
+            @endif
+            @if(!empty($standard->template_dokumen))
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
+                    <strong style="color: var(--text-primary); font-size: 0.875rem; display: block; margin-bottom: 0.5rem;">Template Borang / Dokumen Resmi:</strong>
+                    <a href="{{ asset('storage/' . $standard->template_dokumen) }}" target="_blank" class="btn btn-outline" style="border: 1px solid var(--status-success); color: var(--status-success); padding: 0.5rem 1rem; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                        <i data-feather="download" style="width: 16px; height: 16px;"></i> Unduh Template Dokumen
+                    </a>
+                </div>
+            @endif
         </div>
         @endif
         
@@ -48,7 +64,7 @@
 
     @foreach($stages as $kode => $info)
     <div class="card" style="margin-bottom: 1.5rem;">
-        <div class="card-header" style="background-color: var(--bg-tertiary);">
+        <div class="card-header" onclick="toggleStage('{{ $kode }}')" style="background-color: var(--bg-tertiary); cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background-color 0.2s;">
             <div style="display: flex; align-items: center; gap: 0.75rem;">
                 <div style="background: var(--brand-gradient); color: white; width: 32px; height: 32px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ $kode }}</div>
                 <div>
@@ -56,8 +72,12 @@
                     <p style="font-size: 0.875rem; color: var(--text-muted); margin: 0;">{{ $info['desc'] }}</p>
                 </div>
             </div>
+            <div>
+                <i data-feather="chevron-down" id="icon-{{ $kode }}" style="transition: transform 0.3s; color: var(--text-secondary); transform: {{ $kode === 'P1' ? 'rotate(180deg)' : 'rotate(0deg)' }};"></i>
+            </div>
         </div>
-        <div style="padding: 1.5rem;">
+        <div id="content-{{ $kode }}" style="display: {{ $kode === 'P1' ? 'block' : 'none' }};">
+            <div style="padding: 1.5rem;">
             @php
                 $indikatorField = 'indikator_' . strtolower($kode);
                 $indikatorText = $standard->$indikatorField;
@@ -173,6 +193,7 @@
                 </div>
             </div>
         </div>
+        </div> <!-- End collapsible wrapper -->
     </div>
     @endforeach
 
@@ -183,4 +204,17 @@
     </div>
     @endif
 </form>
+<script>
+    function toggleStage(kode) {
+        const content = document.getElementById('content-' + kode);
+        const icon = document.getElementById('icon-' + kode);
+        if (content.style.display === 'none') {
+            content.style.display = 'block';
+            icon.style.transform = 'rotate(180deg)';
+        } else {
+            content.style.display = 'none';
+            icon.style.transform = 'rotate(0deg)';
+        }
+    }
+</script>
 @endsection

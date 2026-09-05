@@ -19,14 +19,16 @@
             <i data-feather="plus" style="width: 16px; height: 16px;"></i> Tambah Standar Baru
         </a>
     </div>
-    
+    @foreach($groupedStandards as $kelompok => $standards)
+    <div style="background-color: var(--bg-secondary); padding: 1rem 1.5rem; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <h3 style="margin: 0; font-size: 1rem; color: var(--text-primary); font-weight: 600;">{{ $kelompok }} <span class="badge" style="background-color: var(--status-info-bg); color: var(--status-info); border: none; margin-left: 0.5rem; font-size: 0.75rem;">{{ count($standards) }} Standar</span></h3>
+    </div>
     <div class="table-responsive">
-        <table class="table">
+        <table class="table" style="margin-bottom: 0;">
             <thead>
-                <tr>
+                <tr style="background-color: transparent;">
                     <th style="width: 150px;">KODE</th>
                     <th>NAMA STANDAR</th>
-                    <th>KELOMPOK STANDAR</th>
                     <th>JENIS</th>
                     <th style="width: 150px; text-align: right;">AKSI</th>
                 </tr>
@@ -36,13 +38,6 @@
                 <tr>
                     <td style="font-family: monospace; font-size: 0.875rem;">{{ $standard->kode }}</td>
                     <td style="font-weight: 500;">{{ $standard->nama }}</td>
-                    <td>
-                        @if($standard->kelompok)
-                            <span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color);">{{ $standard->kelompok }}</span>
-                        @else
-                            -
-                        @endif
-                    </td>
                     <td>
                         @if($standard->is_akademik)
                             <span class="badge badge-info">Akademik</span>
@@ -67,9 +62,6 @@
             </tbody>
         </table>
     </div>
-    
-    <div style="padding: 1rem 1.5rem; border-top: 1px solid var(--border-color);">
-        {{ $standards->links('pagination::bootstrap-4') }}
-    </div>
+    @endforeach
 </div>
 @endsection
