@@ -1,0 +1,10098 @@
+AKREDITASI PROGRAM STUDI 2.1
+PROGRAM SARJANA
+MATRIKS PENILAIAN KINERJA
+PROGRAM STUDI DAN SUPLEMEN
+Grand Galaxy City, Ruko Rose Garden 2 No. 72  
+(RRG2.72), Kel. Jaka Setia Kec. Bekasi Selatan,  
+Kota Bekasi, Jawa Barat 17147
+Sekretariat@laminfokom.or.id
+www.laminfokom.or.id
+021-38711132
+LEMBAGA AKREDITASI MANDIRI
+INFORMATIKA DAN KOMPUTER
+NOVEMBER 2025Lampiran  4 Peraturan  Lembaga  Akreditasi  Mandiri  Informatika  dan 
+Komputer  Nomor  11/PERLAM/MA/LAM-INFOKOM/X/2025  tentang 
+Instrumen Akreditasi Program Studi 2.1 Lingkup Informatika dan Komputer
+2 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   TIM PENYUSUN  
+ 
+Prof. Zainal A. Hasibuan, Ph.D. 
+Prof. Dra. Sri Hartati, MSc., Ph.D. 
+Prof.  Dr. Ir. Eko Sediyono,  M.Kom.  
+Prof.  Prihandoko,  S.Kom.,  MIT.,  Ph.D.  
+Prof.  Dr.rer.nat.  Achmad  Benny  Mutiara,  Q. N, SSi, S.Kom. 
+Prof. Ir. Joko Lianto Buliali, MSc. Ph.D.  
+Prof.  Dr. Eri Prasetyo  Wibowo,  S.Si.,  MMSI.  
+Prof.  Dr. Ir. Mochamad  Wahyudi,  S.Kom.,  M.Kom.,  MM.,  M.Pd.,  IPU.,  ASEAN  Eng. 
+Prof. Ir. Paulus Insap Santosa MSc., Ph.D.  
+Dr. Ir. Djoko  Soetarno,  DEA.  
+Ir. Noor  Akhmad  Setiawan,  S.T.,  M.T.,  Ph.D.,  IPM. 
+Prof.  Dr. Ir. Dwiza  Riana,  S.Si.,  MM.,  M.Kom.,  IPU.,  ASEAN  Eng. 
+Dr.rer.nat. Cecilia Esti Nugraheni, ST., MT.  
+Prof.  Dr. Tb. Maulana  Kusuma,  S.Kom.,  M.Eng.,  Sc. 
+Prof. Dr. Indra Budi, S.Kom., M.Kom.  
+Prof.  Dr. Ir. Sri Nurdiati,  M.Sc.  
+Prof.  Dr. Ir. Amil Ahmad  Ilham,  S.T.,  M.IT.  
+3 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   KATA  PENGANTAR  
+ 
+Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa atas rahmat dan karunia -Nya, sehingga 
+dokumen Matriks Penilaian untuk evaluasi akreditasi Program Studi ini dapat disusun dan diselesaikan.  
+ 
+Matriks ini disusun untuk memberikan gambaran yang sistematis dan terukur terkait ketercapaian standar 
+akreditasi, sekaligus menjadi refleksi atas komitmen kami dalam menerapkan prinsip akuntabilitas, 
+transparansi,  dan peningkatan  berkelanjutan.  Penyusunan  dilakukan  berdasarkan  data dan bukti  pendukung 
+yang dapat dipertanggungjawabkan, guna memenuhi tuntutan akreditasi nasional LAM INFOKOM.  
+ 
+Kami  menyadari  masih  terdapat  ruang  untuk  penyempurnaan.  Oleh  karena  itu, kami  terbuka  terhadap  segala 
+masukan yang konstruktif demi memperbaiki dan mengembangkan kualitas Program Studi ke depan. 
+Ucapan terima kasih kami sampaikan kepada semua pihak yang telah berkontribusi dalam penyusunan 
+dokumen ini.  
+ 
+Semoga dokumen ini dapat menjadi sarana yang efektif dalam mendukung proses akreditasi dan 
+pengembangan program studi di masa mendatang.  
+ 
+Jakarta,  Oktober  2025  
+ 
+ 
+ 
+ 
+Tim Penyusun  
+4 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   DAFTAR  ISI 
+Tim Penyusun  ii 
+Kata Pengantar  iii 
+Daftar  Isi iv 
+I. Matriks  Penilaian  Kinerja  Program  Studi  1 
+II. Bobot  Penilaian  Akreditasi  Program  Studi  Program  Sarjana  51 
+III. Bobot  Bagian  Per Kriteria  56 
+IV. Persentase  Input,  Proses,  Output/Outcome  57 
+V. Penilaian  Status  Akreditasi  57 
+ 
+ I. MATRIKS  PENILAIAN  KINERJA  PROGRAM  STUDI  
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+I 1. A 4 Kondisi  Eksternal  Kemampuan UPPS dalam 
+menganalisis aspek - aspek 
+dalam lingkungan makro 
+dan lingkungan mikro yang 
+relevan dan dapat 
+mempengaruhi eksistensi 
+dan pengembangan PS 
+maupun UPPS. Berdasar 
+hasil analisis kondisi makro 
+dan mikro, UPPS perlu 
+mengidentifikasi peluang 
+dan ancaman.  UPPS mampu 
+menganalisis aspek -
+aspek dalam 
+lingkungan makro dan 
+lingkungan mikro yang 
+relevan dan dapat 
+mempengaruhi 
+eksistensi dan 
+pengembangan PS 
+maupun UPPS, serta 
+mengidentifikasi 
+peluang dan ancaman 
+secara sangat 
+komprehensif.  
+ 
+ 
+ 
+ UPPS mampu 
+menganalisis aspek -
+aspek dalam 
+lingkungan makro 
+dan lingkungan mikro 
+yang relevan dan 
+dapat mempengaruhi 
+eksistensi dan 
+pengembangan PS 
+maupun UPPS, serta 
+mengidentifikasi 
+peluang dan 
+ancaman secara 
+komprehensif.  
+ 
+ 
+ 
+ UPPS mampu 
+menganalisis aspek -
+aspek dalam 
+lingkungan makro 
+dan lingkungan mikro 
+yang relevan dan 
+dapat mempengaruhi 
+eksistensi dan 
+pengembangan PS 
+maupun UPPS, serta 
+mengidentifikasi 
+peluang dan 
+ancaman secara 
+cukup komprehensif.  
+ 
+ UPPS mampu 
+menganalisis aspek -
+aspek dalam 
+lingkungan makro 
+dan lingkungan mikro 
+yang relevan dan 
+dapat mempengaruhi 
+eksistensi dan 
+pengembangan PS 
+maupun UPPS, serta 
+mengidentifikasi 
+peluang dan 
+ancaman secara 
+kurang komprehensif.  
+ 
+ 
+I 2. B 4 Profil Unit Pengelola 
+Program Studi  / Analisis 
+Internal  Kemampuan UPPS dan PS 
+dalam menyajikan informasi 
+secara ringkas dengan 
+mengemukakan hal -hal yang 
+terpenting tentang sejarah 
+UPPS, visi, misi, tujuan, 
+strategi dan tata nilai, struktur 
+organisasi, mahasiswa dan 
+lulusan, sumber daya manusia 
+(dosen dan tenaga  
+kependidikan), keuangan, 
+sarana dan prasarana, sistem 
+penjaminan mutu internal, 
+serta kinerja UPPS.  UPPS mampu 
+menyajikan seluruh 
+informasi secara 
+ringkas, sangat 
+komprehensif, dan 
+konsisten terhadap 
+data dan informasi 
+yang disampaikan 
+pada masing -masing 
+kriteria.  
+ 
+ 
+ 
+ 
+ 
+ UPPS mampu 
+menyajikan seluruh 
+informasi  secara 
+ringkas, 
+komprehensif, dan 
+konsisten terhadap 
+data dan informasi 
+yang disampaikan 
+pada masing -masing 
+kriteria.  
+ 
+ 
+ 
+ 
+ 
+ UPPS mampu 
+menyajikan seluruh 
+informasi secara 
+ringkas, cukup 
+komprehensif, dan 
+konsisten terhadap 
+data dan informasi 
+yang disampaikan 
+pada masing -masing 
+kriteria.  
+ 
+ 
+ 
+ 
+ 
+ UPPS mampu 
+menyajikan seluruh 
+informasi secara 
+ringkas, kurang 
+komprehensif, dan 
+kurang konsisten 
+terhadap data dan 
+informasi yang 
+disampaikan pada 
+masing -masing 
+kriteria.  
+ 
+ 
+ 
+ 
+ 
+1 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM INFOKOM  2.1 - 2025  
+
+2 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+Kriteria  1 Budaya  Mutu  
+I 3. 1.1 A 3 1.1 [PENETAPAN]  
+A. Kebijakan, standar, dan 
+indikator terkait sistem 
+tata kelola internal 
+UPPS dan/ atau PT 
+berikut  SOP,  yang 
+mencakup administrasi  
+akademik,  keuangan,  
+SDM, dan  aspek  lain 
+dalam  siklus PPEPP,  di 
+tingkat UPPS dan/atau 
+PT. 1.1 [PENETAPAN]  
+A. Ketersediaan 
+kebijakan,  standar, 
+dan indikator  
+terkait sistem  tata 
+kelola internal  
+UPPS  dan/ atau  
+PT berikut  SOP, 
+yang mencakup  
+administrasi 
+akademik,  
+keuangan, SDM,  
+dan aspek  lain 
+dalam siklus 
+PPEPP, di tingkat  
+UPPS dan/atau PT.  
+ 
+Syarat Unggul  
+(minimal skor 3.00):  
+Memenuhi aspek 1, 2,  
+dan 3.  Tersedianya kebijakan,  
+standar, dan indikator  
+terkait sistem tata kelola  
+internal UPPS dan/ atau  PT 
+berikut SOP, yang  
+mencakup:  
+1. Administrasi  
+akademik.  
+2. Administrasi  
+keuangan . 
+3. Administrasi SDM.  
+4. Aspek lain dalam  
+siklus PPEPP, di  
+tingkat UPPS  
+dan/atau PT , disertai 
+bukti -bukti  
+yang sahih dan  
+sangat lengkap.  
+ Tersedianya  kebijakan,  
+standar, dan indikator  
+terkait sistem tata kelola  
+internal UPPS dan/ atau  
+PT berikut SOP, yang  
+mencakup:  
+1. Administrasi  
+akademik.  
+2. Administrasi  
+keuangan . 
+3. Administrasi 
+SDM.  
+4. Aspek lain dalam  
+siklus PPEPP, di  
+tingkat UPPS  
+dan/atau P T, 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tersedianya 
+kebijakan,  
+standar, dan 
+indikator  
+terkait sistem tata 
+kelola  
+internal UPPS dan/ 
+atau 
+PT berikut SOP, 
+yang  
+mencakup:  
+1. Administrasi  
+akademik.  
+2. Administrasi  
+keuangan . 
+3. Administrasi 
+SDM.  
+4. Aspek lain 
+dalam  
+siklus PPEPP, 
+di tingkat UPPS  
+dan/atau PT , 
+disertai bukti -
+bukti yang 
+sahih dan  
+cukup  lengkap.  Tersedianya 
+kebijakan,  
+standar, dan indikator  
+terkait sistem tata 
+kelola  
+internal UPPS dan/ 
+atau 
+PT berikut SOP, yang  
+mencakup:  
+1. Administrasi  
+akademik.  
+2. Administrasi  
+keuangan . 
+3. Administrasi 
+SDM.  
+4. Aspek lain dalam  
+siklus PPEPP, di  
+tingkat  UPPS  
+dan/atau PT , 
+disertai  bukti -
+bukti  yang sahih  
+tetapi  kurang  
+lengkap.  
+3 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+I 4. 1.1 B 2,5 B. Kebijakan,  standar dan 
+indikator terkait fungsi 
+SPMI dengan SDM  
+yang  kompeten  
+sebagai  pelaksana  di 
+tingkat  UPPS dan/atau 
+PT. B. Ketersediaan 
+kebijakan,standar dan 
+indikator  terkait : 
+1. Fungsi SPMI 
+dengan . 
+2. SDM yang 
+kompeten sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT.  
+ 
+Syarat Unggul (minimal 
+skor 3.00) : Memenuhi 
+semua aspek dengan bukti 
+lengkap.  Tersedianya  kebijak an, 
+standar  dan indikator   
+terkait : 
+1. Fungsi SPMI 
+dengan . 
+2. SDM yang 
+kompeten sebagai 
+pelaksana di tingkat 
+UPPS dan/atau PT , 
+disertai bukti -bukti 
+yang  sahih  dan 
+lengkap.  Tersedianya kebijakan, 
+standar, dan  indikator  
+terkait : 
+1. Fungsi SPMI 
+dengan . 
+2. SDM yang 
+kompeten sebagai 
+pelaksana di tingkat 
+UPPS dan/atau PT , 
+disertai bukti -bukti 
+yang sahih dan  
+lengkap.  Tersedianya 
+kebijakan, standar, 
+dan indikator  terkait : 
+1. Fungsi SPMI 
+dengan . 
+2. SDM yang 
+kompeten 
+sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Tersedianya Kebijakan,  
+standar, dan  indikator  
+terkait :  
+1. Fungsi SPMI 
+dengan . 
+2. SDM yang 
+kompeten sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+4 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 5. 1.2 A 5 1.2 [PELAKSANAAN]  
+A. Efektifitas pelaksanaan  
+kegiatan  terkait sistem  
+tata  kelola internal  
+UPPS  dan/ atau  PT 
+berikut  SOP, yang 
+mencakup administrasi 
+akademik,  keuangan,  
+SDM, dan aspek  lain 
+dalam siklus  PPEPP,  di 
+tingka t UPPS  
+dan/atau  PT. Dokumen  
+pendukung  misalnya 
+laporan  tahunan  
+pimpinan  UPPS  
+dan/atau PT.  1.2. [PELAKSANAAN]  
+A. Efektifitas pelaksanaan 
+kegiatan terkait 
+standar dan indikator 
+yang menunjukkan 
+berfungsinya sistem 
+tata kelola internal 
+UPPS dan/atau PT 
+berikut, SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam  
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau PT.  
+ 
+Syarat Unggul  
+(minimal skor 3.00):  
+Memenuhi aspek 1, 2,  
+dan 3.  Pelaksanaan kegiatan 
+terkait standar  dan 
+indikator yang 
+menunjukkan 
+berfungsinya sistem tata 
+kelola internal UPPS 
+dan/atau PT berikut 
+SOP, yang mencakup :  
+1. Administrasi 
+akademik . 
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , secara 
+sangat  efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap , dokumen 
+pendukung misalnya 
+laporan tahunan  Pelaksanaan kegiatan 
+terkait standar dan 
+indikator yang 
+menunjukkan 
+berfungsinya  sistem 
+tata kelola internal 
+UPPS dan/atau  PT 
+berikut SOP, yang 
+mencakup : 
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+secara efektif 
+disertai bukti -bukti 
+yang sahih dan 
+lengkap , dokumen  
+pendukung  Pelaksanaan 
+kegiatan terkait 
+standar dan 
+indikator yang 
+menunjukkan 
+berfungsinya  sistem 
+tata kelola internal 
+UPPS dan/atau  PT 
+berikut SOP, yang 
+mencakup : 
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM,  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+secara cukup  
+efektif disertai  
+bukti -bukti yang 
+sahih dan cukup 
+lengkap , 
+dokumen  Pelaksanaan kegiatan 
+terkait standar dan 
+indikator yang 
+menunjukkan 
+berfungsinya  sistem 
+tata kelola internal 
+UPPS dan/atau  PT 
+berikut SOP, yang 
+mencakup : 
+1. Administrasi 
+akademik,  
+2. Aministrasi 
+keuangan,  
+3. Administrasi 
+SDM,  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+secara kurang 
+efektif disertai  
+bukti -bukti yang 
+sahih  tetapi  
+kurang lengkap , 
+Dokumen  
+5 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+      pimpinan  UPPS 
+dan/atau PT  misalnya laporan 
+tahunan pimpinan 
+UPPS  dan/atau  PT pendukung 
+misalnya laporan 
+tahunan  pimpinan  
+UPPS  dan/atau  PT pendukung 
+misalnya laporan 
+tahunan  pimpinan  
+UPPS  dan/atau  PT 
+P 6. 1.2.B  5 B. Efektifitas pelaksanaan  
+standar dan  indikator  
+yang menunjukkan 
+berfungsinya  
+berfungsinya  SPMI 
+dengan  SDM  yang 
+kompeten  sebagai 
+pelaksana  di tingkat 
+UPPS dan/atau PT.  B. Efektifitas pelaksanaan 
+kegiatan terkait standar 
+dan indikator yang 
+menunjukkan . 
+1. Berfungsinya SPMI 
+dengan . 
+2. SDM yang kompeten 
+sebagai pelaksana di 
+tingkat UPPS 
+dan/atau PT.  
+ 
+Syarat Unggul (minimal 
+skor 3.00): Memenuhi 
+semua aspek dengan 
+bukti lengkap.  Pelaksanaan  standar 
+dan indikator yang 
+menunjukka n. 
+1. Berfungsinya 
+SPMI dengan  
+2. SDM yang 
+kompeten sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Pelaksanaan standar 
+dan indikator yang 
+menunjukkan . 
+1. Berfungsinya  
+SPMI dengan . 
+2. SDM  yang 
+kompeten 
+sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+secara efektif 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Pelaksanaan standar 
+dan indikator yang 
+menunjukkan . 
+1. Berfungsinya  
+SPMI dengan . 
+2. SDM  yang 
+kompeten 
+sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih dan  cukup  
+lengkap.  Pelaksanaan standar 
+dan indikator yang 
+menunjukkan . 
+1. Berfungsinya  
+SPMI dengan . 
+2. SDM  yang 
+kompeten 
+sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+6 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 7. 1.3.A  5 1.3. [EVALUASI]  
+A. Efektifitas  keberkalaan 
+pelaksanaan  evaluasi 
+ketercapaian  standar 
+dan indikator  terkait 
+sistem  tata  kelola 
+Internal  UPPS dan/atau  
+PT berikut SOP,  yang  
+mencakup Administrasi 
+Akademik,  Keuangan,  
+SDM, dan aspek  lain 
+di tingkat  UPPS 
+dan/atau PT.  1.3. [EVALUASI]  
+A. Efektifitas dan 
+keberkalaan 
+pelaksanaan evaluasi 
+ketercapaian standar 
+dan indikator terkait 
+sistem tata kelola 
+internal UPPS dan/atau 
+PT berikut SOP, yang 
+mencakup:  
+1. Administrasi akademik,  
+2. Administrasi keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam siklus 
+PPEPP, di tingkat 
+UPPS dan/atau PT , 
+dokumen pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau PT.  
+ 
+Syarat Unggul  
+(minimal skor 3.00):  
+Memenuhi aspek 1, 2,  
+dan 3.  Evaluasi  ketercapaian  
+standar  dan indikator 
+terkait  fungsi SPMI 
+dengan  SDM  yang  
+kompeten  sebagai  
+pelaksana  di tingkat 
+UPPS  dan/atau PT, 
+berikut  SOP, yang  
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau PT , 
+dilaksanakan secara 
+berkala dan sangat 
+efektif, dan disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Evaluasi ketercapaian  
+standar  dan indikator 
+terkait  fungsi SPMI 
+dengan  SDM  yang  
+kompeten  sebagai  
+pelaksana  di tingkat 
+UPPS  dan/atau PT, 
+berikut  SOP, yang  
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT, dilaksanakan 
+secara  berkala  dan 
+efektif,  dan disertai 
+bukti -bukti yang 
+sahih  dan lengkap.  Evaluasi ketercapaian  
+standar  dan indikator 
+terkait  fungsi SPMI 
+dengan  SDM  yang  
+kompeten  sebagai  
+pelaksana  di tingkat 
+UPPS  dan/atau PT, 
+berikut  SOP, yang  
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT, dilaksanakan 
+secara  berkala  dan 
+cukup efektif, dan 
+disertai bukti -bukti 
+yang sahih dan 
+cukup lengkap.  Evaluasi ketercapaian  
+standar  dan indikator 
+terkait  fungsi SPMI 
+dengan  SDM  yang  
+kompeten  sebagai  
+pelaksana  di tingkat 
+UPPS  dan/atau PT, 
+berikut  SOP, yang  
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT, dilaksanakan 
+secara  berkala  
+dan kurang efektif, 
+dan disertai bukti -
+bukti yang sahih 
+tetapi kurang 
+lengkap.  
+7 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 8. 1.3 B 5 B. Efektifitas 
+pelaksanaan  evaluasi 
+ketercapaian  standar 
+dan indikator  terkait 
+fungsi  SPMI  dan SDM  
+pelaksana  di tingkat  
+UPPS dan/atau PT.  B. Efektifitas pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait : 
+1. Fungsi  SPMI  dengan.  
+2. SDM pelaksana  di 
+tingkat UPPS dan/atau 
+PT. 
+ 
+Syarat Unggul (minimal skor 
+3.00) : Memenuhi semua aspek 
+dengan bukti lengkap.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Fungsi SPMI 
+dengan . 
+2. SDM  yang  
+kompeten sebagai  
+pelaksana  di 
+tingkat UPPS 
+dan/atau PT , 
+dilaksanakan 
+secara berkala 
+dan sangat efektif, 
+dan disertai bukti -
+bukti yang sahih 
+dan sangat  
+lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM  yang  
+kompeten 
+sebagai  
+pelaksana  di 
+tingkat UPPS 
+dan/atau PT , 
+ilaksanakan 
+secara  berkala  
+dan efektif,  dan 
+disertai bukti -
+bukti yang sahih  
+dan lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM  yang  
+kompeten 
+sebagai  
+pelaksana  di 
+tingkat UPPS 
+dan/atau PT , 
+dilaksanakan 
+secara  berkala  
+dan cukup 
+efektif, dan 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM  yang  
+kompeten 
+sebagai  
+pelaksana  di 
+tingkat UPPS 
+dan/atau PT , 
+dilaksanakan 
+secara  berkala  
+dan kurang 
+efektif, dan 
+disertai bukti -
+bukti yang sahih 
+tetapi  kurang  
+lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+8 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400  Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 9. 1.4.A  2 1.4. [PENGENDALIAN]  
+A. Efektifitas pelaksanaan   
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait sistem  tata  
+kelola internal  UPPS 
+dan/atau  PT berikut 
+SOP,  yang mencakup  1.4. [PENGENDALIAN]  
+A. Efektifitas pelaksanaan  
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait sistem tata kelola 
+internal UPPS dan/atau 
+PT berikut SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT. 
+ 
+Syarat Unggul  
+(minimal skor 3.00):  
+Memenuhi aspek 1, 2,  
+dan 3.  Tindak lanjut hasil  
+evaluasi ketercapaian  
+standar dan indikator 
+terkait sistem tata 
+kelola internal UPPS 
+dan/atau PT berikut 
+SOP , yang mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM,  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT, dilaksanakan 
+secara sangat 
+efektif, disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait sistem tata 
+kelola internal UPPS 
+dan/atau  PT berikut 
+SOP , yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM,  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya 
+laporan tahunan 
+pimpinan UPPS 
+dan/atau PT , 
+dilaksanakan 
+secara efektif, 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait sistem tata 
+kelola internal UPPS 
+dan/atau  PT berikut 
+SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM,  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya 
+laporan tahunan 
+pimpinan UPPS 
+dan/atau PT , 
+dilaksanakan 
+secara cukup 
+efektif, disertai 
+bukti -bukti yang 
+sahih dan cukup 
+lengkap.  Tindak lanjut hasil 
+evaluasi 
+ketercapaian  standar 
+dan indikator terkait 
+sistem tata kelola 
+internal UPPS 
+dan/atau PT berikut 
+SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM,  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya 
+laporan tahunan 
+pimpinan UPPS 
+dan/atau PT , 
+dilaksanakan 
+secara kurang 
+efektif, disertai 
+bukti -bukti yang 
+sahih tetapi 
+kurang lengkap.  
+9 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 10. 1.4.B  2 B. Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait fungsi  SPMI   
+dan SDM  
+Pelaksananya di 
+tingkat PT/UPPS.  B. Efektifitas pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Fungsi SPMI dengan  
+2. SDM yang kompeten 
+sebagai pelaksana di 
+tingkat UPPS 
+dan/atau PT.  
+ 
+Syarat Unggul (minimal skor 
+3.00) : Memenuhi semua 
+aspek dengan bukti lengkap.  Tindak lanjut hasil 
+evaluasi  ketercapaian  
+standar dan indikator 
+terkait : 
+1. Fungsi SPMI 
+dengan  
+2. SDM  yang  
+kompeten sebagai  
+pelaksana  di 
+tingkat PT/UPPS , 
+dilaksanakan 
+secara sangat 
+efektif, disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi  
+ketercapaian  standar 
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan  
+2. SDM  yang  
+kompeten 
+sebagai  
+pelaksana  di 
+tingkat 
+PT/UPPS , 
+dilaksanakan 
+secara  efektif, 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tindak lanjut hasil 
+evaluasi  
+ketercapaian  standar 
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan  
+2. SDM  yang  
+kompeten 
+sebagai  
+pelaksana  di 
+tingkat 
+PT/UPPS , 
+dilaksanakan 
+secara cukup 
+efektif, disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap.  Tindak lanjut hasil 
+evaluasi  
+ketercapaian  standar 
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan  
+2. SDM  yang  
+kompeten 
+sebagai  
+pelaksana  di 
+tingkat 
+PT/UPPS , 
+dilaksanakan 
+secara kurang 
+efektif, disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+  
+ 
+10 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 11. 1.5.A  5 1.5. [PENINGKATAN]  
+A. Efektifitas peningkatan/ 
+optimalisasi  standar 
+dan indikator  terkait 
+sistem  tata kelola 
+internal  UPPS dan/atau  
+PT berikut SOP,  yang  
+mencakup administrasi 
+akademik,  keuangan, 
+sdm, dan aspek   lain 
+dalam siklus  PPEPP  di 
+tingkat  UPPS dan/atau 
+PT. 1.5. [PENINGKATAN]  
+A. Efektifitas 
+Peningkatan/optimalisasi 
+standar dan indikator 
+terkait sistem tata kelola 
+internal UPPS dan/atau 
+PT berikut SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM, 
+dan 
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau PT.  
+ 
+Syarat Unggul  
+(minimal skor 3.00):  
+Memenuhi aspek 1, 2,  
+dan 3.  Peningkatan/optimali 
+sasi standar dan 
+indikator terkait sistem 
+tata kelola internal 
+UPPS dan/atau PT 
+berikut SOP , yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM, dan  
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT, secara 
+sangat  efektif  
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Peningkatan/optimali sa
+si standar dan 
+indikator terkait sistem 
+tata kelola internal 
+UPPS dan/atau PT 
+berikut SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM, dan  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya 
+laporan tahunan 
+pimpinan UPPS 
+dan/atau PT , 
+secara efektif 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Peningkatan/optimali 
+sasi standar dan 
+indikator terkait 
+sistem tata kelola 
+internal UPPS 
+dan/atau PT berikut 
+SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik , 
+2. Administrasi 
+keuangan,  
+3. Administrasi 
+SDM, dan  
+4. Aspek lain 
+dalam siklus 
+PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan 
+pimpinan UPPS 
+dan/atau PT , 
+secara cukup  
+efektif disertai  
+bukti -bukti yang 
+sahih  dan cukup  
+lengkap.  Peningkatan/optimali 
+sasi standar dan 
+indikator terkait 
+sistem tata kelola 
+internal UPPS 
+dan/atau PT berikut 
+SOP, yang 
+mencakup:  
+1. Administrasi 
+akademik,  
+2. Administrasi 
+keuangan,  
+3. Administrasi SDM, 
+dan 
+4. Aspek lain dalam 
+siklus PPEPP, di 
+tingkat UPPS 
+dan/atau PT , 
+dokumen 
+pendukung 
+misalnya laporan 
+tahunan pimpinan 
+UPPS dan/atau 
+PT, secara kurang 
+efektif diserta i 
+bukti -bukti yang 
+sahih,  tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+11 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400  Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 12. 1.5.B  5 B. Efektifitas peningkatan/ 
+optimalisasi  standar 
+dan indikator  terkait 
+fungsi  SPMI  dan SDM  
+pelaksana  di tingkat  
+UPPS dan/atau PT .  B. Efektifitas 
+Peningkatan/optimalisasi 
+standar dan indikator 
+terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM yang kompeten 
+sebagai pelaksana di 
+tingkat UPPS 
+dan/atau PT.  
+ 
+Syarat Unggul (minimal skor 
+3.00) : Memenuhi semua 
+aspek dengan bukti lengkap.  Peningkatan/  
+optimalisasi standar  
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM yang 
+kompeten sebagai 
+pelaksana di tingkat 
+UPPS dan/atau PT , 
+secara  sangat  
+efektif  disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Peningkatan/  
+optimalisasi standar  
+dan indikator terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM yang 
+kompeten sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+secara efektif 
+disertai bukti -bukti 
+yang sahih dan 
+lengkap.  Peningkatan/  
+optimalisasi standar  
+dan indikator  
+terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM yang 
+kompeten 
+sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT , 
+secara cukup 
+efektif disertai 
+bukti -bukti yang  
+sahih  dan cukup 
+lengkap.  Peningkatan/  
+optimalisasi standar  
+dan indikator  
+terkait:  
+1. Fungsi SPMI 
+dengan.  
+2. SDM yang 
+kompeten 
+sebagai 
+pelaksana di 
+tingkat UPPS 
+dan/atau PT.  
+secara kurang 
+efektif disertai  
+bukti -bukti yang 
+sahih  tetapi  
+kurang lengkap.  
+12 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+Kriteria  2 Relevansi  Pendidikan  
+I 13. 2.1.A  5 2.1. [PENETAPAN]  
+A. Kebijakan,  standar dan 
+indikator  terkait sarana  
+dan prasarana 
+pendidikan,  DTPR, dan 
+pembiayaan 
+pendidikan,  
+penerimaan mahasiswa  
+baru dalam  rangka  
+Perluasan  akses,  
+keragaman asal calon 
+mahasiswa (misal: 
+asal, suku, jenis 
+kelamin), program 
+afirmasi, dan calon  
+mahasiswa  
+berkebutuhan khusus.  2.1. [PENETAPAN]  
+A. Ketersediaan 
+kebijakan, standar 
+dan indikator terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus.  
+ 
+Syarat Unggul (minimal 
+skor 3.00): Memenuhi 
+aspek 1, 2, 3, dan sebagian 
+aspek 4.  Tersedianya  
+kebijakan, standar  
+dan indikator terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , disertai 
+bukti -bukti yang 
+sahih dan sangat  
+lengkap   Tersedianya  
+kebijakan, standar  
+dan indikator terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , disertai 
+bukti -bukti yang 
+sahih dan 
+lengkap  Tersedianya kebijakan, 
+standar  dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap  Tersedianya 
+kebijakan, standar  
+dan indikator terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , disertai 
+bukti -bukti yang 
+sahih tetapi 
+kurang  lengkap  
+13 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+I 14. 2.1.B  4 B. Kebijakan,  standar dan 
+indikator  terkait isi  
+pembelajaran  dan 
+rancangan  kurikulum 
+outcome -based 
+education,  yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+Level  6), yang ditetapkan  
+oleh Perguruan  tinggi 
+serta  
+keterlibatan/masuka n 
+pemangku kepentingan 
+(stakeholder ) dalam 
+penyusunannya.  B. Ketersediaan 
+kebijakan, standar 
+dan indikator terkait:  
+1. Isi pembelajaran dan 
+rancangan kurikulum 
+outcome -based 
+education/OBE, yang 
+mencakup soft dan 
+hard competence 
+(memenuhi KKNI level 
+6), yang ditetapkan 
+oleh perguruan tinggi, 
+dan. 
+2. Keterlibatan/masukan 
+pemangku 
+kepentingan 
+(stakeholder) dalam 
+penyusunannya.  
+ 
+Syarat Unggul (minimal  
+skor 3.00): Memenuhi  
+aspek 1 dan memenuhi  
+sebagian aspek 2.  Tersedianya  
+kebijakan, standar  
+dan indikator terkait : 
+1. Isi pembelajara n 
+dan rancangan  
+kurikulum outcome -
+based 
+education/OBE, 
+yang mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi, 
+dan. 
+2. Keterlibatan/m asuk
+an pemangku  
+kepentingan 
+(stakeholder) dalam 
+penyusunannya , 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Tersedianya kebijakan, 
+standar  dan indikator  
+terkait:  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum outcome -
+based 
+education/OBE, 
+yang mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi, 
+dan. 
+2. Keterlibatan/masuk
+an pemangku 
+kepentingan 
+(stakeholder) dalam 
+penyusunannya , 
+disertai bukti -bukti 
+yang sahih dan  
+lengkap.  Tersedianya 
+kebijakan, standar  
+dan indikator  terkait:  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum 
+outcome -based 
+education/OBE, 
+yang mencakup 
+soft dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi, 
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunanny , 
+disertai bukti -bukti 
+yang sahih dan  
+cukup  lengkap.  Tersedianya 
+kebijakan, standar  
+dan indikator  terkait:  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum 
+outcome -based 
+education/OBE, 
+yang mencakup 
+soft dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi, 
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunanny a, 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+14 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+I 15. 2.1.C  4 C. Kebijakan,  standar dan 
+indikator  tentang 
+fleksibilitas  dalam 
+proses  pembelajaran 
+(luring,  daring,  atau 
+hibrida,  CBL,  PBL, 
+micro -credential, 
+rekognisi pembelajaran  
+lampau  (RPL)  yang 
+Relevan  dengan  bidang  
+keilmuan  PS, 
+penciptaan  suasana 
+akademik,  dan penilaian 
+pembelajaran  serta 
+pemenuhan  beban 
+belajar.  C. Ketersediaan 
+kebijakan, standar 
+dan indikator tentang:  
+1. Fleksibilitas dalam 
+proses pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi pembelajaran 
+lampau (RPL)) yang 
+relevan dengan bidang 
+keilmuan PS,  
+2. Penciptaan suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, dan.  
+4. Pemenuhan beban 
+belajar.  
+ 
+Syarat Unggul (minimal 
+skor 3.00): Memenuhi 
+aspek 2, 3, 4, dan sebagian 
+aspek 1   Tersedianya kebijakan, 
+standar dan indikator 
+tentang:  
+1. Fleksibilitas dalam 
+proses pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran lampau 
+(RPL)) yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan suasana 
+akademik.  
+3. Penilaian 
+pembelajaran, dan.  
+4. Pemenuhan beban 
+belajar , disertai bukti -
+bukti yang sahih dan 
+sangat lengkap.  Tersedianya kebijakan, 
+standar dan indikator 
+tentang:  
+1. Fleksibilitas dalam 
+proses 
+pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) yang 
+relevan dengan 
+bidang keilmuan 
+PS. 
+2. Penciptaan suasana 
+akademik.  
+3. Penilaian 
+pembelajaran, dan.  
+4. Pemenuhan beban 
+belajar , disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  
+ Tersedianya kebijakan, 
+standar dan indikator 
+tentang:  
+1. Fleksibilitas dalam 
+proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, CBL, 
+PBL, micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana 
+akademik.  
+3. Penilaian 
+pembelajaran, 
+dan. 
+4. Pemenuhan 
+beban belajar , 
+disertai bukti -bukti 
+yang sahih dan 
+cukup lengkap.  
+ Tersedianya kebijakan, 
+standar dan indikator 
+tentang:  
+1. Fleksibilitas dalam 
+proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, CBL, 
+PBL, micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana 
+akademik.  
+3. Penilaian 
+pembelajaran, 
+dan. 
+4. Pemenuhan 
+beban belajar , 
+disertai bukti -bukti 
+yang sahih tetapi 
+kurang lengkap.  
+ 
+15 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+I 16. 2.1.D  4 D. Kebijakan,  standar dan 
+indikator  terkait  
+prestasi  mahasiswa 
+dan kompetensi 
+lulusan yang dapat 
+dinilai  dari pengakuan 
+(rekognisi),  dan 
+apresiasi  kompetensi 
+lulusan  oleh 
+masyarakat  dunia 
+usaha,  dunia industri,  
+dan dunia kerja  
+(DUDIKA), serta  
+sebaran  kerja lulusan  
+(lokal, nasional, 
+internasional).  D. Ketersediaan 
+kebijakan, standar 
+dan indikator terkait:  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang dapat 
+dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri dan 
+dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional)  
+ 
+Syarat Unggul (minimal 
+skor 3.00): Memenuhi 
+aspek 1 dan 2, dan 
+sebagian aspek 3.   Tersedianya  
+kebijakan, standar  
+dan indikator terkait:  
+1. Prestasi mahasiswa.  
+2. Kompetensi lulusan 
+yang dapat dinilai 
+dari pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi lulusan 
+oleh masyarakat dan 
+dunia usaha, dunia 
+industri dan dunia 
+kerja (DUDIKA), 
+dan. 
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Tersedianya  
+kebijakan, standar  
+dan indikator  
+terkait:  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tersedianya  
+kebijakan, standar  
+dan indikator  
+terkait:  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+dsertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Tersedianya  
+kebijakan, standar  
+dan indikator  
+terkait:  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+disertai bukti -
+bukti yang sahih 
+tetapi  kurang  
+lengkap.  
+16 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 17. 2.2.A  9 2.2. [PELAKSANAAN]  
+A. Efektifitas pelaksanaan  
+kegiatan  terkait  
+Sarana  dan prasarana 
+pendidikan,  DTPR, dan 
+pembiayaan 
+pendidikan,  
+penerimaan mahasiswa  
+baru dalam  rangka  
+Perluasan  akses,  
+keragaman asal calon 
+mahasiswa  (misal: 
+asal,  suku, jenis 
+kelamin), program 
+afirmasi, dan calon  
+mahasiswa 
+berkebutuhan khusus..  2.2. [PELAKSANAAN]  
+A. Efektifitas pelaksanaan 
+kegiatan terkait standar 
+dan indikator tentang:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , secara 
+sangat efektif 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan 
+akses, 
+keragaman asal 
+calon 
+mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon 
+mahasiswa 
+berkebutuhan 
+khusus , secara 
+sangat efektif 
+disertai bukti -
+bukti yang sahih  
+dan lengkap.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , secara 
+sangat efektif 
+disertai bukti -bukti 
+yang sahih dan  
+cukup  lengkap.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , secara 
+sangat efektif 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap.  
+17 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 18. 2.2.B  7 B. Efektifitas pelaksanaan 
+Kegiatan  terkait  isi 
+pembelajara n dan 
+rancangan  kurikulum 
+outcome -based 
+education , yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+Level  6), yangDitetapkan  
+oleh perguruan  tinggi  
+serta  
+keterlibatan/masuka n 
+pemangku kepentingan 
+(stakeholder ) dalam 
+penyusunannya.  B. Efektifitas Pelaksanaan  
+Kegiatan terkait
+ standar    dan 
+indikator  tentang : 
+1. Isi pembelajaran  dan 
+rancangan  kurikulum 
+outcome -based 
+education,  yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  level 
+6),  yang  
+ditetapkan oleh  
+perguruan  tinggi 
+serta.  
+2. Keterlibatan/masukan 
+pemangku  
+kepentingan 
+(stakeholder ) dalam 
+penyusunannya.  
+ 
+Syarat Unggul (minimal  
+skor 3.00): Memenuhi  
+aspek 1 dan memenuhi  
+sebagian aspek 2.  Pelaksanaan  
+Kegiatan terkait  
+standar  dan 
+indikator  tentang : 
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education,  yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+level 6),  yang  
+ditetapkan oleh  
+perguruan  tinggi 
+serta.  
+2. Keterlibatan/masu
+kan pemangku  
+kepentingan 
+(stakeholder ) 
+dalam 
+penyusunannya , 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Pelaksanaan  
+Kegiatan terkait  
+standar  dan 
+indikator  tentang : 
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education,  yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+level 6), yang  
+ditetapkan  oleh 
+perguruan  tinggi 
+serta.  
+2. Keterlibatan/masu
+kan pemangku  
+kepentingan 
+(stakeholder ) 
+dalam 
+penyusunannya , 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih dan lengkap.  Pelaksanaan  
+Kegiatan terkait  
+standar  dan 
+indikator  
+tentang : 
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education,  yang 
+mencakup  soft 
+dan hard 
+competence 
+(memenuhi  KKNI  
+level 6), yang  
+ditetapkan oleh  
+perguruan  tinggi 
+serta.  
+2. Keterlibatan/masu
+kan pemangku  
+kepentingan 
+(stakeholder ) 
+dalam 
+penyusunanny a, 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih  dan cukup 
+lengkap.  Pelaksanaan  
+Kegiatan terkait  
+standar  dan 
+indikator  tentang : 
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education,  yang 
+mencakup  soft 
+dan hard 
+competence 
+(memenuhi  KKNI  
+level 6), yang  
+ditetapkan oleh  
+perguruan  tinggi 
+serta.  
+2. Keterlibatan/mas
+ukan pemangku  
+kepentingan 
+(stakeholder ) 
+dalam 
+penyusunann ya, 
+secara sangat 
+efektif d isertai  
+bukti -bukti yang 
+sahih  tetapi  
+kurang lengkap.  
+ 
+ 
+ 
+ 
+ 
+18 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 19. 2.2 C 7 C. Efektifitas pelaksanaan 
+Kegiatan  terkait standar  
+dan indikator tentang  
+fleksibilitas dalam  
+proses pembelajaran  
+(luring,  daring,  atau 
+hibrida,  CBL,  PBL, 
+micro - credential,  
+rekognisi pembelajaran  
+lampau  (RPL)  yang 
+relevan  dengan bidang  
+keilmuan  PS, 
+penciptaan  suasana 
+akademik,  dan 
+penilaian pembelajaran  
+serta pemenuhan  
+beban belajar.  C. Efektifitas pelaksanaan 
+kegiatan terkait standar 
+dan indikator tentang:  
+1. Fleksibilitas dalam 
+proses pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) yang 
+relevan dengan 
+bidang keilmuan PS,  
+2. Penciptaan suasana 
+akademik,  
+3. Penilaia 
+pembelajaran, dan  
+4. Pemenuhan beban 
+belajar.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 2, 3, 
+4, dan sebagian aspek 1   Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Fleksibilitas dalam 
+proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, CBL, 
+PBL, micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaia 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaia 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih  dan 
+lengkap.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, 
+CBL, PBL, 
+micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaia 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih dan  
+cukup  lengkap.  Pelaksanaan  
+kegiatan terkait  
+standar dan  
+indikator tentang:  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, 
+CBL, PBL, micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaia 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara sangat 
+efektif d isertai 
+bukti -bukti yang 
+sahih tetapi  
+kurang  lengkap.  
+19 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 20. 2.2 D 30 D. Efektifitas pelaksanaan  
+kegiatan  terkait standar  
+dan indikator tentang  
+prestasi mahasiswa   
+dan kompetensi  lulusan 
+yang dapat  dinilai dari 
+pengakuan (rekognisi)  
+dan apresiasi  
+kompetensi lulusan  
+oleh 
+masyarakat dan dunia 
+usaha, dunia industri 
+dan dunia kerja 
+(DUDIKA),  serta  
+sebaran  kerja 
+lulusan  (lokal,  nasional, 
+internasional)  D. Efektifitas  pelaksanaan  
+kegiatan terkait  
+ standar  dan 
+indikator  terkait : 
+1. Prestasi     
+mahasiswa  
+2. Kompetensi lulusan  
+yang  dapat dinilai 
+dari pengakuan 
+(rekognisi)  dan 
+apresiasi  
+kompetensi lulusan 
+oleh masyarakat  dan 
+dunia usaha,  dunia  
+industri dan dunia  
+kerja (DUDIKA),  dan 
+3. Sebaran  kerja  
+lulusan  (lokal,  
+nasional, 
+internasional)  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+2, dan sebagian aspek 3.   Pelaksanaan kegiatan 
+terkait standar  dan 
+indikator terkait  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang dapat 
+dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat dunia 
+usaha, dunia  
+industri, dan dunia 
+kerja (DUDIKA), 
+dan. 
+3. Sebaran kerja 
+lulusan  (lokal, 
+nasional , secara 
+sangat efektif 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Pelaksanaan 
+kegiatan terkait 
+standar  dan indikator 
+terkait  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat 
+dunia usaha, 
+dunia  industri, 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan  (lokal, 
+nasional , secara 
+efektif disertai 
+bukti -bukti yang 
+sahih dan 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+standar  dan indikator 
+terkait  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat 
+dunia usaha, 
+dunia  industri, 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan  (lokal, 
+nasional , secara 
+cukup efektif 
+disertai bukti -
+bukti yang sahih 
+dan cukup 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+standar  dan indikator 
+terkait  
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat 
+dunia usaha, 
+dunia  industri, 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan  (lokal, 
+nasional , secara 
+kurang efektif 
+disertai bukti -
+bukti yang sahih 
+tetapi kurang 
+lengkap.  
+20 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 21. 2.3.A  5 2.3. [EVALUASI]  
+A. Efektifitas pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+tentang sarana  dan 
+prasarana pendidikan,  
+DTPR, dan 
+pembiayaan  
+pendidikan,  
+penerimaan mahasiswa  
+baru dalam  rangka  
+Perluasan  akses,  
+keragaman asal calon 
+mahasiswa (misal: 
+asal, suku, jenis 
+kelamin), program 
+afirmasi, dan calon  
+mahasiswa 
+berkebutuhan khusus.  2.3. [EVALUASI]  
+A. Efektivitas pelaksanaan 
+evaluasi ketercapaian 
+standar dan indikator 
+tentang  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  Evaluasi ketercapaian  
+standar dan  indikator  
+tentang  
+1. Sarana dan 
+prasarana 
+pendidikan.  
+2. DTPR.  
+3. Pembiayaan 
+pendidikan, dan.  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon  
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara berkala 
+dan sangat  efektif,  
+dan disertai bukti -
+bukti yang  Evaluasi 
+ketercapaian  standar 
+dan indikator  tentang  
+1. Sarana dan 
+prasarana 
+pendidikan.  
+2. DTPR.  
+3. Pembiayaan 
+pendidikan, dan.  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon 
+mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon  
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan  
+secara  berkala  
+dan efektif,  dan 
+disertai  Evaluasi 
+ketercapaian  standar 
+dan indikator  tentang  
+1. Sarana dan 
+prasarana 
+pendidikan.  
+2. DTPR.  
+3. Pembiayaan 
+pendidikan, dan.  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon 
+mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon  
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan  
+secara  berkala  
+dan cukup 
+efektif, dan  Evaluasi 
+ketercapaian  standar 
+dan indikator  tentang  
+1. Sarana dan 
+prasarana 
+pendidikan.  
+2. DTPR.  
+3. Pembiayaan 
+pendidikan, dan.  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon 
+mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon  
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan  
+secara  berkala  
+dan kurang 
+efektif, dan  
+21 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 22. 2.3.B  5 B. Efektifitas pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait isi  pembelajaran  
+dan rancangan  
+kurikulum outcome -
+based education,   yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+Level  6),  yang 
+ditetapkan  oleh 
+perguruan  tinggi serta  
+keterlibatan/masuka n 
+pemangku kepentingan 
+(stakeholder ) dalam 
+penyusunannya  B. Efektifitas pelaksanaan 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum 
+outcome -based 
+education/OBE, 
+yang mencakup 
+soft dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi 
+dan. 
+2. Keterlibatan/masuk
+an pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya.  
+ 
+Syarat Unggul (minimal  
+skor 3.00): Memenuhi  
+aspek 1 dan memenuhi  
+sebagian aspek 2.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara berkala 
+dan sangat efektif 
+disertai bukti - 
+bukti  yang  sahih  
+dan sangat 
+lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait:  
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan  
+secara  berkala  
+dan efektif disertai  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait:  
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan  
+secara  berkala  
+dan cukup efektif  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait:  
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi 
+KKNI level 6), 
+yang ditetapkan 
+oleh perguruan  
+tinggi  dan. 
+2. Keterlibatan/mas
+ukan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan  
+secara  berkala  
+dan kurang 
+efektif  
+22 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+       bukti -bukti yang 
+sahih  dan lengkap.  disertai  bukti -bukti 
+yang sahih dan 
+cukup lengkap.  disertai  bukti -bukti 
+yang sahih tetapi 
+kurang lengkap.  
+O 23. 2.3.C  4 C. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait fleksibilitas    
+dalam proses  
+pembelajaran (luring,  
+daring,  atau hibrida,  
+CBL,  PBL, micro -
+credential, rekognisi 
+pembelajaran  lampau  
+(RPL)  yang relevan  
+dengan bidang  
+keilmuan  PS, 
+penciptaan  suasana 
+akademi k, dan 
+penilaian pembelajaran  
+serta pemenuhan  
+beban belajar  C. Efektifitas pelaksanaan 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Fleksibilitas dalam 
+proses pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran lampau 
+(RPL)) yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, dan  
+4. Pemenuhan beban 
+belajar.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 2, 3, 
+4, dan sebagian aspek 1   Evaluasi  ketercapaian 
+standar dan indikator 
+terkait:  
+1. Fleksibilitas dalam 
+proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, CBL, 
+PBL, micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, dan  
+4. Pemenuhan 
+beban belajar , 
+secara  sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait:  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara efektif 
+disertai  bukti -
+bukti yang sahih  
+dan lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait:  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara cukup 
+efektif disertai 
+bukti -bukti  yang  
+sahih  dan cukup  
+lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait:  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring, daring, 
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) 
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+secara kurang 
+efektif disertai 
+bukti -bukti  yang  
+sahih  tetapi 
+kurang lengkap.  
+23 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 24. 2.3.D  4 D. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait prestasi  
+mahasiswa dan 
+kompetensi lulusan  
+yang  dapat dinilai  dari 
+pengakuan (rekognisi)  
+dan apresiasi  
+kompetensi lulusan  oleh 
+masyarakat   dan dunia  
+usaha,  dunia industri  
+dan dunia kerja  
+(DUDIKA), serta  
+sebaran  kerja lulusan  
+(lokal, nasional, 
+internasional).  D. Efektifitas pelaksanaan 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Prestasi mahasiswa,  
+2. Kompetensi lulusan 
+yang dapat dinilai 
+dari pengakuan 
+(rekognisi) dan 
+apresiasi kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, dunia 
+industri dan dunia 
+kerja (DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional).  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+2, dan sebagian aspek 3.   Evaluasi  
+Ketercapaian  
+standar dan  
+indikator terkait:  
+1. Prestasi 
+mahasiswa,  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri 
+dan dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan 
+sangat lengkap.  Evaluasi  
+Ketercapaian  
+standar dan  
+indikator terkait:  
+1. Prestasi 
+mahasiswa,  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri 
+dan dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional ), 
+secara efektif 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Evaluasi  
+Ketercapaian  
+standar dan  
+indikator terkait:  
+1. Prestasi 
+mahasiswa,  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri dan 
+dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional ), 
+secara cukup 
+efektif 
+disertaibukti -bukti  
+yang sahih  dan 
+cukup lengkap.  Evaluasi  
+Ketercapaian  
+standar dan  
+indikator terkait:  
+1. Prestasi 
+mahasiswa,  
+2. Kompetensi 
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi 
+kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, 
+dunia industri 
+dan dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+secara kurang 
+efektif disertai  
+bukti -bukti  yang 
+sahih  tetapi  
+kurang lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+24 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut  No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 25. 2.4.A  4 2.4. [PENGENDALIAN]  
+A. Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait sarana  dan 
+prasarana pendidikan,  
+DTPR,  Dan 
+pembiayaan 
+pendidikan, 
+penerimaan mahasiswa  
+baru dalam  rangka  
+Perluasan  akses,  
+Keragaman asal calon 
+mahasiswa  (misal:  
+tempat,  suku, jenis 
+kelamin), program 
+afirmasi, dan calon  
+mahasiswa 
+berkebutuhan khusus.  2.4. [PENGENDALIAN]  
+A. Efektifitas pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  
+ Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, suku, 
+jenis kelamin), 
+program afirmasi, 
+dan calon 
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan  
+secara sangat 
+efektif, dan disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara efektif, 
+dan disertai 
+bukti -bukti yang 
+sahih dan 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara cukup 
+efektif,  dan 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan, dan  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal: asal, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi, dan 
+calon mahasiswa 
+berkebutuhan 
+khusu s, 
+dilaksanakan 
+secara kurang 
+efektif,  dan 
+disertai bukti -
+bukti yang sahih  
+tetapi  kurang 
+lengkap.  
+25 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 26. 2.4.B  4 B. Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait isi  pembelajaran  
+dan rancangan  
+kurikulum outcome -
+based education,  yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+Level  6),  yang 
+Ditetapkan  oleh 
+Perguruan  tinggi serta  
+keterlibatan/masuka n 
+pemangku kepentingan 
+(stakeholder ) dalam 
+penyusunannya.  B. Efektifitas  pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum outcome -
+based 
+education/OBE, 
+yang mencakup 
+soft dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi, 
+dan 
+2. Keterlibatan/masuk
+an pemangku 
+kepentingan 
+(stakeholder) dalam 
+penyusunannya.  
+ 
+Syarat Unggul (minimal  
+skor 3.00): Memenuhi  
+aspek 1 dan memenuhi  
+sebagian aspek 2.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait:  
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara efektif 
+disertai bukti -bukti 
+yang sahih dan 
+lengkap.  
+ Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait:  
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait:  
+1. Isi pembelajaran  
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan  tinggi  
+dan. 
+2. Keterlibatan/masu
+kan pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang  lengkap.  
+26 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 27. 2.4.C  3 C. Efektifitas pelaksanaan   
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait fleksibilitas  
+dalam proses  
+pembelajaran dan 
+pemenuhan beban  
+belajar,  misalnya:  
+micro - credential,  
+rekognisi pembelajaran  
+lampau  (RPL),  atau 
+pembelajaran di luar 
+program studi.  C. Efektifitas  pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Fleksibilitas dalam 
+proses pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) yang 
+relevan dengan 
+bidang keilmuan PS.  
+2. Penciptaan suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, dan  
+4. Pemenuhan beban 
+belajar.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 2, 3, 
+4, dan sebagian aspek 1   Tindak lanjut hasil 
+evaluasi  ketercapaian  
+standar dan indikator 
+terkait :  
+1. Fleksibilitas dalam 
+proses  
+pembelajaran 
+(luring, daring, 
+atau hibrida, CBL, 
+PBL, micro -
+credential, 
+rekognisi 
+pembelajaran  
+lampau (RPL) 
+yang relevan 
+dengan bidang 
+PS. 
+2. Penciptaan 
+suasana 
+akademik.  
+3. Penilaian 
+pembelajaran, dan  
+4. Pemenuhan 
+beban belajar , 
+yang dilaksanakan 
+secara sangat  
+efektif  disertai  
+bukti -bukti  yang 
+sahih  dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring,  daring,  
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau  (RPL)  
+yang relevan 
+dengan bidang 
+PS,  
+2. Penciptaan 
+suasana  
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+yang 
+dilaksanakan 
+secara efektif 
+disertai  bukti -
+bukti yang sahih 
+dan lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait :  
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring,  daring,  
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau  (RPL)  
+yang relevan 
+dengan bidang 
+PS,  
+2. Penciptaan 
+suasana  
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+yang 
+dilaksanakan 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih  dan cukup 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Fleksibilitas dalam 
+proses 
+pembelajaran 
+(luring,  daring,  
+atau hibrida, CBL, 
+PBL, micro -
+credential, 
+rekognisi 
+pembelajaran 
+lampau  (RPL)  
+yang relevan 
+dengan bidang 
+PS,  
+2. Penciptaan 
+suasana  
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+yang dilaksanakan 
+secara kurang 
+efektif  disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang lengkap.  
+27 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 28. 2.4.D  3 D. Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait prestasi  
+mahasiswa dan 
+kompetensi lulusan  
+yang  dapat dinilai  dari 
+pengakuan (rekognisi)  
+dan apresiasi  
+kompetensi lulusan  oleh 
+masyarakat  dan dunia  
+usaha,  dunia industri  
+dan dunia kerja  
+(DUDIKA), serta  
+sebaran  kerja lulusan  
+(lokal, nasional, 
+internasional)  D. Efektifitas  pelaksanaan
+  tindak lanjut  
+hasil evaluasi 
+ketercapaian  standar 
+dan indikator  terkait : 
+1. Prestasi     
+mahasiswa  
+2. Kompetensi lulusan  
+yang dapat dinilai dari 
+pengakuan (rekognisi)  
+dan apresiasi  
+kompetensi lulusan 
+oleh masyarakat  dan 
+dunia usaha,  dunia  
+industri dan dunia   
+kerja (DUDIKA),  
+3. Sebaran  kerja  lulusan 
+(lokal,  nasional, 
+internasional).  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+2, dan sebagian aspek 3.   Tindak lanjut hasil 
+evaluasi  ketercapaian  
+standar dan indikator 
+terkait :  
+1. Prestasi     
+mahasiswa  
+2. Kompetensi 
+lulusan  yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi)  dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat  dan 
+dunia usaha,  
+dunia  industri 
+dan dunia   kerja 
+(DUDIKA),  
+3. Sebaran  kerja  
+lulusan (lokal,  
+nasional, 
+internasional) , 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan 
+sangat lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Prestasi     
+mahasiswa  
+2. Kompetensi 
+lulusan  yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi)  dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat  dan 
+dunia usaha,  
+dunia  industri 
+dan dunia   kerja 
+(DUDIKA),  
+3. Sebaran  kerja  
+lulusan (lokal,  
+nasional, 
+internasional) , 
+secara efektif 
+disertai bukti -
+bukti  yang  sahih  
+dan lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Prestasi  
+mahasiswa . 
+2. Kompetensi 
+lulusan  yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi)  dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat  dan 
+dunia usaha,  
+dunia  industri 
+dan dunia   kerja 
+(DUDIKA),  
+3. Sebaran  kerja  
+lulusan (lokal,  
+nasional, 
+internasional) , 
+secara cukup 
+efektif diserta i 
+bukti -bukti  yang Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Prestasi     
+mahasiswa  
+2. Kompetensi 
+lulusan  yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi)  dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat  dan 
+dunia usaha,  
+dunia  industri 
+dan dunia   kerja 
+(DUDIKA),  
+3. Sebaran  kerja  
+lulusan (lokal,  
+nasional, 
+internasional) , 
+secara kurang 
+efektif disertai  
+bukti -bukti  yang 
+28 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+        sahih  dan cukup 
+lengkap.  sahih  tetapi  kurang 
+lengkap.  
+O 29. 2.5.A  5 2.5. [PENINGKATAN]  
+A. Efektifitas 
+peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator  terkait 
+sarana  dan prasarana 
+pendidikan,   DTPR, dan 
+pembiayaan 
+pendidikan,  
+penerimaan mahasiswa  
+baru dalam  rangka  
+perluasan  akses,  
+keragaman asal calon 
+mahasiswa (misal:  
+tempat,  suku, jenis 
+kelamin), program 
+afirmasi, dan  calon  
+mahasiswa 
+berkebutuhan khusus.  2.5. [PENINGKATAN]  
+A. Efektifitas 
+peningkatan/optimalis asi 
+hasil ketercapaian 
+standar  dan indikator 
+terkait : 
+1. Sarana  dan 
+prasarana  
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa  baru 
+dalam  rangka  
+perluasan  akses, 
+keragaman asal 
+calon mahasiswa  
+(misal: tempat,  suku,  
+jenis kelamin),  
+program afirmasi,  
+dan calon 
+mahasiswa 
+berkebutuhan  
+khusus.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait :  
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan akses, 
+keragaman asal 
+calon mahasiswa 
+(misal:  tempat,  
+suku, jenis 
+kelamin), program 
+afirmasi, dan 
+calon  mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara sangat  
+efektif,  dan 
+disertai  bukti-bukti Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan 
+akses, 
+keragaman asal 
+calon 
+mahasiswa 
+(misal: tempat, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi,  dan 
+calon 
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara  efektif,  
+dan Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana 
+pendidikan,  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa 
+baru dalam 
+rangka 
+perluasan 
+akses, 
+keragaman 
+asal calon 
+mahasiswa 
+(misal: tempat, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi,  dan 
+calon 
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara  cukup  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana 
+pendidikan  
+2. DTPR,  
+3. Pembiayaan 
+pendidikan,  
+4. Penerimaan 
+mahasiswa baru 
+dalam rangka 
+perluasan 
+akses, 
+keragaman asal 
+calon 
+mahasiswa 
+(misal: tempat, 
+suku, jenis 
+kelamin), 
+program 
+afirmasi,  dan 
+calon 
+mahasiswa 
+berkebutuhan 
+khusus , 
+dilaksanakan 
+secara  kurang  
+29 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+      yang sahih dan 
+sangat  lengkap.  disertai  bukti -bukti 
+yang sahih dan 
+lengkap.  efektif,  dan disertai 
+bukti -bukti yang 
+sahih dan cukup 
+lengkap.  efektif,  dan disertai 
+bukti -bukti yang sahih  
+tetapi  kurang lengkap.  
+O 30. 2.5.B  5 B. Efektifitas 
+Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan  indikator  
+terkait isi  pembelajaran  
+dan rancangan  
+kurikulum outcome -
+based education,  yang 
+mencakup  soft dan 
+hard competence 
+(memenuhi  KKNI  
+level 6), yang 
+ditetapkan  oleh 
+perguruan  tinggi serta 
+keterlibatan/masuka n 
+pemangku kepentingan 
+(stakeholder ) dalam 
+penyusunannya.  B. Efektifitas 
+peningkatan/optimalisa
+si hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum outcome -
+based 
+education/OBE, 
+yang mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi, 
+dan 
+2. Keterlibatan/masuka
+n pemangku 
+kepentingan 
+(stakeholder) dalam 
+penyusunannya.  
+ 
+Syarat Unggul (minimal  
+skor 3.00): Memenuhi  
+aspek 1 dan memenuhi  
+sebagian aspek 2.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait : 
+1. Isi pembelajaran 
+dan rancangan  
+kurikulum 
+outcome -based 
+education, yang 
+mencakup soft dan 
+hard competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi 
+dan 
+2. Keterlibatan/  
+masukan 
+pemangku 
+kepentingan 
+(stakeholder) 
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum  
+outcome - based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi 
+dan 
+2. Keterlibatan/ 
+masukan  
+pemangku 
+kepentingan 
+(stakeholder)  
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara  efektif  
+disertai  bukti -bukti 
+yang sahih dan 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Isi pembelajaran 
+dan rancangan 
+kurikulum  
+outcome - based 
+education, yang 
+mencakup soft 
+dan hard 
+competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi 
+dan 
+2. Keterlibatan/ 
+masukan  
+pemangku 
+kepentingan 
+(stakeholder)  
+dalam 
+penyusunannya , 
+dilaksanakan 
+secara  cukup  
+efektif disertai 
+bukti -bukti yang 
+sahih  dan cukup 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Isi pembelajaran dan 
+rancangan kurikulum  
+outcome - based 
+education, yang 
+mencakup soft dan 
+hard competence 
+(memenuhi KKNI 
+level 6), yang 
+ditetapkan oleh 
+perguruan tinggi dan  
+2. Keterlibatan/ 
+masukan  pemangku 
+kepentingan 
+(stakeholder)  dalam 
+penyusunannya , 
+dilaksanakan secara  
+kurang efektif 
+disertai bukti -bukti 
+yang sahih  tetapi  
+kurang lengkap.  
+30 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 31. 2.5.C  4 C. Efektifitas 
+peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator terkait 
+fleksibilitas dalam 
+proses  pembelajaran 
+dan pemenuhan beban  
+belajar,  misalnya:  
+micro - credential,  
+rekognisi pembelajaran  
+lampau  (RPL),  atau 
+pembelajaran di luar 
+program studi.  C. Efektifitas 
+peningkatan/optimalisasi 
+hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Fleksibilitas dalam 
+proses pembelajaran 
+(luring, daring, atau 
+hibrida, CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau (RPL)) yang 
+relevan dengan 
+bidang keilmuan PS  
+2. Penciptaan suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, dan  
+4. Pemenuhan beban 
+belajar.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 2, 3, 
+4, dan sebagian aspek 1   Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar  dan indikator 
+terkait : 
+1. Fleksibilitas dalam 
+proses 
+pembelajaran  
+(luring, daring, 
+atau hibrida, CBL, 
+PBL, micro - 
+credential, 
+rekognisi 
+pembelajaran  
+lampau (RPL) 
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana 
+akademik,  
+3. Penilaian 
+pembelajaran, dan  
+4. Pemenuhan 
+beban belajar,  
+dilaksanakan 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring,  daring,  
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau  (RPL)  
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana  
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+dilaksanakan  
+secara efektif 
+disertai  bukti -
+bukti  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring,  daring,  
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau  (RPL)  
+yang relevan 
+dengan bidang 
+keilmuan PS,  
+2. Penciptaan 
+suasana  
+akademik,  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+dilaksanakan  
+secara cukup 
+efektif  disertai  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Fleksibilitas 
+dalam proses 
+pembelajaran 
+(luring,  daring,  
+atau hibrida, 
+CBL, PBL, 
+micro -credential, 
+rekognisi 
+pembelajaran 
+lampau  (RPL)  
+yang relevan 
+dengan bidang 
+keilmuan PS.  
+2. Penciptaan 
+suasana  
+akademik.  
+3. Penilaian 
+pembelajaran, 
+dan 
+4. Pemenuhan 
+beban belajar , 
+laksanakan  
+secara  kurang 
+efektif  disertai  
+31 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+       yang  sahih  dan 
+lengkap.  bukti -bukti yang 
+sahih  dan cukup 
+lengkap.  bukti -bukti yang 
+sahih  tetapi  kurang 
+lengkap.  
+O 32. 2.5.D  4 D. Efektifitas 
+peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator terkait 
+prestasi mahasiswa 
+dan kompetensi 
+lulusan yang dapat 
+dinilai  dari 
+pengakuan (rekognisi)  
+dan apresiasi  
+kompetensi lulusan  oleh 
+masyarakat   dan dunia  
+usaha,  dunia industri  
+dan dunia kerja  
+(DUDIKA), serta  
+sebaran  kerja lulusan  
+(lokal, nasional, 
+internasional)  B. Efektifitas 
+peningkatan/optimalisasi 
+hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Prestasi mahasiswa.  
+2. Kompetensi lulusan 
+yang dapat dinilai dari 
+pengakuan 
+(rekognisi) dan 
+apresiasi kompetensi 
+lulusan oleh 
+masyarakat dan 
+dunia usaha, dunia 
+industri dan dunia 
+kerja (DUDIKA), dan  
+3. Sebaran kerja lulusan 
+(lokal, nasional, 
+internasional).  
+ 
+Syarat Unggul (minimal  
+skor 3.00): Memenuhi  
+aspek 1 dan memenuhi  
+sebagian aspek 2.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar  dan indikator 
+terkait : 
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi 
+lulusan yang dapat 
+dinilai dari 
+pengakuan 
+(rekognisi), dan 
+apresiasi  
+kompetensi 
+lulusan oleh 
+masyarakat dunia 
+usaha, dunia  
+industri, dan dunia 
+kerja (DUDIKA), 
+dan. 
+3. Sebaran kerja  
+lulusan (lokal, 
+nasional, 
+internasional) , 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi  
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi), dan 
+apresiasi 
+kompetensi  
+lulusan oleh 
+masyarakat 
+dunia  usaha,  
+dunia industri, 
+dan dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+secara efektif 
+disertai bukti -
+bukti  yang  sahih  
+dan lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi  
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi), dan 
+apresiasi 
+kompetensi  
+lulusan oleh 
+masyarakat 
+dunia  usaha,  
+dunia industri, 
+dan dunia kerja 
+(DUDIKA), dan.  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+secara cukup 
+efektif disertai  
+bukti -bukti  yang Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Prestasi 
+mahasiswa.  
+2. Kompetensi  
+lulusan yang 
+dapat dinilai dari 
+pengakuan 
+(rekognisi), dan 
+apresiasi 
+kompetensi  
+lulusan oleh 
+masyarakat 
+dunia  usaha,  
+dunia industri, 
+dan dunia kerja 
+(DUDIKA), dan  
+3. Sebaran kerja 
+lulusan (lokal, 
+nasional, 
+internasional) , 
+secara kurang 
+efektif disertai  
+bukti -bukti  yang 
+32 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+        sahih  dan cukup 
+lengkap.  sahih  tetapi  kurang 
+lengkap.  
+Kriteria  3 Relevansi  Penelitian  
+I 33. 3.1.A  4 3.1. [PENETAPAN]  
+A. Kebijakan,  standar dan 
+indikator terkait sarana  
+dan prasarana  
+penelitian, DTPR,  dan 
+pembiayaan penelitian,  
+serta  peta jalan 
+penelitian.  3.1. [PENETAPAN]  
+A. Ketersediaan kebijakan, 
+standar, dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan penelitian, 
+dan 
+4. Pengembangan 
+DTPR di bidang 
+penelitian.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  Tersedianya kebijakan, 
+standar dan indikator 
+terkait  
+1. Sarana dan 
+prasarana  
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. sarana dan 
+prasarana 
+penelitian . 
+2. Pembiayaan 
+penelitian  
+3. Peta jalan 
+penelitian,  dan 
+4. Pengembangan 
+DTPR di bidang 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait :  
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian,  dan 
+4. Pengembanga n 
+DTPR di bidang 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait :  
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian,  dan 
+4. Pengembangan 
+DTPR di bidang 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+tetapi kurang  
+lengkap  
+33 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+I 34. 3.1.B  4 B. Kebijakan,  standar dan 
+indikator terkait 
+implementasi peta 
+jalan penelitian, 
+pelibatan  mahasiswa 
+berdasarkan  visi misi 
+Perguruan Tinggi, 
+UPPS, visi misi 
+keilmuan program 
+studi,  dan kebutuhan 
+masyarakat serta 
+DUDIKA.  B. Ketersediaan 
+Ketersediaan kebijakan, 
+standar dan indikator 
+terkait:  
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, 
+UPPS, visi misi 
+keilmuan program 
+studi, dan  
+3. Kebutuhan masyarakat 
+serta DUDIKA.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+3, dan sebagian aspek 2.   Tersedianya kebijakan, 
+standar dan indikator 
+terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi,  dan 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan 
+lengkap.  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan cukup 
+lengkap.  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih tetapi 
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+34 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400  Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+I 35. 3.1.C  4 C. Kebijakan, standar, dan 
+indikator  terkait 
+perolehan  hibah 
+penelitian,  kerjasama  
+penelitian,  publikasi 
+baik lingkup  lokal, 
+nasional,  dan 
+internasional, perolehan  
+HKI, serta keberlanjutan 
+penelitian.  C. Ketersediaan 
+Ketersediaan kebijakan, 
+standar, dan indikator 
+terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama penelitian.  
+3. Publikasi baik lingkup 
+lokal, nasional, dan 
+internasional.  
+4. Perolehan HKI, serta.  
+5. Keberlanjutan 
+penelitian.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 3, 
+dan sebagian aspek 4 atau 
+aspek 5.   Tersedianya kebijakan, 
+standar, dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tersedianya 
+kebijakan, standar, 
+dan indikator  terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tersedianya 
+kebijakan, standar, 
+dan indikator  terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Tersedianya 
+kebijakan, standar, 
+dan indikator  terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. erjasama 
+penelitian  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+tetapi kurang  
+lengkap.  
+35 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 36. 3.2.A  8 3.2. [PELAKSANAAN]  
+A. Efektifitas pelaksanaan 
+Kegiatan  terkait standar  
+dan indikator tentang  
+sarana  dan prasarana  
+penelitian, DTPR, dan 
+pembiayaan penelitian,  
+dan peta jalan 
+penelitian.  3.2. [PELAKSANAAN]  
+A. Efektifitas pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator tentang:  
+1. Sarana dan prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan penelitian, 
+dan 
+4. Pengembangan DTPR 
+di bidang penelitian.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 3, 
+dan sebagian aspek 4.  
+. Pelaksanaan kegiatan 
+terkait pelaksanaan  
+standar dan  indikator  
+tentang : 
+1. Sarana dan 
+prasarana  
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , secara 
+sangat  efektif  
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan 
+standar dan 
+indikator tentang : 
+1. Sarana dan 
+prasarana  
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , 
+secara efektif 
+disertai  bukti -
+bukti yang sahih 
+dan lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan 
+standar dan 
+indikator  tentang : 
+1. Sarana dan 
+prasarana  
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , secara 
+cukup efektif 
+disertai bukti -bukti 
+yang sahih  dan 
+cukup  lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator 
+tentang : 
+1. Sarana dan 
+prasarana  
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+36 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 37. 3.2.B  6 B. Efektifitas pelaksanaan 
+Kegiatan  terkait standar  
+dan indikator tentang  
+implementasi  peta jalan 
+penelitian, pelibatan  
+mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi,  dan kebutuhan 
+masyarakat  serta 
+DUDIKA.  B. Efektifitas pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator tentang:  
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, 
+UPPS, visi misi 
+keilmuan program 
+studi, dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+3, dan sebagian aspek 2.   Pelaksanaan kegiatan 
+terkait pelaksanaan  
+standar dan  indikator  
+tentang : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan 
+Tinggi, UPPS, visi 
+misi keilmuan 
+program studi,  dan 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , s ecara 
+sangat  efektif  
+disertai  bukti -bukti  
+yang sahih  dan 
+sangat lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator tentang : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, 
+visi misi 
+keilmuan 
+program  studi,  
+dan 
+3. Kebutuhan  
+masyarakat  serta 
+DUDIKA , secara 
+efektif disertai 
+bukti -bukti yang 
+sahih  dan 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator tentang : 
+1. Implementasi 
+peta jalan 
+penelitian  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, 
+visi misi 
+keilmuan 
+program  studi,  
+dan 
+3. Kebutuhan  
+masyarakat  serta  
+DUDIKA, secara 
+cukup efektif 
+disertai  bukti -
+bukti yang sahih 
+dan cukup 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator tentang : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, 
+visi misi 
+keilmuan 
+program  studi,  
+dan 
+3. Kebutuhan  
+masyarakat  serta  
+DUDIKA, secara 
+kurang efektif 
+disertai  bukti -
+bukti yang sahih 
+tetapi kurang 
+lengkap.  
+37 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 38. 3.2.C  18 C. Efektifitas 
+pelaksanaan  
+kegiatan  terkait 
+standar  dan indikator 
+tentang  perolehan 
+hibah  penelitian, 
+kerjasama  
+penelitian,  publikasi 
+baik lingkup  lokal, 
+nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan 
+penelitian  C. Efektifitas  
+pelaksanaan kegiatan 
+terkait pelaksanaan 
+standar dan indikator 
+tentang:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian.   
+ 
+Syarat Unggul (minimal 
+skor 3.00): Memenuhi 
+aspek 1, 2, 3, dan sebagian 
+aspek 4 atau aspek 5.   Pelaksanaan 
+kegiatan terkait 
+pelaksanaan  standar 
+dan indikator  
+tentang : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+secara sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan 
+standar dan 
+indikator tentang : 
+1. Perolehan 
+hibah 
+penelitian  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan 
+HKI, serta.  
+5. Keberlanjutan 
+penelitian , 
+secara efektif 
+disertai bukti -
+bukti yang 
+sahih  dan 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan 
+standar dan 
+indikator tentang : 
+1. Perolehan 
+hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+secara cukup 
+efektif disertai 
+bukti -bukti 
+yang sahih dan 
+cukup  lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan 
+standar dan 
+indikator tentang : 
+1. Perolehan 
+hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+secara kurang 
+efektif disertai 
+bukti -bukti 
+yang sahih 
+tetapi  kurang  
+lengkap.  
+38 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 39 3.3.A  3 3.3. [EVALUASI]  
+A. Efektifitas 
+pelaksanaan  
+Evaluasi 
+ketercapaian  standar 
+dan indikator  terkait 
+sarana  dan 
+prasarana  penelitian, 
+DTPR,  dan 
+pembiayaan 
+penelitian,  dan peta 
+jalan penelitian.  3.3. [EVALUASI]  
+A. Efektifitas 
+pelaksanaan evaluasi 
+ketercapaian   
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian  
+ 
+Syarat Unggul (minimal 
+skor 3.00): Memenuhi 
+aspek 1, 2, 3, dan 
+sebagian aspek 4.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait :  
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , yang 
+dilaksanakan 
+secara berkala 
+dan sangat 
+efektif, dan 
+disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , yang 
+dilaksanakan 
+secara  berkala  
+dan efektif,  dan 
+disertai bukti -
+bukti yang sahih  
+dan lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait 
+terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembanga
+n DTPR di 
+bidang 
+penelitian , 
+yang 
+dilaksanakan 
+secara  berkala  
+dan cukup 
+efektif, dan 
+disertai bukti -
+bukti yang 
+sahih dan 
+cukup lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembanga
+n DTPR di 
+bidang 
+penelitian , 
+yang 
+dilaksanakan 
+secara berkala 
+tetapi kurang 
+efektif,  dan 
+disertai bukti -
+bukti yang 
+sahih  tetapi  
+kurang  
+lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+39 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 40. 3.3.B  3 B. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait implementasi  
+peta jalan penelitian, 
+pelibatan  mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program  B. Efektifitas pelaksanaan 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Implementasi peta jalan 
+penelitian.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, UPPS, 
+visi misi keilmuan 
+program studi, dan.  
+3. Kebutuhan masyarakat 
+serta DUDIKA.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+3, dan sebagian aspek 2.   Evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , yang 
+dilaksanakan  secara 
+berkala dan sangat 
+efektif disertai bukti - 
+bukti  yang  sahih  dan 
+sangat lengkap.  Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, 
+visi misi 
+keilmuan 
+program studi 
+dan. 
+3. Kebutuhan 
+masyarakat 
+serta DUDIKA. , 
+yang 
+dilaksanakan 
+secara  berkala  
+dan efektif 
+disertai bukti -
+bukti yang  sahih  
+dan lengkap.  
+ 
+ Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , yang 
+dilaksanakan 
+secara  berkala  dan 
+cukup efektif 
+disertai bukti -bukti 
+yang sahih dan 
+cukup lengkap.  
+ Evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, 
+visi misi 
+keilmuan 
+program studi 
+dan. 
+3. Kebutuhan 
+masyarakat 
+serta DUDIKA , 
+yang 
+dilaksanakan 
+secara  berkala  
+dan kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih tetapi 
+kurang lengkap.  
+40 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 41. 3.3.C  3 C. Efektivitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait perolehan  hibah 
+penelitian,  kerjasama  
+penelitian,  publikasi 
+baik lingkup  lokal, 
+nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan 
+penelitian.  C. Efektivitas pelaksanaan 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 3, 
+dan sebagian aspek 4 atau 
+aspek 5.   Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan 
+sangat lengkap.  Evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitia n, yang 
+dilaksanakan 
+secara efektif 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  valuasi  ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara cukup  
+efektif disertai  
+bukti -bukti yang 
+sahih  dan cukup  
+lengkap.  valuasi  ketercapaian 
+standar dan indikator 
+terkait :  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara kurang 
+efektif disertai  
+bukti -bukti yang 
+sahih  tetapi  
+kurang  engkap.  
+41 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 42. 3.4.A  3 3.4. [PENGENDALIAN]  
+A. Efektifitas pelaksanaan  
+Tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait sarana  dan 
+prasarana  penelitian, 
+DTPR,  dan 
+pembiayaan penelitian,  
+dan peta jalan 
+penelitian.  
+. 3.4. [PENGENDALIAN]  
+A. Efektifitas  pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan 
+prasarana penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan penelitian, 
+dan. 
+4. Pengembangan 
+DTPR di bidang 
+penelitian.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , yang 
+dilaksanakan 
+secara sangat 
+efektif, dan 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Tindak  lanjut  hasil 
+evaluasi 
+ketercapaian standar 
+dan indikator terkait 
+terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , yang 
+dilaksanakan 
+secara  efektif,  
+dan disertai  
+bukti -bukti yang 
+sahih dan 
+lengkap.  Tindak lanjut hasil 
+evaluasi 
+ketercapaian standar 
+dan indikator terkait  
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , yang 
+dilaksanakan 
+secara cukup 
+efektif,  dan 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Tindak lanjut hasil 
+evaluasi 
+ketercapaian standar 
+dan indikator terkait 
+terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , yang 
+dilaksanakan 
+secara kurang 
+efektif,  dan disertai 
+bukti -bukti yang 
+sahih  tetapi  kurang  
+lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+42 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut  No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 43. 3.4.B  3 B. Efektifitas pelaksanaan  
+Tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait implementasi  
+peta jalan penelitian, 
+pelibatan  mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi dan 
+kebutuhan masyarakat  
+serta DUDIKA.  B. Efektifitas  pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Implementasi peta jalan 
+penelitian.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, UPPS, 
+visi misi keilmuan 
+program studi, dan.  
+3. Kebutuhan masyarakat 
+serta DUDIKA.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+3, dan sebagian aspek 2.   Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , yang 
+dilaksanakan 
+secara sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak  lanjut  hasil 
+evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , yang 
+dilaksanakan 
+secara efektif 
+disertai  bukti -
+bukti yang sahih 
+dan lengkap.   Tindak  lanjut  hasil 
+evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIK A, yang 
+dilaksanakan 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih dan cukup 
+lengkap.  
+ Tindak  lanjut  hasil 
+evaluasi 
+ketercapaian 
+standar dan 
+indikator terkait : 
+1. Implementasi 
+peta jalan 
+penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , yang 
+dilaksanakan 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang lengkap.  
+43 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 44. 3.4.C  3 C. Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait perolehan   hibah 
+penelitian,  kerjasama  
+penelitian,  publikasi 
+baik lingkup  lokal, 
+nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan 
+penelitian.  C. Efektifitas pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional,  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian.   
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 3, 
+dan sebagian aspek 4 atau 
+aspek 5.   Tindak lanjut hasil 
+evaluasi  ketercapaian  
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional,  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara sangat  
+efektif  disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional,  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara efektif 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional,  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara cukup  
+efektif disertai  
+bukti -bukti  yang 
+sahih  dan cukup 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional,  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , yang 
+dilaksanakan 
+secara kurang 
+efektif  disertai 
+bukti -bukti yang 
+sahih tetapi 
+kurang  lengkap.  
+44 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  
+LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 45. 3.5.A  4 3.5. [PENINGKATAN]  
+A. Efektifitas 
+Peningkatan/optim
+ali sasi hasil 
+ketercapaian  
+standar dan 
+indikator terkait 
+sarana  dan 
+prasarana  
+penelitian, DTPR,  
+dan pembiayaan 
+penelitian,  dan 
+peta jalan 
+penelitian  3.5. [PENINGKATAN]  
+A. Efektifitas 
+peningkatan/optimalisasi 
+hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Sarana dan prasarana 
+penelitian.  
+2. Pembiayaan penelitian.  
+3. Peta jalan penelitian, 
+dan. 
+4. Pengembangan DTPR 
+di bidang penelitian.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 
+3, dan sebagian aspek 4.  Peningkatan/optimali sasi 
+hasil ketercapaian  
+standar dan indikator 
+terkait : 
+1. Sarana dan 
+prasarana penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan penelitian, 
+dan. 
+4. Pengembangan 
+DTPR di bidang 
+penelitian , disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan penelitian, 
+dan. 
+4. Pengembangan 
+DTPR di bidang 
+penelitian , disertai 
+bukti -bukti yang 
+sahih  dan lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitian , disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana 
+penelitian.  
+2. Pembiayaan 
+penelitian.  
+3. Peta jalan 
+penelitian, dan.  
+4. Pengembangan 
+DTPR di bidang 
+penelitia n, disertai 
+bukti -bukti yang 
+sahih  tetapi  kurang  
+lengkap.  
+O 46. 3.5.B  3 B. Efektifitas 
+Peningkatan/optim
+ali sasi hasil 
+ketercapaian  
+standar dan 
+indikator terkait 
+implementasi peta 
+jalan penelitian, 
+pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan 
+Tinggi dan 
+kebutuhan 
+masyarakat dan 
+DUDIKA.  B. Efektifitas 
+peningkatan/optimalisasi 
+hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Implementasi peta jalan 
+penelitian.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, UPPS, 
+visi misi keilmuan 
+program studi, dan  
+3. Kebutuhan masyarakat 
+serta DUDIKA.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1 dan 
+3, dan sebagian aspek 2.   
+. Peningkatan/optimali sasi 
+hasil ketercapaian  
+standar dan indikator 
+terkai t: 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, 
+UPPS, visi misi 
+keilmuan program 
+studi, dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang sahih 
+dan sangat  lengkap.  Peningkatan/optim 
+alisasi hasil  
+ketercapaian standar 
+dan indikator terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, 
+UPPS, visi misi 
+keilmuan program 
+studi, dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai  
+bukti -bukti yang 
+sahih  dan lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi perguruan 
+tinggi, UPPS, visi 
+misi keilmuan 
+program studi, 
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih  dan cukup 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Implementasi peta 
+jalan penelitian.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi misi 
+perguruan tinggi, 
+UPPS, visi misi 
+keilmuan program 
+studi, dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti-bukti yang 
+sahih tetapi kurang 
+lengkap.  
+45 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 47. 3.5.C  3 C. Efektifitas 
+Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan  indikator  
+terkait perolehan  hibah 
+penelitian,  kerjasama  
+penelitian,  publikasi 
+baik lingkup   
+lokal, nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan 
+penelitian.  C. Efektifitas 
+peningkatan/optimalisasi 
+hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian.  
+ 
+Syarat Unggul (minimal skor 
+3.00): Memenuhi aspek 1, 2, 3, 
+dan sebagian aspek 4 atau 
+aspek 5.    Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar  dan indikator 
+terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim alis
+asi hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Peningkatan/optim
+alisasi hasil 
+ketercapaian 
+standar dan 
+indikator terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih dan cukup 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait:  
+1. Perolehan hibah 
+penelitian.  
+2. Kerjasama 
+penelitian.  
+3. Publikasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+4. Perolehan HKI, 
+serta.  
+5. Keberlanjutan 
+penelitian , 
+disertai bukti -
+bukti yang sahih 
+tetapi kurang 
+lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+46 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   Kriteria 4 Relevansi PKM  
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  
+LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+I 48. 4.1.A  3 4.1. [PENETAPAN]  
+A. Kebijakan,  
+standar dan 
+indikator terkait 
+sarana mdan 
+Prasarana  PkM,  
+DTPR,  dan 
+pembiayaan PkM, 
+dan peta jalan PkM 
+(layanan  
+kepakaran).  4.1. [PENETAPAN]  
+A. Ketersediaan 
+Kebijakan  standar 
+dan indikator  
+terkait : 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan.  
+3. Pembiayaan PkM, 
+dan 
+4. Peta jalan PkM 
+(layanan  
+kepakaran).  
+ Tersedianya kebijakan, 
+standar dan indikator 
+terkait : 
+1. Sarana dan prasarana 
+PkM.  
+2. DTPR, da n. 
+3. Pembiayaan PkM, dan  
+4. Peta jalan PkM 
+(layanan  kepakaran) , 
+disertai bukti -bukti yang 
+sahih dan sangat 
+lengkap  Tersedianya kebijakan, 
+standar dan  indikator  
+terkait : 
+1. sarana dan 
+prasarana PkM . 
+2. DTPR, dan . 
+3. Pembiayaan PkM, 
+dan 
+4. Peta jalan  PkM 
+(layanan 
+kepakaran) , 
+disertai bukti -bukti 
+yang sahih dan  
+lengkap  Tersedianya kebijakan, 
+standar dan  indikator  
+terkait : 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan . 
+3. Pembiayaan PkM, 
+dan. 
+4. Peta jalan  PkM 
+(layanan 
+kepakaran) , dsertai 
+bukti -bukti yang 
+sahih dan  cukup  
+lengkap  Tersedianya kebijakan, 
+standar dan  indikator  
+terkait : 
+1. Sarana dan 
+prasarana PkM  
+2. DTPR, dan . 
+3. Pembiayaan PkM, 
+dan. 
+4. Peta jalan  PkM 
+(layanan 
+kepakaran) , 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap  
+I 49. 4.1.B  2,5 B. Kebijakan,  
+standar dan 
+indikator  terkait 
+implementasi  peta 
+jalan  PkM,  
+pelibatan 
+mahasiswa  
+berdasarkan  visi 
+misi Pergurua n 
+Tinggi, UPPS,  visi 
+misi keilmuan  
+program studi ,  
+dan kebutuhan 
+masyarakat  serta 
+DUDIKA.  B. Kebijakan,  standar 
+dan indikator  
+terkai t: 
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan 
+Tinggi.UPPS, visi 
+misi keilmuan 
+program studi,  dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA.  
+. Tersedianya kebijakan, 
+standar dan indikator 
+terkait : 
+1. Implementasi peta jalan 
+PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan  visi misi 
+Perguruan 
+Tinggi.UPPS, visi misi 
+keilmuan program 
+studi,  dan. 
+3. Kebutuhan masyarakat 
+serta DUDIKA , disertai 
+bukti -bukti yang sahih 
+dan sangat lengkap.  Tersedianya kebijakan, 
+standar dan  indikator  
+terkait : 
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan 
+Tinggi.UPPS, visi 
+misi keilmuan 
+program studi,  dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan lengkap.  Tersedianya kebijakan, 
+standar dan  indikator  
+terkait : 
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan  visi misi 
+Perguruan 
+Tinggi.UPPS, visi 
+misi keilmuan 
+program studi,  dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap.  Tersedianya kebijakan, 
+standar dan  indikator  
+terkai t: 
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan 
+Tinggi.UPPS, visi 
+misi keilmuan 
+program studi,  dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih tetapi kurang  
+lengkap.  
+47 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+I 50. 4.1.C  2 C. Kebijakan,  standar, 
+dan indikator terkait 
+perolehan hibah 
+PkM, kerjasama 
+PkM,  diseminasi  baik 
+lingkup  lokal,  
+nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan PkM.  C. Kebijakan,  standar, 
+dan indikator terkait : 
+ 
+1. Perolehan  hibah 
+PkM.  
+2. Kerjasama  PkM, 
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta keberlanjutan 
+PkM.  Tersedianya kebijakan, 
+standar, dan indikator 
+terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama  PkM, 
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tersedianya kebijakan, 
+standar, dan  indikator  
+terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama  PkM, 
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasioal.  
+3. Perolehan HKI, 
+serta keberlanjutan 
+PkM, disertai bukti - 
+bukti yang sahih 
+dan lengkap.  Tersedianya kebijakan, 
+standar, dan  indikator  
+terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama  PkM, 
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasioal.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, disertai 
+bukti - bukti yang 
+sahih dan  cukup  
+lengkap.  Tersedianya kebijakan, 
+standar, dan  indikator  
+terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama  PkM, 
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasioal.  
+3. Perolehan HKI, 
+serta keberlanjutan 
+PkM, disertai bukti - 
+bukti yang sahih 
+tetapi kurang  
+lengkap.  
+P 51. 4.2.A  7 4.2. [PELAKSANAAN]  
+A. Efektifitas 
+pelaksanaan  
+kegiatan  terkait 
+standar  dan indikator 
+tentang  sarana  dan 
+prasarana  PkM,  
+DTPR,  dan 
+Pembiayaan PkM, 
+dan peta jalan PkM 
+(layanan  kepakaran).  4.2. [PELAKSANAAN]  
+A. Efektifitas  pelaksanaan  
+kegiatan terkait  standar  
+dan indikator  tentang  
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR,  dan 
+pembiayaan  PkM,  
+dan. 
+3. Peta   jalan  PkM 
+(layanan 
+kepakaran).  Pelaksanaan kegiatan 
+terkait standar  dan 
+indikator tentang  
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, 
+pembiayaan PkM, 
+dan 
+3. peta jalan PkM 
+(layanan 
+kepakaran)  secara 
+sangat  efektif  
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Pelaksanaan kegiatan 
+terkait standar dan 
+indikator tentang  
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR,  
+pembiayaan PkM, 
+dan 
+3. Peta jalan PkM 
+(layanan 
+kepakaran)  secara 
+efektif  disertai  
+bukti -bukti yang 
+sahih  dan lengkap.  Pelaksanaan  kegiatan 
+terkait standar dan 
+indikator tentan g 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR,  pembiayaan 
+PkM, dan . 
+3. Peta jalan PkM 
+(layanan kepakaran)  
+secara cukup efektif 
+disertai bukti -bukti 
+yang sahih dan  
+cukup  lengkap.  Pelaksanaan kegiatan 
+terkait standar dan 
+indikator tentang  
+1. sarana dan 
+prasarana PkM . 
+2. DTPR,  pembiayaan 
+PkM, dan  
+3. Peta jalan PkM 
+(layanan 
+kepakaran)  secara 
+kurang efektif 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap.  
+48 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 52. 4.2.B  6 B. Efektifitas pelaksanaan  
+kegiatan  terkait 
+implementasi  peta jalan  
+PkM,  pelibatan 
+mahasiswa  
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi,  dan 
+kebutuhan masyarakat  
+serta DUDIKA.  B. Efektifitas pelaksanaan 
+kegiatan terkait standar 
+dan indikator tentang  
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan visi misi 
+Perguruan Tinggi, 
+UPPS,  visi misi 
+keilmuan program 
+studi, dan  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA.  
+. Pelaksanaan kegiatan 
+terkait standar  dan 
+indikator tentang  
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, visi 
+misi keilmuan 
+program studi, dan  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , secara 
+sangat  efektif  
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Pelaksanaan 
+kegiatan terkait 
+standar dan 
+indikator tentang  
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, visi 
+misi keilmuan 
+program studi, dan  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , secara 
+efektif disertai 
+bukti -bukti yang 
+sahih  dan lengkap.  Pelaksanaan kegiatan 
+terkait standar dan 
+indikator tentang  
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, visi 
+misi keilmuan 
+program studi, dan.  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , secara 
+cukup efektif disertai 
+bukti -bukti yang 
+sahih dan  cukup  
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+standar dan indikator 
+tentang  
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, visi 
+misi keilmuan 
+program studi, dan  
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , secara 
+kurang efektif 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+49 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut  No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 53. 4.2.C  15 C. Efektifitas pelaksanaan 
+Kegiatan  terkait standar  
+dan indikator tentang  
+perolehan hibah  PkM,  
+Kerjasama  PkM,  
+Diseminasi  baik 
+Lingkup  lokal,  
+nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan PkM.  C. Efektifitas 
+pelaksanaan 
+kegiatan terkait 
+standar dan 
+indikator tentang  
+1. perolehan hibah 
+PkM.  
+2. Kerjasama PkM, 
+diseminasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta keberlanjutan 
+PkM.   Pelaksanaan 
+kegiatan terkait 
+standar  dan indikator 
+tentang  
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM, 
+diseminasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, secara  
+sangat  efektif 
+disertai bukti -
+bukti  Pelaksanaan 
+kegiatan terkait 
+standar dan indikator 
+tentang  
+1. Perolehan hibah 
+PkM.  
+2. erjasama PkM, 
+diseminasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional . 
+3. erolehan HKI, 
+serta  
+keberlanjutan 
+PkM, secara  
+efektif disertai 
+bukti -bukti  Pelaksanaan kegiatan 
+terkait standar dan 
+indikator tentang  
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM, 
+diseminasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta  
+keberlanjutan 
+PkM, secara  
+cukup efektif 
+disertai  bukti -bukti  
+yang Pelaksanaan kegiatan 
+terkait standar dan 
+indikator tentang  
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM, 
+diseminasi baik 
+lingkup lokal, 
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta  
+keberlanjutan 
+PkM, secara 
+kurang efektif  
+disertai  bukti-
+bukti 
+50 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+      yang sahih dan 
+sangat  lengkap.  yang  sahih  dan 
+lengkap.  sahih  dan cukup 
+lengkap.  yang  sahih  tetapi 
+kurang lengkap.  
+O 54. 4.3.A  3 4.3. [EVALUASI]  
+A. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait sarana  dan 
+Prasarana  PkM,  
+DTPR,  dan 
+pembiayaan PkM, dan 
+peta jalan PkM 
+(layanan  kepakaran).  4.3. [EVALUASI]  
+A. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait  
+1. Sarana dan prasarana 
+PkM.  
+2. DTPR,  dan 
+3. Pembiayaan  PkM,  dan 
+peta  jalan  PkM 
+(layanan kepakaran).  Evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan  
+3. Pembiayaan PkM, 
+dan peta jalan 
+PkM (layanan 
+kepakaran) , yang 
+dilaksanakan 
+secara berkala 
+dan sangat efektif, 
+dan disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Evaluasi 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana PkM  
+2. DTPR, dan  
+3. Pembiayaan 
+PkM, dan  peta 
+jalan  PkM 
+(layanan 
+kepakaran) , 
+yang 
+dilaksanakan 
+secara  berkala  
+dan efektif,  dan 
+disertai bukti -
+bukti yang sahih  
+dan lengkap.  Evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan  
+3. Pembiayaan 
+PkM, dan  peta 
+jalan  PkM 
+(layanan 
+kepakaran) , 
+yang 
+dilaksanakan 
+secara  berkala  
+dan cukup 
+efektif, dan 
+disertai bukti -
+bukti yang sahih 
+dan cukup 
+lengkap.  Evaluasi 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan . 
+3. Pembiayaan 
+PkM, dan  peta 
+jalan  PkM 
+(layanan 
+kepakaran) , 
+yang 
+dilaksanakan 
+secara berkala 
+tetapi kurang 
+efektif,  dan 
+disertai bukti -
+bukti yang sahih  
+tetapi  kurang  
+lengkap.  
+51 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 55. 4.3.B  3 B. Efektifitas pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait implementasi  
+peta jalan  PkM,  
+pelibatan mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi,  dan 
+kebutuhan masyarakat  
+serta DUDIKA.  B. Efektifitas pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait : 
+1. Implementasi  peta 
+jalan  PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi,  dan 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Implementasi  peta 
+jalan  PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  visi 
+misi keilmuan  
+program studi,  dan.  
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan secara 
+berkala dan sangat 
+efektif disertai bukti - 
+bukti  yang  sahih  dan 
+sangat lengkap.  Evaluasi 
+ketercapaian standar 
+dan indikator terkait : 
+1. Implementasi  
+peta jalan  PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  
+visi misi keilmuan  
+program studi,  
+dan 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan 
+secara  berkala  
+dan efektif 
+disertai bukti -
+bukti yang  sahih  
+dan lengkap.  Evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Implementasi  peta 
+jalan  PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  visi 
+misi keilmuan  
+program studi,  
+dan 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan 
+secara  berkala  
+dan cukup efektif 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Evaluasi 
+ketercapaian standar 
+dan indikator terkait : 
+1. Implementasi 
+peta jalan PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan visi 
+misi Perguruan 
+Tinggi, UPPS, 
+visi misi 
+keilmuan 
+program  studi,  
+dan. 
+3. Kebutuhan 
+masyarakat 
+serta DUDIKA , 
+yang 
+dilaksanakan 
+secara  berkala  
+dan kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+52 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut  No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 56. 4.3.C  3 C. Efektifitas pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait perolehan  hibah 
+PkM,  kerjasama PkM,  
+diseminasi  baik lingkup  
+lokal,  nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan PkM.  C. Efektifitas  pelaksanaan  
+evaluasi ketercapaian  
+standar dan  indikator  
+terkai t: 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, serta 
+keberlanjutan PkM.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan  
+secara  sangat  
+efektif disertai  
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Evaluasi 
+ketercapaian standar 
+dan indikator terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara efektif 
+disertai  bukti -
+bukti yang sahih 
+dan lengkap.  Evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih  dan cukup  
+lengkap.  Evaluasi 
+ketercapaian standar 
+dan indikator terkait : 
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang  lengkap.  
+53 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 57. 4.4.A  3 4.4. [PENGENDALIAN]  
+A. Efektifitas 
+pelaksanaan  Tindak 
+lanjut  hasil evaluasi 
+ketercapaian  terkait 
+saran a dan 
+Prasarana PkM,  
+DTPR,  dan 
+pembiayaan PkM, dan 
+peta jalan PkM 
+(layanan  kepakaran).  4.4. 
+[PENGENDALIAN]  
+A. Efektifitas  
+pelaksanaan  
+Tindak lanjut  
+hasil evaluasi 
+ketercapaian  
+terkait : 
+1. Sarana dan 
+prasarana 
+PkM.  
+2. DTPR , dan 
+3. Pembiayaan  
+PkM,  dan. 
+4. Peta jalan PkM 
+(layanan 
+kepakaran).  Tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait : 
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan  
+3. Pembiayaan  PkM,  
+dan. 
+4. Peta jalan PkM 
+(layanan kepakaran) , 
+yang dilaksanakan 
+secara sangat efektif, 
+dan disertai bukti -
+bukti yang sahih dan 
+sangat lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait:  
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan  
+3. Pembiayaan  PkM,  
+dan. 
+4. Peta jalan PkM 
+(layanan kepakaran) , 
+yang dilaksanakan 
+secara efektif, dan 
+disertai bukti -bukti 
+yang sahih dan 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait:  
+1. Sarana dan 
+prasarana PkM 
+2. DTPR, dan  
+3. Pembiayaan  PkM,  
+dan. 
+4. Peta jalan PkM 
+(layanan 
+kepakaran) , yang 
+dilaksanakan secara 
+cukup efektif,  dan 
+disertai bukti -bukti 
+yang  sahih  dan 
+cukup lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait:  
+1. Sarana dan 
+prasarana PkM.  
+2. DTPR, dan  
+3. Pembiayaan  PkM,  
+dan. 
+4. Peta jalan PkM 
+(layanan kepakaran) , 
+yang dilaksanakan 
+secara kurang 
+efektif,  dan disertai 
+bukti -bukti yang  
+sahih  tetapi  kurang 
+lengkap.  
+P 58. 4.4.B  2 B. Kebijakan,  standar dan 
+indikator  terkait 
+implementasi  peta 
+jalan  PkM,  pelibatan 
+mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi, dan 
+kebutuhan masyarakat  
+serta DUDIKA.  B. Kebijakan,  
+standar dan 
+indikator  
+terkait : 
+1. Implementasi  
+peta jalan  PkM.  
+2. Pelibatan 
+mahasiswa  
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  
+visi   
+misi keilmuan   
+program studi,  
+dan 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Implementasi   peta 
+jalan  PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi,  dan. 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan secara 
+sangat  efektif  disertai 
+bukti -bukti yang sahih 
+dan sangat lengkap.  
+ Tindak  lanjut  hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Implementasi   peta 
+jalan  PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  visi 
+misi keilmuan   
+program studi,  dan. 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan secara 
+efektif disertai bukti -
+bukti yang sahih dan 
+lengkap.  
+ Tindak  lanjut  hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Implementasi   peta 
+jalan  PkM.  
+2. Pelibatan 
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  visi 
+misi keilmuan  
+program studi,  dan. 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan secara 
+cukup efektif disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap.  Tindak  lanjut  hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Implementasi   peta 
+jalan  PkM.  
+2. Pelibatan mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  visi 
+misi keilmuan  
+program studi,  dan 
+3. Kebutuhan 
+masyarakat  serta 
+DUDIKA , yang 
+dilaksanakan secara 
+kurang efektif 
+disertai bukti -bukti 
+yang sahih  tetapi  
+kurang  lengkap.  
+ 
+54 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 59. 4.4.C  2 C. Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+terkait perolehan   hibah 
+PkM,  kerjasama PkM,  
+diseminasi  baik lingkup  
+lokal,  nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan PkM.  C. Efektifitas  pelaksanaan
+  tindak 
+lanjut  hasil evaluasi 
+ketercapaia i terkai t: 
+1. Perolehan hibah PkM.  
+2. Kerjasama  PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, serta 
+keberlanjutan PkM.  Tindak lanjut hasil 
+evaluasi  ketercapaian  
+standar dan indikator 
+terkait  
+1. Perolehan hibah 
+PkM.  
+2. Kerjasama  PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan HKI, 
+serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan 
+sangat lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait  
+1. Perolehan 
+hibah PkM.  
+2. Kerjasama  
+PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan 
+HKI, serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara efektif 
+disertai bukti -
+bukti yang 
+sahih dan 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan 
+hibah PkM.  
+2. Kerjasama  
+PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan 
+HKI, serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara cukup 
+efektif disertai 
+bukti -bukti 
+yang  sahih  dan 
+cukup lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait : 
+1. Perolehan 
+hibah PkM.  
+2. Kerjasama  
+PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan 
+HKI, serta 
+keberlanjutan 
+PkM, yang 
+dilaksanakan 
+secara kurang 
+efektif  disertai 
+bukti -bukti 
+yang  sahih  
+tetapi  kurang 
+lengkap.  
+55 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 60. 4.5.A  3 4.5. [PENINGKATAN]  
+A. Efektifitas 
+peningkatan/optimali 
+sasi hasil 
+Ketercapaian  standar 
+dan indikator  terkait 
+sarana  dan 
+Prasarana  PkM,  
+DTPR,  dan 
+pembiayaan PkM, dan 
+peta jalan PkM 
+(layanan  kepakaran).  4.5. [PENINGKATAN]  
+A. Efektifitas 
+peningkatan/optimalis asi 
+hasil ketercapaian 
+standar  dan indikator 
+terkait : 
+1. Sarana  dan prasarana  
+PkM.  
+2. DTPR,  dan 
+3. Pembiayaan  PkM,  
+dan peta jalan PkM 
+(layanan kepakaran).  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait : 
+1. Sarana  dan 
+prasarana  PkM.  
+2. DTPR,  dan 
+3. Pembiayaan  
+PkM,  dan peta 
+jalan PkM 
+(layanan 
+kepakaran) , 
+disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana  dan 
+prasarana  
+PkM.  
+2. DTPR,  dan  
+3. Pembiayaan  
+PkM,  dan peta 
+jalan PkM 
+(layanan 
+kepakaran) , 
+disertai bukti -
+bukti yang 
+sahih dan  
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana  dan 
+prasarana  
+PkM.  
+2. DTPR,  dan  
+3. Pembiayaan  
+PkM,  dan peta 
+jalan PkM 
+(layanan 
+kepakaran) , 
+disertai bukti -
+bukti yang 
+sahih dan  
+cukup  lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Sarana  dan 
+prasarana  
+PkM.  
+2. DTPR,  dan 
+3. Pembiayaan  
+PkM,  dan peta 
+jalan PkM 
+(layanan 
+kepakaran) , 
+disertai bukti -
+bukti yang 
+sahih tetapi  
+kurang  
+lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+56 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut  No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 61. 4.5.B  2 B. Efektifitas 
+Peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator  terkait 
+implementasi  peta jalan  
+PkM,  pelibatan 
+mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi 
+keilmuan  program 
+studi,   dan 
+kebutuhan masyarakat  
+serta DUDIKA.  B. Efektifitas 
+Peningkatan/optimalis asi 
+hasil ketercapaian 
+standar  dan indikator 
+terkait : 
+1. Implementasi peta jalan 
+PkM.  
+2. Pelibatan  mahasiswa 
+berdasarkan  visi misi 
+Perguruan  Tinggi, 
+UPPS,  visi misi keilmuan  
+program studi,  dan. 
+3. Kebutuhan 
+masyarakatserta 
+DUDIKA.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait  
+1. Implementasi peta 
+jalan PkM.  
+2. Pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  visi 
+misi keilmuan  
+program studi,  
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Implementasi 
+peta jalan PkM.  
+2. Pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  
+visi misi keilmuan  
+program studi,  
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih  dan 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Implementasi 
+peta jalan PkM.  
+2. Pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  
+visi misi keilmuan  
+program studi,  
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih dan cukup  
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Implementasi 
+peta jalan PkM.  
+2. Pelibatan  
+mahasiswa 
+berdasarkan  visi 
+misi Perguruan  
+Tinggi, UPPS,  
+visi misi keilmuan  
+program studi,  
+dan. 
+3. Kebutuhan 
+masyarakat serta 
+DUDIKA , disertai 
+bukti -bukti yang 
+sahih  tetapi  
+kurang  lengkap.  
+57 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 62. 4.5.C  2,5 C. Efektifitas 
+Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait perolehan hibah 
+PkM, kerjasama PkM,  
+diseminasi  baik lingkup  
+lokal,  nasional,  dan 
+internasional, 
+perolehan  HKI, serta 
+keberlanjutan PkM.  C. Efektifitas 
+Peningkatan/optimalis 
+asi hasil ketercapaian 
+standar  dan indikator 
+terkait : 
+1. Perolehan hibah  
+PkM. 
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan  HKI, 
+serta keberlanjutan 
+PkM.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait ‘ 
+1. Perolehan hibah  
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional  
+3. Perolehan  HKI, 
+serta 
+keberlanjutan 
+PkM, disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait : 
+1. Perolehan hibah  
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan  HKI, 
+serta 
+keberlanjutan 
+PkM, disertai 
+bukti -bukti yang 
+sahih  dan 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait:  
+1. Perolehan hibah  
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan  HKI, 
+serta 
+keberlanjutan 
+PkM, secara  
+cukup efektif 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait:  
+1. Perolehan hibah  
+PkM.  
+2. Kerjasama PkM,  
+diseminasi  baik 
+lingkup  lokal,  
+nasional, dan 
+internasional.  
+3. Perolehan  HKI, 
+serta 
+keberlanjutan 
+PkM, disertai  
+bukti - bukti yang 
+sahih tetapi 
+kurang lengkap.  
+Kriteria  5 Akuntabilitas  
+I 63. 5.1.A  3 5.1. [PENETAPAN]  
+A. Kebijakan,  standar dan 
+indikator terkait sistem 
+tata kelola yang 
+otonom secara  
+transparan,  dan 
+akuntabel yang 
+didukung kapasitas 
+sarana  dan 
+prasarana yang 
+memadai dan SDM 
+yang profesional  5.1. [PENETAPAN]  
+A. Ketersediaan 
+kebijakan, standar dan 
+indikator terkait:  
+1. Sistem tata kelola 
+yang otonom secara 
+transparan.  
+2. Akuntabel yang 
+didukung kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM yang 
+profesional.  Tersedianya kebijakan, 
+standar dan indikator 
+terkait  
+1. Sistem tata kelola 
+yang otonom 
+secara transparan.  
+2. Akuntabel yang 
+didukung kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM yang 
+profesiona l, 
+disertai  bukti-bukti 
+yang  sahih  dan 
+sangat  lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait  
+1. Sistem tata kelola 
+yang otonom 
+secara transparan.  
+2. Akuntabel yang 
+didukung kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM yang 
+profesional , disertai  
+bukti-bukti yang  
+sahih  dan lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait  
+1. Sistem tata kelola 
+yang otonom 
+secara 
+transparan.  
+2. Akuntabel yang 
+didukung 
+kapasitas sarana 
+dan prasarana 
+yang memadai.  
+3. SDM yang 
+profesional , 
+disertai  bukti-bukti 
+yang  sahih  dan 
+cukup lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. Sistem tata kelola 
+yang otonom 
+secara 
+transparan.  
+2. Akuntabel yang 
+didukung 
+kapasitas sarana 
+dan prasarana 
+yang memadai.  
+3. SDM yang 
+profesional , 
+disertai  bukti-bukti 
+yang  sahih  tetapi 
+kurang lengkap  
+58 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+I 64. 5.1.B  2 B. Kebijakan,  standar dan 
+indikator terkait audit  
+mutu  pemenuhan 
+tupoksi tata kelola dan 
+tata pamong,  sarana  
+dan prasarana dan 
+SDM yang profesional.  B. Ketersediaan 
+Kebijakan,  standar 
+dan indikator  terkait : 
+1. Audit mutu  
+pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional.  Tersedianya kebijakan, 
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tersedianya kebijakan, 
+standar dan  indikator  
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+disertai bukti -bukti 
+yang sahih dan 
+cukup  lengkap.  Tersedianya 
+kebijakan, standar 
+dan indikator  terkait : 
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+disertai bukti -
+bukti yang sahih 
+tetapi kurang  
+lengkap.  
+P 65. 5.2.A  5 5.2. [PELAKSANAAN]  
+A. Efektifitas pelaksanaan  
+kegiatan  terkait standar  
+dan indikator terkai t 
+sistem   tata kelola  
+yang  otonom secara  
+transparan, dan 
+akuntabel  yang 
+didukung   kapasitas 
+sarana   dan 
+prasarana yang 
+memadai dan SDM 
+yang profesional.  5.2. [PELAKSANAAN]  
+A. Efektifitas 
+pelaksanaan  standar 
+dan indikator  tentang  
+1. Sistem  tata kelola  
+yang otonom  yang  
+didukung 
+kapasitas  sarana  
+dan prasarana  
+yang memadai . 
+2. SDM yang 
+profesional.  Pelaksanaan kegiatan 
+terkait pelaksanaan  
+standar  
+dan indikator  tentang  
+1. Sistem  tata kelola  
+yang otonom  yang  
+didukung 
+kapasitas  sarana  
+dan prasarana  
+yang memadai . 
+2. SDM yang 
+profesional , 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Pelaksanaan 
+kegiatan terkait 
+pelaksanaan standar 
+dan indikator tentang  
+1. Sistem tata kelola 
+yang otonom yang 
+didukung  kapasitas 
+sarana dan 
+prasarana yang 
+memadai . 
+2. SDM yang 
+profesional , secara 
+efektif disertai 
+bukti -bukti yang 
+sahih dan lengkap.  Pelaksanaan kegiatan 
+terkait pelaksanaan 
+standar dan indikator 
+tentang :  
+1. Sistem tata kelola 
+yang otonom yang 
+didukung  kapasitas 
+sarana dan 
+prasarana yang 
+memadai . 
+2. SDM yang 
+profesiona l, secara 
+cukup efektif 
+disertai  bukti -bukti 
+yang sahih  dan 
+cukup lengkap.  Pelaksanaan kegiatan 
+terkait pelaksanaan 
+standar dan indikator 
+tentang : 
+1. Sistem tata kelola 
+yang otonom yang 
+didukung  
+kapasitas sarana 
+dan prasarana 
+yang memadai i. 
+2. SDM yang 
+profesional , 
+secara kurang 
+efektif disertai  
+bukti -bukti yang 
+sahih  tetapi  
+kurang lengkap.  
+59 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 66. 5.2.B  4 B. Efektifitas pelaksanaan  
+standar dan  indikator  
+terkait audit  mutu  
+pemenuhan tupoksi 
+tata kelola dan tata 
+pamong,  sarana  dan 
+prasarana dan SDM 
+yang profesional.  B. Efektifitas pelaksanaan  
+standar dan  indikator  
+terkait : 
+1. Audit mutu  
+pemenuhan tupoksi 
+tata kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan SDM 
+yang profesional.  Pelaksanaan kegiatan 
+terkait pelaksanaan  
+standar dan  indikator  
+tentang  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan 
+sangat lengkap.  Pelaksanaan kegiatan 
+terkait pelaksanaan 
+standar dan indikator 
+tentang  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+secara efektif 
+disertai  bukti -
+bukti yang sahih  
+dan lengkap.  Pelaksanaan kegiatan 
+terkait pelaksanaan 
+standar dan indikator 
+tentang  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+secara cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih dan  cukup  
+lengkap.  Pelaksanaan kegiatan 
+terkait pelaksanaan 
+standar dan indikator 
+tentang  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih tetapi  
+kurang  lengkap.  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+60 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400  Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 67. 5.3.A  6 5.3. [EVALUASI]  
+A. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait sistem  tata 
+kelola yang otonom 
+secara transparan,  dan 
+akuntabel yang 
+didukung kapasitas 
+sarana  dan 
+prasarana yang 
+memadai dan SDM 
+yang profesional  
+. 5.3. [EVALUASI]  
+A. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait : 
+1. Sistem  tata kelola  yang 
+otonom  secara 
+transparan.  
+2. Akuntabel  yang 
+didukung kapasitas 
+sarana dan prasarana 
+yang memadai.  
+3. SDM  yang  profesional  Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Sistem  tata kelola  
+yang otonom  
+secara transparan.  
+2. Akuntabel  yang 
+didukung 
+kapasitas sarana 
+dan prasarana 
+yang memadai.  
+3. SDM  yang  
+profesional , yang 
+dilaksanakan 
+secara berkala 
+dan sangat efektif, 
+dan disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait  
+1. Sistem  tata 
+kelola  yang 
+otonom  secara 
+transparan.  
+2. Akuntabel  yang 
+didukung 
+kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM  yang  
+profesiona l, 
+yang 
+dilaksanakan 
+secara berkala 
+dan efektif, dan 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait  
+1. Sistem  tata 
+kelola  yang 
+otonom  secara 
+transparan.  
+2. Akuntabel  yang 
+didukung 
+kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM  yang  
+profesional , 
+yang 
+dilaksanakan 
+secara berkala 
+dan cukup 
+efektif, dan 
+disertai bukti -
+bukti  yang  sahih  
+dan cukup  
+lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait  
+1. Sistem  tata 
+kelola  yang 
+otonom  secara 
+transparan.  
+2. Akuntabel  yang 
+didukung 
+kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM  yang  
+profesional , 
+yang 
+dilaksanakan 
+secara berkala 
+tetapi kurang 
+efektif, dan 
+disertai bukti -
+bukti yang sahih  
+tetapi  kurang 
+lengkap.  
+61 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 68. 5.3.B  5 B. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait audit  mutu  
+pemenuhan tupoksi 
+tata kelola dan tata 
+pamong,  sarana  dan 
+prasarana dan SDM 
+yang profesional.  B. Efektifitas pelaksanaan  
+Evaluasi ketercapaian  
+standar dan  indikator  
+terkait : 
+1. Audit mutu  pemenuhan 
+tupoksi tata kelola dan 
+tata pamong, sarana 
+dan prasarana.  
+2. SDM yang profesional.  
+. 
+. Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong, sarana 
+dan prasarana.  
+2. SDM yang 
+profesional , yang 
+dilaksanakan 
+secara berkala 
+dan sangat  efektif  
+disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong, 
+sarana dan 
+prasarana.  
+2. SDM yang 
+profesional , 
+yang 
+dilaksanakan 
+secara berkala 
+dan efektif 
+disertai  bukti -
+bukti yang 
+sahih  dan 
+lengkap.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong, 
+sarana dan 
+prasarana.  
+2. SDM yang 
+profesional , 
+yang 
+dilaksanakan 
+secara berkala 
+dan cukup 
+efektif disertai 
+bukti -bukti yang 
+sahih dan  
+cukup  lengkap.  Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong, 
+sarana dan 
+prasarana.  
+2. SDM yang 
+profesional , 
+yang 
+dilaksanakan 
+secara berkala 
+dan kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih tetapi  
+kurang  lengkap.  
+62 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 69. 5.4.A  3 5.4. [PENGENDALIAN]  
+A. Efektifitas pelaksanaan  
+Tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait sistem  tata 
+kelola yang otonom 
+secara transparan,  dan 
+Akuntabel yang 
+didukung kapasitas 
+sarana  dan 
+prasarana yang 
+memadai dan SDM 
+yang profesional  5.4. [PENGENDALIAN]  
+A. Efektifitas  pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait  
+1. Otonom secara 
+transparan.  
+2. Akuntabel yang 
+didukung kapasitas 
+sarana dan prasarana 
+yang memadai.  
+3. SDM yang profesional.  
+. Tindak lanjut hasil 
+evaluasi ketercapaian  
+terkait  
+1. Otonom secara 
+transparan.  
+2. Akuntabel yang 
+didukung kapasitas 
+sarana dan 
+prasarana yang 
+memadai.  
+3. SDM yang 
+profesional , yang 
+dilaksanakan 
+secara sangat 
+efektif, dan disertai 
+bukti -bukti yang 
+sahih dan sangat  
+lengkap.  Tindak lanjut hasil 
+evaluasi 
+ketercapaian  terkait  
+1. Otonom secara 
+transparan.  
+2. Akuntabel yang 
+didukung 
+kapasitas sarana 
+dan prasarana 
+yang memadai.  
+3. SDM yang 
+profesional , yang 
+dilaksanakan 
+secara efektif, dan 
+disertai bukti -bukti 
+yang sahih dan 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+terkait  
+1. Otonom secara 
+transparan.  
+2. Akuntabel yang 
+didukung 
+kapasitas sarana 
+dan prasarana 
+yang memadai.  
+3. SDM yang 
+profesional , yang 
+dilaksanakan 
+secara cukup 
+efektif, dan 
+disertai bukti -bukti 
+yang sahih dan 
+cukup  lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+terkait  
+1. Otonom secara 
+transparan.  
+2. Akuntabel yang 
+didukung 
+kapasitas sarana 
+dan prasarana 
+yang memadai.  
+3. SDM yang 
+profesional ,  yang 
+dilaksanakan 
+secara kurang 
+efektif, dan 
+disertai bukti -bukti 
+yang sahih tetapi 
+kurang  lengkap.  
+P 70. 5.4.B  2 B. Efektifitas pelaksanaan  
+Tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait audit  mutu  
+pemenuhan tupoksi 
+tata kelola dan tata 
+pamong,  sarana  dan 
+prasarana dan SDM 
+yang profesional.  B. Efektifitas  pelaksanaan  
+Tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait : 
+1. Audit mutu  
+pemenuhan tupoksi 
+tata kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan SDM 
+yang profesional.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , yang 
+dilaksanakan 
+secara  sangat  
+efektif disertai 
+bukti -bukti yang 
+sahih dan sangat 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+yang 
+dilaksanakan 
+secara efektif 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , yang 
+dilaksanakan 
+secara cukup  
+efektif disertai  
+bukti -bukti yang 
+sahih  dan cukup 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian 
+standar dan indikator 
+terkait  
+1. Audit mutu  
+pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , yang 
+dilaksanakan 
+secara kurang 
+efektif disertai 
+bukti -bukti yang 
+sahih  tetapi  kurang 
+lengkap.  
+63 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+O 71. 5.5.A  5 5.5. [PENINGKATAN]  
+A. Efektifitas 
+Peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator terkait 
+sistem tata kelola yang 
+otonom secara 
+transparan,  dan 
+akuntabel yang 
+didukung kapasitas 
+sarana  dan 
+prasarana yang 
+memadai dan SDM 
+yang profesional.  5.5. [PENINGKATAN]  
+A. Efektifitas 
+Peningkatan/optimalis 
+asi hasil ketercapaian 
+standar  dan indikator 
+terkait  
+1. SIstem  tata kelola  
+yang  otonom 
+secara  transparan.  
+2. Akuntabel  yang 
+didukung  kapasitas 
+sarana dan 
+prasarana yang 
+memadai . 
+3. SDM  yang  
+profesional.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait  
+1. SIstem  tata kelola  
+yang  otonom 
+secara  transparan.  
+2. Akuntabel  yang 
+didukung  
+kapasitas sarana 
+dan prasarana 
+yang memadai . 
+3. SDM  yang  
+profesional , 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. SIstem  tata kelola  
+yang  otonom 
+secara  
+transparan.  
+2. Akuntabel  yang 
+didukung  
+kapasitas sarana 
+dan prasarana 
+yang memadai . 
+3. SDM  yang  
+profesional , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. SIstem  tata 
+kelola  yang  
+otonom secara  
+transparan.  
+2. Akuntabel  yang 
+didukung  
+kapasitas sarana 
+dan prasarana 
+yang memadai . 
+3. SDM  yang  
+profesional  
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. SIstem  tata 
+kelola  yang  
+otonom secara  
+transparan.  
+2. Akuntabel  yang 
+didukung  
+kapasitas sarana 
+dan prasarana 
+yang memadai . 
+3. SDM  yang  
+profesional , 
+disertai bukti -
+bukti yang sahih 
+tetap i kurang  
+lengkap.  
+O 72. 5.5.B  5 B. Efektifitas 
+Peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator terkait 
+audit  mutu  
+pemenuhan tupoksi 
+tata kelola dan tata 
+pamong,  sarana  dan 
+prasarana dan SDM 
+yang profesional.  B. Efektifitas  
+peningkatan/optimalisa
+si hasil ketercapaian 
+standar dan indikator 
+terkait  
+1. Pemenuhan tupoksi 
+tata kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan SDM 
+yang profesional.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait  
+1. Pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator terkait  
+1. Pemenuhan 
+tupoksi tata kelola 
+dan tata pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional ,  
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional , 
+disertai bukti -
+bukti yang  sahih  
+dan cukup 
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Pemenuhan 
+tupoksi tata 
+kelola dan tata 
+pamong.  
+2. Sarana dan 
+prasarana dan 
+SDM yang 
+profesional.  
+disertai bukti -
+bukti yang  sahih  
+tetapi  kurang 
+lengkap.  
+ 
+64 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   Kriteria  6 Diferensiasi  Misi 
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+I 73. 6.1. 5 6.1. [PENETAPAN]  
+Kebijakan, standar dan 
+indikator terkait 
+tridarma perguruan 
+tinggi  yang 
+Mencakup  VMTS, 
+rencana 
+pengembangan 
+strategis  UPPS 
+dan/atau  PS yang 
+dapat menggambarkan  
+ciri khas  keilmuan  
+PS, serta 
+pengakuan/apresiasi 
+oleh masyarakat  dan 
+DUDIKA  di tingkat 
+lokal,  nasional,  dan 
+internasional  6.1. [PENETAPAN]  
+Ketersediaan kebijakan, 
+standar dan indikator 
+terkait:  
+1. Tridarma perguruan  
+tinggi yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta pengakuan/ 
+apresiasi oleh 
+masyarakat dan  
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional.  Tersedianya kebijakan, 
+standar dan indikator 
+terkait terkait : 
+1. Tridarma 
+perguruan  tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/ 
+apresiasi oleh 
+masyarakat dan  
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional , 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator terkait 
+terkait:  
+1. Tridarma 
+perguruan  tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS 
+yang dapat 
+menggambarkan 
+ciri khas 
+keilmuan PS, 
+serta pengakuan/ 
+apresiasi oleh 
+masyarakat dan  
+3. DUDIKA di 
+tingkat lokal, 
+nasional, dan 
+internasional , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator terkait 
+terkait:  
+1. Tridarma 
+perguruan  tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS 
+yang dapat 
+menggambarkan 
+ciri khas 
+keilmuan PS, 
+serta pengakuan/ 
+apresiasi oleh 
+masyarakat dan  
+3. DUDIKA di 
+tingkat lokal, 
+nasional, dan 
+internasional , 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap  Tersedianya 
+kebijakan, standar 
+dan indikator terkait 
+terkait:  
+1. Tridarma 
+perguruan  tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS 
+yang dapat 
+menggambarkan 
+ciri khas 
+keilmuan PS, 
+serta pengakuan/ 
+apresiasi oleh 
+masyarakat dan  
+3. DUDIKA di 
+tingkat lokal, 
+nasional, dan 
+internasional.  
+disertai bukti -
+bukti yang sahih 
+tetapi  kurang  
+lengkap  
+ 
+ 
+ 
+ 
+ 
+65 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 400   
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+P 74. 6.2. 8 6.2. [PELAKSANAAN]  
+Efektifitas Pelaksanaan  
+standar dan indikator  
+terkait tridarma  
+perguruan tinggi  yang 
+Mencakup  VMTS, 
+rencana  
+pengembangan 
+strategis  UPPS 
+dan/atau  PS yang 
+dapat menggambarkan  
+ciri khas  keilmuan  PS, 
+serta  
+pengakuan/apresiasi 
+oleh masyarakat  dan 
+DUDIKA  di tingkat 
+lokal,  nasional,  dan 
+internasional  6.2. [PELAKSANAAN]  
+Efektifitas  
+pelaksanaan kegiatan 
+terkait  
+1. Standar dan indikator 
+tentang tridarma 
+perguruan tinggi yang 
+mencakup VMTS.  
+2. Rencana pengembangan 
+strategis UPPS dan/atau 
+PS yang dapat 
+menggambarkan ciri khas 
+keilmuan PS, serta 
+pengakuan/apresiasi oleh 
+masyarakat dan  
+3. DUDIKA di   
+tingkat lokal, nasional, 
+dan internasional.  Pelaksanaan kegiatan 
+terkait standar  dan 
+indikator tentang  
+1. Standar dan indikator 
+tentang tridarma 
+perguruan tinggi yang 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresiasi 
+oleh masyarakat dan  
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional, secara 
+sangat  efektif  disertai 
+bukti -bukti yang sahih 
+dan sangat lengkap.  
+ Pelaksanaan 
+kegiatan terkait 
+standar dan indikator 
+tentang  
+1. Standar dan 
+indikator tentang 
+tridarma perguruan 
+tinggi yang 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresias
+i oleh masyarakat 
+dan 
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional, 
+secara efektif 
+disertai bukti -bukti 
+yang sahih dan 
+lengkap.  
+ Pelaksanaan 
+kegiatan terkait 
+standar dan indikator 
+tentang  
+1. Standar dan 
+indikator tentang 
+tridarma perguruan 
+tinggi yang 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresias
+i oleh masyarakat 
+dan 
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional, 
+secara cukup efektif 
+disertai bukti -bukti 
+yang sahih dan 
+cukup lengkap.  Pelaksanaan 
+kegiatan terkait 
+standar dan indikator 
+tentang  
+1. Standar dan 
+indikator tentang 
+tridarma perguruan 
+tinggi yang 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresias
+i oleh masyarakat 
+dan 
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional secara 
+kurang efektif 
+disertai bukti -bukti 
+yang sahih  tetapi  
+kurang lengkap.  
+ 
+ 
+66 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400  
+Elemen  Penilaian  LAM   
+Deskriptor   
+Sangat  baik = 4  
+Baik  = 3  
+Cukup  = 2  
+Kurang  = 1 
+O 75. 6.3. 13 6.3. [EVALUASI]  
+Efektifitas 
+pelaksanaan  Evaluasi  
+ketercapaian  standar 
+dan indikator  terkait 
+tridarma  perguruan 
+tinggi  yang Mencakup  
+VMTS, rencana  
+pengembangan 
+strategis  UPPS 
+dan/atau  PS yang 
+dapat 
+menggambarkan  ciri 
+khas  keilmuan  PS, 
+serta 
+pengakuan/apresiasi 
+oleh masyarakat  dan 
+DUDIKA   di  tingkat 
+lokal,  nasional,  dan 
+internasional  6.3. [EVALUASI]  
+Efektifitas  
+pelaksanaan evaluasi 
+ketercapaian standar 
+dan indikator terkait:  
+1. Tridarma perguruan 
+tinggi yang 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresiasi 
+oleh masyarakat dan.  
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional.  
+. Evaluasi ketercapaian  
+standar dan indikator 
+terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresi
+asi oleh 
+masyarakat dan.  
+3. DUDIKA di tingkat 
+lokal, nasional, 
+dan internasional , 
+yang dilaksanakan 
+secara berkala  
+dan sangat efektif,  
+dan disertai bukti -
+bukti yang sahih 
+dan sangat 
+lengkap.  Evaluasi 
+ketercapaian  standar 
+dan indikator terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresi
+asi oleh 
+masyarakat dan.  
+3. DUDIKA di tingkat 
+lokal, nasional, 
+dan internasional , 
+yang dilaksanakan 
+secara  berkala  dan 
+efektif,  dan disertai 
+bukti -bukti yang 
+sahih  dan lengkap.  Evaluasi ketercapaian 
+standar dan indikator 
+terkait  
+1. Tridarma perguruan 
+tinggi yang 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresiasi 
+oleh masyarakat 
+dan. 
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional , yang 
+dilaksanakan secara  
+berkala  dan cukup 
+efektif, dan disertai 
+bukti -bukti yang 
+sahih dan cukup 
+lengkap.  
+ Evaluasi 
+ketercapaian standar 
+dan indikator terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresi
+asi oleh 
+masyarakat dan.  
+3. DUDIKA di tingkat 
+lokal, nasional, 
+dan internasional , 
+yang dilaksanakan 
+secara berkala 
+tetapi kurang 
+efektif,  dan disertai 
+bukti -bukti yang 
+sahih  tetapi  kurang 
+lengkap.  
+67 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+P 76. 6.4. 6 6.4. [PENGENDALIAN]  
+Efektifitas pelaksanaan  
+tindak lanjut  hasil 
+evaluasi ketercapaian  
+standar dan  indikator  
+terkait tridarma  
+perguruan tinggi  yang 
+Mencakup  VMTS, 
+rencana 
+pengembangan 
+strategis  UPPS 
+dan/atau  PS yang 
+dapat menggambarkan  
+ciri khas  keilmuan  
+PS, serta 
+pengakuan/apresiasi 
+oleh masyarakat  dan 
+DUDIKA  di tingkat 
+lokal,  nasional,  dan 
+internasional  6.4. [PENGENDALIAN]  
+Efektifitas  pelaksanaan 
+tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait  
+1. Tridarma perguruan 
+tinggi yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan ciri 
+khas keilmuan PS, 
+serta 
+pengakuan/apresiasi 
+oleh masyarakat dan  
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional.  
+. Tindak lanjut hasil 
+evaluasi ketercapaian 
+terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresia
+si oleh masyarakat 
+dan 
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional , yang 
+dilaksanakan  
+secara sangat 
+efektif, dan 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Tindak lanjut hasil 
+evaluasi 
+ketercapaian terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresia
+si oleh masyarakat 
+dan 
+3. DUDIKA di tingkat 
+lokal, nasional, dan 
+internasional , yang 
+dilaksanakan 
+secara efektif, dan 
+disertai bukti -bukti  
+yang  sahih  dan 
+lengkap.  Tindak lanjut hasil 
+evaluasi ketercapaian  
+terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS 
+yang dapat 
+menggambarkan 
+ciri khas 
+keilmuan PS, 
+serta 
+pengakuan/apres
+iasi oleh 
+masyarakat dan  
+3. DUDIKA di 
+tingkat lokal, 
+nasional, dan 
+internasional , 
+yang 
+dilaksanakan 
+secara cukup 
+efektif, dan 
+disertai bukti -
+bukti yang  Tindak lanjut hasil 
+evaluasi ketercapaian  
+terkait  
+1. Tridarma 
+perguruan tinggi 
+yang mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresi
+asi oleh 
+masyarakat dan  
+3. DUDIKA di tingkat 
+lokal, nasional, 
+dan internasional , 
+yang dilaksanakan 
+secara kurang 
+efektif, dan 
+disertai bukti -bukti 
+yang  
+68 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+Jenis  No. 
+Urut No. 
+Butir  Bobot 
+dari 
+400 Elemen  Penilaian  LAM  Deskriptor  Sangat  baik = 4 Baik  = 3 Cukup  = 2 Kurang  = 1 
+        sahih  dan cukup 
+lengkap.  sahih  tetapi  kurang 
+lengkap.  
+O 77. 6.5. 10 6.5. [PENINGKATAN]  
+Efektifitas 
+Peningkatan/optimali 
+sasi hasil 
+ketercapaian  standar 
+dan indikator terkait 
+tridarma perguruan 
+tinggi mencakup  
+VMTS,  rencana 
+pengembangan 
+strategis  UPPS 
+dan/atau  PS yang 
+dapat menggambarkan  
+ciri khas  keilmuan  
+PS, serta 
+pengakuan/apresiasi 
+oleh masyarakat  dan 
+DUDIKA.  6.5. [PENINGKATAN]  
+Efektifitas 
+peningkatan/optimalisasi 
+hasil ketercapaian 
+standar dan indikator 
+terkait:  
+1. Tridarma perguruan 
+tinggi mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS dan/atau 
+PS yang dapat 
+menggambarkan ciri 
+khas keilmuan PS, serta 
+pengakuan/apresiasi 
+oleh masyarakat dan.  
+3. DUDIKA di tingkat lokal, 
+nasional, dan 
+internasional.  Peningkatan/optimali 
+sasi hasil ketercapaian  
+standar dan indikator 
+terkait  
+1. Tridarma 
+perguruan tinggi 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresia
+si oleh masyarakat 
+dan. 
+3. DUDIKA di tingkat 
+lokal, nasional, 
+dan internasional , 
+disertai bukti -bukti 
+yang sahih dan 
+sangat lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Tridarma 
+perguruan tinggi 
+mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS 
+yang dapat 
+menggambarkan 
+ciri khas 
+keilmuan PS, 
+serta 
+pengakuan/apre
+siasi oleh 
+masyarakat dan.  
+3. DUDIKA di 
+tingkat lokal, 
+nasional, dan 
+internasional , 
+disertai bukti -
+bukti yang sahih 
+dan lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Tridarma 
+perguruan tinggi 
+mencakup 
+VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS 
+yang dapat 
+menggambarkan 
+ciri khas 
+keilmuan PS, 
+serta 
+pengakuan/apre
+siasi oleh 
+masyarakat dan.  
+3. DUDIKA di 
+tingkat lokal, 
+nasional, dan 
+internasional , 
+disertai bukti -
+bukti yang sahih 
+dan cukup  
+lengkap.  Peningkatan/optim 
+alisasi hasil 
+ketercapaian standar 
+dan indikator terkait  
+1. Tridarma 
+perguruan tinggi 
+mencakup VMTS.  
+2. Rencana 
+pengembangan 
+strategis UPPS 
+dan/atau PS yang 
+dapat 
+menggambarkan 
+ciri khas keilmuan 
+PS, serta 
+pengakuan/apresi
+asi oleh 
+masyarakat dan.  
+3. DUDIKA di tingkat 
+lokal, nasional, 
+dan internasional , 
+disertai bukti -bukti 
+yang sahih tetapi  
+kurang  lengkap.  
+69 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   II. BOBOT  PENILAIAN  AKREDITASI  PROGRAM  STUDI  PROGRAM  SARJANA  
+ 
+  Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+I P O I P O Bobot  
+2 0 0 8,0 0,0 0,0 2 8 
+A Kondisi  Eksternal  1   4,0     
+B Profil  UPPS  1   4,0     
+          
+ Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+I P O I P O Bobot  
+  Kriteria  2 4 4 6,0 14,0 21,0 10% 40 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+BUDAYA  MUTU   PENETAPAN          
+1 A 1   3,0     
+2 B 1   3,0     
+ PELAKSANAAN          
+3 A  1   5,0    
+4 B  1   5,0    
+ EVALUASI          
+5 A   1   6,0   
+6 B   1   5,0   
+ PENGENDALIAN          
+7 A  1   2,0    
+ 
+70 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 8 B  1   2,0    
+ PENINGKATAN          
+9 A   1   5,0   
+10 B   
+1   
+5,0   
+ Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+   I P O I P O Bobot  
+  Kriteria  4 7 9 17,0 37,0 66,0 30% 120 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+RELEVANSI 
+PENDIDIKAN   PENETAPAN          
+11 A 1   5,0     
+12 B 1   4,0     
+13 C 1   4,0     
+14 D 1   4,0     
+ PELAKSANAAN          
+15 A  1   9,0    
+16 B  1   7,0    
+17 C  1   7,0    
+18 D   1   30,0   
+ EVALUASI          
+19 A   1   5,0   
+20 B   1   5,0   
+71 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 21 C   1   4,0   
+22 D   1   4,0   
+ PENGENDALIAN          
+23 A  1   4,0    
+24 B  1   4,0    
+25 C  1   3,0    
+26 D  1   3,0    
+ PENINGKATAN          
+27 A   1   5,0   
+28 B   1   5,0   
+29 C   1   4,0   
+30 D   1   4,0   
+   Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+   I P O I P O Bobot  
+  Kriteria  3 5 7 12,0 23,0 37,0 18% 72 
+ 
+ 
+ 
+ 
+RELEVANSI 
+PENELITIAN   PENETAPAN          
+31 A 1   4,0     
+32 B 1   4,0     
+33 C 1   3,0     
+ PELAKSANAAN          
+34 A  1   8,0    
+72 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 35 B  1   6,0    
+36 C   1   18,0   
+ EVALUASI          
+37 A   1   3,0   
+38 B   1   3,0   
+39 C   1   3,0   
+ PENGENDALIAN          
+40 A  1   3,0    
+41 B  1   3,0    
+42 C  1   3,0    
+ PENINGKATAN          
+43 A   1   4,0   
+44 B   1   3,0   
+45 C   1   3,0   
+ Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+I P O I P O Bobot  
+  Kriteria  3 5 7 8,0 20,0 33,0 15% 60 
+ 
+ 
+ 
+RELEVANSI  PKM   PENETAPAN          
+46 A 1   3,0     
+47 B 1   3,0     
+48 C 1   2,0     
+73 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+  PELAKSANAAN          
+49 A  1   7,0    
+50 B  1   6,0    
+51 C   1   15,0   
+ EVALUASI          
+52 A   1   3,0   
+53 B   1   3,0   
+54 C   1   3,0   
+ PENGENDALIAN          
+55 A  1   3,0    
+56 B  1   2,0    
+57 C  1   2,0    
+ PENINGKATAN          
+58 A   1   3,0   
+59 B   1   3,0   
+60 C   1   3,0   
+ Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+I P O I P O Bobot  
+  Kriteria  2 4 4 5,0 14,0 21,0 10% 40 
+AKUNTABILITAS   PENETAPAN          
+61 A 1   3,0     
+74 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 62 B 1   2,0     
+ PELAKSANAAN          
+63 A  1   5,0    
+64 B  1   4,0    
+ EVALUASI          
+65 A   1   6,0   
+66 B   1   5,0   
+ PENGENDALIAN          
+67 A  1   3,0    
+68 B  1   2,0    
+ PENINGKATAN          
+69 A   1   5,0   
+70 B   1   5,0   
+   Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+   I P O I P O Bobot  
+  Kriteria  1 2 2 5,0 12,0 23,0 10% 40 
+ 
+ 
+ 
+ 
+ 
+ 
+DIFFERENSIASI 
+MISI  PENETAPAN          
+71 A 1   5,0     
+ PELAKSANAAN          
+72 A  1   8,0    
+ EVALUASI          
+73 A   1   13,0   
+ PENGENDALIAN          
+74 A  1   4,0    
+ PENINGKATAN          
+75 A   1   10,0   
+ 
+75 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025    
+ 
+ 
+ 
+ 
+SUPLEMEN  Jumlah  Butir  Bobot  Tiap Butir  Subtotal  
+I P O I P O Bobot  
+0 0 5 0,0 0,0 20,0 5 20 
+ 
+ 
+ 
+ 
+SUPLEMEN   Mata  kuliah  inti/khas  prodi    1   4,0   
+ Mata  kuliah  domain  spesifik  dan 
+lingkungan prodi infokom    1   3,0   
+ Mata kuliah terkait 
+Matematika/metode  atau Analisis 
+Kuantitatif yang relevan    
+1   
+3,0   
+ Proyek  Utama  (Capstone  project) 
+yang relevan    1   5,0   
+ Pengembangan  bidang  Infokom 
+yang digunakan di masyarakat    1   5,0   
+           
+  Jumlah  Butir 17 27 38     82 
+  Jumlah  Bobot  17 27 38 60,0 120,0  220,0  400,0   
+      15,0%  30,0%  55,0%  100,0%   
+ 
+  
+76 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   III. BOBOT  BAGIAN  PER KRITERIA  
+ 
+ Kriteria  Jumlah 
+Butir  Bobot  dari 400 Persentase  
+A Kondisi  Eksternal  1 4 1,0%  
+B Profil  Unit Pengelola  Program  Studi  1 4 1,0%  
+C     
+ BUDAYA  MUTU  10 40 10,0%  
+ RELEVANSI  PENDIDIKAN  20 120 30,0%  
+ RELEVANSI  PENELITIAN  15 72 18,0%  
+ RELEVANSI  PkM 15 60 15,0%  
+ AKUNTABILITAS  10 40 10,0%  
+ DIFERENSIASI  MISI 5 40 10,0%  
+D Suplemen  Program  Studi  3 20 5,0%  
+ Total  80 400 100,0%  
+ 
+IV. PERSENTASE  INPUT,  PROSES,  OUTPUT/OUTCOME  
+ 
+Jenis  Jumlah 
+Butir  Jumlah 
+Bobot  Persentase 
+Bobot  
+Input  17 60 15,0%  
+Proses  27 120 30,0%  
+Output/Outcome  38 220 55,0%  
+Total  80 400 100,0%  
+77 
+Matriks  Penilaian  Kinerja  Program  Studi  dan Suplemen  LAM  INFOKOM  2.1 - 2025   V. PENILAIAN  STATUS  AKREDITASI  
+ 
+Nilai Akhir  Budaya Mutu  Relevansi 
+Pendidikan  Relevansi Penelitian  Status Akreditasi  
+ 
+Kurang dari 200  - - - Tidak Terakreditasi   
+200 <= Nilai Akhir < 321  - - - Terakreditasi   
+Nilai Akhir >= 321  Jika ada satu butir penilaian dari Kriteria Budaya Mutu, Relevansi 
+Pendidikan, dan Relevansi Penelitian yang nilainya kurang dari 3,00 atau 
+rerata nilai pada salah satu dari Kriteria Budaya Mutu, Relevansi 
+Pendidikan, atau Relevansi Penelitian kurang dari 3,20 Terakreditasi   
+321 <=  Nilai Akhir < 361  Jika rerata nilai pada Kriteria Budaya Mutu, Relevansi Pendidikan, dan 
+Relevansi Penelitian masing -masing minimal 3,20, dengan ketentuan 
+setiap butir penilaian mempunyai nilai minimal 3,00.  Unggul (berlaku tiga tahun)   
+Nilai Akhir >= 361  Jika rerata nilai pada Kriteria Budaya Mutu, Relevansi Pendidikan, dan 
+Relevansi Penelitian masing -masing minimal 3,20, dengan ketentuan 
+setiap butir penilaian mempunyai nilai minimal 3,00.  Unggul (berlaku lima tahun)   
+ 
