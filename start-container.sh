@@ -2,12 +2,9 @@
 # Ensure no leftover apache PID
 rm -f /var/run/apache2/apache2.pid
         
-# Wait for database to be ready
-RETRIES=15
-until php artisan db:monitor > /dev/null 2>&1 || [ $RETRIES -eq 0 ]; do
-  echo "Waiting for database server, $((RETRIES--)) remaining attempts..."
-  sleep 2
-done
+# Wait 15 seconds to ensure DB is fully online before attempting migration
+echo "Sleeping 15s to wait for DB..."
+sleep 15
 
 # Run Laravel commands
 php artisan migrate --force || true

@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: amirauss-app:v6
+    image: amirauss-app:v7
     container_name: amirauss-app
     restart: unless-stopped
     ports:
