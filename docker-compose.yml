@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: amirauss-app:v13
+    image: amirauss-app:v14
     container_name: amirauss-app
     restart: unless-stopped
     ports:
@@ -32,7 +32,7 @@ services:
       - amira-network
 
   db:
-    image: mysql:8.0
+    image: mariadb:10.11
     container_name: amirauss-db
     restart: unless-stopped
     environment:
