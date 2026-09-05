@@ -27,6 +27,7 @@ fi
 # Run Laravel commands
 php artisan migrate --force || true
 php artisan optimize:clear || true
+php artisan tinker --execute="if(\Illuminate\Support\Facades\Schema::hasTable('users') && \Illuminate\Support\Facades\DB::table('users')->count() === 0) { echo 'Seeding Database...'; \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]); }" || true
 
 # Fix permissions again just to be safe
 chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache || true
