@@ -9,7 +9,7 @@ services:
     container_name: amirauss-app
     restart: unless-stopped
     ports:
-      - "8000:80"
+      - "8085:80"
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
