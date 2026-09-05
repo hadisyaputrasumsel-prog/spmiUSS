@@ -103,15 +103,20 @@
                             @endif
                         </td>
                         <td style="text-align: right;">
-                            @if($user->id !== auth()->id())
-                            <form action="{{ route('akun.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus akun pengguna ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-outline" style="padding: 0.25rem 0.5rem; border: none; color: var(--status-danger);" title="Hapus Akun">
-                                    <i data-feather="trash-2" style="width: 16px; height: 16px;"></i>
+                            <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+                                <button type="button" class="btn btn-outline" style="padding: 0.25rem 0.5rem; border: none; color: var(--text-primary);" title="Edit Akun" onclick="editUser({{ $user->id }}, '{{ addslashes($user->name) }}', '{{ addslashes($user->email) }}', '{{ $user->role_id }}', '{{ $user->unit_id }}')">
+                                    <i data-feather="edit-2" style="width: 16px; height: 16px;"></i>
                                 </button>
-                            </form>
-                            @endif
+                                @if($user->id !== auth()->id())
+                                <form action="{{ route('akun.destroy', $user->id) }}" method="POST" onsubmit="return confirm('Hapus akun pengguna ini?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline" style="padding: 0.25rem 0.5rem; border: none; color: var(--status-danger);" title="Hapus Akun">
+                                        <i data-feather="trash-2" style="width: 16px; height: 16px;"></i>
+                                    </button>
+                                </form>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                     @empty
@@ -127,4 +132,81 @@
         </div>
     </div>
 </div>
+
+<!-- Modal Edit Akun -->
+<div id="modalEdit" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="card" style="width: 100%; max-width: 500px; margin: 1rem; animation: slideIn 0.3s ease-out;">
+        <div class="card-header" style="background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1.125rem; margin: 0;">Edit Akun Pengguna</h3>
+            <button type="button" onclick="closeEditModal()" style="background: none; border: none; cursor: pointer; color: var(--text-muted);">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        <form id="formEdit" method="POST" style="padding: 1.5rem;">
+            @csrf
+            @method('PUT')
+            
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Nama Lengkap <span style="color: var(--status-danger);">*</span></label>
+                <input type="text" name="name" id="edit_name" required class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+            </div>
+            
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Alamat Email <span style="color: var(--status-danger);">*</span></label>
+                <input type="email" name="email" id="edit_email" required class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+            </div>
+            
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Kata Sandi Baru</label>
+                <input type="password" name="password" id="edit_password" placeholder="Kosongkan jika tidak ingin mengubah sandi" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+            </div>
+            
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Peran (Role) <span style="color: var(--status-danger);">*</span></label>
+                <select name="role_id" id="edit_role_id" required class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                    <option value="">-- Pilih Peran --</option>
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}">{{ $role->nama }} ({{ $role->kode }})</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Unit / Prodi (Opsional)</label>
+                <select name="unit_id" id="edit_unit_id" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                    <option value="">-- Tidak Terikat Unit --</option>
+                    @foreach($units as $unit)
+                        <option value="{{ $unit->id }}">{{ $unit->nama }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+                <button type="button" onclick="closeEditModal()" class="btn btn-outline">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function editUser(id, name, email, roleId, unitId) {
+        document.getElementById('edit_name').value = name;
+        document.getElementById('edit_email').value = email;
+        document.getElementById('edit_password').value = '';
+        document.getElementById('edit_role_id').value = roleId;
+        document.getElementById('edit_unit_id').value = unitId || '';
+        
+        document.getElementById('formEdit').action = `/akun/${id}`;
+        
+        let modal = document.getElementById('modalEdit');
+        modal.style.display = 'flex';
+    }
+
+    function closeEditModal() {
+        document.getElementById('modalEdit').style.display = 'none';
+        document.getElementById('formEdit').reset();
+    }
+</script>
+
 @endsection

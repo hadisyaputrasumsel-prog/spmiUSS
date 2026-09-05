@@ -40,6 +40,32 @@ class UserController extends Controller
         return redirect()->route('akun.index')->with('success', 'Akun pengguna baru berhasil ditambahkan.');
     }
 
+    public function update(Request $request, User $akun)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $akun->id,
+            'password' => 'nullable|string|min:6',
+            'role_id' => 'required|exists:roles,id',
+            'unit_id' => 'nullable|exists:units,id',
+        ]);
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role_id' => $request->role_id,
+            'unit_id' => $request->unit_id,
+        ];
+
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $akun->update($data);
+
+        return redirect()->route('akun.index')->with('success', 'Akun pengguna berhasil diperbarui.');
+    }
+
     public function destroy(User $akun)
     {
         if ($akun->id === auth()->id()) {

@@ -198,6 +198,6 @@ Route::middleware('auth')->group(function () {
 
     // Super Admin only routes
     Route::middleware('role:super_admin')->group(function () {
-        Route::resource('akun', UserController::class)->only(['index', 'store', 'destroy']);
+        Route::resource('akun', UserController::class)->only(['index', 'store', 'update', 'destroy']);
     });
 });
