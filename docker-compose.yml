@@ -26,8 +26,7 @@ services:
       - QUEUE_CONNECTION=database
       - CACHE_STORE=database
     depends_on:
-      db:
-        condition: service_healthy
+      - db
     command: ["/bin/bash", "/var/www/html/start-container.sh"]
     networks:
       - amira-network
@@ -45,10 +44,6 @@ services:
       - dbdata:/var/lib/mysql
     networks:
       - amira-network
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
-      timeout: 10s
-      retries: 5
 
 volumes:
   dbdata:
