@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: amirauss-app
+    container_name: amirauss-app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      - APP_ENV=production
+      - APP_DEBUG=false
+      - APP_URL=http://localhost:8000
+      - APP_KEY=base64:yIBwSONLRAIKAu2GFpD5zXZe+hwsJF5ROtjugD65c+4=
+      - DB_CONNECTION=mysql
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_DATABASE=amira_uss
+      - DB_USERNAME=root
+      - DB_PASSWORD=password
+      - SESSION_DRIVER=database
+      - SESSION_LIFETIME=120
+      - QUEUE_CONNECTION=database
+      - CACHE_STORE=database
+    depends_on:
+      - db
+    networks:
+      - amira-network
+
+  db:
+    image: mysql:8.0
+    container_name: amirauss-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: amira_uss
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "33061:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - amira-network
+
+volumes:
+  dbdata:
+
+networks:
+  amira-network:
+    driver: bridge
