@@ -5,14 +5,15 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: amirauss-app
+    image: amirauss-app:v2
+    container_name: amirauss-app
     restart: unless-stopped
     ports:
-      - "8182:80"
+      - "8083:80"
     environment:
       - APP_ENV=production
       - APP_DEBUG=false
-      - APP_URL=http://localhost:8000
+      - APP_URL=http://localhost:8083
       - APP_KEY=base64:yIBwSONLRAIKAu2GFpD5zXZe+hwsJF5ROtjugD65c+4=
       - DB_CONNECTION=mysql
       - DB_HOST=db
@@ -25,21 +26,15 @@ services:
       - QUEUE_CONNECTION=database
       - CACHE_STORE=database
     depends_on:
-      - db
-    command: >
-      bash -c "
-      php artisan package:discover --ansi &&
-      php artisan config:cache &&
-      php artisan route:cache &&
-      php artisan view:cache &&
-      php artisan migrate --force &&
-      apache2-foreground
-      "
+      db:
+        condition: service_healthy
+    command: ["/bin/bash", "/var/www/html/start-container.sh"]
     networks:
       - amira-network
 
   db:
     image: mysql:8.0
+    container_name: amirauss-db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: amira_uss
@@ -50,6 +45,10 @@ services:
       - dbdata:/var/lib/mysql
     networks:
       - amira-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
+      timeout: 10s
+      retries: 5
 
 volumes:
   dbdata:

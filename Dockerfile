@@ -42,10 +42,13 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Install Composer Dependencies (optimized for production)
 ENV COMPOSER_MEMORY_LIMIT=-1
+RUN apt-get update && apt-get install -y dos2unix
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
+RUN dos2unix start-container.sh && chmod +x start-container.sh
 
 # Build Frontend Assets
 RUN npm install
 RUN npm run build
+EXPOSE 80
 
 
