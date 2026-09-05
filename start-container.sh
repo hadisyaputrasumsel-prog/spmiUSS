@@ -7,7 +7,7 @@ echo "Waiting for DB to be fully online..."
 max_tries=30
 count=0
 while [ $count -lt $max_tries ]; do
-    if php -r "try { new PDO('mysql:host=amirauss-db;dbname=amira_uss', 'root', 'password'); exit(0); } catch(Exception \$e) { exit(1); }"; then
+    if php -r "try { new PDO('mysql:host=db;dbname=amira_uss', 'root', 'password'); exit(0); } catch(Exception \$e) { exit(1); }"; then
         echo "Database is ready!"
         break
     fi

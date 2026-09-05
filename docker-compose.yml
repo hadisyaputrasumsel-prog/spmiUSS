@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: amirauss-app:v12
+    image: amirauss-app:v13
     container_name: amirauss-app
     restart: unless-stopped
     ports:
@@ -16,7 +16,7 @@ services:
       - APP_URL=http://localhost:8083
       - APP_KEY=base64:yIBwSONLRAIKAu2GFpD5zXZe+hwsJF5ROtjugD65c+4=
       - DB_CONNECTION=mysql
-      - DB_HOST=amirauss-db
+      - DB_HOST=db
       - DB_PORT=3306
       - DB_DATABASE=amira_uss
       - DB_USERNAME=root
