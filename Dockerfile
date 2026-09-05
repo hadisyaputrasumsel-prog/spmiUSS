@@ -41,6 +41,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/bootstrap/cache
 
 # Install Composer Dependencies (optimized for production)
+ENV COMPOSER_MEMORY_LIMIT=-1
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 
 # Build Frontend Assets
