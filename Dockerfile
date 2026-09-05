@@ -44,12 +44,8 @@ RUN chown -R www-data:www-data /var/www/html \
 ENV COMPOSER_MEMORY_LIMIT=-1
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
 
-# Manually run discovery to prevent hidden composer exit code 2
-RUN php artisan package:discover --ansi
-
 # Build Frontend Assets
 RUN npm install
 RUN npm run build
 
-# Clear Laravel Caches (optional but good practice)
-RUN php artisan config:clear && php artisan route:clear && php artisan view:clear
+
