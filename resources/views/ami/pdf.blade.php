@@ -165,7 +165,7 @@
                 <td class="text-center">{{ $index + 1 }}</td>
                 <td class="text-center">{{ date('d M Y', strtotime($finding->tanggal)) }}</td>
                 @if(!$unit)<td>{{ $finding->unit->nama ?? '-' }}</td>@endif
-                <td><strong>{{ $finding->standar_kode }}</strong><br><small>T: {{ $finding->tahap }}</small></td>
+                <td><strong>{{ $finding->standar_kode }}</strong><br><small style="color:#555; display:block; margin:2px 0;">{{ \Illuminate\Support\Str::limit($finding->standard->nama ?? '-', 45) }}</small><small>T: {{ $finding->tahap }}</small></td>
                 <td>{{ $finding->uraian }}</td>
                 <td class="text-center">
                     @if(strpos(strtolower($finding->kategori_temuan), 'sesuai') !== false || $finding->kategori_temuan == 'K')

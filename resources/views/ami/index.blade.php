@@ -112,6 +112,7 @@
                 <tr>
                     <th>TANGGAL</th>
                     <th>UNIT / PRODI</th>
+                    <th>NAMA STANDAR</th>
                     <th>KODE STANDAR</th>
                     <th>TAHAP</th>
                     <th>SKOR</th>
@@ -124,6 +125,7 @@
                 <tr>
                     <td style="font-size: 0.875rem;">{{ $finding->tanggal }}</td>
                     <td style="font-weight: 500;">{{ $finding->unit->nama }}</td>
+                    <td style="font-size: 0.875rem;">{{ $finding->standard->nama ?? '-' }}</td>
                     <td style="font-family: monospace; font-size: 0.875rem;">{{ $finding->standar_kode }}</td>
                     <td>
                         @if($finding->tahap == 'P1')
@@ -180,7 +182,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+                    <td colspan="8" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
                         <i data-feather="clipboard" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 1rem;"></i>
                         <p>Belum ada temuan audit yang tercatat di sistem.</p>
                     </td>
