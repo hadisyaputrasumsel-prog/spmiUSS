@@ -50,41 +50,59 @@
             </form>
         </div>
     </div>
-    <div style="padding: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+    <form action="{{ route('ami.index') }}" method="GET" style="padding: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end;">
+        <div style="flex: 1; min-width: 150px;">
+            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Tahun</label>
+            <select name="tahun" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
+                @php $selectedTahun = request('tahun', date('Y')); @endphp
+                @foreach([2027, 2026, 2025, 2024, 2023] as $y)
+                    <option value="{{ $y }}" {{ $selectedTahun == $y ? 'selected' : '' }}>{{ $y }}</option>
+                @endforeach
+            </select>
+        </div>
         <div style="flex: 2; min-width: 250px;">
             <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Unit Ter-Audit (Auditee)</label>
-            <select class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
+            <select name="unit_id" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
                 @if(auth()->user()->role->kode != 'auditor')
                 <option value="all">Semua Unit</option>
                 @endif
                 @php
                     if (auth()->user()->role->kode == 'auditor') {
                         $assignedUnitIds = \App\Models\AuditorAssignment::where('auditor_id', auth()->id())
-                                ->where('tahun', date('Y'))->pluck('unit_id');
+                                ->where('tahun', request('tahun', date('Y')))->pluck('unit_id');
                         $unitsList = \App\Models\Unit::whereIn('id', $assignedUnitIds)->get();
                     } else {
                         $unitsList = \App\Models\Unit::all();
                     }
+                    $selectedUnit = request('unit_id', 'all');
                 @endphp
                 @foreach($unitsList as $u)
-                    <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                    <option value="{{ $u->id }}" {{ $selectedUnit == $u->id ? 'selected' : '' }}>{{ $u->nama }}</option>
                 @endforeach
             </select>
         </div>
         <div style="flex: 1; min-width: 200px;">
             <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Kategori Temuan</label>
-            <select class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
+            <select name="kategori" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
+                @php $selectedKat = request('kategori', 'all'); @endphp
                 <option value="all">Semua Kategori</option>
-                <option value="Sesuai">Sesuai</option>
-                <option value="Observasi (OB)">Observasi (OB)</option>
-                <option value="KTS Minor">KTS Minor</option>
-                <option value="KTS Mayor">KTS Mayor</option>
+                <option value="Sesuai" {{ $selectedKat == 'Sesuai' ? 'selected' : '' }}>Sesuai</option>
+                <option value="K" {{ $selectedKat == 'K' ? 'selected' : '' }}>Kesesuaian (K)</option>
+                <option value="Observasi (OB)" {{ $selectedKat == 'Observasi (OB)' ? 'selected' : '' }}>Observasi (OB)</option>
+                <option value="KTS Minor" {{ $selectedKat == 'KTS Minor' ? 'selected' : '' }}>KTS Minor</option>
+                <option value="KTS Mayor" {{ $selectedKat == 'KTS Mayor' ? 'selected' : '' }}>KTS Mayor</option>
             </select>
         </div>
-        <div>
-            <button class="btn btn-outline" style="height: 42px;">Terapkan Filter</button>
+        <div style="display: flex; gap: 0.5rem;">
+            <button type="submit" class="btn btn-outline" style="height: 42px;">Terapkan Filter</button>
+            <button type="submit" formaction="{{ route('ami.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #2E75B6; border-color: #2E75B6; box-shadow: 0 4px 6px -1px rgba(46, 117, 182, 0.2);">
+                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Laporan AMI
+            </button>
+            <button type="submit" formaction="{{ route('ami.rtl.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #10b981; border-color: #10b981; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);">
+                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Laporan RTL
+            </button>
         </div>
-    </div>
+    </form>
 </div>
 
 <div class="card">

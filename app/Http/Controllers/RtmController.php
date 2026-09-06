@@ -10,6 +10,8 @@ class RtmController extends Controller
 {
     public function generatePdf(Request $request)
     {
+        ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
+        set_time_limit(300); // Increase execution time limit for long DOMPDF processing
         $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
         

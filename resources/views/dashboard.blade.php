@@ -4,6 +4,29 @@
 @section('page_title', 'Siklus SPMI Control Center')
 
 @section('content')
+<!-- Warning Alerts -->
+@if($batasWaktuLED)
+    @if(in_array(auth()->user()->role->kode, ['auditor', 'lpma', 'super_admin']))
+    <div style="background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+        <i data-feather="alert-triangle" style="width: 24px; height: 24px;"></i>
+        <div>
+            <strong style="display: block; margin-bottom: 0.25rem;">Informasi Penilaian Auditor:</strong> 
+            Batas waktu pelaksanaan audit (AMI) untuk siklus ini dijadwalkan hingga <strong>{{ \Carbon\Carbon::parse($batasWaktuLED)->translatedFormat('d F Y') }}</strong>. 
+            <div style="font-size: 0.8rem; margin-top: 0.25rem;"><em>Catatan: Apabila belum difinalkan (diisi penuh) pengisian LED oleh auditee, maka penilaian/audit pada instrumen terkait belum bisa dilakukan secara valid.</em></div>
+        </div>
+    </div>
+    @else
+    <div style="background-color: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; border-radius: var(--radius-md); padding: 1rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+        <i data-feather="info" style="width: 24px; height: 24px;"></i>
+        <div>
+            <strong style="display: block; margin-bottom: 0.25rem;">Informasi Pengisian LED:</strong> 
+            Batas akhir pengisian dokumen Laporan Evaluasi Diri (P1-P5) untuk ditinjau oleh Auditor adalah tanggal <strong>{{ \Carbon\Carbon::parse($batasWaktuLED)->translatedFormat('d F Y') }}</strong>. 
+            <div style="font-size: 0.8rem; margin-top: 0.25rem;">Pastikan seluruh tahapan dan unggahan bukti telah dilengkapi dan difinalkan sebelum batas waktu.</div>
+        </div>
+    </div>
+    @endif
+@endif
+
 <!-- Top Summary Cards -->
 <div class="stat-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
     <div class="stat-card" style="padding: 1rem;">
@@ -70,12 +93,23 @@
 
     <!-- Right Panel: SPMI Cycle Timeline -->
     <div class="card">
-        <div class="card-header" style="flex-direction: column; align-items: flex-start; gap: 0.5rem;">
-            <h2 class="card-title" style="font-size: 1rem;">Siklus SPMI Universitas Sumatera Selatan &mdash; Tahun {{ $tahun }}</h2>
-            <div style="font-size: 0.875rem; color: var(--text-secondary);">
-                Sedang berjalan:<br>
-                <span style="font-weight: 600; color: var(--brand-primary);">Tahap {{ substr($activeTahap, 1) }}: {{ $tahapLabels[$activeTahap] }}</span>
+        <div class="card-header" style="flex-direction: row; justify-content: space-between; align-items: flex-start; gap: 0.5rem;">
+            <div>
+                <h2 class="card-title" style="font-size: 1rem;">Siklus SPMI Universitas Sumatera Selatan &mdash; Tahun {{ $tahun }}</h2>
+                <div style="font-size: 0.875rem; color: var(--text-secondary);">
+                    Sedang berjalan:<br>
+                    <span style="font-weight: 600; color: var(--brand-primary);">Tahap {{ substr($activeTahap, 1) }}: {{ $tahapLabels[$activeTahap] }}</span>
+                </div>
             </div>
+            @if(in_array(auth()->user()->role->kode, ['lpma', 'super_admin']))
+            <form method="GET" action="{{ route('dashboard') }}" style="display: flex; gap: 0.5rem; align-items: center; margin-top: -0.25rem;">
+                <select name="tahun" class="form-select" onchange="this.form.submit()" style="padding: 0.35rem; font-size: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    @foreach([2027, 2026, 2025, 2024, 2023] as $y)
+                        <option value="{{ $y }}" {{ request('tahun', $tahun) == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                    @endforeach
+                </select>
+            </form>
+            @endif
         </div>
         <div class="card-body" style="padding: 1.5rem;">
             
@@ -178,61 +212,5 @@
     </div>
 </div>
 
-@if(in_array(auth()->user()->role->kode, ['auditor', 'lpma', 'super_admin']) && count($matriksPenilaian) > 0)
-<div class="card" style="margin-top: 1.5rem;">
-    <div class="card-header">
-        <h2 class="card-title">Matriks Penilaian Standar Mutu (Pedoman Auditor)</h2>
-    </div>
-    <div class="card-body" style="padding: 1.5rem;">
-        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">
-            Berikut adalah rincian rubrik penilaian yang dapat digunakan sebagai acuan dasar (P1-P5) dalam memberikan skor (1-4) saat mengevaluasi Laporan Evaluasi Diri (LED).
-        </p>
-        
-        <div style="border: 1px solid var(--border-color); border-radius: var(--radius-md); overflow: hidden;">
-            @foreach($matriksPenilaian as $kelompok => $standards)
-                <div style="background-color: var(--bg-tertiary); padding: 0.75rem 1rem; border-bottom: 1px solid var(--border-color); font-weight: 700; color: var(--text-primary); font-size: 0.875rem;">
-                    {{ $kelompok ?: 'Non-Akademik' }}
-                </div>
-                <div class="table-responsive">
-                    <table class="table" style="font-size: 0.75rem; margin-bottom: 0;">
-                        <thead>
-                            <tr style="background-color: var(--bg-secondary);">
-                                <th style="width: 15%;">Standar</th>
-                                <th style="width: 20%;">Indikator Utama</th>
-                                <th style="width: 65%;">Rubrik Penilaian (Skor)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($standards as $std)
-                            <tr>
-                                <td style="font-weight: 600; vertical-align: top;">{{ $std->kode }}<br><span style="color: var(--brand-primary);">{{ $std->nama }}</span></td>
-                                <td style="vertical-align: top; color: var(--text-secondary);">{!! nl2br(e(Str::limit($std->indikator, 150))) !!}</td>
-                                <td style="vertical-align: top;">
-                                    @if($std->rubrik_penilaian)
-                                        @php $rubrik = is_string($std->rubrik_penilaian) ? json_decode($std->rubrik_penilaian, true) : $std->rubrik_penilaian; @endphp
-                                        @if(is_array($rubrik))
-                                            <ul style="margin: 0; padding-left: 1rem; list-style-type: none;">
-                                                <li style="margin-bottom: 0.5rem;"><strong>Skor 4 (Sangat Baik):</strong> {{ $rubrik['skor_4'] ?? '-' }}</li>
-                                                <li style="margin-bottom: 0.5rem;"><strong>Skor 3 (Baik):</strong> {{ $rubrik['skor_3'] ?? '-' }}</li>
-                                                <li style="margin-bottom: 0.5rem;"><strong>Skor 2 (Cukup):</strong> {{ $rubrik['skor_2'] ?? '-' }}</li>
-                                                <li><strong>Skor 1 (Kurang):</strong> {{ $rubrik['skor_1'] ?? '-' }}</li>
-                                            </ul>
-                                        @else
-                                            <span style="color: var(--text-muted);">-</span>
-                                        @endif
-                                    @else
-                                        <span style="color: var(--text-muted);">Belum ada rubrik</span>
-                                    @endif
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</div>
-@endif
 
 @endsection

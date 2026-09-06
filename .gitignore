@@ -27,3 +27,19 @@ _ide_helper_models.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# --- IGNORED DOCUMENTS & SCRIPTS ---
+*.md
+!README.md
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.csv
+*.txt
+*.out
+*.py
+/*.php
+!/server.php
+*.ps1
+/docs/

@@ -28,13 +28,22 @@ Route::middleware('auth')->group(function () {
 
         // Ambil konfigurasi siklus SPMI tahun aktif
         $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
-        $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
+        if (in_array(auth()->user()->role->kode, ['lpma', 'super_admin'])) {
+            $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
+        } else {
+            $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
+        }
         
         $totalStandar = DB::table('standards')->where('kelompok', '!=', 'Non-Akademik')->orWhereNull('kelompok')->count();
         $totalKategoriNA = DB::table('standards')->where('kelompok', 'Non-Akademik')->count();
 
-        // Ambil konfigurasi siklus SPMI tahun ini
-        $bulanMutuConfig = $activeConfig ?? \App\Models\BulanMutuConfig::where('tahun', $tahun)->first();
+        // Get P3 timeline for deadlines
+        $statusP3 = \App\Models\BulanMutuStatus::where('tahun', $tahun)
+            ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
+            ->where('bulan_mutu_activities.tahap', 'P3')
+            ->select('bulan_mutu_statuses.tanggal_pelaksanaan')
+            ->first();
+        $batasWaktuLED = $statusP3 ? $statusP3->tanggal_pelaksanaan : null;
         
         // Ambil status kegiatan
         $statuses = \App\Models\BulanMutuStatus::where('tahun', $tahun)
@@ -109,7 +118,7 @@ Route::middleware('auth')->group(function () {
 
         // Ambil unit yang memerlukan perhatian (contoh: ada temuan RTL belum selesai)
         $unitsAttention = \App\Models\Unit::withCount(['amiFindings' => function($q) use ($tahun) {
-            $q->where('status_tindak_lanjut', '!=', 'Selesai'); // assume incomplete
+            $q->whereYear('tanggal', $tahun)->where('status_tindak_lanjut', '!=', 'Selesai');
         }])->having('ami_findings_count', '>', 0)
           ->take(5)->get();
 
@@ -119,7 +128,7 @@ Route::middleware('auth')->group(function () {
             $matriksPenilaian = \App\Models\Standard::orderBy('kelompok')->get()->groupBy('kelompok');
         }
 
-        return view('dashboard', compact('totalStandar', 'totalKategoriNA', 'tahun', 'tahapProgress', 'activeTahap', 'tahapLabels', 'unitsAttention', 'matriksPenilaian'));
+        return view('dashboard', compact('totalStandar', 'totalKategoriNA', 'tahun', 'tahapProgress', 'activeTahap', 'tahapLabels', 'unitsAttention', 'matriksPenilaian', 'batasWaktuLED'));
     })->name('dashboard');
 
     // Drill down unit PPEPP
@@ -161,17 +170,21 @@ Route::middleware('auth')->group(function () {
     // Auditees, GPM/UPM, Auditor, LPMA, and Super Admin can access LED
     Route::middleware('role:auditee_upps,auditee_prodi,auditee_unit,gpm_upm,super_admin,auditor,lpma')->group(function () {
         Route::get('/led', [LedController::class, 'index'])->name('led.index');
+        Route::post('/led/submit', [LedController::class, 'submit'])->name('led.submit');
         Route::get('/led/{kode}/edit', [LedController::class, 'edit'])->name('led.edit');
         Route::get('/led/{kode}/pdf', [LedController::class, 'exportPdf'])->name('led.pdf');
+        Route::get('/led-full/{unit_id}/pdf', [LedController::class, 'exportFullPdf'])->name('led.pdf_full');
         Route::put('/led/{kode}', [LedController::class, 'update'])->name('led.update');
         
         // RTL Route for Auditee
         Route::put('/ami/{id}/rtl', [AmiController::class, 'updateRtl'])->name('ami.update-rtl');
+        Route::get('/ami/rtl/pdf', [AmiController::class, 'exportRtlPdf'])->name('ami.rtl.pdf');
     });
 
     // Auditor, LPMA, Pimpinan and Super Admin can access AMI
     Route::middleware('role:auditor,lpma,pimpinan,super_admin')->group(function () {
         Route::get('/ami', [AmiController::class, 'index'])->name('ami.index');
+        Route::get('/ami/pdf', [AmiController::class, 'exportPdf'])->name('ami.pdf');
         Route::post('/ami/import', [AmiController::class, 'import'])->name('ami.import');
         Route::get('/ami/create', [AmiController::class, 'create'])->name('ami.create');
         Route::post('/ami', [AmiController::class, 'store'])->name('ami.store');
@@ -181,8 +194,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/bulan-mutu', [BulanMutuController::class, 'index'])->name('bulan-mutu.index');
     Route::get('/bulan-mutu/pdf', [BulanMutuController::class, 'exportPdf'])->name('bulan-mutu.pdf');
     Route::middleware('role:lpma,super_admin')->group(function () {
+        Route::post('/bulan-mutu/generate', [BulanMutuController::class, 'generate'])->name('bulan-mutu.generate');
+        Route::get('/bulan-mutu/pantau-led', [BulanMutuController::class, 'pantauLed'])->name('bulan-mutu.pantau-led');
+        Route::get('/bulan-mutu/pantau-audit', [BulanMutuController::class, 'pantauAudit'])->name('bulan-mutu.pantau-audit');
         Route::put('/bulan-mutu/{id}/status', [BulanMutuController::class, 'updateStatus'])->name('bulan-mutu.status');
         Route::post('/bulan-mutu/set-active', [BulanMutuController::class, 'setActiveYear'])->name('bulan-mutu.set-active');
+        Route::get('/bulan-mutu/{id}/template', [BulanMutuController::class, 'exportTemplatePdf'])->name('bulan-mutu.template');
     });
 
     // LPMA and Super Admin routes for system setup

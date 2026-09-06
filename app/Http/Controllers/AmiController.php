@@ -9,14 +9,27 @@ use App\Models\Standard;
 
 class AmiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
         $query = AmiFinding::with('unit')->orderBy('created_at', 'desc');
 
+        $tahun = $request->query('tahun', date('Y'));
+        $query->whereYear('tanggal', $tahun);
+
+        $unit_id = $request->query('unit_id', 'all');
+        if ($unit_id != 'all') {
+            $query->where('unit_id', $unit_id);
+        }
+
+        $kategori = $request->query('kategori', 'all');
+        if ($kategori != 'all') {
+            $query->where('kategori_temuan', $kategori);
+        }
+
         if ($user->role->kode === 'auditor') {
             $assignedUnitIds = \App\Models\AuditorAssignment::where('auditor_id', $user->id)
-                ->where('tahun', date('Y'))
+                ->where('tahun', $tahun)
                 ->pluck('unit_id');
             $query->whereIn('unit_id', $assignedUnitIds);
         }
@@ -115,5 +128,92 @@ class AmiController extends Controller
         $finding->save();
 
         return redirect()->back()->with('success', 'Rencana Tindak Lanjut (RTL) berhasil disimpan.');
+    }
+
+    public function exportPdf(Request $request)
+    {
+        ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
+        set_time_limit(300); // Increase execution time limit for long DOMPDF processing
+        
+        $unit_id = $request->query('unit_id', 'all');
+        $tahun = $request->query('tahun', date('Y'));
+        
+        $query = AmiFinding::with('unit')->whereYear('tanggal', $tahun);
+        
+        if ($unit_id && $unit_id != 'all') {
+            $query->where('unit_id', $unit_id);
+            $unit = \App\Models\Unit::find($unit_id);
+        } else {
+            $unit = null;
+        }
+
+        if ($request->has('jenis')) {
+            $jenis = $request->query('jenis');
+            $query->whereHas('unit', function($q) use ($jenis) {
+                if ($jenis == 'akademik') {
+                    $q->where('jenis', '!=', 'Non-Akademik');
+                } else {
+                    $q->where('jenis', 'Non-Akademik');
+                }
+            });
+        }
+
+        $findings = $query->orderBy('created_at', 'desc')->get();
+        
+        $auditors = collect();
+        if ($unit) {
+            $assignments = \App\Models\AuditorAssignment::with('auditor')->where('unit_id', $unit->id)->where('tahun', $tahun)->get();
+            $auditors = $assignments->pluck('auditor');
+        }
+        
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('ami.pdf', compact('findings', 'tahun', 'unit', 'auditors'));
+        $pdf->setPaper('a4', 'portrait');
+        
+        $filename = 'Laporan_AMI';
+        if ($unit) $filename .= '_' . str_replace(' ', '_', $unit->nama);
+        $filename .= '_' . $tahun . '.pdf';
+        
+        return $pdf->stream($filename);
+    }
+    
+    public function exportRtlPdf(Request $request)
+    {
+        ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
+        set_time_limit(300); // Increase execution time limit for long DOMPDF processing
+        
+        $unit_id = $request->query('unit_id', 'all');
+        $tahun = $request->query('tahun', date('Y'));
+        
+        if ($unit_id == 'all' && auth()->user()->role->kode != 'auditor' && auth()->user()->role->kode != 'lpma' && auth()->user()->role->kode != 'super_admin' && auth()->user()->role->kode != 'pimpinan') {
+            $unit_id = auth()->user()->unit_id;
+        }
+        
+        $query = AmiFinding::with('unit')->whereYear('tanggal', $tahun);
+        if ($unit_id && $unit_id != 'all') {
+            $query->where('unit_id', $unit_id);
+            $unit = \App\Models\Unit::find($unit_id);
+        } else {
+            $unit = null;
+        }
+
+        // Only include findings that have RTL
+        $query->whereNotNull('rencana_tindakan')->where('rencana_tindakan', '!=', '');
+
+        $findings = $query->orderBy('created_at', 'desc')->get();
+        
+        $auditors = collect();
+        if ($unit) {
+            $assignments = \App\Models\AuditorAssignment::with('auditor')->where('unit_id', $unit->id)->where('tahun', $tahun)->get();
+            $auditors = $assignments->pluck('auditor');
+        }
+        
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('ami.rtl_pdf', compact('findings', 'tahun', 'unit', 'auditors'));
+        $pdf->setPaper('a4', 'portrait');
+        
+        $filename = 'Laporan_Tindak_Lanjut';
+        if ($unit) $filename .= '_' . str_replace(' ', '_', $unit->nama);
+        $filename .= '_' . $tahun . '.pdf';
+        
+        return $pdf->stream($filename);
     }
 }

@@ -11,6 +11,51 @@
         {{ session('success') }}
     </div>
 @endif
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(!in_array(auth()->user()->role->kode, ['auditor', 'lpma']) && (auth()->user()->role->kode != 'super_admin' || (isset($unit_id) && $unit_id != 'all')))
+    @if(!$hasSubmitted)
+    <div class="card mb-4" style="border: 2px solid var(--brand-primary); background-color: var(--bg-primary);">
+        <div class="card-header" style="background-color: var(--brand-primary); color: white;">
+            <h2 class="card-title" style="color: white; margin:0;"><i data-feather="send" style="width: 18px; margin-right: 8px; vertical-align: bottom;"></i> Ajukan Penilaian LED</h2>
+        </div>
+        <div class="card-body" style="padding: 1.5rem;">
+            <p style="margin-bottom: 1rem; color: var(--text-secondary);">Seluruh pengisian daftar standar mutu ini merupakan <strong>kesatuan utuh dari unit</strong>. Auditor tidak akan memproses atau melakukan penilaian AMI sebelum Anda memverifikasi & mengajukan LED secara keseluruhan.</p>
+            
+            <form action="{{ route('led.submit') }}" method="POST">
+                @csrf
+                <input type="hidden" name="tahun" value="{{ $tahun }}">
+                @if(auth()->user()->role->kode == 'super_admin')
+                    <input type="hidden" name="unit_id" value="{{ $unit_id }}">
+                @endif
+                <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                    <label style="display: flex; gap: 1rem; cursor: pointer; align-items: flex-start; margin: 0;">
+                        <input type="checkbox" name="verifikasi" value="1" required style="margin-top: 0.25rem; width: 1.25rem; height: 1.25rem;">
+                        <span style="font-size: 0.875rem; color: var(--text-primary); line-height: 1.5;">
+                            <strong>Verifikasi Kelengkapan:</strong> Saya menyatakan bahwa isian LED ini telah diisi sesuai keadaan sebenarnya. Apabila ada standar yang belum diisi (kosong), saya telah memeriksa dan mengkonfirmasi bahwa dokumen untuk standar tersebut memang tidak ada pada periode ini. Saya yakin untuk mengajukan LED ini.
+                        </span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="padding: 0.75rem 1.5rem; font-weight: 500;">
+                    <i data-feather="check-square" style="width: 18px; margin-right: 8px; vertical-align: bottom;"></i> Ajukan Penilaian LED Sekarang
+                </button>
+            </form>
+        </div>
+    </div>
+    @else
+    <div class="alert" style="background-color: var(--status-success-bg); color: var(--status-success); border: 1px solid var(--status-success); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+        <i data-feather="check-circle" style="width: 24px; height: 24px;"></i>
+        <div>
+            <strong style="display:block; margin-bottom: 0.25rem;">Telah Diverifikasi & Diajukan!</strong> Laporan Evaluasi Diri Unit {{ auth()->user()->role->kode == 'super_admin' ? 'ini' : 'Anda' }} untuk siklus ini (Tahun {{ $tahun }}) telah dikunci dan diserahkan ke Auditor untuk dinilai dalam tahapan AMI. Anda sudah tidak perlu dan tidak bisa merubah isiannya lagi.
+        </div>
+    </div>
+    @endif
+@endif
 
 <div class="card mb-4" style="margin-bottom: 2rem;">
     <div class="card-header" style="background-color: var(--bg-tertiary);">
@@ -20,9 +65,16 @@
         <div style="flex: 1; min-width: 200px;">
             <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Tahun Pelaporan</label>
             <select name="tahun" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
-                <option value="2026" {{ (isset($tahun) && $tahun == '2026') ? 'selected' : '' }}>2026</option>
-                <option value="2025" {{ (isset($tahun) && $tahun == '2025') ? 'selected' : '' }}>2025</option>
-                <option value="2024" {{ (isset($tahun) && $tahun == '2024') ? 'selected' : '' }}>2024</option>
+                @php
+                    $activeYear = \App\Models\BulanMutuConfig::where('is_active', true)->value('tahun') ?? date('Y');
+                    $userRole = auth()->user()->role->kode;
+                    $availableYears = in_array($userRole, ['super_admin', 'lpma']) 
+                                        ? [2027, 2026, 2025, 2024, 2023] 
+                                        : [$activeYear];
+                @endphp
+                @foreach($availableYears as $y)
+                    <option value="{{ $y }}" {{ (isset($tahun) && $tahun == $y) ? 'selected' : '' }}>{{ $y }}</option>
+                @endforeach
             </select>
         </div>
         @if(in_array(auth()->user()->role->kode, ['super_admin', 'lpma', 'auditor']))
@@ -104,10 +156,9 @@
                     }
                     $entries = $entryQuery->get();
                     $entry = $entries->first();
-                    
                     $isLengkap = false;
                     if($entry) {
-                        $isLengkap = \App\Models\LedEntryStage::where('led_entry_id', $entry->id)->count() >= 4;
+                        $isLengkap = ($entry->status_pengisian === 'lengkap');
                     }
                     
                     $unitNames = [];
@@ -167,13 +218,25 @@
                     @endif
                     <td>
                         @if(auth()->user()->role->kode == 'auditor')
-                            <a href="{{ route('ami.create', ['standar_kode' => $standard->kode, 'unit_id' => $unit_id != 'all' ? $unit_id : '']) }}" class="btn {{ $isAudited ? 'btn-outline' : 'btn-primary' }}" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
-                                <i data-feather="{{ $isAudited ? 'edit' : 'check-square' }}" style="width: 14px; height: 14px;"></i> {{ $isAudited ? 'Edit Audit' : 'Audit LED' }}
-                            </a>
+                            @if(!$hasSubmitted && !$isAudited)
+                                <span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-muted); padding: 0.4rem 0.75rem; font-size: 0.7rem; border: 1px dashed var(--border-color);">
+                                    ⏳ Menunggu Unit Mengajukan LED
+                                </span>
+                            @else
+                                <a href="{{ route('ami.create', ['standar_kode' => $standard->kode, 'unit_id' => $unit_id != 'all' ? $unit_id : '']) }}" class="btn {{ $isAudited ? 'btn-outline' : 'btn-primary' }}" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                                    <i data-feather="{{ $isAudited ? 'edit' : 'check-square' }}" style="width: 14px; height: 14px;"></i> {{ $isAudited ? 'Edit Audit' : 'Audit LED' }}
+                                </a>
+                            @endif
                         @else
+                            @if($hasSubmitted)
+                            <a href="{{ route('led.edit', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                                <i data-feather="eye" style="width: 14px; height: 14px;"></i> Lihat LED
+                            </a>
+                            @else
                             <a href="{{ route('led.edit', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
                                 <i data-feather="edit-2" style="width: 14px; height: 14px;"></i> Isi LED
                             </a>
+                            @endif
                         @endif
                         @if($entry)
                         <a href="{{ route('led.pdf', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" target="_blank" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; margin-left: 0.25rem; color: #dc3545; border-color: #dc3545;">
