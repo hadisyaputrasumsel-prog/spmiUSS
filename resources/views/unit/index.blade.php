@@ -41,6 +41,16 @@
                 </select>
             </div>
 
+            <div style="margin-bottom: 1.5rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Pimpinan Unit (Opsional)</label>
+                <input type="text" name="pimpinan" placeholder="Cth: Dr. Jhon Doe, M.Kom" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+            </div>
+
+            <div style="margin-bottom: 2rem;">
+                <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">NUPTK Pimpinan (Opsional)</label>
+                <input type="text" name="nuptk_pimpinan" placeholder="000000000" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+            </div>
+
             <button type="submit" class="btn btn-primary" style="width: 100%;">Simpan Auditee</button>
         </form>
     </div>
@@ -57,6 +67,7 @@
                     <tr>
                         <th style="width: 60px;">ID</th>
                         <th>NAMA UNIT (AUDITEE)</th>
+                        <th>PIMPINAN</th>
                         <th>KATEGORI</th>
                         <th style="text-align: right;">AKSI</th>
                     </tr>
@@ -66,8 +77,12 @@
                     <tr>
                         <td style="font-family: monospace; font-size: 0.875rem;">{{ $unit->id }}</td>
                         <td style="font-weight: 500;">{{ $unit->nama }}</td>
+                        <td>{{ $unit->pimpinan ?? '-' }}</td>
                         <td><span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-secondary);">{{ $unit->jenis }}</span></td>
-                        <td style="text-align: right;">
+                        <td style="text-align: right; display: flex; justify-content: flex-end; gap: 0.5rem;">
+                            <a href="{{ route('manajemen-auditee.edit', $unit->id) }}" class="btn btn-outline" style="padding: 0.25rem 0.5rem; border: none; color: var(--text-primary);" title="Edit Auditee">
+                                <i data-feather="edit" style="width: 16px; height: 16px;"></i>
+                            </a>
                             <form action="{{ route('manajemen-auditee.destroy', $unit->id) }}" method="POST" onsubmit="return confirm('Hapus unit ini? Data yang terkait mungkin akan hilang.');">
                                 @csrf
                                 @method('DELETE')

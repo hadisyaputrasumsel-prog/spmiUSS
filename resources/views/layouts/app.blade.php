@@ -73,6 +73,10 @@
                     <i data-feather="users" class="nav-icon"></i>
                     Akun & Peran
                 </a>
+                <a href="{{ route('setting.index') }}" class="nav-item {{ request()->is('setting*') ? 'active' : '' }}">
+                    <i data-feather="settings" class="nav-icon"></i>
+                    Pengaturan Kampus
+                </a>
                 @endif
             </nav>
         </aside>

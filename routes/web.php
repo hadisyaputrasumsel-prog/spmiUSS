@@ -8,6 +8,7 @@ use App\Http\Controllers\LedController;
 use App\Http\Controllers\StandardController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\SettingController;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -206,7 +207,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:lpma,super_admin')->group(function () {
         Route::get('/rtm/cetak-berita-acara', [\App\Http\Controllers\RtmController::class, 'generatePdf'])->name('rtm.cetak');
         Route::resource('standar-mutu', StandardController::class)->except(['show']);
-        Route::resource('manajemen-auditee', UnitController::class)->only(['index', 'store', 'destroy']);
+        Route::resource('manajemen-auditee', UnitController::class)->only(['index', 'store', 'edit', 'update', 'destroy']);
         
         Route::get('/penugasan-auditor', [AuditorAssignmentController::class, 'index'])->name('penugasan-auditor.index');
         Route::post('/penugasan-auditor', [AuditorAssignmentController::class, 'store'])->name('penugasan-auditor.store');
@@ -216,5 +217,7 @@ Route::middleware('auth')->group(function () {
     // Super Admin only routes
     Route::middleware('role:super_admin')->group(function () {
         Route::resource('akun', UserController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::get('/setting', [SettingController::class, 'index'])->name('setting.index');
+        Route::put('/setting', [SettingController::class, 'update'])->name('setting.update');
     });
 });

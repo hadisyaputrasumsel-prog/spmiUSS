@@ -264,11 +264,35 @@
         </div>
     @endforeach
 
-    <div style="margin-top: 40px; width: 100%;">
-        <div style="float: right; width: 250px; text-align: center;">
-            <p>Dibuat oleh,</p>
+    @php
+        $currentUnit = $unit ?? auth()->user()->unit;
+        $namaJabatan = 'Penanggung Jawab';
+        $namaUnit = '';
+        $pimpinanName = '(..........................)';
+        $nuptk = '';
+        
+        if ($currentUnit) {
+            $namaUnit = $currentUnit->nama;
+            $pimpinanName = $currentUnit->pimpinan ?: '(..........................)';
+            $nuptk = $currentUnit->nuptk_pimpinan ?: '';
+            
+            if ($currentUnit->jenis == 'Program Studi') {
+                $namaJabatan = 'Ka. Program Studi ' . str_replace('Prodi ', '', $namaUnit);
+            } else {
+                $namaJabatan = 'Pimpinan ' . $namaUnit;
+            }
+        }
+    @endphp
+
+    <div style="margin-top: 40px; width: 100%; page-break-before: always;">
+        <div style="float: right; width: 300px; text-align: center;">
+            <p style="margin-bottom: 2px;">Dibuat oleh,</p>
+            <p style="margin-top: 0; font-weight: bold;">{{ $namaJabatan }}</p>
             <br><br><br><br>
-            <p><strong>{{ $unit ? 'Pimpinan ' . $unit->nama : (auth()->user()->unit ? 'Pimpinan ' . auth()->user()->unit->nama : 'Penanggung Jawab') }}</strong></p>
+            <p style="margin-bottom: 0;"><strong>{{ $pimpinanName }}</strong></p>
+            @if($currentUnit && $currentUnit->jenis == 'Program Studi')
+            <p style="margin-top: 2px;">NUPTK. {{ $nuptk }}</p>
+            @endif
         </div>
         <div style="clear: both;"></div>
     </div>
