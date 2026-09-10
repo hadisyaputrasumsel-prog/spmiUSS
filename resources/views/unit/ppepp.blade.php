@@ -112,9 +112,9 @@
                         <form action="{{ route('ami.update-rtl', $finding->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div style="display: grid; grid-template-columns: 1fr; gap: 1.5rem;">
                                 <div>
-                                    <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--text-primary);">Detail Temuan Auditor</h4>
+                                    <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--text-primary); border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">A. Detail Temuan Auditor</h4>
                                     <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem;"><strong>Auditor:</strong> {{ $finding->auditor->name ?? 'Tim Auditor' }}</p>
                                     <div style="background-color: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.875rem; color: var(--text-primary); margin-bottom: 1rem;">
                                         {!! nl2br(e($finding->uraian)) !!}
@@ -127,27 +127,54 @@
                                     @endif
                                 </div>
                                 <div>
-                                    <h4 style="margin: 0 0 1rem 0; font-size: 0.875rem; color: var(--text-primary);">Form Rencana Tindak Lanjut (RTL)</h4>
+                                    <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--text-primary); border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">B. Form 5 - Root Cause Analysis (RCA) & Tindak Lanjut</h4>
                                     
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                        <div>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Akar Penyebab</label>
+                                            <textarea name="akar_penyebab" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Contoh: Belum ada SOP terkait...">{{ $finding->akar_penyebab }}</textarea>
+                                        </div>
+                                        <div>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Akibat / Dampak Risiko</label>
+                                            <textarea name="akibat" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Contoh: Laporan terhambat...">{{ $finding->akibat }}</textarea>
+                                        </div>
+                                    </div>
+
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                        <div>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Rekomendasi dari Auditor / Pakar</label>
+                                            <textarea name="rekomendasi" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Contoh: Susun SOP...">{{ $finding->rekomendasi }}</textarea>
+                                        </div>
+                                        <div>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Tanggapan Auditi</label>
+                                            <textarea name="tanggapan_auditi" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);" placeholder="Setuju / Dapat Dilaksanakan">{{ $finding->tanggapan_auditi ?: 'Setuju' }}</textarea>
+                                        </div>
+                                    </div>
+
                                     <div style="margin-bottom: 1rem;">
-                                        <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Rencana Tindakan / Perbaikan <span style="color: var(--status-danger);">*</span></label>
+                                        <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Rencana Tindakan / Perbaikan (Koreksi) <span style="color: var(--status-danger);">*</span></label>
                                         <textarea name="rencana_tindakan" rows="3" required class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->rencana_tindakan }}</textarea>
+                                    </div>
+
+                                    <div style="margin-bottom: 1rem;">
+                                        <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Rencana Pencegahan (Agar masalah serupa tidak terjadi)</label>
+                                        <textarea name="rencana_pencegahan" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->rencana_pencegahan }}</textarea>
                                     </div>
                                     
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                                         <div>
-                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Penanggung Jawab (PIC) <span style="color: var(--status-danger);">*</span></label>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Penanggung Jawab (PIC Perbaikan) <span style="color: var(--status-danger);">*</span></label>
                                             <input type="text" name="pic" required value="{{ $finding->pic }}" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                                         </div>
                                         <div>
-                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Target Batas Waktu <span style="color: var(--status-danger);">*</span></label>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Jadwal / Waktu <span style="color: var(--status-danger);">*</span></label>
                                             <input type="date" name="batas_waktu" required value="{{ $finding->batas_waktu }}" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
                                         </div>
                                     </div>
                                     
-                                    <div style="text-align: right;">
+                                    <div style="text-align: right; margin-top: 2rem;">
                                         @if(in_array(auth()->user()->role->kode, ['auditee_upps', 'auditee_prodi', 'auditee_unit', 'super_admin']))
-                                            <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Simpan RTL</button>
+                                            <button type="submit" class="btn btn-primary" style="padding: 0.5rem 1.5rem; font-size: 0.875rem;"><i data-feather="save" style="width: 14px; height: 14px; margin-right: 4px;"></i> Simpan RTL (Form-5)</button>
                                         @endif
                                     </div>
                                 </div>

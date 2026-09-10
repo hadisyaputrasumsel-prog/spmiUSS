@@ -73,7 +73,7 @@
             </form>
             
             <p style="margin-top: 2rem; font-size: 0.75rem; color: var(--text-muted);">
-                &copy; {{ date('Y') }} Universitas Sumatera Selatan.
+                &copy; 2024 Universitas Sumatera Selatan.
             </p>
         </div>
     </div>

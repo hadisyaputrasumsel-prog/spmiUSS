@@ -181,5 +181,7 @@ class DatabaseSeeder extends Seeder
                 'role_id' => 7, // pimpinan
             ],
         ]);
+
+        $this->call(PetunjukAmiSeeder::class);
     }
 }

@@ -208,7 +208,8 @@ class LedController extends Controller
     public function update(Request $request, $kode)
     {
         $stages = $request->input('stages', []);
-        $tahun = date('Y');
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
         $unit_id = auth()->user()->unit_id ?? 1; // Fallback to 1 if null (admin etc)
         $user_id = auth()->id();
 

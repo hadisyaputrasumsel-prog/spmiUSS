@@ -95,11 +95,20 @@
         </div>
         <div style="display: flex; gap: 0.5rem;">
             <button type="submit" class="btn btn-outline" style="height: 42px;">Terapkan Filter</button>
+            
+            <!-- Generate existing finding-based report -->
             <button type="submit" formaction="{{ route('ami.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #2E75B6; border-color: #2E75B6; box-shadow: 0 4px 6px -1px rgba(46, 117, 182, 0.2);">
-                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Laporan AMI
+                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Laporan BAP (Temuan)
             </button>
+            
+            <!-- Generate the new checklist report -->
+            <button type="submit" formaction="{{ route('ami.checklist.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #6366f1; border-color: #6366f1; box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.2);">
+                <i data-feather="file-text" style="width: 16px; height: 16px; margin-right: 4px;"></i> Cetak Checklist AMI
+            </button>
+
+            <!-- RTL Form 5 -->
             <button type="submit" formaction="{{ route('ami.rtl.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #10b981; border-color: #10b981; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);">
-                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Laporan RTL
+                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Cetak Form 5 (RCA)
             </button>
         </div>
     </form>

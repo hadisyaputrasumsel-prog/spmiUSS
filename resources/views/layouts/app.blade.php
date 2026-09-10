@@ -37,7 +37,7 @@
                 </a>
                 @endif
                 
-                @if(in_array(auth()->user()->role->kode, ['super_admin', 'lpma', 'pimpinan']))
+                @if(auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma', 'pimpinan']))
                 <a href="{{ route('ami.index') }}" class="nav-item {{ request()->is('ami*') ? 'active' : '' }}">
                     <i data-feather="clipboard" class="nav-icon"></i>
                     Instrumen AMI
@@ -54,10 +54,18 @@
                     <i data-feather="book-open" class="nav-icon"></i>
                     Standar Mutu
                 </a>
+                @endif
                 
                 <div style="margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;">
                     Sistem
                 </div>
+                
+                <a href="{{ route('petunjuk-ami.index') }}" class="nav-item {{ request()->is('petunjuk-ami*') ? 'active' : '' }}">
+                    <i data-feather="file-text" class="nav-icon"></i>
+                    Petunjuk AMI
+                </a>
+
+                @if(in_array(auth()->user()->role->kode, ['super_admin', 'lpma']))
                 <a href="{{ route('penugasan-auditor.index') }}" class="nav-item {{ request()->is('penugasan-auditor*') ? 'active' : '' }}">
                     <i data-feather="user-check" class="nav-icon"></i>
                     Penugasan Auditor

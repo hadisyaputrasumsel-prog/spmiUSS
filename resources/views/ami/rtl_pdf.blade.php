@@ -2,165 +2,141 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Laporan Rencana & Tindak Lanjut AMI</title>
+    <title>FORM 5 - Deskripsi Temuan RCA</title>
     <style>
-        body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 11px; color: #333; line-height: 1.5; }
+        body { font-family: 'Helvetica', 'Arial', sans-serif; font-size: 11px; color: #000; line-height: 1.5; margin: 1cm; }
         .page-break { page-break-after: always; }
         
-        /* Cover Page */
-        .cover { text-align: center; margin-top: 150px; }
-        .cover h1 { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
-        .cover h2 { font-size: 18px; font-weight: normal; margin-bottom: 50px; }
-        .cover h3 { font-size: 20px; font-weight: bold; margin-bottom: 5px; }
-        .cover h4 { font-size: 16px; font-weight: normal; margin-bottom: 80px; }
+        .header { text-align: center; margin-bottom: 20px; text-transform: uppercase; }
+        .header h3 { margin: 0; padding: 0; font-size: 14px; font-weight: bold; }
         
-        .footer-cover { position: absolute; bottom: 50px; width: 100%; text-align: center; font-size: 10px; color: #555; }
+        .box-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        .box-table td, .box-table th { border: 1px solid #000; padding: 6px 10px; vertical-align: top; }
         
-        /* Pages */
-        .page-title { font-size: 16px; font-weight: bold; text-align: center; margin-bottom: 30px; margin-top: 20px; text-decoration: underline; }
+        .section-title { font-weight: bold; text-align: left; }
         
-        /* Table Styles (Pengesahan) */
-        .table-identitas { width: 100%; border-collapse: collapse; margin-bottom: 30px; font-size: 12px; }
-        .table-identitas td { padding: 8px; vertical-align: top; }
-        .table-identitas td:first-child { width: 30%; font-weight: bold; }
-        
-        .table-ttd { width: 100%; border-collapse: collapse; margin-top: 50px; text-align: center; font-size: 12px; }
-        .table-ttd td { width: 50%; padding: 10px; vertical-align: bottom; height: 100px; }
-        
-        /* Table Styles (Findings) */
-        table.data { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 9px; }
-        table.data th, table.data td { border: 1px solid #000; padding: 6px; text-align: left; vertical-align: top; }
-        table.data th { background-color: #f1f5f9; font-weight: bold; text-align: center; }
-        .text-center { text-align: center; }
-        
-        .status-badge { background-color: #3b82f6; color: white; padding: 2px 4px; display: inline-block; text-align: center; }
-        .status-badge.selesai { background-color: #10b981; }
+        .cb-container { margin-top: 5px; margin-bottom: 5px; }
+        .cb-container span { margin-right: 20px; font-size: 11px; }
     </style>
 </head>
 <body>
 
-    <!-- PAGE 1: COVER -->
-    <div class="cover">
-        <h1>LAPORAN TINDAK LANJUT (LTL)<br>AUDIT MUTU INTERNAL</h1>
-        <h2>Tahun Akademik {{ $tahun }}</h2>
-        
-        <br><br><br><br>
-        
-        @if($unit)
-            <h3>{{ $unit->nama }}</h3>
-            <h4>{{ $unit->jenis ?: 'Fakultas / Program Studi' }}</h4>
-        @else
-            <h3>Seluruh Unit Kerja</h3>
-            <h4>Audit AMI Tingkat Universitas</h4>
-        @endif
-        
-        <h4>UNIVERSITAS SUMATERA SELATAN</h4>
+    @forelse($findings as $index => $finding)
+    <div class="header">
+        <h3>BORANG AUDIT MUTU INTERNAL</h3>
+        <h3>Deskripsi Temuan Audit</h3>
     </div>
     
-    <div class="footer-cover">
-        <strong>Pusat Penjaminan Mutu</strong><br>
-        Universitas Sumatera Selatan<br>
-        Dokumen Pengendalian dan Peningkatan (Siklus PPEPP)
-    </div>
-
-    <!-- Page Break -->
-    <div class="page-break"></div>
-
-    <!-- PAGE 2: PENGESAHAN -->
-    <div class="page-title">LEMBAR IDENTITAS & PENGESAHAN LTL</div>
-    
-    <table class="table-identitas">
+    <table class="box-table" style="margin-bottom: 20px;">
         <tr>
-            <td>Unit Kerja (Teraudit)</td>
-            <td>: {{ $unit ? $unit->nama : 'Seluruh Unit Kerja Universitas Sumatera Selatan' }}</td>
+            <td width="30%"><strong>Auditi:</strong></td>
+            <td>{{ $finding->unit->nama ?? '-' }}</td>
         </tr>
         <tr>
-            <td>Periode Audit</td>
-            <td>: Tahun Akademik {{ $tahun }}</td>
+            <td><strong>Kriteria (Standar):</strong></td>
+            <td>{{ $finding->standar_kode }}</td>
         </tr>
         <tr>
-            <td>Fase SPMI</td>
-            <td>: Pengendalian / Peningkatan Mutu</td>
+            <td><strong>Auditor Ketua:</strong></td>
+            <td>{{ ($auditors ?? collect())->count() > 0 ? $auditors[0]->name : 'Tim Auditor' }}</td>
         </tr>
         <tr>
-            <td>Status Tindak Lanjut</td>
-            <td>: {{ $findings->where('status_tindak_lanjut', 'Selesai')->count() }} Selesai / {{ $findings->count() }} Total Temuan</td>
+            <td><strong>Auditor Anggota:</strong></td>
+            <td>{{ ($auditors ?? collect())->count() > 1 ? $auditors[1]->name : '-' }}</td>
+        </tr>
+        <tr>
+            <td><strong>Tanggal Audit:</strong></td>
+            <td>{{ date('d F Y', strtotime($finding->tanggal)) }}</td>
         </tr>
     </table>
-    
-    <table class="table-ttd">
+
+    <table class="box-table">
         <tr>
-            <td>
-                Tim Auditor / Verifikator Mutu,<br><br><br><br><br>
-                <strong><u>{{ ($auditors ?? collect())->count() > 0 ? $auditors[0]->name : 'Ketua LPMA / Lead Auditor' }}</u></strong>
-            </td>
-            <td>
-                Penanggung Jawab Tindak Lanjut,<br><br><br><br><br>
-                <strong><u>Pimpinan {{ $unit ? $unit->nama : 'Unit' }}</u></strong>
+            <td colspan="2" class="section-title">DESKRIPSI TEMUAN</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <strong>OBJEKTIF / RISIKO</strong>
+                <div class="cb-container">
+                    <span>[{{ str_contains(strtoupper($finding->kategori_temuan), 'KTS') || str_contains(strtoupper($finding->kategori_temuan), 'OB') ? 'X' : ' ' }}] OB / KTS</span>
+                    <span>[{{ !str_contains(strtoupper($finding->kategori_temuan), 'KTS') && !str_contains(strtoupper($finding->kategori_temuan), 'OB') ? 'X' : ' ' }}] PPM</span>
+                </div>
             </td>
         </tr>
+        <tr>
+            <td colspan="2">
+                <strong>Deskripsi Temuan:</strong><br><br>
+                {!! nl2br(e($finding->uraian)) !!}
+            </td>
+        </tr>
+        <tr>
+            <td width="20%"><strong>Akar Penyebab</strong></td>
+            <td>{!! nl2br(e($finding->akar_penyebab ?: '-')) !!}</td>
+        </tr>
+        <tr>
+            <td><strong>Akibat</strong></td>
+            <td>{!! nl2br(e($finding->akibat ?: '-')) !!}</td>
+        </tr>
+        <tr>
+            <td><strong>Rekomendasi / Permintaan Tindakan Koreksi.</strong></td>
+            <td>{!! nl2br(e($finding->rekomendasi ?: '-')) !!}</td>
+        </tr>
+        <tr>
+            <td><strong>Tanggapan Auditi</strong></td>
+            <td>{!! nl2br(e($finding->tanggapan_auditi ?: 'Setuju')) !!}</td>
+        </tr>
+        <tr>
+            <td><strong>Rencana Perbaikan</strong></td>
+            <td>{!! nl2br(e($finding->rencana_tindakan ?: '-')) !!}</td>
+        </tr>
+        <tr>
+            <td><strong>Jadwal Perbaikan</strong></td>
+            <td>{{ $finding->batas_waktu ? date('d F Y', strtotime($finding->batas_waktu)) : '-' }}</td>
+        </tr>
+        <tr>
+            <td><strong>Penanggung Jawab</strong></td>
+            <td>{{ $finding->pic ?: '-' }}</td>
+        </tr>
+        <tr>
+            <td><strong>Rencana Pencegahan</strong></td>
+            <td>{!! nl2br(e($finding->rencana_pencegahan ?: '-')) !!}</td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-size: 10px; text-align: right; padding-top: 15px;">
+                <em>Status RTL Formulir: {{ $finding->status_tindak_lanjut ?: 'Berjalan' }}</em>
+            </td>
+        </tr>
     </table>
 
-    <!-- Page Break -->
-    <div class="page-break"></div>
+    <table width="100%" style="margin-top: 30px; text-align: center;">
+        <tr>
+            <td width="33%">
+                Auditee (Pimpinan Unit)
+                <br><br><br><br>
+                ( ______________________ )
+            </td>
+            <td width="33%">
+                Auditor
+                <br><br><br><br>
+                ( {{ ($auditors ?? collect())->count() > 0 ? $auditors[0]->name : '______________________' }} )
+            </td>
+            <td width="33%">
+                Reviewer / LPMA
+                <br><br><br><br>
+                ( ______________________ )
+            </td>
+        </tr>
+    </table>
 
-    <!-- PAGE 3: KATA PENGANTAR -->
-    <div class="page-title">KATA PENGANTAR</div>
-    <div style="text-align: justify; font-size: 12px; line-height: 1.8;">
-        <p>Puji syukur kami panjatkan ke hadirat Tuhan Yang Maha Esa atas rahmat dan karunia-Nya sehingga Laporan Tindak Lanjut <i>(Corrective & Preventive Action)</i> Audit Mutu Internal (AMI) ini dapat disusun dan diselesaikan dengan baik.</p>
-        
-        <p>Rencana dan Laporan Tindak Lanjut ini merupakan bentuk akuntabilitas komitmen kami dalam menjalankan siklus ke-4 dan ke-5 dari PPEPP (Pengendalian dan Peningkatan) atas temuan hasil Audit Mutu Internal. Dokumen ini memuat langkah-langkah sistematis yang dilakukan oleh unit kerja untuk menanggulangi ketidaksesuaian standar maupun peluang peningkatan (Observasi) yang ditemukan oleh para Auditor Mutu.</p>
-        
-        <p>Dengan adanya Laporan Tindak Lanjut ini, kami menegaskan komitmen untuk menjaga standar penjaminan mutu sesuai dengan kerangka Peraturan Menteri Pendidikan yang terbaru, agar kelembagaan Universitas Sumatera Selatan senantiasa menuju keunggulan.</p>
-        
-        <p style="text-align: right; margin-top: 40px;">
-            Palembang, {{ date('F Y') }}<br><br><br>
-            <strong>Tim Jaminan Mutu / Pimpinan Unit</strong>
-        </p>
+    @if(!$loop->last)
+    <div class="page-break"></div>
+    @endif
+    
+    @empty
+    <div style="text-align: center; margin-top: 50px;">
+        <h3>Belum ada data temuan untuk diekspor ke Form 5 RCA.</h3>
     </div>
-
-    <!-- Page Break -->
-    <div class="page-break"></div>
-    
-    <!-- PAGE 4: DATA TINDAK LANJUT -->
-    <div class="page-title">MATRIKS RENCANA DAN TINDAK LANJUT AUDIT TAHUN {{ $tahun }}</div>
-    
-    <table class="data">
-        <thead>
-            <tr>
-                <th width="4%">No</th>
-                @if(!$unit)<th width="12%">Unit</th>@endif
-                <th width="10%">Standar (Kategori)</th>
-                <th width="25%">Deskripsi Temuan / KTS</th>
-                <th width="25%">Rencana & Aktual Tindak Lanjut</th>
-                <th width="10%">Batas Waktu</th>
-                <th width="9%">PIC</th>
-                <th width="5%">Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            @forelse($findings as $index => $finding)
-            <tr>
-                <td class="text-center">{{ $index + 1 }}</td>
-                @if(!$unit)<td>{{ $finding->unit->nama ?? '-' }}</td>@endif
-                <td><strong>{{ $finding->standar_kode }}</strong><br>({{ $finding->kategori_temuan }})</td>
-                <td>{{ $finding->uraian }}</td>
-                <td>{{ $finding->rencana_tindakan }}</td>
-                <td class="text-center">{{ $finding->batas_waktu ? date('d/m/Y', strtotime($finding->batas_waktu)) : '-' }}</td>
-                <td class="text-center">{{ $finding->pic ?: '-' }}</td>
-                <td class="text-center">
-                    <span class="status-badge {{ strtolower($finding->status_tindak_lanjut) == 'selesai' ? 'selesai' : '' }}">
-                        {{ $finding->status_tindak_lanjut ?: 'Berjalan' }}
-                    </span>
-                </td>
-            </tr>
-            @empty
-            <tr>
-                <td colspan="{{ $unit ? 7 : 8 }}" class="text-center" style="padding: 20px;">Belum ada rencana tindak lanjut yang dilaporkan pada periode ini.</td>
-            </tr>
-            @endforelse
-        </tbody>
-    </table>
+    @endforelse
 
 </body>
 </html>

@@ -125,12 +125,16 @@ Route::middleware('auth')->group(function () {
 
         // Matriks Penilaian Standar Mutu (untuk Auditor dan LPMA)
         $matriksPenilaian = [];
-        if (in_array(auth()->user()->role->kode, ['auditor', 'lpma', 'super_admin'])) {
+        if (auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma'])) {
             $matriksPenilaian = \App\Models\Standard::orderBy('kelompok')->get()->groupBy('kelompok');
         }
 
         return view('dashboard', compact('totalStandar', 'totalKategoriNA', 'tahun', 'tahapProgress', 'activeTahap', 'tahapLabels', 'unitsAttention', 'matriksPenilaian', 'batasWaktuLED'));
     })->name('dashboard');
+
+    // Petunjuk AMI Route (accessible by everyone in auth, update restricted in view)
+    Route::get('/petunjuk-ami', [\App\Http\Controllers\PetunjukAmiController::class, 'index'])->name('petunjuk-ami.index');
+    Route::put('/petunjuk-ami', [\App\Http\Controllers\PetunjukAmiController::class, 'update'])->name('petunjuk-ami.update');
 
     // Drill down unit PPEPP
     Route::get('/unit/{id}/ppepp', function($id) {
@@ -139,7 +143,7 @@ Route::middleware('auth')->group(function () {
         $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
         $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         
-        $findings = \App\Models\AmiFinding::where('unit_id', $id)->get();
+        $findings = \App\Models\AmiFinding::where('unit_id', $id)->whereYear('tanggal', $tahun)->get();
         $leds = \App\Models\LedEntry::where('unit_id', $id)->where('tahun', $tahun)->get();
         $hasAuditor = \App\Models\AuditorAssignment::where('unit_id', $id)->where('tahun', $tahun)->exists();
         
@@ -169,7 +173,7 @@ Route::middleware('auth')->group(function () {
     })->name('unit.ppepp');
 
     // Auditees, GPM/UPM, Auditor, LPMA, and Super Admin can access LED
-    Route::middleware('role:auditee_upps,auditee_prodi,auditee_unit,gpm_upm,super_admin,auditor,lpma')->group(function () {
+    Route::middleware('role:auditee_upps,auditee_prodi,auditee_unit,gpm_upm,super_admin,auditor,auditor_anggota,lpma')->group(function () {
         Route::get('/led', [LedController::class, 'index'])->name('led.index');
         Route::post('/led/submit', [LedController::class, 'submit'])->name('led.submit');
         Route::get('/led/{kode}/edit', [LedController::class, 'edit'])->name('led.edit');
@@ -183,9 +187,10 @@ Route::middleware('auth')->group(function () {
     });
 
     // Auditor, LPMA, Pimpinan and Super Admin can access AMI
-    Route::middleware('role:auditor,lpma,pimpinan,super_admin')->group(function () {
+    Route::middleware('role:auditor,auditor_anggota,lpma,pimpinan,super_admin')->group(function () {
         Route::get('/ami', [AmiController::class, 'index'])->name('ami.index');
         Route::get('/ami/pdf', [AmiController::class, 'exportPdf'])->name('ami.pdf');
+        Route::get('/ami/checklist-pdf', [AmiController::class, 'exportChecklistPdf'])->name('ami.checklist.pdf');
         Route::post('/ami/import', [AmiController::class, 'import'])->name('ami.import');
         Route::get('/ami/create', [AmiController::class, 'create'])->name('ami.create');
         Route::post('/ami', [AmiController::class, 'store'])->name('ami.store');
@@ -211,6 +216,7 @@ Route::middleware('auth')->group(function () {
         
         Route::get('/penugasan-auditor', [AuditorAssignmentController::class, 'index'])->name('penugasan-auditor.index');
         Route::post('/penugasan-auditor', [AuditorAssignmentController::class, 'store'])->name('penugasan-auditor.store');
+        Route::put('/penugasan-auditor/{id}', [AuditorAssignmentController::class, 'update'])->name('penugasan-auditor.update');
         Route::delete('/penugasan-auditor/{id}', [AuditorAssignmentController::class, 'destroy'])->name('penugasan-auditor.destroy');
     });
 

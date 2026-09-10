@@ -29,6 +29,12 @@ class CheckRole
             return $next($request);
         }
 
+        // Special handling for dynamic Auditor roles
+        $requiresAuditor = in_array('auditor', $roles) || in_array('auditor_anggota', $roles);
+        if ($requiresAuditor && $user->isAuditor()) {
+            return $next($request);
+        }
+
         if (!in_array($userRole, $roles)) {
             abort(403, 'Akses ditolak: Anda tidak memiliki wewenang untuk halaman ini.');
         }

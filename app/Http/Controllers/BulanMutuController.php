@@ -10,7 +10,8 @@ class BulanMutuController extends Controller
 {
     public function index(Request $request)
     {
-        $tahun = $request->query('tahun', date('Y'));
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $activities = BulanMutuActivity::orderBy('index_kegiatan', 'asc')->get();
         
         // Get statuses for this year
@@ -56,7 +57,8 @@ class BulanMutuController extends Controller
     {
         ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
         set_time_limit(300); // Increase execution time limit for long DOMPDF processing
-        $tahun = $request->query('tahun', date('Y'));
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $activities = BulanMutuActivity::orderBy('index_kegiatan', 'asc')->get();
         $statuses = BulanMutuStatus::where('tahun', $tahun)->get()->keyBy('kegiatan_id');
         
@@ -66,7 +68,8 @@ class BulanMutuController extends Controller
 
     public function pantauLed(Request $request)
     {
-        $tahun = $request->query('tahun', date('Y'));
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $kegiatan_id = $request->query('kegiatan_id'); // ID of the 'Evaluasi Diri' activity
         
         $units = \App\Models\Unit::orderBy('jenis')->orderBy('nama')->get();
@@ -80,7 +83,8 @@ class BulanMutuController extends Controller
 
     public function pantauAudit(Request $request)
     {
-        $tahun = $request->query('tahun', date('Y'));
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $kegiatan_id = $request->query('kegiatan_id');
         $activity = BulanMutuActivity::findOrFail($kegiatan_id);
         
@@ -102,7 +106,8 @@ class BulanMutuController extends Controller
     {
         ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
         set_time_limit(300); // Increase execution time limit for long DOMPDF processing
-        $tahun = $request->query('tahun', date('Y'));
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $activity = BulanMutuActivity::findOrFail($id);
         $nama = strtolower($activity->nama);
 
@@ -141,7 +146,8 @@ class BulanMutuController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        $tahun = $request->input('tahun', date('Y'));
+        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $tahun = $request->input('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $userId = auth()->id(); 
 
         $statusInput = $request->input('status');
