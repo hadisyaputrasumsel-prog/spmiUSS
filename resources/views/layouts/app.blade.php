@@ -16,11 +16,18 @@
     <div class="app-container">
         <!-- Sidebar -->
         <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-logo-icon">A</div>
-                <div style="display:flex; flex-direction:column;">
-                    <div class="sidebar-title">AMIRA</div>
-                    <div style="font-size: 0.65rem; color: var(--text-muted); line-height: 1.2; margin-top: 2px; font-weight: 500;">Aplikasi Manajemen<br>Audit Mutu Internal</div>
+            <div class="sidebar-header" style="flex-direction: column; flex-wrap: wrap; text-align: center; padding: 2rem 1.5rem 1.5rem; gap: 0.5rem;">
+                @php
+                    $setting = \App\Models\Setting::first();
+                @endphp
+                @if($setting && $setting->logo_kampus)
+                    <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo" style="height: 70px; width: auto; max-width: 180px; object-fit: contain; margin-bottom: 0.25rem;">
+                @else
+                    <div class="sidebar-logo-icon" style="width: 48px; height: 48px; font-size: 1.5rem; margin-bottom: 0.25rem;">A</div>
+                @endif
+                <div style="display:flex; flex-direction:column; align-items: center;">
+                    <div class="sidebar-title" style="font-size: 1.5rem; margin-bottom: 0.25rem;">AMIRA</div>
+                    <div style="font-size: 0.70rem; color: var(--text-muted); line-height: 1.3; font-weight: 500;">Aplikasi Manajemen<br>Audit Mutu Internal</div>
                 </div>
             </div>
             

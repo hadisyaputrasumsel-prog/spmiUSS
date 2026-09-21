@@ -40,10 +40,10 @@ class LedController extends Controller
                 
                 if ($unit && stripos($unit->nama, 'LPMA') !== false) {
                     // LPMA manages all university assurance & accreditation
-                    $standardsQuery = Standard::query();
+                    $standardsQuery = Standard::activePeriod();
                 } else {
                     $jenisUnit = $unit->jenis ?? '';
-                    $standardsQuery = Standard::where(function($q) use ($jenisUnit) {
+                    $standardsQuery = Standard::activePeriod()->where(function($q) use ($jenisUnit) {
                         $q->whereNull('sasaran_unit')
                           ->orWhereJsonContains('sasaran_unit', $jenisUnit);
                     });
@@ -56,14 +56,14 @@ class LedController extends Controller
             } elseif ($user->role->kode == 'auditor' && $unit_id == -1) {
                 $standardsQuery = Standard::where('id', -1); // Return empty
             } else {
-                $standardsQuery = Standard::query();
+                $standardsQuery = Standard::activePeriod();
             }
         } else {
             if (isset($user->unit) && stripos($user->unit->nama, 'LPMA') !== false) {
-                $standardsQuery = Standard::query();
+                $standardsQuery = Standard::activePeriod();
             } else {
                 $jenisUnit = $user->unit->jenis ?? '';
-                $standardsQuery = Standard::where(function($q) use ($jenisUnit) {
+                $standardsQuery = Standard::activePeriod()->where(function($q) use ($jenisUnit) {
                     $q->whereNull('sasaran_unit')
                       ->orWhereJsonContains('sasaran_unit', $jenisUnit);
                 });
@@ -180,10 +180,10 @@ class LedController extends Controller
         
         // Fetch standards applicable to this unit
         if (stripos($unit->nama, 'LPMA') !== false) {
-            $standards = Standard::all();
+            $standards = Standard::activePeriod()->get();
         } else {
             $jenisUnit = $unit->jenis ?? '';
-            $query = Standard::where(function($q) use ($jenisUnit) {
+            $query = Standard::activePeriod()->where(function($q) use ($jenisUnit) {
                 $q->whereNull('sasaran_unit')
                   ->orWhereJsonContains('sasaran_unit', $jenisUnit);
             });

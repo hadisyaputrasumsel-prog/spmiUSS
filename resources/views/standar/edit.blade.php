@@ -59,16 +59,27 @@
                     <input type="text" name="acuan" value="{{ old('acuan', $standard->acuan) }}" class="form-control" placeholder="Cth: SM-USS-03-01-01 (Revisi: 23-04-2025)" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                 </div>
                 
-                <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
-                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Unggah Template Borang / Dokumen Pendukung (Opsional)</label>
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Template Dokumen Mutu (Opsional)</label>
                     @if($standard->template_dokumen)
-                        <div style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <i data-feather="file-text" style="width: 16px; height: 16px; color: var(--status-success);"></i>
-                            <a href="{{ asset('storage/' . $standard->template_dokumen) }}" target="_blank" style="font-size: 0.875rem; color: var(--status-info); font-weight: 500; text-decoration: none;">Lihat Template Saat Ini</a>
+                        <div style="margin-bottom: 0.75rem; padding: 0.5rem; background-color: var(--status-success-bg); border-radius: var(--radius-md); border: 1px solid var(--status-success);">
+                            <a href="{{ Storage::url($standard->template_dokumen) }}" target="_blank" style="color: var(--status-success); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
+                                <i data-feather="file" style="width: 16px; height: 16px;"></i> Template Tersedia (Klik untuk lihat)
+                            </a>
                         </div>
                     @endif
                     <input type="file" name="template_dokumen" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
-                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Biarkan kosong jika tidak ingin mengubah template yang sudah ada. Akan tersedia bagi prodi saat mengisi LED.</small>
+                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Unggah file baru jika ingin mengganti template dokumen (PDF, Word, Excel).</small>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Instrumen / Referensi Standar</label>
+                    <select name="periode" class="form-control" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        @foreach(\App\Models\SpmiPeriod::orderBy('created_at', 'desc')->get() as $p)
+                            <option value="{{ $p->nama }}" {{ old('periode', $standard->periode) == $p->nama ? 'selected' : '' }}>{{ $p->nama }} {{ $p->is_active ? '(Aktif)' : '' }}</option>
+                        @endforeach
+                    </select>
+                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Menentukan ke dalam instrumen mana standar ini akan dimasukkan.</small>
                 </div>
             </div>
 

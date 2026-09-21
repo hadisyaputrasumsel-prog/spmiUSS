@@ -113,8 +113,13 @@
                 <option value="draft" {{ (isset($status) && $status == 'draft') ? 'selected' : '' }}>Draft / Belum Mengisi</option>
             </select>
         </div>
-        <div>
+        <div style="display: flex; gap: 0.5rem;">
             <button type="submit" class="btn btn-primary" style="height: 42px;">Terapkan Filter</button>
+            @if(isset($unit_id) && $unit_id != 'all' && $unit_id != -1)
+            <a href="{{ route('led.pdf_full', ['unit_id' => $unit_id, 'tahun' => $tahun ?? date('Y')]) }}" target="_blank" class="btn btn-outline" style="height: 42px; display: inline-flex; align-items: center; justify-content: center; border-color: #6366f1; color: #6366f1; font-weight: 500;">
+                <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Cetak Borang Pertanyaan
+            </a>
+            @endif
         </div>
     </form>
 </div>
@@ -123,30 +128,37 @@
     <div class="card-header">
         <h2 class="card-title">Daftar Standar Mutu</h2>
     </div>
-    <div class="table-responsive">
-        <table class="table">
+    @php
+        $groupedStandards = $standards->groupBy('kelompok');
+    @endphp
+    @foreach($groupedStandards as $kelompok => $groupStandards)
+    @php 
+        $namaKelompok = $kelompok ?: 'Non-Akademik';
+        $groupId = 'led-group-' . md5($namaKelompok); 
+    @endphp
+    <div style="background-color: var(--bg-secondary); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); border-top: 1px solid var(--border-color); cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleLedGroup('{{ $groupId }}', this)">
+        <h3 style="margin: 0; font-size: 1rem; color: var(--text-primary); font-weight: 600;">
+            {{ $namaKelompok }} 
+            <span class="badge" style="background-color: var(--status-info-bg); color: var(--status-info); border: none; margin-left: 0.5rem; font-size: 0.75rem;">{{ count($groupStandards) }} Standar</span>
+        </h3>
+        <i data-feather="chevron-down" class="toggle-icon" style="width: 20px; height: 20px; color: var(--text-muted); transition: transform 0.3s ease; transform: rotate(-180deg);"></i>
+    </div>
+    
+    <div class="table-responsive" id="{{ $groupId }}" style="display: none; transition: all 0.3s ease;">
+        <table class="table" style="margin-bottom: 0;">
             <thead>
                 <tr>
-                    <th>KODE</th>
+                    <th style="width: 150px;">KODE</th>
                     <th>NAMA STANDAR / KATEGORI</th>
                     <th>UNIT KERJA</th>
-                    <th>STATUS LED</th>
+                    <th style="width: 120px;">STATUS LED</th>
                     @if(auth()->user()->role->kode == 'auditor')
-                    <th>STATUS AUDIT</th>
+                    <th style="width: 150px;">STATUS AUDIT</th>
                     @endif
-                    <th>AKSI</th>
+                    <th style="width: 210px; text-align: right;">AKSI</th>
                 </tr>
             </thead>
             <tbody>
-                @php
-                    $groupedStandards = $standards->groupBy('kelompok');
-                @endphp
-                @foreach($groupedStandards as $kelompok => $groupStandards)
-                <tr>
-                    <td colspan="{{ auth()->user()->role->kode == 'auditor' ? 6 : 5 }}" style="background-color: var(--bg-tertiary); font-weight: 700; color: var(--text-primary); text-transform: uppercase; font-size: 0.875rem;">
-                        {{ $kelompok ?: 'Non-Akademik' }}
-                    </td>
-                </tr>
                 @foreach($groupStandards as $standard)
                 @php
                     $entryQuery = \App\Models\LedEntry::with('unit')->where('objek_kode', $standard->kode)
@@ -217,38 +229,72 @@
                     </td>
                     @endif
                     <td>
-                        @if(auth()->user()->role->kode == 'auditor')
-                            @if(!$hasSubmitted && !$isAudited)
-                                <span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-muted); padding: 0.4rem 0.75rem; font-size: 0.7rem; border: 1px dashed var(--border-color);">
-                                    ⏳ Menunggu Unit Mengajukan LED
-                                </span>
+                        <div style="display: flex; gap: 0.25rem; justify-content: flex-end;">
+                            @if(auth()->user()->role->kode == 'auditor')
+                                @if(!$hasSubmitted && !$isAudited)
+                                    <span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-muted); padding: 0.4rem 0.75rem; font-size: 0.7rem; border: 1px dashed var(--border-color);">
+                                        ⏳ Menunggu Unit Mengajukan LED
+                                    </span>
+                                @else
+                                    <a href="{{ route('ami.create', ['standar_kode' => $standard->kode, 'unit_id' => $unit_id != 'all' ? $unit_id : '']) }}" class="btn {{ $isAudited ? 'btn-outline' : 'btn-primary' }}" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                                        <i data-feather="{{ $isAudited ? 'edit' : 'check-square' }}" style="width: 14px; height: 14px;"></i> {{ $isAudited ? 'Edit Audit' : 'Audit LED' }}
+                                    </a>
+                                @endif
                             @else
-                                <a href="{{ route('ami.create', ['standar_kode' => $standard->kode, 'unit_id' => $unit_id != 'all' ? $unit_id : '']) }}" class="btn {{ $isAudited ? 'btn-outline' : 'btn-primary' }}" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
-                                    <i data-feather="{{ $isAudited ? 'edit' : 'check-square' }}" style="width: 14px; height: 14px;"></i> {{ $isAudited ? 'Edit Audit' : 'Audit LED' }}
+                                @if($hasSubmitted)
+                                <a href="{{ route('led.edit', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                                    <i data-feather="eye" style="width: 14px; height: 14px;"></i> Lihat
                                 </a>
+                                @else
+                                <a href="{{ route('led.edit', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                                    <i data-feather="edit-2" style="width: 14px; height: 14px;"></i> Isi LED
+                                </a>
+                                @endif
                             @endif
-                        @else
-                            @if($hasSubmitted)
-                            <a href="{{ route('led.edit', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
-                                <i data-feather="eye" style="width: 14px; height: 14px;"></i> Lihat LED
-                            </a>
-                            @else
-                            <a href="{{ route('led.edit', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
-                                <i data-feather="edit-2" style="width: 14px; height: 14px;"></i> Isi LED
+                            @if($entry)
+                            <a href="{{ route('led.pdf', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" target="_blank" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; color: #dc3545; border-color: #dc3545;">
+                                <i data-feather="printer" style="width: 14px; height: 14px;"></i> PDF
                             </a>
                             @endif
-                        @endif
-                        @if($entry)
-                        <a href="{{ route('led.pdf', ['kode' => $standard->kode, 'tahun' => $tahun ?? date('Y'), 'unit_id' => $unit_id ?? 'all']) }}" target="_blank" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; margin-left: 0.25rem; color: #dc3545; border-color: #dc3545;">
-                            <i data-feather="printer" style="width: 14px; height: 14px;"></i> PDF
-                        </a>
-                        @endif
+                        </div>
                     </td>
                 </tr>
-                @endforeach
                 @endforeach
             </tbody>
         </table>
     </div>
+    @endforeach
 </div>
+
+@section('scripts')
+<script>
+    function toggleLedGroup(groupId, headerElement) {
+        let el = document.getElementById(groupId);
+        let icon = headerElement.querySelector('.toggle-icon');
+        if (el.style.display === 'none' || el.style.display === '') {
+            el.style.display = 'block';
+            icon.style.transform = 'rotate(0deg)';
+            localStorage.setItem(groupId, 'open');
+        } else {
+            el.style.display = 'none';
+            icon.style.transform = 'rotate(-180deg)';
+            localStorage.setItem(groupId, 'closed');
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll('.table-responsive').forEach(function(el) {
+            if (el.id && el.id.startsWith('led-group-')) {
+                let state = localStorage.getItem(el.id);
+                if (state === 'open') {
+                    let headerElement = el.previousElementSibling;
+                    let icon = headerElement ? headerElement.querySelector('.toggle-icon') : null;
+                    el.style.display = 'block';
+                    if (icon) icon.style.transform = 'rotate(0deg)';
+                }
+            }
+        });
+    });
+</script>
+@endsection
 @endsection

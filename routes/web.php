@@ -5,10 +5,21 @@ use App\Http\Controllers\AuditorAssignmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BulanMutuController;
 use App\Http\Controllers\LedController;
+use App\Http\Controllers\PetunjukAmiController;
+use App\Http\Controllers\RtmController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\StandardController;
+use App\Http\Controllers\SpmiPeriodController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\SettingController;
+use App\Models\AmiFinding;
+use App\Models\AuditorAssignment;
+use App\Models\BulanMutuConfig;
+use App\Models\BulanMutuStatus;
+use App\Models\LedEntry;
+use App\Models\LedSubmission;
+use App\Models\Standard;
+use App\Models\Unit;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
@@ -28,26 +39,26 @@ Route::middleware('auth')->group(function () {
         }
 
         // Ambil konfigurasi siklus SPMI tahun aktif
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         if (in_array(auth()->user()->role->kode, ['lpma', 'super_admin'])) {
             $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         } else {
             $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
         }
-        
+
         $totalStandar = DB::table('standards')->where('kelompok', '!=', 'Non-Akademik')->orWhereNull('kelompok')->count();
         $totalKategoriNA = DB::table('standards')->where('kelompok', 'Non-Akademik')->count();
 
         // Get P3 timeline for deadlines
-        $statusP3 = \App\Models\BulanMutuStatus::where('tahun', $tahun)
+        $statusP3 = BulanMutuStatus::where('tahun', $tahun)
             ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
             ->where('bulan_mutu_activities.tahap', 'P3')
             ->select('bulan_mutu_statuses.tanggal_pelaksanaan')
             ->first();
         $batasWaktuLED = $statusP3 ? $statusP3->tanggal_pelaksanaan : null;
-        
+
         // Ambil status kegiatan
-        $statuses = \App\Models\BulanMutuStatus::where('tahun', $tahun)
+        $statuses = BulanMutuStatus::where('tahun', $tahun)
             ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
             ->orderBy('bulan_mutu_activities.index_kegiatan')
             ->select('bulan_mutu_statuses.*', 'bulan_mutu_activities.tahap', 'bulan_mutu_activities.nama as kegiatan_nama', 'bulan_mutu_activities.index_kegiatan')
@@ -61,7 +72,7 @@ Route::middleware('auth')->group(function () {
             'P2' => 'PELAKSANAAN',
             'P3' => 'EVALUASI / AMI',
             'P4' => 'PENGENDALIAN',
-            'P5' => 'PENINGKATAN'
+            'P5' => 'PENINGKATAN',
         ];
 
         $tahapProgress = [
@@ -72,101 +83,103 @@ Route::middleware('auth')->group(function () {
             'P5' => ['status' => 'Belum dimulai', 'kegiatan' => []],
         ];
 
-        foreach($statuses as $st) {
+        foreach ($statuses as $st) {
             $t = $st->tahap;
             $tahapProgress[$t]['kegiatan'][] = $st;
         }
 
         $activeFound = false;
-        foreach($tahapProgress as $t => &$data) {
-            if(count($data['kegiatan']) == 0) continue;
-            
+        foreach ($tahapProgress as $t => &$data) {
+            if (count($data['kegiatan']) == 0) {
+                continue;
+            }
+
             $allDone = true;
             $anyStarted = false;
-            foreach($data['kegiatan'] as $k) {
-                if(str_contains($k->status, 'Terlaksana')) {
+            foreach ($data['kegiatan'] as $k) {
+                if (str_contains($k->status, 'Terlaksana')) {
                     $anyStarted = true;
                 } else {
                     $allDone = false;
                 }
             }
 
-            if($allDone) {
+            if ($allDone) {
                 $data['status'] = 'Selesai';
-            } elseif($anyStarted) {
+            } elseif ($anyStarted) {
                 $data['status'] = 'Berjalan';
-                if(!$activeFound) {
+                if (! $activeFound) {
                     $activeTahap = $t;
                     $activeFound = true;
                 }
             } else {
                 $data['status'] = 'Belum dimulai';
-                if(!$activeFound && $t != 'P1') { // If none started, P1 is active by default. If we reach here and it's not active, maybe previous is done and this is next.
+                if (! $activeFound && $t != 'P1') { // If none started, P1 is active by default. If we reach here and it's not active, maybe previous is done and this is next.
                     // Check if previous was done
-                    $prev = 'P' . (intval(substr($t, 1)) - 1);
-                    if(isset($tahapProgress[$prev]) && $tahapProgress[$prev]['status'] == 'Selesai') {
+                    $prev = 'P'.(intval(substr($t, 1)) - 1);
+                    if (isset($tahapProgress[$prev]) && $tahapProgress[$prev]['status'] == 'Selesai') {
                         $activeTahap = $t;
                         $activeFound = true;
                     }
                 }
             }
         }
-        
+
         // Final fallback if all done
-        if(!$activeFound && $tahapProgress['P5']['status'] == 'Selesai') {
+        if (! $activeFound && $tahapProgress['P5']['status'] == 'Selesai') {
             $activeTahap = 'P5';
         }
 
         // Ambil unit yang memerlukan perhatian (contoh: ada temuan RTL belum selesai)
-        $unitsAttention = \App\Models\Unit::withCount(['amiFindings' => function($q) use ($tahun) {
+        $unitsAttention = Unit::withCount(['amiFindings' => function ($q) use ($tahun) {
             $q->whereYear('tanggal', $tahun)->where('status_tindak_lanjut', '!=', 'Selesai');
         }])->having('ami_findings_count', '>', 0)
-          ->take(5)->get();
+            ->take(5)->get();
 
         // Matriks Penilaian Standar Mutu (untuk Auditor dan LPMA)
         $matriksPenilaian = [];
         if (auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma'])) {
-            $matriksPenilaian = \App\Models\Standard::orderBy('kelompok')->get()->groupBy('kelompok');
+            $matriksPenilaian = Standard::orderBy('kelompok')->get()->groupBy('kelompok');
         }
 
         return view('dashboard', compact('totalStandar', 'totalKategoriNA', 'tahun', 'tahapProgress', 'activeTahap', 'tahapLabels', 'unitsAttention', 'matriksPenilaian', 'batasWaktuLED'));
     })->name('dashboard');
 
     // Petunjuk AMI Route (accessible by everyone in auth, update restricted in view)
-    Route::get('/petunjuk-ami', [\App\Http\Controllers\PetunjukAmiController::class, 'index'])->name('petunjuk-ami.index');
-    Route::put('/petunjuk-ami', [\App\Http\Controllers\PetunjukAmiController::class, 'update'])->name('petunjuk-ami.update');
+    Route::get('/petunjuk-ami', [PetunjukAmiController::class, 'index'])->name('petunjuk-ami.index');
+    Route::put('/petunjuk-ami', [PetunjukAmiController::class, 'update'])->name('petunjuk-ami.update');
 
     // Drill down unit PPEPP
-    Route::get('/unit/{id}/ppepp', function($id) {
-        $unit = \App\Models\Unit::findOrFail($id);
-        
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+    Route::get('/unit/{id}/ppepp', function ($id) {
+        $unit = Unit::findOrFail($id);
+
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
-        
-        $findings = \App\Models\AmiFinding::where('unit_id', $id)->whereYear('tanggal', $tahun)->get();
-        $leds = \App\Models\LedEntry::where('unit_id', $id)->where('tahun', $tahun)->get();
-        $hasAuditor = \App\Models\AuditorAssignment::where('unit_id', $id)->where('tahun', $tahun)->exists();
-        
-        // Kalkulasi Micro-Timeline 7-Langkah
+
+        $findings = AmiFinding::where('unit_id', $id)->whereYear('tanggal', $tahun)->get();
+        $leds = LedEntry::where('unit_id', $id)->where('tahun', $tahun)->get();
+        $hasAuditor = AuditorAssignment::where('unit_id', $id)->where('tahun', $tahun)->exists();
+
+        $hasSubmitted = LedSubmission::where('unit_id', $id)->where('tahun', $tahun)->exists();
         $hasLeds = $leds->count() > 0;
         $hasFindings = $findings->count() > 0;
-        
-        $allRtlStarted = $hasFindings && $findings->every(function($f) {
+
+        $allRtlStarted = $hasFindings && $findings->every(function ($f) {
             return $f->status_tindak_lanjut != 'Belum' && $f->status_tindak_lanjut != '';
         });
-        
-        $allRtlFinished = $hasFindings && $findings->every(function($f) {
+
+        $allRtlFinished = $hasFindings && $findings->every(function ($f) {
             return $f->status_tindak_lanjut == 'Selesai';
         });
 
         $microTimeline = [
-            'ed' => $hasLeds ? 'done' : 'active',
-            'verifikasi_evidence' => $hasLeds ? 'done' : 'pending',
-            'desk_evaluation' => $hasAuditor ? 'done' : ($hasLeds ? 'active' : 'pending'),
-            'visitasi' => $hasFindings ? 'done' : ($hasAuditor ? 'active' : 'pending'),
+            'ed' => $hasSubmitted ? 'done' : 'active',
+            'verifikasi_evidence' => $hasSubmitted ? 'done' : 'pending',
+            'desk_evaluation' => ($hasSubmitted && $hasAuditor) ? ($hasFindings ? 'done' : 'active') : 'pending',
+            'visitasi' => $hasFindings ? 'done' : (($hasSubmitted && $hasAuditor) ? 'active' : 'pending'),
             'closing' => $hasFindings ? 'done' : 'pending',
             'rtl' => $allRtlStarted ? 'done' : ($hasFindings ? 'active' : 'pending'),
-            'verifikasi_rtl' => $allRtlFinished ? 'done' : ($allRtlStarted ? 'active' : 'pending')
+            'verifikasi_rtl' => $allRtlFinished ? 'done' : ($allRtlStarted ? 'active' : 'pending'),
         ];
 
         return view('unit.ppepp', compact('unit', 'tahun', 'findings', 'leds', 'microTimeline'));
@@ -180,7 +193,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/led/{kode}/pdf', [LedController::class, 'exportPdf'])->name('led.pdf');
         Route::get('/led-full/{unit_id}/pdf', [LedController::class, 'exportFullPdf'])->name('led.pdf_full');
         Route::put('/led/{kode}', [LedController::class, 'update'])->name('led.update');
-        
+
         // RTL Route for Auditee
         Route::put('/ami/{id}/rtl', [AmiController::class, 'updateRtl'])->name('ami.update-rtl');
         Route::get('/ami/rtl/pdf', [AmiController::class, 'exportRtlPdf'])->name('ami.rtl.pdf');
@@ -191,6 +204,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/ami', [AmiController::class, 'index'])->name('ami.index');
         Route::get('/ami/pdf', [AmiController::class, 'exportPdf'])->name('ami.pdf');
         Route::get('/ami/checklist-pdf', [AmiController::class, 'exportChecklistPdf'])->name('ami.checklist.pdf');
+        Route::get('/ami/{id}/pka-pdf', [AmiController::class, 'exportPkaPdf'])->name('ami.pka.pdf');
         Route::post('/ami/import', [AmiController::class, 'import'])->name('ami.import');
         Route::get('/ami/create', [AmiController::class, 'create'])->name('ami.create');
         Route::post('/ami', [AmiController::class, 'store'])->name('ami.store');
@@ -210,10 +224,13 @@ Route::middleware('auth')->group(function () {
 
     // LPMA and Super Admin routes for system setup
     Route::middleware('role:lpma,super_admin')->group(function () {
-        Route::get('/rtm/cetak-berita-acara', [\App\Http\Controllers\RtmController::class, 'generatePdf'])->name('rtm.cetak');
+        Route::get('/rtm/cetak-berita-acara', [RtmController::class, 'generatePdf'])->name('rtm.cetak');
         Route::resource('standar-mutu', StandardController::class)->except(['show']);
+        Route::post('spmi-period', [SpmiPeriodController::class, 'store'])->name('spmi-period.store');
+        Route::put('spmi-period/{id}', [SpmiPeriodController::class, 'update'])->name('spmi-period.update');
+        Route::post('spmi-period/{id}/activate', [SpmiPeriodController::class, 'activate'])->name('spmi-period.activate');
         Route::resource('manajemen-auditee', UnitController::class)->only(['index', 'store', 'edit', 'update', 'destroy']);
-        
+
         Route::get('/penugasan-auditor', [AuditorAssignmentController::class, 'index'])->name('penugasan-auditor.index');
         Route::post('/penugasan-auditor', [AuditorAssignmentController::class, 'store'])->name('penugasan-auditor.store');
         Route::put('/penugasan-auditor/{id}', [AuditorAssignmentController::class, 'update'])->name('penugasan-auditor.update');

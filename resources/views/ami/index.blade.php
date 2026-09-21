@@ -127,6 +127,7 @@
                     <th>SKOR</th>
                     <th>KATEGORI</th>
                     <th>TINDAK LANJUT</th>
+                    <th>AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -188,10 +189,15 @@
                             <span class="badge" style="background-color: #C00000; color: white;">{{ $finding->status_tindak_lanjut ?: 'Belum' }}</span>
                         @endif
                     </td>
+                    <td style="text-align: center;">
+                        <a href="{{ route('ami.pka.pdf', $finding->id) }}" target="_blank" class="btn btn-sm btn-outline-primary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #2E75B6; color: #2E75B6; background: transparent; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; opacity: 1; transition: all 0.2s;" title="Cetak Kertas Kerja Audit (PKA)" onmouseover="this.style.backgroundColor='#2E75B6'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#2E75B6';">
+                            <i data-feather="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> PKA
+                        </a>
+                    </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+                    <td colspan="9" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
                         <i data-feather="clipboard" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 1rem;"></i>
                         <p>Belum ada temuan audit yang tercatat di sistem.</p>
                     </td>

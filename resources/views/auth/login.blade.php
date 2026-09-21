@@ -44,7 +44,14 @@
 <body>
     <div class="login-container">
         <div class="login-card">
-            <div class="login-logo">A</div>
+            @php
+                $setting = \App\Models\Setting::first();
+            @endphp
+            @if($setting && $setting->logo_kampus)
+                <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo Kampus" style="max-height: 80px; max-width: 200px; margin: 0 auto 1.5rem; display: block; object-fit: contain;">
+            @else
+                <div class="login-logo">A</div>
+            @endif
             <h1 style="font-size: 1.5rem; font-family: 'Outfit', sans-serif; margin-bottom: 0.5rem; color: var(--text-primary);">Masuk ke AMIRA</h1>
             <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 2rem;">Aplikasi Manajemen Audit Mutu Internal</p>
             
@@ -73,7 +80,7 @@
             </form>
             
             <p style="margin-top: 2rem; font-size: 0.75rem; color: var(--text-muted);">
-                &copy; 2024 Universitas Sumatera Selatan.
+                &copy; {{ date('Y') }} {{ isset($setting) && $setting->nama_kampus ? $setting->nama_kampus : 'Universitas Sumatera Selatan' }}.
             </p>
         </div>
     </div>

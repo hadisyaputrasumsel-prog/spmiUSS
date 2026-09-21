@@ -84,6 +84,11 @@
                 @php
                     $statusRecord = $statuses->get($activity->id);
                     $status = $statusRecord ? $statusRecord->status : 'Belum Dilaksanakan';
+                    
+                    // Force rollback to Belum Dilaksanakan if no document is uploaded
+                    if (in_array($status, ['Terlaksana Sesuai Rencana', 'Terlaksana - Tertunda']) && (!$statusRecord || !$statusRecord->dokumen_bukti)) {
+                        $status = 'Belum Dilaksanakan';
+                    }
                 @endphp
                 <tr>
                     <td style="font-weight: 600; text-align: center;">{{ $activity->index_kegiatan }}</td>

@@ -56,4 +56,25 @@ class Standard extends Model
         'sasaran_unit' => 'array',
         'rubrik_penilaian' => 'array',
     ];
+
+    public function getActiveLedEntry($unit_id)
+    {
+        return $this->ledEntries()->where('unit_id', $unit_id)
+            ->orderBy('tahun', 'desc')
+            ->first();
+    }
+
+    public function scopeActivePeriod($query)
+    {
+        $activePeriod = \App\Models\SpmiPeriod::where('is_active', true)->first();
+        $activePeriodName = $activePeriod ? $activePeriod->nama : 'Periode Utama';
+        
+        return $query->where(function($q) use ($activePeriodName) {
+            if ($activePeriodName === 'Periode Utama') {
+                $q->whereNull('periode')->orWhere('periode', '')->orWhere('periode', 'Periode Utama');
+            } else {
+                $q->where('periode', $activePeriodName);
+            }
+        });
+    }
 }

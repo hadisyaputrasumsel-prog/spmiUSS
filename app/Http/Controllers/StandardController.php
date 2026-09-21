@@ -7,12 +7,43 @@ use App\Models\Standard;
 
 class StandardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $groupedStandards = Standard::orderBy('kode', 'asc')->get()->groupBy(function($item) {
+        $periodes = \App\Models\SpmiPeriod::orderBy('created_at', 'desc')->get();
+        // Fallback create default if empty
+        if ($periodes->isEmpty()) {
+            \App\Models\SpmiPeriod::create(['nama' => 'Periode Utama', 'is_active' => true]);
+            $periodes = \App\Models\SpmiPeriod::orderBy('created_at', 'desc')->get();
+        }
+        
+        $activePeriode = $periodes->where('is_active', true)->first();
+        if (!$activePeriode) $activePeriode = $periodes->first();
+
+        // Default to the first available period, or null if none
+        $selectedPeriodeId = $request->query('periode_id', $activePeriode->id);
+        
+        // Ensure standard 'periode' is stored as period name or id, wait, in existing DB, 'periode' is string!
+        // We will match the string name with the selected period's name
+        $selectedPeriodeName = $periodes->firstWhere('id', $selectedPeriodeId)->nama ?? '';
+
+        $query = Standard::orderBy('kode', 'asc');
+        
+        if ($selectedPeriodeName === 'Periode Utama' || empty($selectedPeriodeName)) {
+            $query->where(function($q) use ($selectedPeriodeName) {
+                $q->whereNull('periode')->orWhere('periode', '')->orWhere('periode', $selectedPeriodeName);
+            });
+        } else {
+            $query->where('periode', $selectedPeriodeName);
+        }
+
+        $standards = $query->get();
+
+        // Group only by kelompok
+        $groupedStandards = $standards->groupBy(function($item) {
             return empty($item->kelompok) ? 'Tanpa Kelompok' : $item->kelompok;
         });
-        return view('standar.index', compact('groupedStandards'));
+        
+        return view('standar.index', compact('groupedStandards', 'periodes', 'selectedPeriodeId', 'activePeriode'));
     }
 
     public function create()
@@ -27,6 +58,8 @@ class StandardController extends Controller
             'nama' => 'required|string|max:255',
             'is_akademik' => 'required|boolean',
             'kelompok' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
+            'is_active' => 'nullable|boolean',
             'sasaran_unit' => 'nullable|array',
             'indikator' => 'nullable|string',
             'target' => 'nullable|string',
@@ -42,6 +75,7 @@ class StandardController extends Controller
         ]);
 
         $data = $request->all();
+        $data['is_active'] = $request->has('is_active') ? true : false;
 
         if ($request->hasFile('template_dokumen')) {
             $file = $request->file('template_dokumen');
@@ -67,6 +101,8 @@ class StandardController extends Controller
             'nama' => 'required|string|max:255',
             'is_akademik' => 'required|boolean',
             'kelompok' => 'required|string|max:255',
+            'periode' => 'nullable|string|max:255',
+            'is_active' => 'nullable|boolean',
             'sasaran_unit' => 'nullable|array',
             'indikator' => 'nullable|string',
             'target' => 'nullable|string',
@@ -82,6 +118,7 @@ class StandardController extends Controller
         ]);
 
         $data = $request->all();
+        $data['is_active'] = $request->has('is_active') ? true : false;
         
         if (!$request->has('sasaran_unit')) {
             $data['sasaran_unit'] = null;
@@ -105,3 +142,4 @@ class StandardController extends Controller
         return redirect()->route('standar-mutu.index')->with('success', 'Standar mutu berhasil dihapus.');
     }
 }
+

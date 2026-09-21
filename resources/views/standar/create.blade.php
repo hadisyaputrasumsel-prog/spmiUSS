@@ -63,6 +63,16 @@
                     <input type="file" name="template_dokumen" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                     <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Dokumen ini nantinya dapat diunduh oleh Prodi/Unit saat mengisi LED sebagai referensi atau format pengisian.</small>
                 </div>
+
+                <div class="form-group" style="margin-bottom: 1.5rem;">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Instrumen / Referensi Standar</label>
+                    <select name="periode" class="form-control" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        @foreach(\App\Models\SpmiPeriod::orderBy('created_at', 'desc')->get() as $p)
+                            <option value="{{ $p->nama }}" {{ old('periode') == $p->nama ? 'selected' : '' }}>{{ $p->nama }} {{ $p->is_active ? '(Aktif)' : '' }}</option>
+                        @endforeach
+                    </select>
+                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Menentukan ke dalam instrumen mana standar ini akan dimasukkan.</small>
+                </div>
             </div>
 
             <div style="margin-bottom: 2rem;">

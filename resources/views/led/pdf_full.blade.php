@@ -148,6 +148,17 @@
                         <span class="tahap-badge">{{ $tahapCode }}</span> Tahap {{ $tahapName }}
                     </div>
                     <div class="stage-content">
+                        @php
+                            $indikatorField = 'indikator_' . strtolower($tahapCode);
+                            $indikatorText = $standard->$indikatorField ?? null;
+                        @endphp
+                        @if(!empty($indikatorText))
+                            <div style="background-color: #e3f2fd; border-left: 3px solid #2196f3; padding: 8px; margin-bottom: 10px; font-size: 10px;">
+                                <strong style="color: #1976d2; display: block; margin-bottom: 4px;">Target / Indikator (Acuan):</strong>
+                                <div style="color: #444;">{!! nl2br(e($indikatorText)) !!}</div>
+                            </div>
+                        @endif
+
                         @if($data)
                             <table class="stage-grid">
                                 <tr>
@@ -160,18 +171,93 @@
                                     <td>: {{ $data->penanggung_jawab }}</td>
                                 </tr>
                                 @endif
+                                @if(!empty($data->data_spesifik))
+                                    @foreach($data->data_spesifik as $k => $v)
+                                      <tr>
+                                          <td style="font-weight: bold;">{{ ucwords(str_replace('_', ' ', $k)) }}</td>
+                                          <td>: {{ $v }}</td>
+                                      </tr>
+                                    @endforeach
+                                @endif
                             </table>
                             
-                            @if($tahapCode != 'P1')
+                            @if($tahapCode != 'P1' && $data->uraian)
+                                <div style="margin-top: 5px; font-weight: bold;">Uraian:</div>
+                                <div class="uraian-box">
+                                    {{ $data->uraian ?: '-' }}
+                                </div>
+                            @elseif($tahapCode == 'P1' && $data->uraian)
                                 <div style="margin-top: 5px; font-weight: bold;">Uraian:</div>
                                 <div class="uraian-box">
                                     {{ $data->uraian ?: '-' }}
                                 </div>
                             @endif
                         @else
-                            <div style="color: #999; font-style: italic; text-align: center; padding: 5px 0;">
-                                Kosong / Belum diisi
-                            </div>
+                            <table class="stage-grid" style="margin-top: 5px;">
+                                @if($tahapCode == 'P1')
+                                <tr>
+                                    <td style="width: 180px;">Tanggal Ditetapkan</td>
+                                    <td>: ....................................... <span style="color: #999; font-size: 10px;">(dd/mm/yyyy)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>No. SK / Dokumen Penetapan</td>
+                                    <td>: .....................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Uraian Penetapan : <br><br>.........................................................................................................................................................................................................<br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                @elseif($tahapCode == 'P2')
+                                <tr>
+                                    <td style="width: 180px;">Periode Pelaksanaan</td>
+                                    <td>: .....................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Uraian Pelaksanaan : <br><br>.........................................................................................................................................................................................................<br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                @elseif($tahapCode == 'P3')
+                                <tr>
+                                    <td style="width: 180px;">Metode Evaluasi</td>
+                                    <td>: .....................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td>Tanggal Evaluasi</td>
+                                    <td>: ....................................... <span style="color: #999; font-size: 10px;">(dd/mm/yyyy)</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Status Capaian</td>
+                                    <td>: [  ] Melampaui &nbsp;&nbsp;&nbsp; [  ] Tercapai &nbsp;&nbsp;&nbsp; [  ] Belum Tercapai</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Capaian Aktual : <br><br>.........................................................................................................................................................................................................<br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                @elseif($tahapCode == 'P4')
+                                <tr>
+                                    <td colspan="2">Temuan / Penyimpangan : <br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Tindakan Korektif : <br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 180px; padding-top:10px;">Tanggal Tindak Lanjut</td>
+                                    <td style="padding-top:10px;">: ....................................... <span style="color: #999; font-size: 10px;">(dd/mm/yyyy)</span></td>
+                                </tr>
+                                @elseif($tahapCode == 'P5')
+                                <tr>
+                                    <td colspan="2">Rencana Peningkatan / Revisi Standar : <br><br>.........................................................................................................................................................................................................<br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">Target Periode Berikutnya : <br><br>.........................................................................................................................................................................................................</td>
+                                </tr>
+                                @endif
+                                <tr>
+                                    <td style="padding-top: 15px; width: 180px;">Tautan / Link / Drive Dokumen Bukti</td>
+                                    <td style="padding-top: 15px;">: .....................................................................................</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding-top: 5px;">Penanggung Jawab / Pihak Terlibat</td>
+                                    <td style="padding-top: 5px;">: .....................................................................................</td>
+                                </tr>
+                            </table>
                         @endif
                     </div>
                 </div>
