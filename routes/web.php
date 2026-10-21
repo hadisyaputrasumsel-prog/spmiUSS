@@ -25,23 +25,98 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 
-// Migration helper route
+// Migration and DB repair helper route
 Route::get('/run-migrate', function () {
+    $action = request()->query('action');
+    $output = '';
+    $message = '';
+    $color = '#4af626';
+
     try {
-        Artisan::call('migrate', ['--force' => true]);
-        $output = Artisan::output();
-        return response('<pre style="background:#1e1e1e;color:#4af626;padding:20px;border-radius:8px;font-family:monospace;">' . 
-            "=== AUTO MIGRATE SUCCESS ===\n\n" . 
-            htmlspecialchars($output ?: "Nothing to migrate (Database is up to date).\n") . 
-            "\n<a href='/' style='color:#fff;text-decoration:underline;'>&larr; Kembali ke Dashboard</a>" . 
-            '</pre>');
+        if ($action === 'fresh') {
+            Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+            $output = Artisan::output();
+            $message = 'Database berhasil di-reset ulang dan di-seed bersih (migrate:fresh --seed).';
+        } elseif ($action === 'import') {
+            $dumpPath = base_path('amira_uss_dump.sql');
+            if (file_exists($dumpPath)) {
+                DB::unprepared(file_get_contents($dumpPath));
+                Artisan::call('migrate', ['--force' => true]);
+                $output = "Dump amira_uss_dump.sql berhasil diimpor!\n" . Artisan::output();
+                $message = 'Database dump berhasil diimpor dan migrasi terbaru telah dijalankan.';
+            } else {
+                throw new Exception('File amira_uss_dump.sql tidak ditemukan di root direktori.');
+            }
+        } elseif ($action === 'migrate' || empty($action)) {
+            Artisan::call('migrate', ['--force' => true]);
+            $output = Artisan::output();
+            $message = 'Migrasi berhasil dijalankan (migrate --force).';
+        }
     } catch (\Throwable $e) {
-        return response('<pre style="background:#1e1e1e;color:#ff5555;padding:20px;border-radius:8px;font-family:monospace;">' . 
-            "=== MIGRATE ERROR ===\n\n" . 
-            htmlspecialchars($e->getMessage()) . 
-            "\n\nTrace:\n" . htmlspecialchars($e->getTraceAsString()) . 
-            '</pre>', 500);
+        $color = '#ff5555';
+        $message = 'Terjadi kesalahan: ' . $e->getMessage();
+        $output = $e->getMessage() . "\n\n" . $e->getTraceAsString();
     }
+
+    // Ambil daftar tabel yang ada saat ini di DB
+    $tables = [];
+    try {
+        $tableList = DB::select('SHOW TABLES');
+        $dbName = config('database.connections.mysql.database');
+        $key = 'Tables_in_' . $dbName;
+        foreach ($tableList as $t) {
+            $tables[] = $t->$key ?? array_values((array)$t)[0];
+        }
+    } catch (\Throwable $e) {
+        $tables = ['Error: ' . $e->getMessage()];
+    }
+
+    $tableListHtml = implode(', ', $tables);
+
+    return response("<!DOCTYPE html>
+    <html lang='id'>
+    <head>
+        <meta charset='utf-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <title>AMIRA - Database Repair Tool</title>
+        <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0f172a; color: #f8fafc; padding: 2rem; margin: 0; }
+            .container { max-width: 900px; margin: 0 auto; }
+            .card { background: #1e293b; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem; border: 1px solid #334155; }
+            .btn { display: inline-block; padding: 12px 20px; margin: 6px; border-radius: 8px; text-decoration: none; font-weight: 600; color: #fff; cursor: pointer; border: none; font-size: 0.95rem; }
+            .btn-blue { background: #2563eb; }
+            .btn-green { background: #16a34a; }
+            .btn-orange { background: #ea580c; }
+            pre { background: #020617; padding: 16px; border-radius: 8px; overflow-x: auto; color: {$color}; border: 1px solid #1e293b; font-family: monospace; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap; }
+        </style>
+    </head>
+    <body>
+        <div class='container'>
+            <h2>🛠️ AMIRA - Database Repair & Migration Tool</h2>
+            
+            <div class='card'>
+                <h3 style='margin-top:0;'>Status Hasil Eksekusi:</h3>
+                <p style='color: {$color}; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.75rem;'>{$message}</p>
+                <pre>" . htmlspecialchars($output ?: "Tidak ada output / migrasi sudah up-to-date.") . "</pre>
+            </div>
+
+            <div class='card'>
+                <h3 style='margin-top:0;'>Pilih Aksi Perbaikan Database:</h3>
+                <p style='color: #94a3b8; font-size: 0.9rem;'>Jika ada tabel seperti <code>ami_findings</code> yang hilang akibat state database tidak sinkron, klik tombol oranye untuk reset bersih.</p>
+                
+                <a href='/run-migrate?action=fresh' class='btn btn-orange' onclick=\"return confirm('PERINGATAN: Ini akan membuat ulang semua tabel dari awal dan mengisi data awal (akun admin, peran, standar mutu). Lanjutkan?')\">⚡ Reset Bersih (migrate:fresh --seed)</a>
+                <a href='/run-migrate?action=import' class='btn btn-blue'>📥 Impor Dump SQL (amira_uss_dump.sql)</a>
+                <a href='/run-migrate?action=migrate' class='btn btn-green'>▶ Jalankan Migrate Standar</a>
+                <a href='/' class='btn' style='background:#475569;'>&larr; Kembali ke Dashboard</a>
+            </div>
+
+            <div class='card'>
+                <h3 style='margin-top:0;'>Daftar Tabel Saat Ini di Database (" . count($tables) . " tabel):</h3>
+                <p style='color: #94a3b8; font-family: monospace; font-size: 0.85rem; line-height: 1.8;'>" . ($tableListHtml ?: 'Belum ada tabel') . "</p>
+            </div>
+        </div>
+    </body>
+    </html>");
 });
 
 // Auth Routes
@@ -78,23 +153,26 @@ Route::middleware('auth')->group(function () {
             $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
         }
 
-        $totalStandar = DB::table('standards')->where('kelompok', '!=', 'Non-Akademik')->orWhereNull('kelompok')->count();
-        $totalKategoriNA = DB::table('standards')->where('kelompok', 'Non-Akademik')->count();
+        $totalStandar = Schema::hasTable('standards') ? DB::table('standards')->where('kelompok', '!=', 'Non-Akademik')->orWhereNull('kelompok')->count() : 0;
+        $totalKategoriNA = Schema::hasTable('standards') ? DB::table('standards')->where('kelompok', 'Non-Akademik')->count() : 0;
 
         // Get P3 timeline for deadlines
-        $statusP3 = BulanMutuStatus::where('tahun', $tahun)
-            ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
-            ->where('bulan_mutu_activities.tahap', 'P3')
-            ->select('bulan_mutu_statuses.tanggal_pelaksanaan')
-            ->first();
-        $batasWaktuLED = $statusP3 ? $statusP3->tanggal_pelaksanaan : null;
+        $statusP3 = null;
+        $statuses = collect();
+        if (Schema::hasTable('bulan_mutu_statuses') && Schema::hasTable('bulan_mutu_activities')) {
+            $statusP3 = BulanMutuStatus::where('tahun', $tahun)
+                ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
+                ->where('bulan_mutu_activities.tahap', 'P3')
+                ->select('bulan_mutu_statuses.tanggal_pelaksanaan')
+                ->first();
 
-        // Ambil status kegiatan
-        $statuses = BulanMutuStatus::where('tahun', $tahun)
-            ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
-            ->orderBy('bulan_mutu_activities.index_kegiatan')
-            ->select('bulan_mutu_statuses.*', 'bulan_mutu_activities.tahap', 'bulan_mutu_activities.nama as kegiatan_nama', 'bulan_mutu_activities.index_kegiatan')
-            ->get();
+            $statuses = BulanMutuStatus::where('tahun', $tahun)
+                ->join('bulan_mutu_activities', 'bulan_mutu_statuses.kegiatan_id', '=', 'bulan_mutu_activities.id')
+                ->orderBy('bulan_mutu_activities.index_kegiatan')
+                ->select('bulan_mutu_statuses.*', 'bulan_mutu_activities.tahap', 'bulan_mutu_activities.nama as kegiatan_nama', 'bulan_mutu_activities.index_kegiatan')
+                ->get();
+        }
+        $batasWaktuLED = $statusP3 ? $statusP3->tanggal_pelaksanaan : null;
 
         // Tentukan tahap aktif (tahap terakhir yang statusnya belum selesai atau sedang berjalan)
         // Default ke P1 jika kosong
@@ -163,14 +241,17 @@ Route::middleware('auth')->group(function () {
         }
 
         // Ambil unit yang memerlukan perhatian (contoh: ada temuan RTL belum selesai)
-        $unitsAttention = Unit::withCount(['amiFindings' => function ($q) use ($tahun) {
-            $q->whereYear('tanggal', $tahun)->where('status_tindak_lanjut', '!=', 'Selesai');
-        }])->having('ami_findings_count', '>', 0)
-            ->take(5)->get();
+        $unitsAttention = collect();
+        if (Schema::hasTable('units') && Schema::hasTable('ami_findings')) {
+            $unitsAttention = Unit::withCount(['amiFindings' => function ($q) use ($tahun) {
+                $q->whereYear('tanggal', $tahun)->where('status_tindak_lanjut', '!=', 'Selesai');
+            }])->having('ami_findings_count', '>', 0)
+                ->take(5)->get();
+        }
 
         // Matriks Penilaian Standar Mutu (untuk Auditor dan LPMA)
         $matriksPenilaian = [];
-        if (auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma'])) {
+        if (Schema::hasTable('standards') && (auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma']))) {
             $matriksPenilaian = Standard::orderBy('kelompok')->get()->groupBy('kelompok');
         }
 
