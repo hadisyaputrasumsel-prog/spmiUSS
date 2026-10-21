@@ -64,7 +64,11 @@
         <tr>
             <td class="header-left" rowspan="2">
                 @php
-                    $setting = \App\Models\Setting::first();
+                    try {
+                        $setting = \Illuminate\Support\Facades\Schema::hasTable('settings') ? \App\Models\Setting::first() : null;
+                    } catch (\Throwable $e) {
+                        $setting = null;
+                    }
                     // Fallback to text if img fails in some DOMPDF configs or if no logo
                 @endphp
                 @if($setting && $setting->logo_kampus)

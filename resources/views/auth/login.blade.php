@@ -45,7 +45,11 @@
     <div class="login-container">
         <div class="login-card">
             @php
-                $setting = \App\Models\Setting::first();
+                try {
+                    $setting = \Illuminate\Support\Facades\Schema::hasTable('settings') ? \App\Models\Setting::first() : null;
+                } catch (\Throwable $e) {
+                    $setting = null;
+                }
             @endphp
             @if($setting && $setting->logo_kampus)
                 <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo Kampus" style="max-height: 80px; max-width: 200px; margin: 0 auto 1.5rem; display: block; object-fit: contain;">

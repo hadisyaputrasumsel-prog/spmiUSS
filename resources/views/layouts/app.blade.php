@@ -18,7 +18,11 @@
         <aside class="sidebar">
             <div class="sidebar-header" style="flex-direction: column; flex-wrap: wrap; text-align: center; padding: 2rem 1.5rem 1.5rem; gap: 0.5rem;">
                 @php
-                    $setting = \App\Models\Setting::first();
+                    try {
+                        $setting = \Illuminate\Support\Facades\Schema::hasTable('settings') ? \App\Models\Setting::first() : null;
+                    } catch (\Throwable $e) {
+                        $setting = null;
+                    }
                 @endphp
                 @if($setting && $setting->logo_kampus)
                     <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo" style="height: 70px; width: auto; max-width: 180px; object-fit: contain; margin-bottom: 0.25rem;">
