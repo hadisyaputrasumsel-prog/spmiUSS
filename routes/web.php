@@ -20,8 +20,29 @@ use App\Models\LedEntry;
 use App\Models\LedSubmission;
 use App\Models\Standard;
 use App\Models\Unit;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
+
+// Migration helper route
+Route::get('/run-migrate', function () {
+    try {
+        Artisan::call('migrate', ['--force' => true]);
+        $output = Artisan::output();
+        return response('<pre style="background:#1e1e1e;color:#4af626;padding:20px;border-radius:8px;font-family:monospace;">' . 
+            "=== AUTO MIGRATE SUCCESS ===\n\n" . 
+            htmlspecialchars($output ?: "Nothing to migrate (Database is up to date).\n") . 
+            "\n<a href='/' style='color:#fff;text-decoration:underline;'>&larr; Kembali ke Dashboard</a>" . 
+            '</pre>');
+    } catch (\Throwable $e) {
+        return response('<pre style="background:#1e1e1e;color:#ff5555;padding:20px;border-radius:8px;font-family:monospace;">' . 
+            "=== MIGRATE ERROR ===\n\n" . 
+            htmlspecialchars($e->getMessage()) . 
+            "\n\nTrace:\n" . htmlspecialchars($e->getTraceAsString()) . 
+            '</pre>', 500);
+    }
+});
 
 // Auth Routes
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
@@ -39,7 +60,18 @@ Route::middleware('auth')->group(function () {
         }
 
         // Ambil konfigurasi siklus SPMI tahun aktif
-        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = null;
+        try {
+            if (Schema::hasTable('bulan_mutu_configs')) {
+                if (Schema::hasColumn('bulan_mutu_configs', 'is_active')) {
+                    $activeConfig = BulanMutuConfig::where('is_active', true)->first();
+                } else {
+                    $activeConfig = BulanMutuConfig::first();
+                }
+            }
+        } catch (\Throwable $e) {
+            $activeConfig = null;
+        }
         if (in_array(auth()->user()->role->kode, ['lpma', 'super_admin'])) {
             $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         } else {
@@ -153,7 +185,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/unit/{id}/ppepp', function ($id) {
         $unit = Unit::findOrFail($id);
 
-        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = null;
+        try {
+            if (Schema::hasTable('bulan_mutu_configs')) {
+                if (Schema::hasColumn('bulan_mutu_configs', 'is_active')) {
+                    $activeConfig = BulanMutuConfig::where('is_active', true)->first();
+                } else {
+                    $activeConfig = BulanMutuConfig::first();
+                }
+            }
+        } catch (\Throwable $e) {
+            $activeConfig = null;
+        }
         $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
 
         $findings = AmiFinding::where('unit_id', $id)->whereYear('tanggal', $tahun)->get();
