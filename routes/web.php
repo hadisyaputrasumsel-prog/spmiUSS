@@ -26,6 +26,17 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
+
+// Public storage fallback in case symlink public/storage is missing or blocked by web server
+Route::get('/storage/{path}', function (string $path) {
+    $cleanPath = ltrim(str_replace('\\', '/', $path), '/');
+    if ($cleanPath === '' || str_contains($cleanPath, '..') || ! Storage::disk('public')->exists($cleanPath)) {
+        abort(404);
+    }
+
+    return response()->file(Storage::disk('public')->path($cleanPath));
+})->where('path', '.*');
 
 // Migration and DB repair helper route
 Route::get('/run-migrate', function () {

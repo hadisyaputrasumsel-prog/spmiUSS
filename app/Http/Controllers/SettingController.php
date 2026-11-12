@@ -20,7 +20,7 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
-        $setting = Setting::first();
+        $setting = Setting::first() ?? Setting::create(['nama_kampus' => 'Universitas Sumatera Selatan']);
         
         $request->validate([
             'nama_kampus' => 'required|string|max:255',
@@ -42,7 +42,7 @@ class SettingController extends Controller
             }
             
             $file = $request->file('logo_kampus');
-            $filename = time() . '_' . $file->getClientOriginalName();
+            $filename = time() . '_' . preg_replace('/[^A-Za-z0-9._-]/', '_', $file->getClientOriginalName());
             $path = $file->storeAs('logos', $filename, 'public');
             $data['logo_kampus'] = $path;
         }

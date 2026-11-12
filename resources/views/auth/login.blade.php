@@ -51,7 +51,7 @@
                     $setting = null;
                 }
             @endphp
-            @if($setting && $setting->logo_kampus)
+            @if($setting && $setting->logo_kampus && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->logo_kampus))
                 <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo Kampus" style="max-height: 80px; max-width: 200px; margin: 0 auto 1.5rem; display: block; object-fit: contain;">
             @else
                 <div class="login-logo">A</div>

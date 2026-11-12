@@ -31,9 +31,14 @@
             <!-- Logo Section -->
             <div style="grid-column: 1 / -1; display: flex; align-items: flex-start; gap: 2rem;">
                 <div>
-                    @if($setting->logo_kampus)
+                    @if($setting->logo_kampus && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->logo_kampus))
                         <div style="border: 1px solid var(--border-color); padding: 10px; border-radius: var(--radius-md); background: white; text-align: center; width: fit-content;">
                             <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo Kampus" style="max-height: 120px; max-width: 200px;">
+                        </div>
+                    @elseif($setting->logo_kampus)
+                        <div style="border: 1px dashed var(--status-warning); padding: 20px; border-radius: var(--radius-md); background: var(--status-warning-bg); text-align: center; color: var(--status-warning); width: 200px;">
+                            <i data-feather="alert-triangle" style="width: 28px; height: 28px; margin-bottom: 8px;"></i>
+                            <p style="margin: 0; font-size: 0.8rem;">File logo belum ada di server. Silakan unggah ulang.</p>
                         </div>
                     @else
                         <div style="border: 1px dashed var(--border-color); padding: 30px; border-radius: var(--radius-md); background: var(--bg-secondary); text-align: center; color: var(--text-muted); width: 150px;">

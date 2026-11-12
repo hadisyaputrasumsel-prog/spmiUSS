@@ -24,7 +24,7 @@
                         $setting = null;
                     }
                 @endphp
-                @if($setting && $setting->logo_kampus)
+                @if($setting && $setting->logo_kampus && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->logo_kampus))
                     <img src="{{ asset('storage/' . $setting->logo_kampus) }}" alt="Logo" style="height: 70px; width: auto; max-width: 180px; object-fit: contain; margin-bottom: 0.25rem;">
                 @else
                     <div class="sidebar-logo-icon" style="width: 48px; height: 48px; font-size: 1.5rem; margin-bottom: 0.25rem;">A</div>

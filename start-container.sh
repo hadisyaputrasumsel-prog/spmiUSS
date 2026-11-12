@@ -24,6 +24,11 @@ if [ $db_ready -eq 0 ]; then
 fi
 
 
+# Ensure storage directories and public/storage symlink exist
+mkdir -p /var/www/html/storage/app/public /var/www/html/storage/app/private
+rm -rf /var/www/html/public/storage
+php artisan storage:link || true
+
 # Run Laravel commands
 php artisan migrate --force || true
 php artisan optimize:clear || true

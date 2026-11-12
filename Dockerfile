@@ -43,6 +43,7 @@ RUN chown -R www-data:www-data /var/www/html \
 # Install Composer Dependencies (optimized for production)
 ENV COMPOSER_MEMORY_LIMIT=-1
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-scripts --ignore-platform-reqs
+RUN rm -rf /var/www/html/public/storage && php artisan storage:link || true
 RUN tr -d '\r' < start-container.sh > start-container-unix.sh && mv start-container-unix.sh start-container.sh && chmod +x start-container.sh
 
 # Build Frontend Assets

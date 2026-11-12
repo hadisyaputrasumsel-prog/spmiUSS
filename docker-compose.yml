@@ -27,6 +27,8 @@ services:
       - CACHE_STORE=database
     depends_on:
       - db
+    volumes:
+      - storagedata:/var/www/html/storage/app
     command: ["/bin/bash", "/var/www/html/start-container.sh"]
     networks:
       - amira-network
@@ -47,6 +49,7 @@ services:
 
 volumes:
   dbdata:
+  storagedata:
 
 networks:
   amira-network:
