@@ -94,8 +94,8 @@
                         @if($sData)
                             <table style="width: 100%; font-size: 0.875rem; margin-bottom: 0.75rem;">
                                 <tr>
-                                    <td style="width: 140px; font-weight: 500; color: var(--text-secondary); vertical-align: top; padding-bottom: 0.5rem;">Tanggal</td>
-                                    <td style="vertical-align: top; padding-bottom: 0.5rem;">: {{ $sData->tanggal ? \Carbon\Carbon::parse($sData->tanggal)->format('d/m/Y') : '-' }}</td>
+                                    <td style="width: 140px; font-weight: 500; color: var(--text-secondary); vertical-align: top; padding-bottom: 0.5rem;">{{ $tCode === 'P2' ? 'Periode Pelaksanaan' : 'Tanggal' }}</td>
+                                    <td style="vertical-align: top; padding-bottom: 0.5rem;">: {{ $sData->formattedTanggal() }}</td>
                                 </tr>
                                 
                                 @if(isset($sData->data_spesifik) && is_array($sData->data_spesifik))

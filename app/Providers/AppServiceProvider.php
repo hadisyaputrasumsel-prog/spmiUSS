@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $flagPath = storage_path('framework/schema_synced_v6.flag');
+        $flagPath = storage_path('framework/schema_synced_v7.flag');
         if (file_exists($flagPath)) {
             return;
         }
@@ -49,6 +49,7 @@ class AppServiceProvider extends ServiceProvider
 
         self::ensureCoreTablesExist();
         self::ensureMissingColumns();
+        self::ensureColumnTypes();
         self::ensureDefaultPetunjukAmi();
     }
 
@@ -225,7 +226,7 @@ class AppServiceProvider extends ServiceProvider
                 $table->id();
                 $table->unsignedBigInteger('led_entry_id')->index();
                 $table->enum('tahap', ['P1', 'P2', 'P3', 'P4', 'P5']);
-                $table->date('tanggal')->nullable();
+                $table->string('tanggal')->nullable();
                 $table->string('penanggung_jawab')->nullable();
                 $table->text('uraian')->nullable();
                 $table->text('catatan')->nullable();
@@ -436,5 +437,27 @@ class AppServiceProvider extends ServiceProvider
                 $definition($blueprint);
             }
         });
+    }
+
+    /**
+     * Broaden legacy column types where free-text periods or extended statuses are allowed.
+     */
+    private static function ensureColumnTypes(): void
+    {
+        if (Schema::hasTable('led_entry_stages') && Schema::hasColumn('led_entry_stages', 'tanggal')) {
+            if (Schema::getColumnType('led_entry_stages', 'tanggal') === 'date') {
+                Schema::table('led_entry_stages', function (Blueprint $table): void {
+                    $table->string('tanggal', 255)->nullable()->change();
+                });
+            }
+        }
+
+        if (Schema::hasTable('ami_findings') && Schema::hasColumn('ami_findings', 'status_tindak_lanjut')) {
+            if (Schema::getColumnType('ami_findings', 'status_tindak_lanjut') === 'enum') {
+                Schema::table('ami_findings', function (Blueprint $table): void {
+                    $table->string('status_tindak_lanjut', 50)->default('N/A')->change();
+                });
+            }
+        }
     }
 }

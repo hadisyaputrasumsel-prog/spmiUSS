@@ -4,6 +4,22 @@
 @section('page_title', 'Isi LED: ' . $standard->kode)
 
 @section('content')
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+@if($errors->any())
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        <ul style="margin: 0.25rem 0 0 1.25rem; padding: 0;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 @php
     $isLocked = (isset($hasSubmitted) && $hasSubmitted) || (auth()->user()->role->kode == 'auditor');
     $disabledAttr = $isLocked ? 'disabled' : '';

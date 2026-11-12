@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\BulanMutuConfig;
 use App\Models\Unit;
+use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $tahun = (int) $request->query('tahun', BulanMutuConfig::activeYear());
+        $availableYears = BulanMutuConfig::availableYears($tahun);
         $units = Unit::orderBy('nama', 'asc')->get();
-        return view('unit.index', compact('units'));
+
+        return view('unit.index', compact('units', 'tahun', 'availableYears'));
     }
 
     public function store(Request $request)
@@ -30,6 +34,7 @@ class UnitController extends Controller
     public function edit(Unit $manajemen_auditee)
     {
         $unit = $manajemen_auditee;
+
         return view('unit.edit', compact('unit'));
     }
 
@@ -51,6 +56,7 @@ class UnitController extends Controller
     {
         // Using $manajemen_auditee because resource route names it that way
         $manajemen_auditee->delete();
+
         return redirect()->route('manajemen-auditee.index')->with('success', 'Auditee berhasil dihapus.');
     }
 }

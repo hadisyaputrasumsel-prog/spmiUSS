@@ -57,8 +57,16 @@
 
     <!-- Daftar Unit -->
     <div class="card">
-        <div class="card-header" style="background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
+        <div class="card-header" style="background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
             <h3 style="font-size: 1.125rem; margin: 0;">Daftar Terdaftar</h3>
+            <form method="GET" action="{{ route('manajemen-auditee.index') }}" style="display: flex; align-items: center; gap: 0.5rem;">
+                <label for="unitTahunSelect" style="font-size: 0.8rem; color: var(--text-secondary); margin: 0;">Tahun Siklus:</label>
+                <select id="unitTahunSelect" name="tahun" onchange="this.form.submit()" class="form-control" style="padding: 0.35rem 0.6rem; font-size: 0.8rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary); width: auto;">
+                    @foreach($availableYears as $y)
+                        <option value="{{ $y }}" {{ (int) $tahun === (int) $y ? 'selected' : '' }}>{{ $y }}</option>
+                    @endforeach
+                </select>
+            </form>
         </div>
         
         <div class="table-responsive">
@@ -79,7 +87,10 @@
                         <td style="font-weight: 500;">{{ $unit->nama }}</td>
                         <td>{{ $unit->pimpinan ?? '-' }}</td>
                         <td><span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-secondary);">{{ $unit->jenis }}</span></td>
-                        <td style="text-align: right; display: flex; justify-content: flex-end; gap: 0.5rem;">
+                        <td style="text-align: right; display: flex; justify-content: flex-end; align-items: center; gap: 0.5rem;">
+                            <a href="{{ route('unit.ppepp', ['id' => $unit->id, 'tahun' => $tahun]) }}" class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.75rem; border-color: var(--brand-primary); color: var(--brand-primary);" title="Lihat Siklus PPEPP Unit">
+                                <i data-feather="activity" style="width: 14px; height: 14px; margin-right: 4px;"></i> Siklus PPEPP
+                            </a>
                             <a href="{{ route('manajemen-auditee.edit', $unit->id) }}" class="btn btn-outline" style="padding: 0.25rem 0.5rem; border: none; color: var(--text-primary);" title="Edit Auditee">
                                 <i data-feather="edit" style="width: 16px; height: 16px;"></i>
                             </a>
@@ -94,7 +105,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="4" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
+                        <td colspan="5" style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
                             <i data-feather="home" style="width: 48px; height: 48px; opacity: 0.5; margin-bottom: 1rem;"></i>
                             <p>Belum ada unit auditee yang terdaftar.</p>
                         </td>

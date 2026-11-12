@@ -4,10 +4,57 @@
 @section('page_title', 'Detail PPEPP - ' . $unit->nama)
 
 @section('content')
+@if(session('success'))
+    <div style="background-color: var(--status-success-bg); color: var(--status-success); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="check-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('success') }}
+    </div>
+@endif
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+@if($errors->any())
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        <ul style="margin: 0.25rem 0 0 1.25rem; padding: 0;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@php
+    $currentUser = auth()->user();
+    $currentRoleKode = $currentUser->role->kode ?? '';
+    $canVerifyRtl = in_array($currentRoleKode, ['super_admin', 'lpma'], true)
+        || \App\Models\AuditorAssignment::where('auditor_id', $currentUser->id)
+            ->where('unit_id', $unit->id)
+            ->where('tahun', (string) $tahun)
+            ->exists()
+        || (in_array($currentRoleKode, ['auditor', 'auditor_anggota'], true)
+            && ! \App\Models\AuditorAssignment::where('tahun', (string) $tahun)->exists());
+@endphp
 <div class="card mb-4" style="margin-bottom: 2rem;">
-    <div class="card-header" style="display: flex; justify-content: space-between;">
-        <h2 class="card-title">Siklus PPEPP: {{ $unit->nama }} (Tahun {{ $tahun }})</h2>
-        <a href="{{ route('dashboard') }}" class="btn btn-outline" style="font-size: 0.875rem;">Kembali ke Dashboard</a>
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <h2 class="card-title" style="margin: 0;">Siklus PPEPP: {{ $unit->nama }} (Tahun {{ $tahun }})</h2>
+        <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            @if(in_array(auth()->user()->role->kode, ['lpma', 'super_admin']))
+                <form method="GET" action="{{ route('unit.ppepp', $unit->id) }}" style="display: inline-flex; align-items: center; gap: 0.35rem; margin: 0;">
+                    <select name="tahun" onchange="this.form.submit()" class="form-control" style="padding: 0.4rem 0.65rem; font-size: 0.875rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary); width: auto;">
+                        @foreach(($availableYears ?? [$tahun]) as $y)
+                            <option value="{{ $y }}" {{ (int) $tahun === (int) $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                        @endforeach
+                    </select>
+                </form>
+                <a href="{{ route('manajemen-auditee.index', ['tahun' => $tahun]) }}" class="btn btn-outline" style="font-size: 0.875rem;">Daftar Unit</a>
+                <a href="{{ route('dashboard', ['tahun' => $tahun]) }}" class="btn btn-outline" style="font-size: 0.875rem;">Kembali ke Dashboard</a>
+            @else
+                <a href="{{ route('dashboard') }}" class="btn btn-outline" style="font-size: 0.875rem;">Kembali ke Dashboard</a>
+            @endif
+        </div>
     </div>
     <div class="card-body" style="padding: 1.5rem;">
         <p>Halaman ini merupakan tampilan detail (drill-down) pelaksanaan siklus Penjaminan Mutu (PPEPP) khusus untuk <strong>{{ $unit->nama }}</strong> pada periode tahun berjalan.</p>
@@ -66,8 +113,17 @@
 </div>
 
 <div class="card">
-    <div class="card-header">
-        <h2 class="card-title">Daftar Temuan AMI yang Memerlukan Tindak Lanjut</h2>
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;">
+        <h2 class="card-title" style="margin: 0;">Daftar Temuan AMI yang Memerlukan Tindak Lanjut</h2>
+        @if($canVerifyRtl && $findings->where('status_tindak_lanjut', '!=', 'Selesai')->count() > 0)
+            <form action="{{ route('unit.verify-all-rtl', $unit->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Tandai seluruh temuan unit ini pada tahun {{ $tahun }} sebagai Selesai diverifikasi?');">
+                @csrf
+                <input type="hidden" name="tahun" value="{{ $tahun }}">
+                <button type="submit" class="btn btn-primary" style="background-color: #548235; border-color: #548235; padding: 0.45rem 0.9rem; font-size: 0.8rem;">
+                    <i data-feather="check-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> Verifikasi Semua RTL (Tandai Selesai)
+                </button>
+            </form>
+        @endif
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -97,14 +153,23 @@
                     <td>
                         @if($finding->status_tindak_lanjut == 'Selesai')
                             <span class="badge badge-success">Selesai</span>
+                        @elseif(in_array($finding->status_tindak_lanjut, ['Sedang Berjalan', 'Proses', 'Proses PTK']))
+                            <span class="badge badge-warning">{{ $finding->status_tindak_lanjut }}</span>
                         @else
                             <span class="badge badge-danger">RTL Terbuka</span>
                         @endif
                     </td>
                     <td>
-                        <button type="button" class="btn btn-outline" onclick="document.getElementById('rtl-form-{{ $finding->id }}').style.display = document.getElementById('rtl-form-{{ $finding->id }}').style.display === 'none' ? 'table-row' : 'none';" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
-                            <i data-feather="edit-3" style="width: 14px; height: 14px;"></i> Tindak Lanjut
-                        </button>
+                        <div style="display: flex; gap: 0.35rem; flex-wrap: wrap;">
+                            <button type="button" class="btn btn-outline" onclick="togglePpeppRow('rtl-form-{{ $finding->id }}', 'verify-form-{{ $finding->id }}')" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;">
+                                <i data-feather="edit-3" style="width: 14px; height: 14px;"></i> Tindak Lanjut
+                            </button>
+                            @if($canVerifyRtl)
+                                <button type="button" class="btn btn-outline" onclick="togglePpeppRow('verify-form-{{ $finding->id }}', 'rtl-form-{{ $finding->id }}')" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; border-color: #548235; color: #548235;">
+                                    <i data-feather="check-square" style="width: 14px; height: 14px;"></i> Verifikasi RTL
+                                </button>
+                            @endif
+                        </div>
                     </td>
                 </tr>
                 <tr id="rtl-form-{{ $finding->id }}" style="display: none; background-color: var(--bg-secondary);">
@@ -182,13 +247,70 @@
                         </form>
                     </td>
                 </tr>
+                @if($canVerifyRtl)
+                <tr id="verify-form-{{ $finding->id }}" style="display: none; background-color: var(--bg-secondary);">
+                    <td colspan="6" style="padding: 1.5rem; border-bottom: 2px solid var(--border-color);">
+                        <form action="{{ route('ami.verify-rtl', $finding->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <h4 style="margin: 0 0 1rem 0; font-size: 1rem; color: var(--text-primary); border-bottom: 2px solid var(--border-color); padding-bottom: 0.5rem;">Verifikasi Tindak Lanjut (RTL) Auditor</h4>
+                            <div style="background-color: var(--bg-primary); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); font-size: 0.875rem; margin-bottom: 1rem;">
+                                <div style="margin-bottom: 0.4rem;"><strong>Rencana Tindakan:</strong> {{ $finding->rencana_tindakan ?: '-' }}</div>
+                                <div style="margin-bottom: 0.4rem;"><strong>PIC:</strong> {{ $finding->pic ?: '-' }} &nbsp;|&nbsp; <strong>Batas Waktu:</strong> {{ $finding->batas_waktu ?: '-' }}</div>
+                                @if($finding->akar_penyebab)
+                                    <div><strong>Akar Penyebab:</strong> {{ $finding->akar_penyebab }}</div>
+                                @endif
+                            </div>
+                            <div style="display: grid; grid-template-columns: 260px 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div>
+                                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Status Verifikasi <span style="color: var(--status-danger);">*</span></label>
+                                    @php
+                                        $defaultVerifyStatus = in_array($finding->status_tindak_lanjut, ['Selesai', 'Proses PTK', 'Proses', 'Sedang Berjalan', 'Belum'], true)
+                                            ? ($finding->status_tindak_lanjut === 'Selesai' ? 'Selesai' : 'Selesai')
+                                            : 'Selesai';
+                                        $selectedVerifyStatus = $finding->status_tindak_lanjut === 'Proses PTK' ? 'Proses PTK' : 'Selesai';
+                                    @endphp
+                                    <select name="status_tindak_lanjut" required class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                                        <option value="Selesai" {{ $selectedVerifyStatus === 'Selesai' ? 'selected' : '' }}>Selesai (Terverifikasi)</option>
+                                        <option value="Proses PTK" {{ $finding->status_tindak_lanjut === 'Proses PTK' ? 'selected' : '' }}>Proses PTK (Perlu Revisi)</option>
+                                        <option value="Sedang Berjalan" {{ $finding->status_tindak_lanjut === 'Sedang Berjalan' ? 'selected' : '' }}>Sedang Berjalan</option>
+                                        <option value="Belum" {{ $finding->status_tindak_lanjut === 'Belum' ? 'selected' : '' }}>Belum</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Catatan Verifikasi Auditor (Opsional)</label>
+                                    <textarea name="catatan_tindak_lanjut" rows="2" class="form-control" placeholder="Contoh: Bukti perbaikan sudah sesuai dan dapat ditutup..." style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->catatan_tindak_lanjut }}</textarea>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <button type="submit" class="btn btn-primary" style="background-color: #548235; border-color: #548235; padding: 0.5rem 1.25rem; font-size: 0.875rem;">
+                                    <i data-feather="check-circle" style="width: 14px; height: 14px; margin-right: 4px;"></i> Simpan Verifikasi RTL
+                                </button>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                @endif
                 @empty
                 <tr>
-                    <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">Tidak ada data temuan untuk unit ini.</td>
+                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 2rem;">Tidak ada data temuan untuk unit ini.</td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+    function togglePpeppRow(targetId, otherId) {
+        const target = document.getElementById(targetId);
+        const other = document.getElementById(otherId);
+        if (other) {
+            other.style.display = 'none';
+        }
+        if (target) {
+            target.style.display = target.style.display === 'none' ? 'table-row' : 'none';
+        }
+    }
+</script>
 @endsection

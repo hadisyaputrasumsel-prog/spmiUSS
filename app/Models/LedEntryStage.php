@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property array<array-key, mixed>|null $data_spesifik
  * @property string|null $created_at
  * @property string|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LedEntryStage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LedEntryStage newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LedEntryStage query()
@@ -30,11 +32,13 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LedEntryStage whereTanggal($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LedEntryStage whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|LedEntryStage whereUraian($value)
+ *
  * @mixin \Eloquent
  */
 class LedEntryStage extends Model
 {
     protected $guarded = [];
+
     public $timestamps = false;
 
     protected $casts = [
@@ -58,5 +62,22 @@ class LedEntryStage extends Model
             'links' => array_values(array_filter((array) ($decoded['links'] ?? []))),
             'shared_document_ids' => array_values(array_map('intval', (array) ($decoded['shared_document_ids'] ?? []))),
         ];
+    }
+
+    /**
+     * Format tanggal as d/m/Y when stored as ISO date, otherwise return the period text as-is.
+     */
+    public function formattedTanggal(): string
+    {
+        $value = trim((string) ($this->tanggal ?? ''));
+        if ($value === '') {
+            return '-';
+        }
+
+        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $value) === 1) {
+            return Carbon::parse($value)->format('d/m/Y');
+        }
+
+        return $value;
     }
 }

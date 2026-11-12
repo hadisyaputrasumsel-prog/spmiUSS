@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AuditorAssignment;
+use App\Models\BulanMutuConfig;
 use App\Models\EvidenceDocument;
 use App\Models\LedEntry;
 use App\Models\LedEntryStage;
+use App\Models\LedSubmission;
 use App\Models\Standard;
+use App\Models\Unit;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -16,44 +22,44 @@ class LedController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-        
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
-        
+
         $unit_id = $request->query('unit_id', 'all');
         $status = $request->query('status', 'all');
-        if (!in_array($user->role->kode, ['super_admin', 'lpma', 'auditor'])) {
+        if (! in_array($user->role->kode, ['super_admin', 'lpma', 'auditor'])) {
             $unit_id = $user->unit_id; // Force unit for non-admins
         }
 
         $assignedUnitIds = [];
         if ($user->role->kode == 'auditor') {
-            $assignedUnitIds = \App\Models\AuditorAssignment::where('auditor_id', $user->id)
-                                ->where('tahun', $tahun)
-                                ->pluck('unit_id')->toArray();
-            
-            if ($unit_id == 'all' || !in_array($unit_id, $assignedUnitIds)) {
+            $assignedUnitIds = AuditorAssignment::where('auditor_id', $user->id)
+                ->where('tahun', $tahun)
+                ->pluck('unit_id')->toArray();
+
+            if ($unit_id == 'all' || ! in_array($unit_id, $assignedUnitIds)) {
                 $unit_id = count($assignedUnitIds) > 0 ? $assignedUnitIds[0] : -1;
             }
         }
 
         if (in_array($user->role->kode, ['super_admin', 'lpma', 'auditor'])) {
             if ($unit_id && $unit_id != 'all' && $unit_id != -1) {
-                $unit = \App\Models\Unit::find($unit_id);
-                
+                $unit = Unit::find($unit_id);
+
                 if ($unit && stripos($unit->nama, 'LPMA') !== false) {
                     // LPMA manages all university assurance & accreditation
                     $standardsQuery = Standard::activePeriod();
                 } else {
                     $jenisUnit = $unit->jenis ?? '';
-                    $standardsQuery = Standard::activePeriod()->where(function($q) use ($jenisUnit) {
+                    $standardsQuery = Standard::activePeriod()->where(function ($q) use ($jenisUnit) {
                         $q->whereNull('sasaran_unit')
-                          ->orWhereJsonContains('sasaran_unit', $jenisUnit);
+                            ->orWhereJsonContains('sasaran_unit', $jenisUnit);
                     });
-                    
+
                     if ($unit && stripos($unit->nama, 'LPPM') !== false) {
                         $standardsQuery->orWhere('kelompok', 'LIKE', '%Penelitian%')
-                                       ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
+                            ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
                     }
                 }
             } elseif ($user->role->kode == 'auditor' && $unit_id == -1) {
@@ -66,14 +72,14 @@ class LedController extends Controller
                 $standardsQuery = Standard::activePeriod();
             } else {
                 $jenisUnit = $user->unit->jenis ?? '';
-                $standardsQuery = Standard::activePeriod()->where(function($q) use ($jenisUnit) {
+                $standardsQuery = Standard::activePeriod()->where(function ($q) use ($jenisUnit) {
                     $q->whereNull('sasaran_unit')
-                      ->orWhereJsonContains('sasaran_unit', $jenisUnit);
+                        ->orWhereJsonContains('sasaran_unit', $jenisUnit);
                 });
-                
+
                 if (isset($user->unit) && stripos($user->unit->nama, 'LPPM') !== false) {
                     $standardsQuery->orWhere('kelompok', 'LIKE', '%Penelitian%')
-                                   ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
+                        ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
                 }
             }
         }
@@ -91,18 +97,18 @@ class LedController extends Controller
                 $entry = $entryQuery->with('stages')->first();
 
                 $isLengkap = $entry && $entry->stages->count() >= 4;
-                
+
                 if ($status == 'lengkap' && $isLengkap) {
                     $filteredStandards->push($standard);
-                } elseif ($status == 'draft' && !$isLengkap) {
+                } elseif ($status == 'draft' && ! $isLengkap) {
                     $filteredStandards->push($standard);
                 }
             }
             $standards = $filteredStandards;
         }
-        $hasSubmitted = \App\Models\LedSubmission::where('unit_id', $unit_id)
-                            ->where('tahun', $tahun)
-                            ->exists();
+        $hasSubmitted = LedSubmission::where('unit_id', $unit_id)
+            ->where('tahun', $tahun)
+            ->exists();
 
         return view('led.index', compact('standards', 'tahun', 'unit_id', 'status', 'hasSubmitted'));
     }
@@ -111,9 +117,9 @@ class LedController extends Controller
     {
         $standard = Standard::where('kode', $kode)->firstOrFail();
 
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
-        
+
         $unit_id = auth()->user()->unit_id;
         if (in_array(auth()->user()->role->kode, ['super_admin', 'lpma', 'auditor'])) {
             $unit_id = $request->query('unit_id', $unit_id);
@@ -131,10 +137,10 @@ class LedController extends Controller
                 $stageData[$st->tahap] = $st;
             }
         }
-        
-        $hasSubmitted = \App\Models\LedSubmission::where('unit_id', $unit_id)
-                            ->where('tahun', $tahun)
-                            ->exists();
+
+        $hasSubmitted = LedSubmission::where('unit_id', $unit_id)
+            ->where('tahun', $tahun)
+            ->exists();
 
         $globalDocs = collect();
         $unitDocs = collect();
@@ -175,15 +181,15 @@ class LedController extends Controller
         set_time_limit(300); // Increase execution time limit for long DOMPDF processing
         $standard = Standard::where('kode', $kode)->firstOrFail();
 
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
-        
+
         $unit_id = auth()->user()->unit_id;
         if (in_array(auth()->user()->role->kode, ['super_admin', 'lpma'])) {
             $unit_id = $request->query('unit_id', $unit_id);
         }
-        
-        $unit = $unit_id && $unit_id != 'all' ? \App\Models\Unit::find($unit_id) : null;
+
+        $unit = $unit_id && $unit_id != 'all' ? Unit::find($unit_id) : null;
 
         $entryQuery = LedEntry::where('objek_kode', $kode)->where('tahun', $tahun);
         if ($unit_id && $unit_id != 'all') {
@@ -205,7 +211,7 @@ class LedController extends Controller
             (int) $tahun
         );
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('led.pdf', compact(
+        $pdf = Pdf::loadView('led.pdf', compact(
             'standard',
             'entry',
             'stageData',
@@ -214,6 +220,7 @@ class LedController extends Controller
             'sharedDocumentsMap',
             'autoAttachedByStage'
         ));
+
         return $pdf->stream('LED_'.$kode.'_'.$tahun.'.pdf');
     }
 
@@ -221,33 +228,33 @@ class LedController extends Controller
     {
         ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
         set_time_limit(300); // Increase execution time limit for long DOMPDF processing
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
-        
-        $unit = \App\Models\Unit::findOrFail($unit_id);
-        
+
+        $unit = Unit::findOrFail($unit_id);
+
         // Fetch standards applicable to this unit
         if (stripos($unit->nama, 'LPMA') !== false) {
             $standards = Standard::activePeriod()->get();
         } else {
             $jenisUnit = $unit->jenis ?? '';
-            $query = Standard::activePeriod()->where(function($q) use ($jenisUnit) {
+            $query = Standard::activePeriod()->where(function ($q) use ($jenisUnit) {
                 $q->whereNull('sasaran_unit')
-                  ->orWhereJsonContains('sasaran_unit', $jenisUnit);
+                    ->orWhereJsonContains('sasaran_unit', $jenisUnit);
             });
             if (stripos($unit->nama, 'LPPM') !== false) {
                 $query->orWhere('kelompok', 'LIKE', '%Penelitian%')
-                      ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
+                    ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
             }
             $standards = $query->get();
         }
 
         // Preload entries for this unit & year
         $entries = LedEntry::where('tahun', $tahun)
-                           ->where('unit_id', $unit_id)
-                           ->with('stages')
-                           ->get()
-                           ->keyBy('objek_kode');
+            ->where('unit_id', $unit_id)
+            ->with('stages')
+            ->get()
+            ->keyBy('objek_kode');
 
         $allStages = $entries->flatMap(fn (LedEntry $item) => $item->stages);
         [$sharedDocumentsMap] = $this->loadEvidenceContextForStages(
@@ -257,14 +264,15 @@ class LedController extends Controller
             (int) $tahun
         );
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('led.pdf_full', compact('standards', 'entries', 'tahun', 'unit', 'sharedDocumentsMap'));
+        $pdf = Pdf::loadView('led.pdf_full', compact('standards', 'entries', 'tahun', 'unit', 'sharedDocumentsMap'));
+
         return $pdf->stream('Full_LED_'.str_replace(' ', '_', $unit->nama).'_'.$tahun.'.pdf');
     }
 
     public function update(Request $request, $kode)
     {
         $stages = $request->input('stages', []);
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         $tahun = (int) $request->input('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $user = auth()->user();
         $user_id = $user->id;
@@ -326,8 +334,10 @@ class LedController extends Controller
                 $buktiData['shared_document_ids'] = array_values(array_unique($sharedDocumentIds));
             }
 
+            $rawTanggal = isset($data['tanggal']) ? trim((string) $data['tanggal']) : '';
+
             $stageData = [
-                'tanggal' => $data['tanggal'] ?? null,
+                'tanggal' => $rawTanggal !== '' ? $rawTanggal : null,
                 'penanggung_jawab' => $data['penanggung_jawab'] ?? null,
                 'uraian' => $data['uraian'] ?? null,
                 'catatan' => $data['catatan'] ?? null,
@@ -390,7 +400,7 @@ class LedController extends Controller
      * Store an uploaded LED file directly into the unit's private document library.
      */
     private function storePrivateUnitDocument(
-        \Illuminate\Http\UploadedFile $file,
+        UploadedFile $file,
         Standard $standard,
         string $tahap,
         int $unitId,
@@ -470,15 +480,15 @@ class LedController extends Controller
         return [$sharedMap, $autoAttached];
     }
 
-    public function submit(Request $request) 
+    public function submit(Request $request)
     {
         $request->validate([
             'verifikasi' => 'required|accepted',
-            'tahun' => 'required|integer'
+            'tahun' => 'required|integer',
         ]);
 
         $tahun = $request->input('tahun');
-        
+
         // If super admin and they passed a unit_id, use it. Otherwise use auth unit
         if (in_array(auth()->user()->role->kode, ['super_admin', 'lpma']) && $request->filled('unit_id') && $request->input('unit_id') != 'all') {
             $unit_id = $request->input('unit_id');
@@ -486,11 +496,11 @@ class LedController extends Controller
             $unit_id = auth()->user()->unit_id;
         }
 
-        if (!$unit_id || $unit_id == 'all') {
+        if (! $unit_id || $unit_id == 'all') {
             return redirect()->back()->with('error', 'Unit tidak valid.');
         }
 
-        \App\Models\LedSubmission::updateOrCreate(
+        LedSubmission::updateOrCreate(
             ['tahun' => $tahun, 'unit_id' => $unit_id],
             ['submitted_by_id' => auth()->id(), 'submitted_at' => now()]
         );

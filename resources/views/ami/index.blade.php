@@ -11,6 +11,27 @@
         {{ session('success') }}
     </div>
 @endif
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+@if($errors->any())
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        <ul style="margin: 0.25rem 0 0 1.25rem; padding: 0;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+@php
+    $amiUser = auth()->user();
+    $amiRoleKode = $amiUser->role->kode ?? '';
+    $canVerifyInAmi = in_array($amiRoleKode, ['super_admin', 'lpma', 'auditor', 'auditor_anggota'], true) || $amiUser->isAuditor();
+@endphp
 
 <div class="card mb-4" style="margin-bottom: 2rem;">
     <div class="card-header" style="background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
@@ -54,9 +75,9 @@
         <div style="flex: 1; min-width: 150px;">
             <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Tahun</label>
             <select name="tahun" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
-                @php $selectedTahun = request('tahun', date('Y')); @endphp
-                @foreach([2027, 2026, 2025, 2024, 2023] as $y)
-                    <option value="{{ $y }}" {{ $selectedTahun == $y ? 'selected' : '' }}>{{ $y }}</option>
+                @php $selectedTahun = (int) request('tahun', $tahun ?? date('Y')); @endphp
+                @foreach(($availableYears ?? [2027, 2026, 2025, 2024, 2023]) as $y)
+                    <option value="{{ $y }}" {{ $selectedTahun === (int) $y ? 'selected' : '' }}>{{ $y }}</option>
                 @endforeach
             </select>
         </div>
@@ -69,7 +90,7 @@
                 @php
                     if (auth()->user()->role->kode == 'auditor') {
                         $assignedUnitIds = \App\Models\AuditorAssignment::where('auditor_id', auth()->id())
-                                ->where('tahun', request('tahun', date('Y')))->pluck('unit_id');
+                                ->where('tahun', $selectedTahun)->pluck('unit_id');
                         $unitsList = \App\Models\Unit::whereIn('id', $assignedUnitIds)->get();
                     } else {
                         $unitsList = \App\Models\Unit::all();
@@ -181,8 +202,8 @@
                     <td>
                         @if($finding->status_tindak_lanjut == 'Selesai')
                             <span class="badge" style="background-color: #548235; color: white;">Selesai</span>
-                        @elseif($finding->status_tindak_lanjut == 'Proses PTK' || $finding->status_tindak_lanjut == 'Proses')
-                            <span class="badge" style="background-color: #BF8F00; color: white;">Proses PTK</span>
+                        @elseif(in_array($finding->status_tindak_lanjut, ['Proses PTK', 'Proses', 'Sedang Berjalan']))
+                            <span class="badge" style="background-color: #BF8F00; color: white;">{{ $finding->status_tindak_lanjut }}</span>
                         @elseif($finding->status_tindak_lanjut == 'Belum' || str_contains($finding->status_tindak_lanjut, 'RTL'))
                             <span class="badge" style="background-color: #C00000; color: white;">Belum / RTL</span>
                         @else
@@ -190,9 +211,30 @@
                         @endif
                     </td>
                     <td style="text-align: center;">
-                        <a href="{{ route('ami.pka.pdf', $finding->id) }}" target="_blank" class="btn btn-sm btn-outline-primary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #2E75B6; color: #2E75B6; background: transparent; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; opacity: 1; transition: all 0.2s;" title="Cetak Kertas Kerja Audit (PKA)" onmouseover="this.style.backgroundColor='#2E75B6'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#2E75B6';">
-                            <i data-feather="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> PKA
-                        </a>
+                        <div style="display: inline-flex; gap: 0.35rem; align-items: center; flex-wrap: wrap; justify-content: center;">
+                            <a href="{{ route('ami.pka.pdf', $finding->id) }}" target="_blank" class="btn btn-sm btn-outline-primary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #2E75B6; color: #2E75B6; background: transparent; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; opacity: 1; transition: all 0.2s;" title="Cetak Kertas Kerja Audit (PKA)" onmouseover="this.style.backgroundColor='#2E75B6'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#2E75B6';">
+                                <i data-feather="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> PKA
+                            </a>
+                            @if($canVerifyInAmi)
+                            <button
+                                type="button"
+                                onclick="openVerifyRtlModal(this)"
+                                data-id="{{ $finding->id }}"
+                                data-standar="{{ $finding->standar_kode }}"
+                                data-unit="{{ $finding->unit->nama ?? '-' }}"
+                                data-status="{{ $finding->status_tindak_lanjut }}"
+                                data-rencana="{{ $finding->rencana_tindakan ?? '' }}"
+                                data-pic="{{ $finding->pic ?? '' }}"
+                                data-batas="{{ $finding->batas_waktu ?? '' }}"
+                                data-catatan="{{ $finding->catatan_tindak_lanjut ?? '' }}"
+                                class="btn btn-sm"
+                                style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #548235; color: #548235; background: transparent; border-radius: 4px; display: inline-flex; align-items: center; cursor: pointer;"
+                                title="Verifikasi Tindak Lanjut (RTL)"
+                            >
+                                <i data-feather="check-square" style="width: 14px; height: 14px; margin-right: 4px;"></i> Verifikasi RTL
+                            </button>
+                            @endif
+                        </div>
                     </td>
                 </tr>
                 @empty
@@ -207,4 +249,67 @@
         </table>
     </div>
 </div>
+
+@if($canVerifyInAmi)
+<div id="verifyRtlModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; z-index: 1000; padding: 1rem;">
+    <div class="card" style="width: 100%; max-width: 540px; background: var(--bg-secondary);">
+        <div class="card-header" style="background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="font-size: 1.125rem; margin: 0;">Verifikasi RTL Temuan AMI</h3>
+            <button type="button" onclick="closeVerifyRtlModal()" style="background: none; border: none; cursor: pointer; color: var(--text-muted);">
+                <i data-feather="x"></i>
+            </button>
+        </div>
+        <form id="verifyRtlForm" action="" method="POST" style="padding: 1.5rem;">
+            @csrf
+            @method('PUT')
+            <div style="margin-bottom: 1rem; font-size: 0.875rem; color: var(--text-secondary);">
+                <div><strong>Unit:</strong> <span id="verifyUnitName"></span></div>
+                <div><strong>Standar:</strong> <span id="verifyStandarKode"></span></div>
+            </div>
+            <div style="background: var(--bg-primary); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 0.85rem; margin-bottom: 1rem; font-size: 0.85rem;">
+                <div><strong>Rencana Tindakan:</strong> <span id="verifyRencana">-</span></div>
+                <div style="margin-top: 0.35rem;"><strong>PIC:</strong> <span id="verifyPic">-</span> | <strong>Batas Waktu:</strong> <span id="verifyBatas">-</span></div>
+            </div>
+            <div style="margin-bottom: 1rem;">
+                <label style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.4rem;">Status Tindak Lanjut</label>
+                <select name="status_tindak_lanjut" id="verifyStatusSelect" required class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <option value="Selesai">Selesai (Terverifikasi)</option>
+                    <option value="Proses PTK">Proses PTK (Perlu Revisi)</option>
+                    <option value="Sedang Berjalan">Sedang Berjalan</option>
+                    <option value="Belum">Belum</option>
+                </select>
+            </div>
+            <div style="margin-bottom: 1.25rem;">
+                <label style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.4rem;">Catatan Verifikasi Auditor (Opsional)</label>
+                <textarea name="catatan_tindak_lanjut" id="verifyCatatanInput" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color);" placeholder="Catatan hasil verifikasi RTL..."></textarea>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <button type="button" onclick="closeVerifyRtlModal()" class="btn btn-outline">Batal</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #548235; border-color: #548235;">Simpan Verifikasi</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openVerifyRtlModal(button) {
+        const id = button.dataset.id;
+        document.getElementById('verifyUnitName').innerText = button.dataset.unit || '-';
+        document.getElementById('verifyStandarKode').innerText = button.dataset.standar || '-';
+        document.getElementById('verifyRencana').innerText = button.dataset.rencana || '-';
+        document.getElementById('verifyPic').innerText = button.dataset.pic || '-';
+        document.getElementById('verifyBatas').innerText = button.dataset.batas || '-';
+        document.getElementById('verifyCatatanInput').value = button.dataset.catatan || '';
+
+        const currentStatus = button.dataset.status || '';
+        document.getElementById('verifyStatusSelect').value = currentStatus === 'Proses PTK' ? 'Proses PTK' : 'Selesai';
+        document.getElementById('verifyRtlForm').action = "{{ url('/ami') }}/" + id + "/verify-rtl";
+        document.getElementById('verifyRtlModal').style.display = 'flex';
+    }
+
+    function closeVerifyRtlModal() {
+        document.getElementById('verifyRtlModal').style.display = 'none';
+    }
+</script>
+@endif
 @endsection

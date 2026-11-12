@@ -11,6 +11,22 @@
         {{ session('success') }}
     </div>
 @endif
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+@if($errors->any())
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        <ul style="margin: 0.25rem 0 0 1.25rem; padding: 0;">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 
 <div class="card mb-4" style="margin-bottom: 2rem;">
     <div class="card-header" style="background-color: var(--bg-tertiary); display: flex; justify-content: space-between; align-items: center;">
@@ -136,7 +152,18 @@
                                 <i data-feather="monitor" style="width: 12px; height: 12px; margin-right: 2px;"></i> Pantau Audit
                             </a>
                         @endif
-                        <button onclick="openStatusModal({{ $activity->id }}, '{{ addslashes($activity->nama) }}', '{{ $status }}')" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
+                        <button
+                            type="button"
+                            onclick="openStatusModal(this)"
+                            data-id="{{ $activity->id }}"
+                            data-name="{{ $activity->nama }}"
+                            data-status="{{ $status }}"
+                            data-tanggal="{{ $statusRecord && $statusRecord->tanggal_pelaksanaan ? $statusRecord->tanggal_pelaksanaan : '' }}"
+                            data-catatan="{{ $statusRecord && $statusRecord->catatan ? $statusRecord->catatan : '' }}"
+                            data-has-doc="{{ $statusRecord && $statusRecord->dokumen_bukti ? '1' : '0' }}"
+                            class="btn btn-outline"
+                            style="padding: 0.25rem 0.75rem; font-size: 0.75rem;"
+                        >
                             Update
                         </button>
                     </td>
@@ -153,7 +180,7 @@
     <div class="card" style="width: 100%; max-width: 500px; background: var(--bg-secondary);">
         <div class="card-header" style="display: flex; justify-content: space-between;">
             <h3 style="margin: 0; font-size: 1.125rem;">Update Status Kegiatan</h3>
-            <button onclick="closeStatusModal()" style="background: none; border: none; cursor: pointer; color: var(--text-muted);"><i data-feather="x"></i></button>
+            <button type="button" onclick="closeStatusModal()" style="background: none; border: none; cursor: pointer; color: var(--text-muted);"><i data-feather="x"></i></button>
         </div>
         <form id="updateStatusForm" action="" method="POST" enctype="multipart/form-data">
             @csrf
@@ -184,15 +211,17 @@
                 </div>
 
                 <div style="margin-bottom: 1rem;">
-                    <label style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Upload Evidence / Dokumen Bukti (Opsional)</label>
-                    <input type="file" name="dokumen_bukti" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-primary);">
-                    <small style="color: var(--text-muted); font-size: 0.75rem;">Maks 5MB. Upload dokumen terkait rapat/kegiatan ini.</small>
+                    <label id="modalDokumenLabel" for="modalDokumenBukti" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">
+                        Upload Evidence / Dokumen Bukti <span id="modalDokumenBadge" style="color: var(--status-danger); font-weight: 600;"></span>
+                    </label>
+                    <input type="file" name="dokumen_bukti" id="modalDokumenBukti" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-primary);">
+                    <small id="modalDokumenHint" style="color: var(--text-muted); font-size: 0.75rem;">Maks 5MB. Wajib diunggah untuk status Terlaksana jika belum ada dokumen bukti.</small>
                 </div>
 
                 
                 <div style="margin-bottom: 1.5rem;">
                     <label style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem;">Catatan</label>
-                    <textarea name="catatan" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md);"></textarea>
+                    <textarea name="catatan" id="modalCatatan" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md);"></textarea>
                 </div>
                 
                 <div style="display: flex; justify-content: flex-end; gap: 1rem;">
@@ -205,13 +234,54 @@
 </div>
 
 <script>
-    function openStatusModal(id, name, currentStatus) {
+    let currentActivityHasDoc = false;
+
+    function syncDokumenBuktiRequirement() {
+        const status = document.getElementById('modalStatus').value;
+        const fileInput = document.getElementById('modalDokumenBukti');
+        const badge = document.getElementById('modalDokumenBadge');
+        const hint = document.getElementById('modalDokumenHint');
+        const isTerlaksana = status === 'Terlaksana Sesuai Rencana' || status === 'Terlaksana - Tertunda';
+
+        if (isTerlaksana && !currentActivityHasDoc) {
+            fileInput.required = true;
+            badge.innerText = '(Wajib untuk status Terlaksana)';
+            badge.style.color = 'var(--status-danger)';
+            hint.innerText = 'Maks 5MB. Anda wajib mengunggah Dokumen Bukti (Evidence) yang sudah ditandatangani.';
+        } else if (isTerlaksana && currentActivityHasDoc) {
+            fileInput.required = false;
+            badge.innerText = '(Sudah ada bukti — opsional jika ingin mengganti)';
+            badge.style.color = 'var(--status-success)';
+            hint.innerText = 'Maks 5MB. Dokumen bukti sebelumnya sudah tersimpan; unggah file baru hanya jika ingin mengganti.';
+        } else {
+            fileInput.required = false;
+            badge.innerText = '(Opsional)';
+            badge.style.color = 'var(--text-muted)';
+            hint.innerText = 'Maks 5MB. Upload dokumen terkait rapat/kegiatan ini (wajib jika status diubah ke Terlaksana).';
+        }
+    }
+
+    function openStatusModal(button) {
+        const id = button.dataset.id;
+        const name = button.dataset.name;
+        const currentStatus = button.dataset.status;
+        const tanggal = button.dataset.tanggal || '';
+        const catatan = button.dataset.catatan || '';
+        currentActivityHasDoc = button.dataset.hasDoc === '1';
+
         document.getElementById('modalActivityName').innerText = name;
         document.getElementById('modalStatus').value = currentStatus;
+        document.getElementById('modalTanggal').value = tanggal;
+        document.getElementById('modalCatatan').value = catatan;
+        document.getElementById('modalDokumenBukti').value = '';
         document.getElementById('updateStatusForm').action = "/bulan-mutu/" + id + "/status";
         document.getElementById('btnCetakTemplate').href = "/bulan-mutu/" + id + "/template?tahun={{ $tahun }}";
+        syncDokumenBuktiRequirement();
         document.getElementById('statusModal').style.display = 'flex';
     }
+
+    document.getElementById('modalStatus').addEventListener('change', syncDokumenBuktiRequirement);
+
     function closeStatusModal() {
         document.getElementById('statusModal').style.display = 'none';
     }

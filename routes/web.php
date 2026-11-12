@@ -9,8 +9,8 @@ use App\Http\Controllers\LedController;
 use App\Http\Controllers\PetunjukAmiController;
 use App\Http\Controllers\RtmController;
 use App\Http\Controllers\SettingController;
-use App\Http\Controllers\StandardController;
 use App\Http\Controllers\SpmiPeriodController;
+use App\Http\Controllers\StandardController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\UserController;
 use App\Models\AmiFinding;
@@ -57,7 +57,7 @@ Route::get('/run-migrate', function () {
                 DB::unprepared(file_get_contents($dumpPath));
                 Artisan::call('migrate', ['--force' => true]);
                 AppServiceProvider::syncSchema();
-                $output = "Dump amira_uss_dump.sql berhasil diimpor!\n" . Artisan::output();
+                $output = "Dump amira_uss_dump.sql berhasil diimpor!\n".Artisan::output();
                 $message = 'Database dump berhasil diimpor dan migrasi terbaru telah dijalankan.';
             } else {
                 throw new Exception('File amira_uss_dump.sql tidak ditemukan di root direktori.');
@@ -69,11 +69,11 @@ Route::get('/run-migrate', function () {
             $message = 'Migrasi & sinkronisasi tabel/kolom berhasil dijalankan.';
         }
 
-        @file_put_contents(storage_path('framework/schema_synced_v6.flag'), date('c'));
-    } catch (\Throwable $e) {
+        @file_put_contents(storage_path('framework/schema_synced_v7.flag'), date('c'));
+    } catch (Throwable $e) {
         $color = '#ff5555';
-        $message = 'Terjadi kesalahan: ' . $e->getMessage();
-        $output = $e->getMessage() . "\n\n" . $e->getTraceAsString();
+        $message = 'Terjadi kesalahan: '.$e->getMessage();
+        $output = $e->getMessage()."\n\n".$e->getTraceAsString();
     }
 
     // Ambil daftar tabel yang ada saat ini di DB
@@ -81,12 +81,12 @@ Route::get('/run-migrate', function () {
     try {
         $tableList = DB::select('SHOW TABLES');
         $dbName = config('database.connections.mysql.database');
-        $key = 'Tables_in_' . $dbName;
+        $key = 'Tables_in_'.$dbName;
         foreach ($tableList as $t) {
-            $tables[] = $t->$key ?? array_values((array)$t)[0];
+            $tables[] = $t->$key ?? array_values((array) $t)[0];
         }
-    } catch (\Throwable $e) {
-        $tables = ['Error: ' . $e->getMessage()];
+    } catch (Throwable $e) {
+        $tables = ['Error: '.$e->getMessage()];
     }
 
     $tableListHtml = implode(', ', $tables);
@@ -115,7 +115,7 @@ Route::get('/run-migrate', function () {
             <div class='card'>
                 <h3 style='margin-top:0;'>Status Hasil Eksekusi:</h3>
                 <p style='color: {$color}; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.75rem;'>{$message}</p>
-                <pre>" . htmlspecialchars($output ?: "Tidak ada output / migrasi sudah up-to-date.") . "</pre>
+                <pre>".htmlspecialchars($output ?: 'Tidak ada output / migrasi sudah up-to-date.')."</pre>
             </div>
 
             <div class='card'>
@@ -129,12 +129,12 @@ Route::get('/run-migrate', function () {
             </div>
 
             <div class='card'>
-                <h3 style='margin-top:0;'>Daftar Tabel Saat Ini di Database (" . count($tables) . " tabel):</h3>
-                <p style='color: #94a3b8; font-family: monospace; font-size: 0.85rem; line-height: 1.8;'>" . ($tableListHtml ?: 'Belum ada tabel') . "</p>
+                <h3 style='margin-top:0;'>Daftar Tabel Saat Ini di Database (".count($tables)." tabel):</h3>
+                <p style='color: #94a3b8; font-family: monospace; font-size: 0.85rem; line-height: 1.8;'>".($tableListHtml ?: 'Belum ada tabel').'</p>
             </div>
         </div>
     </body>
-    </html>");
+    </html>');
 });
 
 // Auth Routes
@@ -162,7 +162,7 @@ Route::middleware('auth')->group(function () {
                     $activeConfig = BulanMutuConfig::first();
                 }
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $activeConfig = null;
         }
         if (in_array(auth()->user()->role->kode, ['lpma', 'super_admin'])) {
@@ -261,10 +261,13 @@ Route::middleware('auth')->group(function () {
         // Ambil unit yang memerlukan perhatian (contoh: ada temuan RTL belum selesai)
         $unitsAttention = collect();
         if (Schema::hasTable('units') && Schema::hasTable('ami_findings')) {
-            $unitsAttention = Unit::withCount(['amiFindings' => function ($q) use ($tahun) {
+            $attentionFilter = function ($q) use ($tahun): void {
                 $q->whereYear('tanggal', $tahun)->where('status_tindak_lanjut', '!=', 'Selesai');
-            }])->having('ami_findings_count', '>', 0)
-                ->take(5)->get();
+            };
+            $unitsAttention = Unit::whereHas('amiFindings', $attentionFilter)
+                ->withCount(['amiFindings' => $attentionFilter])
+                ->take(5)
+                ->get();
         }
 
         // Matriks Penilaian Standar Mutu (untuk Auditor dan LPMA)
@@ -289,20 +292,8 @@ Route::middleware('auth')->group(function () {
     // Drill down unit PPEPP
     Route::get('/unit/{id}/ppepp', function ($id) {
         $unit = Unit::findOrFail($id);
-
-        $activeConfig = null;
-        try {
-            if (Schema::hasTable('bulan_mutu_configs')) {
-                if (Schema::hasColumn('bulan_mutu_configs', 'is_active')) {
-                    $activeConfig = BulanMutuConfig::where('is_active', true)->first();
-                } else {
-                    $activeConfig = BulanMutuConfig::first();
-                }
-            }
-        } catch (\Throwable $e) {
-            $activeConfig = null;
-        }
-        $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
+        $tahun = (int) request()->query('tahun', BulanMutuConfig::activeYear());
+        $availableYears = BulanMutuConfig::availableYears($tahun);
 
         $findings = AmiFinding::where('unit_id', $id)->whereYear('tanggal', $tahun)->get();
         $leds = LedEntry::where('unit_id', $id)->where('tahun', $tahun)->get();
@@ -330,7 +321,7 @@ Route::middleware('auth')->group(function () {
             'verifikasi_rtl' => $allRtlFinished ? 'done' : ($allRtlStarted ? 'active' : 'pending'),
         ];
 
-        return view('unit.ppepp', compact('unit', 'tahun', 'findings', 'leds', 'microTimeline'));
+        return view('unit.ppepp', compact('unit', 'tahun', 'availableYears', 'findings', 'leds', 'microTimeline'));
     })->name('unit.ppepp');
 
     // Auditees, GPM/UPM, Auditor, LPMA, and Super Admin can access LED
@@ -356,6 +347,12 @@ Route::middleware('auth')->group(function () {
         Route::post('/ami/import', [AmiController::class, 'import'])->name('ami.import');
         Route::get('/ami/create', [AmiController::class, 'create'])->name('ami.create');
         Route::post('/ami', [AmiController::class, 'store'])->name('ami.store');
+    });
+
+    // Auditor, assigned auditors, LPMA, and Super Admin can verify RTL
+    Route::middleware('role:auditor,auditor_anggota,lpma,super_admin')->group(function () {
+        Route::put('/ami/{id}/verify-rtl', [AmiController::class, 'verifyRtl'])->name('ami.verify-rtl');
+        Route::post('/unit/{id}/verify-all-rtl', [AmiController::class, 'verifyAllUnitRtl'])->name('unit.verify-all-rtl');
     });
 
     // LPMA and Super Admin can update Bulan Mutu, others can only view

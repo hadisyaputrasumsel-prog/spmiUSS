@@ -162,8 +162,8 @@
                         @if($data)
                             <table class="stage-grid">
                                 <tr>
-                                    <td style="width: 150px; font-weight: bold;">Tanggal</td>
-                                    <td>: {{ $data->tanggal ? \Carbon\Carbon::parse($data->tanggal)->format('d/m/Y') : '-' }}</td>
+                                    <td style="width: 150px; font-weight: bold;">{{ $tahapCode === 'P2' ? 'Periode Pelaksanaan' : 'Tanggal' }}</td>
+                                    <td>: {{ $data->formattedTanggal() }}</td>
                                 </tr>
                                 @if($data->penanggung_jawab)
                                 <tr>

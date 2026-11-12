@@ -61,7 +61,9 @@
     <div class="card">
         <div class="card-header">
             <h2 class="card-title">Unit yang Memerlukan Tindak Lanjut</h2>
-            <a href="#" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">Lihat Semua Unit</a>
+            @if(in_array(auth()->user()->role->kode, ['lpma', 'super_admin']))
+            <a href="{{ route('manajemen-auditee.index', ['tahun' => $tahun]) }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">Lihat Semua Unit</a>
+            @endif
         </div>
         <div class="table-responsive">
             <table class="table" style="font-size: 0.875rem;">
@@ -79,7 +81,7 @@
                         <td style="font-weight: 600;">{{ $u->nama }}</td>
                         <td style="color: var(--text-muted);">{{ $u->ami_findings_count }} RTL Belum Selesai</td>
                         <td><span class="badge badge-danger" style="background-color: transparent; border: 1px solid var(--status-danger); color: var(--status-danger);">🔴 TINDAK LANJUT</span></td>
-                        <td><a href="{{ route('unit.ppepp', $u->id) }}" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: var(--radius-sm);"><i data-feather="external-link" style="width: 14px; height: 14px;"></i> Detail</a></td>
+                        <td><a href="{{ route('unit.ppepp', ['id' => $u->id, 'tahun' => $tahun]) }}" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; border-radius: var(--radius-sm);"><i data-feather="external-link" style="width: 14px; height: 14px;"></i> Detail</a></td>
                     </tr>
                     @empty
                     <tr>

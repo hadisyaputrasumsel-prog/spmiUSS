@@ -23,8 +23,8 @@ class AmiController extends Controller
         $user = auth()->user();
         $query = AmiFinding::with('unit')->orderBy('created_at', 'desc');
 
-        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
-        $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
+        $tahun = (int) $request->query('tahun', BulanMutuConfig::activeYear());
+        $availableYears = BulanMutuConfig::availableYears($tahun);
         $query->whereYear('tanggal', $tahun);
 
         $unit_id = $request->query('unit_id', 'all');
@@ -46,7 +46,7 @@ class AmiController extends Controller
 
         $findings = $query->get();
 
-        return view('ami.index', compact('findings'));
+        return view('ami.index', compact('findings', 'tahun', 'availableYears'));
     }
 
     public function create()
@@ -173,10 +173,85 @@ class AmiController extends Controller
         $finding->rencana_pencegahan = $request->rencana_pencegahan;
         $finding->pic = $request->pic;
         $finding->batas_waktu = $request->batas_waktu;
-        $finding->status_tindak_lanjut = $finding->status_tindak_lanjut == 'Belum' || ! $finding->status_tindak_lanjut ? 'Sedang Berjalan' : $finding->status_tindak_lanjut;
+        if (in_array($finding->status_tindak_lanjut, ['Belum', 'N/A', ''], true) || ! $finding->status_tindak_lanjut) {
+            $finding->status_tindak_lanjut = 'Sedang Berjalan';
+        }
         $finding->save();
 
         return redirect()->back()->with('success', 'Rencana Tindak Lanjut (RTL) berhasil disimpan.');
+    }
+
+    public function verifyRtl(Request $request, $id)
+    {
+        $finding = AmiFinding::findOrFail($id);
+        $findingYear = (int) date('Y', strtotime((string) $finding->tanggal));
+
+        if (! $this->canVerifyUnitRtl((int) $finding->unit_id, $findingYear)) {
+            abort(403, 'Anda tidak memiliki wewenang untuk memverifikasi RTL unit ini.');
+        }
+
+        $validated = $request->validate([
+            'status_tindak_lanjut' => ['required', 'in:Belum,Sedang Berjalan,Proses,Proses PTK,Selesai,N/A'],
+            'catatan_tindak_lanjut' => ['nullable', 'string'],
+        ]);
+
+        $finding->status_tindak_lanjut = $validated['status_tindak_lanjut'];
+        if (array_key_exists('catatan_tindak_lanjut', $validated)) {
+            $finding->catatan_tindak_lanjut = $validated['catatan_tindak_lanjut'];
+        }
+        $finding->save();
+
+        return redirect()->back()->with('success', 'Verifikasi RTL berhasil diperbarui.');
+    }
+
+    public function verifyAllUnitRtl(Request $request, $unitId)
+    {
+        $unit = Unit::findOrFail($unitId);
+
+        $validated = $request->validate([
+            'tahun' => ['required', 'integer'],
+            'catatan_tindak_lanjut' => ['nullable', 'string'],
+        ]);
+
+        $tahun = (int) $validated['tahun'];
+        if (! $this->canVerifyUnitRtl((int) $unit->id, $tahun)) {
+            abort(403, 'Anda tidak memiliki wewenang untuk memverifikasi RTL unit ini.');
+        }
+
+        $query = AmiFinding::where('unit_id', $unit->id)
+            ->whereYear('tanggal', $tahun)
+            ->where('status_tindak_lanjut', '!=', 'Selesai');
+
+        $updatePayload = ['status_tindak_lanjut' => 'Selesai'];
+        if (! empty($validated['catatan_tindak_lanjut'])) {
+            $updatePayload['catatan_tindak_lanjut'] = $validated['catatan_tindak_lanjut'];
+        }
+
+        $updatedCount = $query->update($updatePayload);
+
+        return redirect()
+            ->route('unit.ppepp', ['id' => $unit->id, 'tahun' => $tahun])
+            ->with('success', "Verifikasi RTL selesai: {$updatedCount} temuan unit {$unit->nama} tahun {$tahun} ditandai Selesai.");
+    }
+
+    private function canVerifyUnitRtl(int $unitId, int $tahun): bool
+    {
+        $user = auth()->user();
+        $roleKode = $user->role->kode ?? '';
+
+        if (in_array($roleKode, ['super_admin', 'lpma'], true)) {
+            return true;
+        }
+
+        if (AuditorAssignment::where('auditor_id', $user->id)
+            ->where('unit_id', $unitId)
+            ->where('tahun', (string) $tahun)
+            ->exists()) {
+            return true;
+        }
+
+        return in_array($roleKode, ['auditor', 'auditor_anggota'], true)
+            && ! AuditorAssignment::where('tahun', (string) $tahun)->exists();
     }
 
     public function exportPdf(Request $request)

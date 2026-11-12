@@ -166,7 +166,7 @@
                         @if($tahapCode == 'P1')
                             <tr>
                                 <td style="width: 150px; font-weight: bold;">Tanggal Ditetapkan</td>
-                                <td>: {{ $data->tanggal ? \Carbon\Carbon::parse($data->tanggal)->format('d/m/Y') : '-' }}</td>
+                                <td>: {{ $data->formattedTanggal() }}</td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">No. SK / Dokumen</td>
@@ -175,7 +175,7 @@
                         @elseif($tahapCode == 'P2')
                             <tr>
                                 <td style="width: 150px; font-weight: bold;">Periode Pelaksanaan</td>
-                                <td>: {{ $data->tanggal ?: '-' }}</td>
+                                <td>: {{ $data->formattedTanggal() }}</td>
                             </tr>
                         @elseif($tahapCode == 'P3')
                             <tr>
@@ -184,7 +184,7 @@
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">Tanggal Evaluasi</td>
-                                <td>: {{ $data->tanggal ? \Carbon\Carbon::parse($data->tanggal)->format('d/m/Y') : '-' }}</td>
+                                <td>: {{ $data->formattedTanggal() }}</td>
                             </tr>
                             <tr>
                                 <td style="font-weight: bold;">Status Capaian</td>
@@ -193,7 +193,7 @@
                         @elseif($tahapCode == 'P4')
                             <tr>
                                 <td style="width: 150px; font-weight: bold;">Tanggal Tindak Lanjut</td>
-                                <td>: {{ $data->tanggal ? \Carbon\Carbon::parse($data->tanggal)->format('d/m/Y') : '-' }}</td>
+                                <td>: {{ $data->formattedTanggal() }}</td>
                             </tr>
                         @elseif($tahapCode == 'P5')
                             <tr>
