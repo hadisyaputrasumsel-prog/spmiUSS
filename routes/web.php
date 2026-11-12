@@ -31,11 +31,23 @@ use Illuminate\Support\Facades\Storage;
 // Public storage fallback in case symlink public/storage is missing or blocked by web server
 Route::get('/storage/{path}', function (string $path) {
     $cleanPath = ltrim(str_replace('\\', '/', $path), '/');
-    if ($cleanPath === '' || str_contains($cleanPath, '..') || ! Storage::disk('public')->exists($cleanPath)) {
+    if ($cleanPath === '' || str_contains($cleanPath, '..')) {
         abort(404);
     }
 
-    return response()->file(Storage::disk('public')->path($cleanPath));
+    if (Storage::disk('public')->exists($cleanPath)) {
+        return response()->file(Storage::disk('public')->path($cleanPath));
+    }
+
+    // Legacy fallback for files uploaded before explicit 'public' disk was specified
+    if (
+        (str_starts_with($cleanPath, 'bulan_mutu_dokumen/') || str_starts_with($cleanPath, 'led_documents/'))
+        && Storage::disk('local')->exists('public/'.$cleanPath)
+    ) {
+        return response()->file(Storage::disk('local')->path('public/'.$cleanPath));
+    }
+
+    abort(404);
 })->where('path', '.*');
 
 // Migration and DB repair helper route

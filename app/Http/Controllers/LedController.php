@@ -314,9 +314,9 @@ class LedController extends Controller
                         $doc = $this->storePrivateUnitDocument($file, $standard, (string) $tahap, (int) $unit_id, (int) $tahun, $user_id, $customTitle, $customCategory);
                         $sharedDocumentIds[] = $doc->id;
                     } else {
-                        $filename = time().'_'.$file->getClientOriginalName();
-                        $path = $file->storeAs('public/led_documents', $filename);
-                        $buktiFiles[] = str_replace('public/', 'storage/', $path);
+                        $filename = time().'_'.preg_replace('/[^A-Za-z0-9._-]/', '_', $file->getClientOriginalName());
+                        $path = $file->storeAs('led_documents', $filename, 'public');
+                        $buktiFiles[] = 'storage/'.$path;
                     }
                 }
             }
