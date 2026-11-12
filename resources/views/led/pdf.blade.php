@@ -316,7 +316,7 @@
         }
     @endphp
 
-    <div style="margin-top: 40px; width: 100%; page-break-before: always;">
+    <div style="margin-top: 24px; width: 100%; page-break-inside: avoid;">
         <div style="float: right; width: 300px; text-align: center;">
             <p style="margin-bottom: 2px;">Dibuat oleh,</p>
             <p style="margin-top: 0; font-weight: bold;">{{ $namaJabatan }}</p>

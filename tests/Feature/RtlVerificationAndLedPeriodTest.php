@@ -165,6 +165,23 @@ class RtlVerificationAndLedPeriodTest extends TestCase
         $amiCreate->assertSee('01/08/2023');
         $amiCreate->assertSee('Semester Ganjil 2026/2027');
 
+        // Ensure LED PDF signature block does not force a new page break and PDF route renders cleanly
+        $standard = Standard::where('kode', 'SM-P2-01')->firstOrFail();
+        $pdfHtml = view('led.pdf', [
+            'standard' => $standard,
+            'entry' => $entry,
+            'stageData' => ['P1' => $p1, 'P2' => $p2],
+            'tahun' => 2023,
+            'unit' => $unit,
+            'sharedDocumentsMap' => collect(),
+            'autoAttachedByStage' => [],
+        ])->render();
+        $this->assertStringNotContainsString('page-break-before: always', $pdfHtml);
+        $this->assertStringContainsString('Semester Ganjil 2026/2027', $pdfHtml);
+
+        $this->actingAs($user)->get(route('led.pdf', ['kode' => 'SM-P2-01', 'unit_id' => $unit->id, 'tahun' => 2023]))
+            ->assertOk();
+
         // 2. Normal date in P2 also works cleanly
         $this->actingAs($user)->put(route('led.update', 'SM-P2-01'), [
             'tahun' => 2023,
