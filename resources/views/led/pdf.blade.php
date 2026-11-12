@@ -240,20 +240,52 @@
                         </div>
                     @endif
                     
-                    @if($data->bukti)
-                        @php
-                            $buktiObj = json_decode($data->bukti, true);
-                        @endphp
-                        @if(isset($buktiObj['links']) && count($buktiObj['links']) > 0)
-                            <div style="margin-top: 10px;">
-                                <strong>Tautan Bukti:</strong><br>
-                                <ul style="margin: 0; padding-left: 20px;">
-                                @foreach($buktiObj['links'] as $link)
-                                    <li><a href="{{ $link }}">{{ $link }}</a></li>
-                                @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                    @php
+                        $stageBukti = $data->decodedBukti();
+                        $autoDocs = ($autoAttachedByStage[$tahapCode] ?? collect());
+                        $selectedDocs = collect($stageBukti['shared_document_ids'])
+                            ->map(fn ($docId) => ($sharedDocumentsMap ?? collect())->get($docId))
+                            ->filter();
+                    @endphp
+                    @if($autoDocs->count() > 0)
+                        <div style="margin-top: 10px;">
+                            <strong>Dokumen Induk Universitas (LPMA):</strong><br>
+                            <ul style="margin: 0; padding-left: 20px;">
+                            @foreach($autoDocs as $adoc)
+                                <li>[{{ $adoc->kategori }}] {{ $adoc->judul }} @if($adoc->external_url) ({{ $adoc->external_url }}) @endif</li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if($selectedDocs->count() > 0)
+                        <div style="margin-top: 10px;">
+                            <strong>Bukti dari Pustaka Dokumen:</strong><br>
+                            <ul style="margin: 0; padding-left: 20px;">
+                            @foreach($selectedDocs as $sdoc)
+                                <li>[{{ $sdoc->scope === 'global' ? 'Global' : 'Unit' }} - {{ $sdoc->kategori }}] {{ $sdoc->judul }} @if($sdoc->external_url) ({{ $sdoc->external_url }}) @endif</li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if(count($stageBukti['files']) > 0)
+                        <div style="margin-top: 10px;">
+                            <strong>Berkas Unggahan:</strong><br>
+                            <ul style="margin: 0; padding-left: 20px;">
+                            @foreach($stageBukti['files'] as $filePath)
+                                <li>{{ basename($filePath) }}</li>
+                            @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    @if(count($stageBukti['links']) > 0)
+                        <div style="margin-top: 10px;">
+                            <strong>Tautan Bukti:</strong><br>
+                            <ul style="margin: 0; padding-left: 20px;">
+                            @foreach($stageBukti['links'] as $link)
+                                <li><a href="{{ $link }}">{{ $link }}</a></li>
+                            @endforeach
+                            </ul>
+                        </div>
                     @endif
                 @else
                     <div style="color: #999; font-style: italic; text-align: center; padding: 10px 0;">

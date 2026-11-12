@@ -124,18 +124,64 @@
                                 </div>
                             @endif
 
-                            @if($sData->bukti)
-                                @php $buktiObj = json_decode($sData->bukti, true); @endphp
-                                @if(isset($buktiObj['links']) && count($buktiObj['links']) > 0)
-                                    <div style="margin-top: 0.75rem; font-size: 0.875rem;">
-                                        <strong style="color: var(--text-secondary); display: block; margin-bottom: 0.25rem;">Dokumen Bukti (Klik untuk buka):</strong>
-                                        <ul style="margin: 0; padding-left: 1.25rem;">
-                                        @foreach($buktiObj['links'] as $link)
-                                            <li><a href="{{ $link }}" target="_blank" style="color: var(--brand-primary); text-decoration: none;">{{ parse_url($link, PHP_URL_HOST) ?? 'Buka Tautan' }}</a></li>
+                            @php
+                                $stageBukti = $sData->decodedBukti();
+                                $autoDocs = $autoAttachedByStage[$tCode] ?? collect();
+                                $selectedDocs = collect($stageBukti['shared_document_ids'])
+                                    ->map(fn ($docId) => ($sharedDocumentsMap ?? collect())->get($docId))
+                                    ->filter();
+                            @endphp
+
+                            @if($autoDocs->count() > 0)
+                                <div style="margin-top: 0.75rem; font-size: 0.85rem;">
+                                    <strong style="color: #047857; display: block; margin-bottom: 0.25rem;">Dokumen Induk Universitas (LPMA):</strong>
+                                    <ul style="margin: 0; padding-left: 1.25rem;">
+                                        @foreach($autoDocs as $adoc)
+                                            <li>
+                                                <a href="{{ route('evidence-documents.download', $adoc) }}" target="_blank" style="color: #047857; text-decoration: none;">
+                                                    [{{ $adoc->kategori }}] {{ $adoc->judul }}
+                                                </a>
+                                            </li>
                                         @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if($selectedDocs->count() > 0)
+                                <div style="margin-top: 0.75rem; font-size: 0.85rem;">
+                                    <strong style="color: #6d28d9; display: block; margin-bottom: 0.25rem;">Bukti dari Pustaka Dokumen:</strong>
+                                    <ul style="margin: 0; padding-left: 1.25rem;">
+                                        @foreach($selectedDocs as $sdoc)
+                                            <li>
+                                                <a href="{{ route('evidence-documents.download', $sdoc) }}" target="_blank" style="color: #6d28d9; text-decoration: none;">
+                                                    [{{ $sdoc->scope === 'global' ? 'Global' : 'Unit' }} - {{ $sdoc->kategori }}] {{ $sdoc->judul }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if(count($stageBukti['files']) > 0)
+                                <div style="margin-top: 0.75rem; font-size: 0.875rem;">
+                                    <strong style="color: var(--text-secondary); display: block; margin-bottom: 0.25rem;">Berkas Bukti Khusus Tahap Ini:</strong>
+                                    <ul style="margin: 0; padding-left: 1.25rem;">
+                                    @foreach($stageBukti['files'] as $filePath)
+                                        <li><a href="{{ asset($filePath) }}" target="_blank" style="color: var(--brand-primary); text-decoration: none;">{{ basename($filePath) }}</a></li>
+                                    @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+
+                            @if(count($stageBukti['links']) > 0)
+                                <div style="margin-top: 0.75rem; font-size: 0.875rem;">
+                                    <strong style="color: var(--text-secondary); display: block; margin-bottom: 0.25rem;">Tautan Bukti (Klik untuk buka):</strong>
+                                    <ul style="margin: 0; padding-left: 1.25rem;">
+                                    @foreach($stageBukti['links'] as $link)
+                                        <li><a href="{{ $link }}" target="_blank" style="color: var(--brand-primary); text-decoration: none;">{{ parse_url($link, PHP_URL_HOST) ?? 'Buka Tautan' }}</a></li>
+                                    @endforeach
+                                    </ul>
+                                </div>
                             @endif
                         @else
                             <div style="color: var(--text-muted); font-style: italic; text-align: center; padding: 1rem 0; font-size: 0.875rem;">

@@ -47,6 +47,11 @@
                     Evaluasi Diri (LED)
                 </a>
                 @endif
+
+                <a href="{{ route('evidence-documents.index') }}" class="nav-item {{ request()->is('bank-dokumen*') ? 'active' : '' }}">
+                    <i data-feather="folder" class="nav-icon"></i>
+                    Bank Dokumen
+                </a>
                 
                 @if(auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma', 'pimpinan']))
                 <a href="{{ route('ami.index') }}" class="nav-item {{ request()->is('ami*') ? 'active' : '' }}">

@@ -97,6 +97,10 @@
 <form action="{{ route('led.update', $standard->kode) }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
+    <input type="hidden" name="tahun" value="{{ $tahun }}">
+    @if(isset($unit_id) && $unit_id != 'all')
+        <input type="hidden" name="unit_id" value="{{ $unit_id }}">
+    @endif
     
     @php
         $stages = [
@@ -219,13 +223,11 @@
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
                 @php
-                    $existingLinks = '';
-                    if (isset($stageData[$kode]) && $stageData[$kode]->bukti) {
-                        $buktiObj = json_decode($stageData[$kode]->bukti, true);
-                        if (isset($buktiObj['links'])) {
-                            $existingLinks = implode("\n", $buktiObj['links']);
-                        }
-                    }
+                    $stageBukti = isset($stageData[$kode]) ? $stageData[$kode]->decodedBukti() : ['files' => [], 'links' => [], 'shared_document_ids' => []];
+                    $existingLinks = implode("\n", $stageBukti['links']);
+                    $selectedDocIds = $stageBukti['shared_document_ids'];
+                    $existingFiles = $stageBukti['files'];
+                    $autoDocs = $autoAttachedByStage[$kode] ?? collect();
                 @endphp
                 <div>
                     <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Tautan Dokumen / Google Drive (Opsional)</label>
@@ -235,12 +237,104 @@
                     <input type="text" name="stages[{{ $kode }}][penanggung_jawab]" value="{{ isset($stageData[$kode]) ? $stageData[$kode]->penanggung_jawab : '' }}" placeholder="Cth: Kaprodi, Dosen..." class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                 </div>
                 <div>
-                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Unggah Dokumen Bukti (Opsional - Bisa pilih banyak file)</label>
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Unggah Dokumen Bukti Khusus Tahap Ini (Opsional)</label>
                     <input type="file" multiple name="stages[{{ $kode }}][dokumen][]" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.png" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
-                    <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.5rem;">Gunakan Ctrl (Windows) / Cmd (Mac) saat memilih file untuk mengunggah lebih dari satu dokumen sekaligus.</small>
+                    <small style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.4rem;">Gunakan Ctrl/Cmd untuk memilih banyak file sekaligus.</small>
+
+                    @if(!$isLocked)
+                    <div style="margin-top: 0.75rem; padding: 0.75rem; background: var(--bg-tertiary); border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                        <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8rem; color: var(--text-primary); font-weight: 600; cursor: pointer;">
+                            <input type="checkbox" name="stages[{{ $kode }}][save_to_unit_library]" value="1" onchange="toggleLibMeta('{{ $kode }}', this.checked)" style="margin-top: 2px;">
+                            <span>Simpan file ini ke Pustaka Internal Unit (agar bisa dipakai ulang di standar lain tanpa upload ulang, privat untuk unit ini)</span>
+                        </label>
+                        <div id="lib-meta-{{ $kode }}" style="display: none; margin-top: 0.65rem; grid-template-columns: 2fr 1fr; gap: 0.5rem;">
+                            <input type="text" name="stages[{{ $kode }}][library_title]" placeholder="Judul dokumen (cth: SOP Perwalian Prodi)" class="form-control" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                            <select name="stages[{{ $kode }}][library_category]" class="form-select" style="width: 100%; padding: 0.45rem; font-size: 0.8rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary);">
+                                <option value="SOP">SOP</option>
+                                <option value="SK / Pedoman">SK / Pedoman</option>
+                                <option value="Kurikulum">Kurikulum</option>
+                                <option value="Laporan / Monev">Laporan / Monev</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                    </div>
+                    @endif
+
+                    @if(count($existingFiles) > 0)
+                    <input type="hidden" name="stages[{{ $kode }}][existing_files_present]" value="1">
+                    <div style="margin-top: 0.75rem; padding: 0.65rem 0.75rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                        <div style="font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.35rem;">Berkas Terunggah (Hilangkan centang untuk menghapus):</div>
+                        @foreach($existingFiles as $filePath)
+                        <label style="display: flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                            <input type="checkbox" name="stages[{{ $kode }}][keep_files][]" value="{{ $filePath }}" checked>
+                            <a href="{{ asset($filePath) }}" target="_blank" style="color: var(--brand-primary); text-decoration: none; word-break: break-all;">{{ basename($filePath) }}</a>
+                        </label>
+                        @endforeach
+                    </div>
+                    @endif
                     
                     <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-top: 1rem; margin-bottom: 0.5rem; font-weight: 500;">Catatan Tambahan (Opsional)</label>
                     <input type="text" name="stages[{{ $kode }}][catatan]" value="{{ isset($stageData[$kode]) ? $stageData[$kode]->catatan : '' }}" placeholder="Catatan penting lainnya..." class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                </div>
+            </div>
+
+            <!-- Bank Dokumen & Pustaka Unit -->
+            <div style="margin-top: 1.25rem; padding: 1rem; background: #f8fafc; border: 1px solid var(--border-color); border-radius: var(--radius-md);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem;">
+                    <div>
+                        <strong style="font-size: 0.88rem; color: var(--text-primary);">Bukti Bersama & Pustaka Dokumen (Tanpa Upload Ulang)</strong>
+                        <div style="font-size: 0.76rem; color: var(--text-muted);">Pilih dokumen global LPMA atau pustaka internal unit Anda yang relevan untuk tahap {{ $kode }}.</div>
+                    </div>
+                    <a href="{{ route('evidence-documents.index') }}" target="_blank" class="btn btn-outline" style="padding: 0.3rem 0.65rem; font-size: 0.78rem;">
+                        <i data-feather="folder" style="width: 13px; height: 13px;"></i> Kelola Bank Dokumen
+                    </a>
+                </div>
+
+                @if($autoDocs->count() > 0)
+                <div style="margin-bottom: 0.85rem; padding: 0.65rem 0.85rem; background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: var(--radius-md);">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: #047857; margin-bottom: 0.35rem;">Otomatis Terlampir (Dokumen Induk Universitas - LPMA):</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                        @foreach($autoDocs as $adoc)
+                        <a href="{{ route('evidence-documents.download', $adoc) }}" target="_blank" style="display: inline-flex; align-items: center; gap: 0.35rem; background: white; border: 1px solid #6ee7b7; color: #065f46; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.78rem; text-decoration: none; font-weight: 500;">
+                            <i data-feather="check-circle" style="width: 13px; height: 13px;"></i>
+                            [{{ $adoc->kategori }}] {{ $adoc->judul }}
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+                    <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.75rem; max-height: 170px; overflow-y: auto;">
+                        <div style="font-size: 0.76rem; font-weight: 700; color: var(--brand-primary); text-transform: uppercase; margin-bottom: 0.45rem;">Dokumen Universitas (Global LPMA)</div>
+                        @php $selectableGlobal = $globalDocs->reject(fn ($d) => $autoDocs->contains('id', $d->id)); @endphp
+                        @forelse($selectableGlobal as $gdoc)
+                        <label style="display: flex; align-items: flex-start; gap: 0.45rem; font-size: 0.8rem; margin-bottom: 0.35rem; cursor: pointer;">
+                            <input type="checkbox" name="stages[{{ $kode }}][shared_document_ids][]" value="{{ $gdoc->id }}" {{ in_array($gdoc->id, $selectedDocIds) ? 'checked' : '' }} style="margin-top: 2px;">
+                            <span>
+                                <strong>[{{ $gdoc->kategori }}]</strong> {{ $gdoc->judul }}
+                                <a href="{{ route('evidence-documents.download', $gdoc) }}" target="_blank" style="color: var(--brand-primary); font-size: 0.74rem; margin-left: 4px;">(Lihat)</a>
+                            </span>
+                        </label>
+                        @empty
+                        <div style="font-size: 0.78rem; color: var(--text-muted); font-style: italic;">Tidak ada dokumen global tambahan.</div>
+                        @endforelse
+                    </div>
+
+                    <div style="background: white; border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 0.75rem; max-height: 170px; overflow-y: auto;">
+                        <div style="font-size: 0.76rem; font-weight: 700; color: #6d28d9; text-transform: uppercase; margin-bottom: 0.45rem;">Pustaka Internal Unit (Privat Unit Ini)</div>
+                        @forelse($unitDocs as $udoc)
+                        <label style="display: flex; align-items: flex-start; gap: 0.45rem; font-size: 0.8rem; margin-bottom: 0.35rem; cursor: pointer;">
+                            <input type="checkbox" name="stages[{{ $kode }}][shared_document_ids][]" value="{{ $udoc->id }}" {{ in_array($udoc->id, $selectedDocIds) ? 'checked' : '' }} style="margin-top: 2px;">
+                            <span>
+                                <strong>[{{ $udoc->kategori }}]</strong> {{ $udoc->judul }}
+                                <a href="{{ route('evidence-documents.download', $udoc) }}" target="_blank" style="color: #6d28d9; font-size: 0.74rem; margin-left: 4px;">(Lihat)</a>
+                            </span>
+                        </label>
+                        @empty
+                        <div style="font-size: 0.78rem; color: var(--text-muted); font-style: italic;">Belum ada dokumen di pustaka unit.</div>
+                        @endforelse
+                    </div>
                 </div>
             </div>
         </div>
@@ -266,6 +360,13 @@
         } else {
             content.style.display = 'none';
             icon.style.transform = 'rotate(0deg)';
+        }
+    }
+
+    function toggleLibMeta(kode, isChecked) {
+        const meta = document.getElementById('lib-meta-' + kode);
+        if (meta) {
+            meta.style.display = isChecked ? 'grid' : 'none';
         }
     }
 

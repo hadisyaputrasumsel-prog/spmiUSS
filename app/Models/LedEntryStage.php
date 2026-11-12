@@ -40,4 +40,23 @@ class LedEntryStage extends Model
     protected $casts = [
         'data_spesifik' => 'array',
     ];
+
+    /**
+     * Decode the JSON bukti payload into normalized files, links, and shared document IDs.
+     *
+     * @return array{files: array<int, string>, links: array<int, string>, shared_document_ids: array<int, int>}
+     */
+    public function decodedBukti(): array
+    {
+        $decoded = is_string($this->bukti) ? json_decode($this->bukti, true) : null;
+        if (! is_array($decoded)) {
+            $decoded = [];
+        }
+
+        return [
+            'files' => array_values(array_filter((array) ($decoded['files'] ?? []))),
+            'links' => array_values(array_filter((array) ($decoded['links'] ?? []))),
+            'shared_document_ids' => array_values(array_map('intval', (array) ($decoded['shared_document_ids'] ?? []))),
+        ];
+    }
 }

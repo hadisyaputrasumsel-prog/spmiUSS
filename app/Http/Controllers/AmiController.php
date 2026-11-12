@@ -6,12 +6,14 @@ use App\Imports\AmiImport;
 use App\Models\AmiFinding;
 use App\Models\AuditorAssignment;
 use App\Models\BulanMutuConfig;
+use App\Models\EvidenceDocument;
 use App\Models\LedEntry;
 use App\Models\LedEntryStage;
 use App\Models\Standard;
 use App\Models\Unit;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AmiController extends Controller
@@ -67,6 +69,9 @@ class AmiController extends Controller
 
         $ledEntry = null;
         $stageData = [];
+        $sharedDocumentsMap = collect();
+        $autoAttachedByStage = ['P1' => collect(), 'P2' => collect(), 'P3' => collect(), 'P4' => collect(), 'P5' => collect()];
+
         if (request('unit_id') && request('standar_kode')) {
             $ledEntry = LedEntry::where('unit_id', request('unit_id'))
                 ->where('objek_kode', request('standar_kode'))
@@ -78,10 +83,28 @@ class AmiController extends Controller
                 foreach ($stages as $stage) {
                     $stageData[$stage->tahap] = $stage;
                 }
+
+                if (Schema::hasTable('evidence_documents')) {
+                    $docIds = $stages->flatMap(fn (LedEntryStage $stage): array => $stage->decodedBukti()['shared_document_ids'])
+                        ->unique()
+                        ->values()
+                        ->all();
+
+                    if ($docIds !== []) {
+                        $sharedDocumentsMap = EvidenceDocument::accessibleByUnit((int) $ledEntry->unit_id)
+                            ->whereIn('id', $docIds)
+                            ->get()
+                            ->keyBy('id');
+                    }
+                }
+            }
+
+            if (Schema::hasTable('evidence_documents')) {
+                $autoAttachedByStage = EvidenceDocument::autoAttachedByStage((string) request('standar_kode'), (int) $tahun);
             }
         }
 
-        return view('ami.create', compact('units', 'standards', 'ledEntry', 'stageData'));
+        return view('ami.create', compact('units', 'standards', 'ledEntry', 'stageData', 'sharedDocumentsMap', 'autoAttachedByStage'));
     }
 
     public function store(Request $request)

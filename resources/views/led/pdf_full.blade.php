@@ -309,6 +309,23 @@
                                     ];
                                 }
                             }
+                            // Extract shared / unit library documents
+                            if (isset($b['shared_document_ids']) && count($b['shared_document_ids']) > 0) {
+                                foreach($b['shared_document_ids'] as $docId) {
+                                    $doc = ($sharedDocumentsMap ?? collect())->get((int) $docId);
+                                    if ($doc) {
+                                        $semuaLampiran[] = [
+                                            'standar' => $standard->kode,
+                                            'tahap_nama' => $tahapanLabels[$st->tahap] ?? $st->tahap,
+                                            'type' => 'library',
+                                            'file' => $doc->external_url ?: ($doc->original_filename ?: $doc->judul),
+                                            'doc_title' => $doc->judul,
+                                            'doc_category' => $doc->kategori,
+                                            'doc_scope' => $doc->scope === 'global' ? 'Global Universitas' : 'Pustaka Privat Unit',
+                                        ];
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -348,6 +365,12 @@
                                 <p style="margin: 5px 0 0 0; font-size: 10px; color: #999;">Path: {{ $lamp['file'] }}</p>
                             </div>
                         @endif
+                    @elseif($lamp['type'] == 'library')
+                        <div style="border: 1px dashed #ccc; padding: 20px; background: #fafafa; text-align: center;">
+                            <h4 style="margin: 0; color: #6d28d9;">[{{ $lamp['doc_scope'] }} - {{ $lamp['doc_category'] }}]</h4>
+                            <p style="margin: 5px 0 0 0; font-size: 12px; font-weight: bold; color: #333;">{{ $lamp['doc_title'] }}</p>
+                            <p style="margin: 5px 0 0 0; font-size: 11px; color: #666;">{{ $lamp['file'] }}</p>
+                        </div>
                     @else
                         <!-- It's a link -->
                         <div style="border: 1px dashed #ccc; padding: 20px; background: #fafafa; text-align: center;">

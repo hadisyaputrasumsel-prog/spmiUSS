@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Standard;
-
+use App\Models\EvidenceDocument;
 use App\Models\LedEntry;
 use App\Models\LedEntryStage;
+use App\Models\Standard;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class LedController extends Controller
 {
@@ -133,7 +136,37 @@ class LedController extends Controller
                             ->where('tahun', $tahun)
                             ->exists();
 
-        return view('led.edit', compact('standard', 'entry', 'stageData', 'tahun', 'unit_id', 'hasSubmitted'));
+        $globalDocs = collect();
+        $unitDocs = collect();
+        $autoAttachedByStage = ['P1' => collect(), 'P2' => collect(), 'P3' => collect(), 'P4' => collect(), 'P5' => collect()];
+        if (Schema::hasTable('evidence_documents')) {
+            $globalDocs = EvidenceDocument::where('scope', 'global')
+                ->orderBy('kategori')
+                ->orderBy('judul')
+                ->get();
+
+            if ($unit_id && $unit_id != 'all') {
+                $unitDocs = EvidenceDocument::where('scope', 'unit')
+                    ->where('unit_id', (int) $unit_id)
+                    ->orderBy('kategori')
+                    ->orderBy('judul')
+                    ->get();
+            }
+
+            $autoAttachedByStage = EvidenceDocument::autoAttachedByStage($kode, (int) $tahun);
+        }
+
+        return view('led.edit', compact(
+            'standard',
+            'entry',
+            'stageData',
+            'tahun',
+            'unit_id',
+            'hasSubmitted',
+            'globalDocs',
+            'unitDocs',
+            'autoAttachedByStage'
+        ));
     }
 
     public function exportPdf(Request $request, $kode)
@@ -164,8 +197,23 @@ class LedController extends Controller
                 $stageData[$st->tahap] = $st;
             }
         }
-        
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('led.pdf', compact('standard', 'entry', 'stageData', 'tahun', 'unit'));
+
+        [$sharedDocumentsMap, $autoAttachedByStage] = $this->loadEvidenceContextForStages(
+            collect($stageData),
+            $kode,
+            $unit_id && $unit_id != 'all' ? (int) $unit_id : null,
+            (int) $tahun
+        );
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('led.pdf', compact(
+            'standard',
+            'entry',
+            'stageData',
+            'tahun',
+            'unit',
+            'sharedDocumentsMap',
+            'autoAttachedByStage'
+        ));
         return $pdf->stream('LED_'.$kode.'_'.$tahun.'.pdf');
     }
 
@@ -201,7 +249,15 @@ class LedController extends Controller
                            ->get()
                            ->keyBy('objek_kode');
 
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('led.pdf_full', compact('standards', 'entries', 'tahun', 'unit'));
+        $allStages = $entries->flatMap(fn (LedEntry $item) => $item->stages);
+        [$sharedDocumentsMap] = $this->loadEvidenceContextForStages(
+            $allStages,
+            '',
+            (int) $unit_id,
+            (int) $tahun
+        );
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('led.pdf_full', compact('standards', 'entries', 'tahun', 'unit', 'sharedDocumentsMap'));
         return $pdf->stream('Full_LED_'.str_replace(' ', '_', $unit->nama).'_'.$tahun.'.pdf');
     }
 
@@ -209,9 +265,14 @@ class LedController extends Controller
     {
         $stages = $request->input('stages', []);
         $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
-        $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
-        $unit_id = auth()->user()->unit_id ?? 1; // Fallback to 1 if null (admin etc)
-        $user_id = auth()->id();
+        $tahun = (int) $request->input('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
+        $user = auth()->user();
+        $user_id = $user->id;
+
+        $unit_id = $user->unit_id ?? 1;
+        if (in_array($user->role->kode ?? '', ['super_admin', 'lpma'], true) && $request->filled('unit_id') && is_numeric($request->input('unit_id'))) {
+            $unit_id = (int) $request->input('unit_id');
+        }
 
         $standard = Standard::where('kode', $kode)->firstOrFail();
         $jenis = ($standard->kelompok == 'Non-Akademik') ? 'nonakademik' : 'akademik';
@@ -225,49 +286,54 @@ class LedController extends Controller
         );
         $entry->update(['status_pengisian' => $statusSubmit, 'diisi_oleh_id' => $user_id]);
 
+        $existingStages = LedEntryStage::where('led_entry_id', $entry->id)->get()->keyBy('tahap');
+        $hasEvidenceTable = Schema::hasTable('evidence_documents');
+
         // Process stages
         foreach ($stages as $tahap => $data) {
-            $buktiFiles = [];
-            
-            // Handle multiple file uploads
-            if ($request->hasFile("stages.{$tahap}.dokumen")) {
-                foreach ($request->file("stages.{$tahap}.dokumen") as $file) {
-                    $filename = time() . '_' . $file->getClientOriginalName();
-                    $path = $file->storeAs('public/led_documents', $filename);
-                    $buktiFiles[] = str_replace('public/', 'storage/', $path);
-                }
-            }
+            $existingBukti = $existingStages->has($tahap) ? $existingStages->get($tahap)->decodedBukti() : ['files' => [], 'links' => [], 'shared_document_ids' => []];
+            $buktiFiles = $this->resolveRetainedFiles($data, $existingBukti['files']);
+            $sharedDocumentIds = $this->resolveAuthorizedSharedDocIds($data['shared_document_ids'] ?? [], (int) $unit_id, $hasEvidenceTable);
 
-            // Handle external links (e.g. Google Drive)
-            $buktiLinks = [];
-            if (!empty($data['links'])) {
-                // Split by newline or comma
-                $rawLinks = preg_split('/[\n,]+/', $data['links']);
-                foreach ($rawLinks as $link) {
-                    $link = trim($link);
-                    if (!empty($link)) {
-                        $buktiLinks[] = $link;
+            // Handle newly uploaded files (either stage-only or promoted to private unit library)
+            if ($request->hasFile("stages.{$tahap}.dokumen")) {
+                $saveToUnitLibrary = $hasEvidenceTable && ! empty($data['save_to_unit_library']);
+                $customTitle = trim((string) ($data['library_title'] ?? ''));
+                $customCategory = trim((string) ($data['library_category'] ?? 'SOP'));
+
+                foreach ($request->file("stages.{$tahap}.dokumen") as $file) {
+                    if ($saveToUnitLibrary) {
+                        $doc = $this->storePrivateUnitDocument($file, $standard, (string) $tahap, (int) $unit_id, (int) $tahun, $user_id, $customTitle, $customCategory);
+                        $sharedDocumentIds[] = $doc->id;
+                    } else {
+                        $filename = time().'_'.$file->getClientOriginalName();
+                        $path = $file->storeAs('public/led_documents', $filename);
+                        $buktiFiles[] = str_replace('public/', 'storage/', $path);
                     }
                 }
             }
 
-            // Compile all evidence into JSON structure
-            $buktiData = [];
-            if (count($buktiFiles) > 0) $buktiData['files'] = $buktiFiles;
-            if (count($buktiLinks) > 0) $buktiData['links'] = $buktiLinks;
+            $buktiLinks = $this->parseEvidenceLinks($data['links'] ?? '');
 
-            // Prepare stage data
+            $buktiData = [];
+            if (count($buktiFiles) > 0) {
+                $buktiData['files'] = array_values(array_unique($buktiFiles));
+            }
+            if (count($buktiLinks) > 0) {
+                $buktiData['links'] = $buktiLinks;
+            }
+            if (count($sharedDocumentIds) > 0) {
+                $buktiData['shared_document_ids'] = array_values(array_unique($sharedDocumentIds));
+            }
+
             $stageData = [
                 'tanggal' => $data['tanggal'] ?? null,
                 'penanggung_jawab' => $data['penanggung_jawab'] ?? null,
                 'uraian' => $data['uraian'] ?? null,
                 'catatan' => $data['catatan'] ?? null,
                 'data_spesifik' => $data['data_spesifik'] ?? null,
+                'bukti' => count($buktiData) > 0 ? json_encode($buktiData) : null,
             ];
-
-            if (count($buktiData) > 0) {
-                $stageData['bukti'] = json_encode($buktiData);
-            }
 
             LedEntryStage::updateOrCreate(
                 ['led_entry_id' => $entry->id, 'tahap' => $tahap],
@@ -275,8 +341,133 @@ class LedController extends Controller
             );
         }
 
-        // Return back with a success message (to be displayed via session alert, optional)
-        return redirect()->route('led.index')->with('success', 'Data Evaluasi Diri berhasil disimpan!');
+        return redirect()->route('led.index', ['unit_id' => $unit_id, 'tahun' => $tahun])->with('success', 'Data Evaluasi Diri berhasil disimpan!');
+    }
+
+    /**
+     * Preserve previously uploaded files unless explicitly unchecked for removal.
+     *
+     * @param  array<string, mixed>  $stageInput
+     * @param  array<int, string>  $existingFiles
+     * @return array<int, string>
+     */
+    private function resolveRetainedFiles(array $stageInput, array $existingFiles): array
+    {
+        if (array_key_exists('existing_files_present', $stageInput)) {
+            $kept = array_values(array_filter((array) ($stageInput['keep_files'] ?? [])));
+
+            return array_values(array_intersect($existingFiles, $kept));
+        }
+
+        return $existingFiles;
+    }
+
+    /**
+     * Filter submitted shared document IDs so a unit can only attach global docs or its own docs.
+     *
+     * @param  array<int, mixed>  $rawIds
+     * @return array<int, int>
+     */
+    private function resolveAuthorizedSharedDocIds(array $rawIds, int $unitId, bool $hasEvidenceTable): array
+    {
+        if (! $hasEvidenceTable || $rawIds === []) {
+            return [];
+        }
+
+        $ids = array_values(array_filter(array_map('intval', $rawIds), fn (int $id): bool => $id > 0));
+        if ($ids === []) {
+            return [];
+        }
+
+        return EvidenceDocument::accessibleByUnit($unitId)
+            ->whereIn('id', $ids)
+            ->pluck('id')
+            ->map(fn ($id): int => (int) $id)
+            ->all();
+    }
+
+    /**
+     * Store an uploaded LED file directly into the unit's private document library.
+     */
+    private function storePrivateUnitDocument(
+        \Illuminate\Http\UploadedFile $file,
+        Standard $standard,
+        string $tahap,
+        int $unitId,
+        int $tahun,
+        int $userId,
+        string $customTitle,
+        string $category
+    ): EvidenceDocument {
+        $originalName = $file->getClientOriginalName();
+        $safeName = time().'_'.Str::random(6).'_'.preg_replace('/[^A-Za-z0-9._-]/', '_', $originalName);
+        $filePath = $file->storeAs('evidence_documents', $safeName, 'local');
+
+        $title = $customTitle !== ''
+            ? $customTitle
+            : pathinfo($originalName, PATHINFO_FILENAME).' ('.$standard->kode.' - '.$tahap.')';
+
+        return EvidenceDocument::create([
+            'judul' => Str::limit($title, 250, ''),
+            'kategori' => $category !== '' ? $category : 'SOP',
+            'scope' => 'unit',
+            'unit_id' => $unitId,
+            'tahun' => $tahun,
+            'auto_attach' => false,
+            'file_path' => $filePath,
+            'original_filename' => $originalName,
+            'uploaded_by_id' => $userId,
+        ]);
+    }
+
+    /**
+     * Parse newline- or comma-separated external evidence URLs.
+     *
+     * @return array<int, string>
+     */
+    private function parseEvidenceLinks(string $rawInput): array
+    {
+        if (trim($rawInput) === '') {
+            return [];
+        }
+
+        $links = [];
+        foreach (preg_split('/[\n,]+/', $rawInput) ?: [] as $link) {
+            $link = trim($link);
+            if ($link !== '') {
+                $links[] = $link;
+            }
+        }
+
+        return array_values(array_unique($links));
+    }
+
+    /**
+     * Preload EvidenceDocument models referenced by LED stages and auto-attached global docs.
+     *
+     * @param  Collection<int, LedEntryStage>  $stages
+     * @return array{0: Collection<int, EvidenceDocument>, 1: array<string, Collection<int, EvidenceDocument>>}
+     */
+    private function loadEvidenceContextForStages(Collection $stages, string $standarKode, ?int $unitId, int $tahun): array
+    {
+        if (! Schema::hasTable('evidence_documents')) {
+            return [collect(), ['P1' => collect(), 'P2' => collect(), 'P3' => collect(), 'P4' => collect(), 'P5' => collect()]];
+        }
+
+        $docIds = $stages->flatMap(fn (LedEntryStage $stage): array => $stage->decodedBukti()['shared_document_ids'])
+            ->unique()
+            ->values()
+            ->all();
+
+        $sharedMap = $docIds === []
+            ? collect()
+            : EvidenceDocument::accessibleByUnit($unitId)->whereIn('id', $docIds)->get()->keyBy('id');
+
+        $autoAttached = $standarKode !== ''
+            ? EvidenceDocument::autoAttachedByStage($standarKode, $tahun)
+            : ['P1' => collect(), 'P2' => collect(), 'P3' => collect(), 'P4' => collect(), 'P5' => collect()];
+
+        return [$sharedMap, $autoAttached];
     }
 
     public function submit(Request $request) 

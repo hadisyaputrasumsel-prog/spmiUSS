@@ -4,6 +4,7 @@ use App\Http\Controllers\AmiController;
 use App\Http\Controllers\AuditorAssignmentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BulanMutuController;
+use App\Http\Controllers\EvidenceDocumentController;
 use App\Http\Controllers\LedController;
 use App\Http\Controllers\PetunjukAmiController;
 use App\Http\Controllers\RtmController;
@@ -20,6 +21,7 @@ use App\Models\LedEntry;
 use App\Models\LedSubmission;
 use App\Models\Standard;
 use App\Models\Unit;
+use App\Providers\AppServiceProvider;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -35,6 +37,7 @@ Route::get('/run-migrate', function () {
     try {
         if ($action === 'fresh') {
             Artisan::call('migrate:fresh', ['--seed' => true, '--force' => true]);
+            AppServiceProvider::syncSchema();
             $output = Artisan::output();
             $message = 'Database berhasil di-reset ulang dan di-seed bersih (migrate:fresh --seed).';
         } elseif ($action === 'import') {
@@ -42,6 +45,7 @@ Route::get('/run-migrate', function () {
             if (file_exists($dumpPath)) {
                 DB::unprepared(file_get_contents($dumpPath));
                 Artisan::call('migrate', ['--force' => true]);
+                AppServiceProvider::syncSchema();
                 $output = "Dump amira_uss_dump.sql berhasil diimpor!\n" . Artisan::output();
                 $message = 'Database dump berhasil diimpor dan migrasi terbaru telah dijalankan.';
             } else {
@@ -49,9 +53,12 @@ Route::get('/run-migrate', function () {
             }
         } elseif ($action === 'migrate' || empty($action)) {
             Artisan::call('migrate', ['--force' => true]);
+            AppServiceProvider::syncSchema();
             $output = Artisan::output();
-            $message = 'Migrasi berhasil dijalankan (migrate --force).';
+            $message = 'Migrasi & sinkronisasi tabel/kolom berhasil dijalankan.';
         }
+
+        @file_put_contents(storage_path('framework/schema_synced_v5.flag'), date('c'));
     } catch (\Throwable $e) {
         $color = '#ff5555';
         $message = 'Terjadi kesalahan: ' . $e->getMessage();
@@ -261,6 +268,12 @@ Route::middleware('auth')->group(function () {
     // Petunjuk AMI Route (accessible by everyone in auth, update restricted in view)
     Route::get('/petunjuk-ami', [PetunjukAmiController::class, 'index'])->name('petunjuk-ami.index');
     Route::put('/petunjuk-ami', [PetunjukAmiController::class, 'update'])->name('petunjuk-ami.update');
+
+    // Bank Dokumen & Pustaka Evidence Unit (3-tier isolation enforced in controller)
+    Route::get('/bank-dokumen', [EvidenceDocumentController::class, 'index'])->name('evidence-documents.index');
+    Route::post('/bank-dokumen', [EvidenceDocumentController::class, 'store'])->name('evidence-documents.store');
+    Route::get('/bank-dokumen/{evidenceDocument}/download', [EvidenceDocumentController::class, 'download'])->name('evidence-documents.download');
+    Route::delete('/bank-dokumen/{evidenceDocument}', [EvidenceDocumentController::class, 'destroy'])->name('evidence-documents.destroy');
 
     // Drill down unit PPEPP
     Route::get('/unit/{id}/ppepp', function ($id) {
