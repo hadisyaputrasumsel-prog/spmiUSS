@@ -7,43 +7,54 @@ use Illuminate\Database\Seeder;
 
 class PetunjukAmiSeeder extends Seeder
 {
-    public function run()
+    /**
+     * Default HTML guidance content for AMI execution.
+     */
+    public static function defaultContent(): string
     {
-        $text = "DOKUMEN PETUNJUK PELAKSANAAN AUDIT MUTU INTERNAL (AMI)
+        return <<<'HTML'
+<h3>DOKUMEN PETUNJUK PELAKSANAAN AUDIT MUTU INTERNAL (AMI)</h3>
+<p>Sistem <strong>AMIRA</strong> memfasilitasi proses Audit Mutu Internal secara digital dengan mengacu pada siklus <strong>PPEPP</strong>. Berikut adalah langkah-langkah pelaksanaan AMI dalam aplikasi:</p>
 
-Sistem AmiraUSS memfasilitasi proses Audit Mutu Internal secara digital dengan mengacu pada siklus PPEPP. Berikut adalah langkah-langkah pelaksanaan AMI dalam aplikasi:
+<h4>1. TAHAP PENETAPAN &amp; PELAKSANAAN (P1 &amp; P2)</h4>
+<ol>
+    <li>Pimpinan / LPMA menetapkan Standar Mutu serta mengunggah Dokumen Induk Universitas (seperti Kebijakan Mutu &amp; Manual Mutu) di menu <strong>Bank Dokumen</strong>.</li>
+    <li>LPMA membuka dan mengaktifkan periode <strong>Bulan Mutu</strong> pada tahun berjalan.</li>
+    <li>Unit / Prodi (Auditee) melaksanakan aktivitas akademik dan non-akademik sesuai standar, serta dapat menyimpan dokumen internal unit (seperti SOP Prodi dan Kurikulum) di pustaka privat unit pada menu <strong>Bank Dokumen</strong>.</li>
+</ol>
 
-**1. TAHAP PENETAPAN & PELAKSANAAN (P1 & P2)**
-a. Pimpinan/LPMA menetapkan Standar Mutu yang akan diaudit.
-b. LPMA membuka periode Bulan Mutu Akademik pada tahun berjalan.
-c. Unit (Auditee) melaksanakan aktivitas akademik dan non-akademik sesuai dengan standar.
+<h4>2. TAHAP EVALUASI / AMI (P3)</h4>
+<ol>
+    <li><strong>Pengisian LED (Laporan Evaluasi Diri):</strong> Auditee (UPPS/Prodi/Unit) mengakses menu <strong>Evaluasi Diri (LED)</strong> untuk melaporkan capaian indikator setiap tahapan PPEPP, melampirkan bukti khusus maupun memilih bukti dari Bank Dokumen, lalu menekan tombol <em>Ajukan Penilaian LED</em> agar data dikunci untuk Auditor.</li>
+    <li><strong>Penugasan Auditor:</strong> LPMA menetapkan penugasan tim Auditor (Ketua dan Anggota) untuk memeriksa masing-masing unit pada menu <strong>Penugasan Auditor</strong>.</li>
+    <li><strong>Desk Evaluation &amp; Verifikasi Evidence:</strong> Auditor menelaah isian LED dan bukti dokumen auditee secara daring sebelum turun ke lapangan.</li>
+    <li><strong>Visitasi / Audit Lapangan:</strong> Auditor melakukan visitasi ke unit/prodi, mencatat skor capaian, Kesesuaian, Observasi (OB), atau Ketidaksesuaian (KTS Minor / KTS Mayor) pada menu <strong>Instrumen AMI</strong>.</li>
+    <li><strong>Closing Meeting:</strong> Penyampaian dan penyepakatan hasil temuan audit antara Auditor dan Auditee.</li>
+</ol>
 
-**2. TAHAP EVALUASI / AMI (P3)**
-a. Pengisian LED (Laporan Evaluasi Diri):
-   Auditee (UPPS/Prodi/Unit) mengakses menu LED untuk melaporkan capaian/indikator secara mandiri, lengkap dengan tautan bukti (evidence).
-b. Penugasan Auditor:
-   LPMA memberikan penugasan kepada Auditor (Ketua dan Anggota) untuk memeriksa Unit.
-c. Desk Evaluation & Verifikasi Evidence:
-   Auditor menelaah LED yang disubmit auditee secara online sebelum turun ke lapangan.
-d. Visitasi / Audit Lapangan:
-   Auditor melakukan kunjungan ke unit/prodi, melakukan wawancara, mencatat KTS (Ketidaksesuaian), OB (Observasi), atau kelayakan, lalu menginputkannya sebagai Temuan AMI.
-e. Closing Meeting:
-   Penyampaian dan penyepakatan hasil temuan antara Auditor dan Auditee.
+<h4>3. TAHAP PENGENDALIAN (P4)</h4>
+<ol>
+    <li><strong>Pengisian RTL (Rencana Tindak Lanjut):</strong> Auditee menindaklanjuti temuan KTS/OB dengan mengisi akar penyebab, rencana tindakan perbaikan, PIC, dan batas waktu pada form RTL.</li>
+    <li><strong>Verifikasi RTL:</strong> Auditor atau LPMA memantau dan memverifikasi status penyelesaian tindak lanjut hingga berstatus <em>Selesai</em>.</li>
+</ol>
 
-**3. TAHAP PENGENDALIAN (P4)**
-a. Pengisian RTL (Rencana Tindak Lanjut):
-   Auditee menindaklanjuti Temuan AMI dengan mengisi Rencana Tindak Lanjut di Dashboard/Form RTL, menyertakan deskripsi perbaikan dan target waktu.
-b. Verifikasi RTL:
-   Auditor atau LPMA memverifikasi apakah perbaikan RTL telah berstatus 'Selesai' atau 'Belum'.
+<h4>4. TAHAP PENINGKATAN (P5)</h4>
+<ol>
+    <li><strong>Pelaksanaan Rapat Tinjauan Manajemen (RTM):</strong> Pimpinan dan LPMA menggunakan laporan hasil AMI, Form 5 (RCA/RTL), dan Berita Acara RTM dari sistem sebagai dasar pengambilan keputusan peningkatan standar mutu pada siklus berikutnya.</li>
+</ol>
 
-**4. TAHAP PENINGKATAN (P5)**
-a. Pelaksanaan Rapat Tinjauan Manajemen (RTM):
-   Pimpinan dan LPMA menggunakan cetak Laporan AMI dan Berita Acara RTM dari sistem sebagai dasar pengambilan keputusan untuk peningkatan standar mutu siklus berikutnya.
+<h4>Petunjuk Khusus Penggunaan Sistem</h4>
+<ul>
+    <li>Seluruh dokumen laporan PDF (LED, Laporan BAP/AMI, Checklist AMI, PKA, Form 5 RTL, dan Berita Acara RTM) dapat dicetak langsung pada masing-masing menu terkait.</li>
+    <li>Auditee hanya dapat mengakses data unitnya sendiri serta dokumen global LPMA; dokumen internal antar-prodi terisolasi aman per unit.</li>
+    <li>Harap perhatikan <strong>Batas Waktu</strong> jadwal Bulan Mutu pada halaman Ringkasan agar pengisian LED dan tindak lanjut tidak terlambat.</li>
+</ul>
+HTML;
+    }
 
-**Petunjuk Khusus Penggunaan Sistem:**
-- Seluruh dokumen laporan (PDF) dapat diunduh pada masing-masing menu (Cetak LED, Cetak AMI, Cetak RTL, Cetak RTM).
-- Auditee hanya dapat mengakses unitnya sendiri setelah login.
-- Harap perhatikan **Batas Waktu** tahap berjalan pada Dashboard untuk menghindari keterlambatan pengisian.";
+    public function run(): void
+    {
+        $text = self::defaultContent();
 
         $setting = Setting::first();
         if ($setting) {

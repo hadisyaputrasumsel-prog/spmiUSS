@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Database\Seeders\PetunjukAmiSeeder;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $flagPath = storage_path('framework/schema_synced_v5.flag');
+        $flagPath = storage_path('framework/schema_synced_v6.flag');
         if (file_exists($flagPath)) {
             return;
         }
@@ -48,6 +49,36 @@ class AppServiceProvider extends ServiceProvider
 
         self::ensureCoreTablesExist();
         self::ensureMissingColumns();
+        self::ensureDefaultPetunjukAmi();
+    }
+
+    /**
+     * Populate default Petunjuk AMI guidance in settings if empty.
+     */
+    private static function ensureDefaultPetunjukAmi(): void
+    {
+        if (! Schema::hasTable('settings') || ! Schema::hasColumn('settings', 'petunjuk_ami')) {
+            return;
+        }
+
+        $setting = DB::table('settings')->first();
+        if (! $setting) {
+            DB::table('settings')->insert([
+                'nama_kampus' => 'Universitas Sumatera Selatan',
+                'petunjuk_ami' => PetunjukAmiSeeder::defaultContent(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return;
+        }
+
+        if (empty($setting->petunjuk_ami)) {
+            DB::table('settings')->where('id', $setting->id)->update([
+                'petunjuk_ami' => PetunjukAmiSeeder::defaultContent(),
+                'updated_at' => now(),
+            ]);
+        }
     }
 
     /**

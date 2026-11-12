@@ -69,7 +69,7 @@ Route::get('/run-migrate', function () {
             $message = 'Migrasi & sinkronisasi tabel/kolom berhasil dijalankan.';
         }
 
-        @file_put_contents(storage_path('framework/schema_synced_v5.flag'), date('c'));
+        @file_put_contents(storage_path('framework/schema_synced_v6.flag'), date('c'));
     } catch (\Throwable $e) {
         $color = '#ff5555';
         $message = 'Terjadi kesalahan: ' . $e->getMessage();
