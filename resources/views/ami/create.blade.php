@@ -203,17 +203,23 @@
         <div style="padding: 1.5rem;">
             <div style="margin-bottom: 1.5rem;">
                 <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Kategori Temuan <span style="color: var(--status-danger);">*</span></label>
-                <div style="display: flex; gap: 1rem;">
-                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; background: var(--bg-primary);">
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; background: var(--bg-primary);">
                         <input type="radio" name="kategori_temuan" value="Sesuai" required> Sesuai
                     </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; background: var(--bg-primary);">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border: 1px solid #059669; border-radius: var(--radius-md); cursor: pointer; background: rgba(5, 150, 105, 0.1); color: #059669; font-weight: 500;">
+                        <input type="radio" name="kategori_temuan" value="Temuan Positif (TP)"> Temuan Positif (TP)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border: 1px solid #7c3aed; border-radius: var(--radius-md); cursor: pointer; background: rgba(124, 58, 237, 0.1); color: #7c3aed; font-weight: 500;">
+                        <input type="radio" name="kategori_temuan" value="Peluang Peningkatan (OFI)"> Peluang Peningkatan (OFI)
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border: 1px solid #0284c7; border-radius: var(--radius-md); cursor: pointer; background: rgba(2, 132, 199, 0.1); color: #0284c7; font-weight: 500;">
                         <input type="radio" name="kategori_temuan" value="Observasi (OB)"> Observasi (OB)
                     </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; background: var(--status-warning-bg); color: var(--status-warning);">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border: 1px solid #d97706; border-radius: var(--radius-md); cursor: pointer; background: rgba(217, 119, 6, 0.1); color: #d97706; font-weight: 500;">
                         <input type="radio" name="kategori_temuan" value="KTS Minor"> KTS Minor
                     </label>
-                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); cursor: pointer; background: var(--status-danger-bg); color: var(--status-danger);">
+                    <label style="display: flex; align-items: center; gap: 0.5rem; padding: 0.6rem 0.9rem; border: 1px solid #dc2626; border-radius: var(--radius-md); cursor: pointer; background: rgba(220, 38, 38, 0.1); color: #dc2626; font-weight: 500;">
                         <input type="radio" name="kategori_temuan" value="KTS Mayor"> KTS Mayor
                     </label>
                 </div>
@@ -250,21 +256,48 @@
                 </div>
             </div>
             
-            <div style="background-color: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
-                <h4 style="font-size: 0.875rem; margin-bottom: 1rem; color: var(--text-secondary);">Rencana Tindakan Korektif (Jika KTS)</h4>
+            <div style="background-color: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+                <h4 style="font-size: 0.95rem; margin-bottom: 1rem; color: var(--text-primary); font-weight: 600;">Deskripsi Analisis Temuan (Form 5 RCA)</h4>
                 
-                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
                     <div>
-                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Rencana Tindakan</label>
-                        <input type="text" name="rencana_tindakan" class="form-control" placeholder="Apa yang harus diperbaiki?" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Akibat</label>
+                        <textarea name="akibat" rows="2" class="form-control" placeholder="Dampak/risiko dari temuan ini..." style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);"></textarea>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">PIC (Penanggung Jawab)</label>
-                        <input type="text" name="pic" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Akar Penyebab / Masalah</label>
+                        <textarea name="akar_penyebab" rows="2" class="form-control" placeholder="Mengapa ketidaksesuaian ini terjadi?" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);"></textarea>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Rekomendasi yang Disepakati</label>
+                    <textarea name="rekomendasi" rows="2" class="form-control" placeholder="Tindakan koreksi atau peningkatan yang direkomendasikan..." style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);"></textarea>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Rencana Perbaikan</label>
+                        <input type="text" name="rencana_tindakan" class="form-control" placeholder="Apa tindakan perbaikan yang akan dilakukan?" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">Batas Waktu (Deadline)</label>
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Penanggung Jawab (PIC)</label>
+                        <input type="text" name="pic" class="form-control" placeholder="Misal: Kaprodi / Ketua GKM" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Jadwal Perbaikan (Target)</label>
                         <input type="date" name="batas_waktu" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Rencana Pencegahan</label>
+                        <input type="text" name="rencana_pencegahan" class="form-control" placeholder="Langkah pencegahan agar tidak berulang..." style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500;">Jadwal Pencegahan</label>
+                        <input type="text" name="jadwal_pencegahan" class="form-control" placeholder="Misal: Rutin tiap awal semester" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                     </div>
                 </div>
             </div>

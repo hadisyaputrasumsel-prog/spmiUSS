@@ -109,14 +109,27 @@
                 <option value="all">Semua Kategori</option>
                 <option value="Sesuai" {{ $selectedKat == 'Sesuai' ? 'selected' : '' }}>Sesuai</option>
                 <option value="K" {{ $selectedKat == 'K' ? 'selected' : '' }}>Kesesuaian (K)</option>
+                <option value="Temuan Positif (TP)" {{ $selectedKat == 'Temuan Positif (TP)' ? 'selected' : '' }}>Temuan Positif (TP)</option>
+                <option value="Peluang Peningkatan (OFI)" {{ $selectedKat == 'Peluang Peningkatan (OFI)' ? 'selected' : '' }}>Peluang Peningkatan (OFI)</option>
                 <option value="Observasi (OB)" {{ $selectedKat == 'Observasi (OB)' ? 'selected' : '' }}>Observasi (OB)</option>
                 <option value="KTS Minor" {{ $selectedKat == 'KTS Minor' ? 'selected' : '' }}>KTS Minor</option>
                 <option value="KTS Mayor" {{ $selectedKat == 'KTS Mayor' ? 'selected' : '' }}>KTS Mayor</option>
             </select>
         </div>
-        <div style="display: flex; gap: 0.5rem;">
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
             <button type="submit" class="btn btn-outline" style="height: 42px;">Terapkan Filter</button>
+
+            @if(auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['super_admin', 'lpma']))
+            <a href="{{ route('audit-sesi.edit', ['unit_id' => $selectedUnit !== 'all' ? $selectedUnit : null, 'tahun' => $selectedTahun]) }}" class="btn btn-outline" style="height: 42px; display: inline-flex; align-items: center; border-color: #0284c7; color: #0284c7; font-weight: 500;">
+                <i data-feather="settings" style="width: 16px; height: 16px; margin-right: 4px;"></i> Data Sesi Audit
+            </a>
+            @endif
             
+            <!-- Generate Form 4 (KKA Ringkasan Temuan) -->
+            <button type="submit" formaction="{{ route('ami.kka.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #0284c7; border-color: #0284c7; box-shadow: 0 4px 6px -1px rgba(2, 132, 199, 0.2);">
+                <i data-feather="file-text" style="width: 16px; height: 16px; margin-right: 4px;"></i> Cetak Form 4 (KKA)
+            </button>
+
             <!-- Generate existing finding-based report -->
             <button type="submit" formaction="{{ route('ami.pdf') }}" formtarget="_blank" class="btn btn-primary" style="height: 42px; background-color: #2E75B6; border-color: #2E75B6; box-shadow: 0 4px 6px -1px rgba(46, 117, 182, 0.2);">
                 <i data-feather="printer" style="width: 16px; height: 16px; margin-right: 4px;"></i> Laporan BAP (Temuan)
@@ -187,16 +200,20 @@
                         @endif
                     </td>
                     <td>
-                        @if($finding->kategori_temuan == 'Sesuai')
+                        @if($finding->kategori_temuan == 'Sesuai' || $finding->kategori_temuan == 'K')
                             <span class="badge" style="background-color: #548235; color: white;">{{ $finding->kategori_temuan }}</span>
-                        @elseif($finding->kategori_temuan == 'Observasi (OB)')
+                        @elseif(str_contains($finding->kategori_temuan, 'Positif') || $finding->kategori_temuan == 'TP')
+                            <span class="badge" style="background-color: #059669; color: white;">{{ $finding->kategori_temuan }}</span>
+                        @elseif(str_contains($finding->kategori_temuan, 'Peluang') || $finding->kategori_temuan == 'OFI')
+                            <span class="badge" style="background-color: #7c3aed; color: white;">{{ $finding->kategori_temuan }}</span>
+                        @elseif(str_contains($finding->kategori_temuan, 'OB') || str_contains($finding->kategori_temuan, 'Observasi'))
                             <span class="badge" style="background-color: #2E75B6; color: white;">{{ $finding->kategori_temuan }}</span>
-                        @elseif($finding->kategori_temuan == 'KTS Minor')
+                        @elseif(str_contains($finding->kategori_temuan, 'Minor'))
                             <span class="badge" style="background-color: #BF8F00; color: white;">{{ $finding->kategori_temuan }}</span>
-                        @elseif($finding->kategori_temuan == 'KTS Mayor')
+                        @elseif(str_contains($finding->kategori_temuan, 'Mayor'))
                             <span class="badge" style="background-color: #C00000; color: white;">{{ $finding->kategori_temuan }}</span>
                         @else
-                            <span class="badge" style="background-color: #548235; color: white;">Sesuai</span>
+                            <span class="badge" style="background-color: #64748b; color: white;">{{ $finding->kategori_temuan }}</span>
                         @endif
                     </td>
                     <td>
@@ -215,6 +232,41 @@
                             <a href="{{ route('ami.pka.pdf', $finding->id) }}" target="_blank" class="btn btn-sm btn-outline-primary" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #2E75B6; color: #2E75B6; background: transparent; border-radius: 4px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; opacity: 1; transition: all 0.2s;" title="Cetak Kertas Kerja Audit (PKA)" onmouseover="this.style.backgroundColor='#2E75B6'; this.style.color='white';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#2E75B6';">
                                 <i data-feather="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> PKA
                             </a>
+
+                            @php
+                                $canEditDelete = ($finding->status_tindak_lanjut !== 'Selesai') && (
+                                    in_array($amiRoleKode, ['super_admin', 'lpma'], true) ||
+                                    $finding->auditor_id == auth()->id() ||
+                                    \App\Models\AuditorAssignment::where('auditor_id', auth()->id())
+                                        ->where('unit_id', $finding->unit_id)
+                                        ->where('tahun', date('Y', strtotime($finding->tanggal)))
+                                        ->where('peran', 'Auditor Ketua')
+                                        ->exists()
+                                );
+                            @endphp
+
+                            @if($canEditDelete)
+                            @php
+                                $editUrl = $finding->standar_kode
+                                    ? route('led.audit', [
+                                        'kode' => $finding->standar_kode,
+                                        'unit_id' => $finding->unit_id,
+                                        'tahun' => $finding->tahun ?: date('Y', strtotime($finding->tanggal))
+                                    ])
+                                    : route('ami.edit', $finding->id);
+                            @endphp
+                            <a href="{{ $editUrl }}" class="btn btn-sm btn-outline" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #f59e0b; color: #f59e0b; background: transparent; border-radius: 4px; display: inline-flex; align-items: center;" title="Ubah Temuan">
+                                <i data-feather="edit-2" style="width: 14px; height: 14px; margin-right: 4px;"></i> Ubah
+                            </a>
+                            <form action="{{ route('ami.destroy', $finding->id) }}" method="POST" onsubmit="return confirm('Hapus temuan ini?')" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-outline" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #ef4444; color: #ef4444; background: transparent; border-radius: 4px; display: inline-flex; align-items: center;" title="Hapus Temuan">
+                                    <i data-feather="trash-2" style="width: 14px; height: 14px;"></i>
+                                </button>
+                            </form>
+                            @endif
+
                             @if($canVerifyInAmi)
                             <button
                                 type="button"

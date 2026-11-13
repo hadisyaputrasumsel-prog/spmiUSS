@@ -192,9 +192,7 @@ class BulanMutuController extends Controller
         ];
 
         if ($request->hasFile('dokumen_bukti')) {
-            $file = $request->file('dokumen_bukti');
-            $filename = time().'_'.preg_replace('/[^A-Za-z0-9._-]/', '_', $file->getClientOriginalName());
-            $path = $file->storeAs('bulan_mutu_dokumen', $filename, 'public');
+            $path = $request->file('dokumen_bukti')->store('bulan_mutu_dokumen', 'public');
             $data['dokumen_bukti'] = 'storage/'.$path;
         }
 

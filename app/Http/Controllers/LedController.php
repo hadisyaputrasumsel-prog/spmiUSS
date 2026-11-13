@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AmiFinding;
+use App\Models\AmiNilaiTahap;
 use App\Models\AuditorAssignment;
+use App\Models\AuditSesi;
 use App\Models\BulanMutuConfig;
 use App\Models\EvidenceDocument;
 use App\Models\LedEntry;
@@ -28,12 +31,13 @@ class LedController extends Controller
 
         $unit_id = $request->query('unit_id', 'all');
         $status = $request->query('status', 'all');
-        if (! in_array($user->role->kode, ['super_admin', 'lpma', 'auditor'])) {
+        $isAuditorUser = in_array($user->role->kode, ['auditor', 'auditor_anggota'], true);
+        if (! in_array($user->role->kode, ['super_admin', 'lpma', 'auditor', 'auditor_anggota'], true)) {
             $unit_id = $user->unit_id; // Force unit for non-admins
         }
 
         $assignedUnitIds = [];
-        if ($user->role->kode == 'auditor') {
+        if ($isAuditorUser) {
             $assignedUnitIds = AuditorAssignment::where('auditor_id', $user->id)
                 ->where('tahun', $tahun)
                 ->pluck('unit_id')->toArray();
@@ -43,7 +47,7 @@ class LedController extends Controller
             }
         }
 
-        if (in_array($user->role->kode, ['super_admin', 'lpma', 'auditor'])) {
+        if (in_array($user->role->kode, ['super_admin', 'lpma', 'auditor', 'auditor_anggota'], true)) {
             if ($unit_id && $unit_id != 'all' && $unit_id != -1) {
                 $unit = Unit::find($unit_id);
 
@@ -62,7 +66,7 @@ class LedController extends Controller
                             ->orWhere('kelompok', 'LIKE', '%Pengabdian%');
                     }
                 }
-            } elseif ($user->role->kode == 'auditor' && $unit_id == -1) {
+            } elseif ($isAuditorUser && $unit_id == -1) {
                 $standardsQuery = Standard::where('id', -1); // Return empty
             } else {
                 $standardsQuery = Standard::activePeriod();
@@ -175,6 +179,254 @@ class LedController extends Controller
         ));
     }
 
+    /**
+     * Halaman Audit Standar di menu Evaluasi Diri (LED).
+     * Kolom Kiri: LED Auditee (Baca-saja)
+     * Kolom Kanan: Panel Penilaian Auditor (Sticky)
+     */
+    public function showAudit(Request $request, $kode)
+    {
+        $user = auth()->user();
+        $standard = Standard::where('kode', $kode)->firstOrFail();
+
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
+        $tahun = (int) $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
+
+        $unit_id = $request->query('unit_id');
+        if (! $unit_id || $unit_id == 'all') {
+            if ($user->role->kode == 'auditor') {
+                $assigned = AuditorAssignment::where('auditor_id', $user->id)->where('tahun', $tahun)->first();
+                $unit_id = $assigned ? $assigned->unit_id : 17;
+            } else {
+                $unit_id = $user->unit_id ?: 17;
+            }
+        }
+        $unit_id = (int) $unit_id;
+        $unit = Unit::findOrFail($unit_id);
+
+        // Akses: auditor penugasan, lpma, super_admin
+        if ($user->role->kode == 'auditor') {
+            $isAssigned = AuditorAssignment::where('auditor_id', $user->id)
+                ->where('unit_id', $unit_id)
+                ->where('tahun', $tahun)
+                ->exists();
+            if (! $isAssigned && ! in_array($user->role->kode, ['super_admin', 'lpma'])) {
+                abort(403, 'Akses ditolak. Anda tidak memiliki penugasan audit pada unit ini untuk tahun '.$tahun);
+            }
+        } elseif (! in_array($user->role->kode, ['super_admin', 'lpma'])) {
+            abort(403, 'Akses ditolak. Halaman audit standar hanya dapat diakses oleh Auditor dan LPMA.');
+        }
+
+        // Syarat: LED unit sudah diajukan
+        $hasSubmitted = LedSubmission::where('unit_id', $unit_id)->where('tahun', $tahun)->exists();
+
+        // Data LED auditee (baca-saja)
+        $ledEntry = LedEntry::with('stages')->where('objek_kode', $kode)->where('unit_id', $unit_id)->where('tahun', $tahun)->first();
+        $stageData = [];
+        if ($ledEntry) {
+            foreach ($ledEntry->stages as $st) {
+                $stageData[$st->tahap] = $st;
+            }
+        }
+
+        // Dokumen Pustaka / Shared Documents
+        $sharedDocumentsMap = collect();
+        $autoAttachedByStage = ['P1' => collect(), 'P2' => collect(), 'P3' => collect(), 'P4' => collect(), 'P5' => collect()];
+        if (Schema::hasTable('evidence_documents')) {
+            $sharedDocumentsMap = EvidenceDocument::where('scope', 'global')
+                ->orWhere(fn ($q) => $q->where('scope', 'unit')->where('unit_id', $unit_id))
+                ->get()
+                ->keyBy('id');
+            $autoAttachedByStage = EvidenceDocument::autoAttachedByStage($kode, (int) $tahun);
+        }
+
+        // Temuan AMI yang sudah ada
+        $finding = AmiFinding::with('nilaiTahap')
+            ->where('unit_id', $unit_id)
+            ->where('tahun', $tahun)
+            ->where('standar_kode', $kode)
+            ->first();
+
+        // Kunci penilaian jika RTL diverifikasi Selesai (berlaku untuk temuan non-Sesuai dengan RTL)
+        $isLocked = $finding && ($finding->status_tindak_lanjut === 'Selesai') && ! in_array($finding->kategori_temuan, ['Sesuai', 'Temuan Positif (TP)', 'TP'], true);
+
+        // Nilai per tahap P1..P5
+        $tahapScores = [];
+        $tahapNotes = [];
+        if ($finding) {
+            foreach ($finding->nilaiTahap as $nt) {
+                $tahapScores[$nt->tahap] = $nt->skor;
+                $tahapNotes[$nt->tahap] = $nt->catatan;
+            }
+            if (empty($tahapScores) && $finding->skor !== null) {
+                $defaultTahap = $finding->tahap && in_array($finding->tahap, ['P1', 'P2', 'P3', 'P4', 'P5']) ? $finding->tahap : 'P1';
+                $tahapScores[$defaultTahap] = (int) $finding->skor;
+            }
+        }
+
+        // Tanggal Audit default
+        $auditSesi = AuditSesi::where('unit_id', $unit_id)->where('tahun', $tahun)->first();
+        $defaultTanggal = $finding?->tanggal ?: ($auditSesi?->tanggal_audit ? $auditSesi->tanggal_audit->format('Y-m-d') : sprintf('%d-10-16', $tahun));
+
+        // Navigasi & Indikator Kemajuan
+        $standardsList = Standard::activePeriod()->orderBy('id')->get();
+        $currentIndex = $standardsList->search(fn ($item) => $item->kode === $kode);
+        $totalStandards = $standardsList->count();
+        $position = ($currentIndex !== false) ? $currentIndex + 1 : 1;
+
+        $prevStandard = ($currentIndex > 0) ? $standardsList[$currentIndex - 1] : null;
+        $nextStandard = ($currentIndex < $totalStandards - 1) ? $standardsList[$currentIndex + 1] : null;
+
+        // Hitung statistik penilaian unit ini
+        $allUnitFindings = AmiFinding::where('unit_id', $unit_id)->where('tahun', $tahun)->get();
+        $countAudited = $allUnitFindings->where('status_audit', 'Sudah Diaudit')->count();
+        $countDraft = $allUnitFindings->where('status_audit', 'Sedang Dinilai')->count();
+
+        return view('led.audit', compact(
+            'standard',
+            'unit',
+            'unit_id',
+            'tahun',
+            'hasSubmitted',
+            'ledEntry',
+            'stageData',
+            'sharedDocumentsMap',
+            'autoAttachedByStage',
+            'finding',
+            'isLocked',
+            'tahapScores',
+            'tahapNotes',
+            'defaultTanggal',
+            'position',
+            'totalStandards',
+            'prevStandard',
+            'nextStandard',
+            'countAudited',
+            'countDraft'
+        ));
+    }
+
+    /**
+     * Simpan penilaian standar dari panel audit LED.
+     */
+    public function updateAudit(Request $request, $kode)
+    {
+        $user = auth()->user();
+        $standard = Standard::where('kode', $kode)->firstOrFail();
+        $tahun = (int) $request->input('tahun', date('Y'));
+        $unit_id = (int) $request->input('unit_id');
+
+        // Akses
+        if ($user->role->kode == 'auditor') {
+            $isAssigned = AuditorAssignment::where('auditor_id', $user->id)
+                ->where('unit_id', $unit_id)
+                ->where('tahun', $tahun)
+                ->exists();
+            if (! $isAssigned && ! in_array($user->role->kode, ['super_admin', 'lpma'])) {
+                abort(403, 'Akses ditolak.');
+            }
+        } elseif (! in_array($user->role->kode, ['super_admin', 'lpma'])) {
+            abort(403, 'Akses ditolak.');
+        }
+
+        // Syarat: LED diajukan
+        $hasSubmitted = LedSubmission::where('unit_id', $unit_id)->where('tahun', $tahun)->exists();
+        if (! $hasSubmitted) {
+            return redirect()->back()->with('error', 'LED belum diajukan oleh auditee. Penilaian tidak dapat disimpan.');
+        }
+
+        // Kunci jika RTL selesai
+        $existing = AmiFinding::where('unit_id', $unit_id)->where('tahun', $tahun)->where('standar_kode', $kode)->first();
+        if ($existing && $existing->status_tindak_lanjut === 'Selesai' && ! in_array($existing->kategori_temuan, ['Sesuai', 'Temuan Positif (TP)', 'TP'], true)) {
+            return redirect()->back()->with('error', 'Penilaian ini telah terkunci karena tindak lanjut (RTL) telah diverifikasi Selesai.');
+        }
+
+        $actionType = $request->input('action_type', 'save'); // 'draft', 'save', 'save_next'
+        $statusAudit = ($actionType === 'draft') ? 'Sedang Dinilai' : 'Sudah Diaudit';
+
+        $kategori = $request->input('kategori_temuan', 'Sesuai');
+
+        $rules = [
+            'tanggal' => 'required|date',
+            'kategori_temuan' => 'required|string',
+            'skor' => 'nullable|numeric|min:1|max:4',
+            'tahap' => 'required|string',
+        ];
+        if (! in_array($kategori, ['Sesuai', 'Temuan Positif (TP)'])) {
+            $rules['uraian'] = 'required|string';
+        }
+        $request->validate($rules);
+
+        // Update or create single finding for (unit_id, tahun, standar_kode)
+        $finding = AmiFinding::updateOrCreate(
+            [
+                'unit_id' => $unit_id,
+                'tahun' => $tahun,
+                'standar_kode' => $kode,
+            ],
+            [
+                'jenis' => ($standard->kelompok == 'Non-Akademik') ? 'nonakademik' : 'akademik',
+                'tanggal' => $request->input('tanggal'),
+                'skor' => $request->input('skor'),
+                'alasan_ubah_skor' => $request->input('alasan_ubah_skor'),
+                'kategori_temuan' => $kategori,
+                'tahap' => $request->input('tahap', 'Umum'),
+                'uraian' => $request->input('uraian') ?: 'Pelaksanaan standar '.$standard->nama.' telah sesuai.',
+                'akar_penyebab' => $request->input('akar_penyebab'),
+                'akibat' => $request->input('akibat'),
+                'rekomendasi' => $request->input('rekomendasi'),
+                'tanggapan_auditi' => $request->input('tanggapan_auditi'),
+                'rencana_tindakan' => $request->input('rencana_tindakan'),
+                'pic' => $request->input('pic'),
+                'batas_waktu' => $request->input('batas_waktu'),
+                'rencana_pencegahan' => $request->input('rencana_pencegahan'),
+                'jadwal_pencegahan' => $request->input('jadwal_pencegahan'),
+                'auditor_id' => $user->id,
+                'status_audit' => $statusAudit,
+                'status_tindak_lanjut' => $existing ? $existing->status_tindak_lanjut : ($kategori === 'Sesuai' ? 'Selesai' : 'Proses'),
+            ]
+        );
+
+        // Simpan nilai tahap ke ami_nilai_tahap
+        foreach (['P1', 'P2', 'P3', 'P4', 'P5'] as $t) {
+            $skorTahap = $request->input('skor_'.strtolower($t));
+            $catatanTahap = $request->input('catatan_'.strtolower($t));
+
+            AmiNilaiTahap::updateOrCreate(
+                ['ami_id' => $finding->id, 'tahap' => $t],
+                [
+                    'skor' => ($skorTahap !== '' && $skorTahap !== null) ? (int) $skorTahap : null,
+                    'catatan' => $catatanTahap,
+                ]
+            );
+        }
+
+        if ($actionType === 'save_next') {
+            $standardsList = Standard::activePeriod()->orderBy('id')->get();
+            $currentIndex = $standardsList->search(fn ($item) => $item->kode === $kode);
+            if ($currentIndex !== false && $currentIndex < $standardsList->count() - 1) {
+                $next = $standardsList[$currentIndex + 1];
+
+                return redirect()->route('led.audit', [
+                    'kode' => $next->kode,
+                    'tahun' => $tahun,
+                    'unit_id' => $unit_id,
+                ])->with('success', "Penilaian standar {$kode} berhasil disimpan. Melanjutkan ke standar {$next->kode}.");
+            }
+
+            return redirect()->route('led.index', [
+                'tahun' => $tahun,
+                'unit_id' => $unit_id,
+            ])->with('success', "Penilaian standar {$kode} berhasil disimpan. Seluruh standar telah selesai.");
+        }
+
+        if ($actionType === 'draft') {
+            return redirect()->back()->with('success', "Draf penilaian standar {$kode} berhasil disimpan.");
+        }
+
+        return redirect()->back()->with('success', "Penilaian standar {$kode} berhasil disimpan.");
+    }
+
     public function exportPdf(Request $request, $kode)
     {
         ini_set('memory_limit', '-1'); // Increase memory limit for PDF generation
@@ -185,7 +437,7 @@ class LedController extends Controller
         $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
 
         $unit_id = auth()->user()->unit_id;
-        if (in_array(auth()->user()->role->kode, ['super_admin', 'lpma'])) {
+        if (in_array(auth()->user()->role->kode, ['super_admin', 'lpma', 'auditor', 'auditor_anggota']) || auth()->user()->isAuditor()) {
             $unit_id = $request->query('unit_id', $unit_id);
         }
 

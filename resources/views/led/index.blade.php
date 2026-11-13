@@ -68,24 +68,26 @@
                 @php
                     $activeYear = \App\Models\BulanMutuConfig::where('is_active', true)->value('tahun') ?? date('Y');
                     $userRole = auth()->user()->role->kode;
+                    $assignedYears = \App\Models\AuditorAssignment::where('auditor_id', auth()->id())->pluck('tahun')->toArray();
                     $availableYears = in_array($userRole, ['super_admin', 'lpma']) 
                                         ? [2027, 2026, 2025, 2024, 2023] 
-                                        : [$activeYear];
+                                        : array_unique(array_merge([2027, 2026, 2025, 2024, 2023, (int)$activeYear], $assignedYears));
+                    rsort($availableYears);
                 @endphp
                 @foreach($availableYears as $y)
                     <option value="{{ $y }}" {{ (isset($tahun) && $tahun == $y) ? 'selected' : '' }}>{{ $y }}</option>
                 @endforeach
             </select>
         </div>
-        @if(in_array(auth()->user()->role->kode, ['super_admin', 'lpma', 'auditor']))
+        @if(in_array(auth()->user()->role->kode, ['super_admin', 'lpma', 'auditor', 'auditor_anggota']))
         <div style="flex: 2; min-width: 250px;">
             <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 500;">Unit Kerja / Prodi</label>
             <select name="unit_id" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
-                @if(auth()->user()->role->kode != 'auditor')
+                @if(!in_array(auth()->user()->role->kode, ['auditor', 'auditor_anggota']))
                 <option value="all">-- Semua Unit --</option>
                 @endif
                 @php
-                    if (auth()->user()->role->kode == 'auditor') {
+                    if (in_array(auth()->user()->role->kode, ['auditor', 'auditor_anggota'])) {
                         $assignedUnitIds = \App\Models\AuditorAssignment::where('auditor_id', auth()->id())
                                 ->where('tahun', $tahun ?? date('Y'))->pluck('unit_id');
                         $unitsList = \App\Models\Unit::whereIn('id', $assignedUnitIds)->get();
@@ -145,6 +147,9 @@
     </div>
     
     <div class="table-responsive" id="{{ $groupId }}" style="display: none; transition: all 0.3s ease;">
+        @php
+            $canAuditLed = auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['auditor', 'auditor_anggota', 'lpma', 'super_admin'], true);
+        @endphp
         <table class="table" style="margin-bottom: 0;">
             <thead>
                 <tr>
@@ -152,10 +157,10 @@
                     <th>NAMA STANDAR / KATEGORI</th>
                     <th>UNIT KERJA</th>
                     <th style="width: 120px;">STATUS LED</th>
-                    @if(auth()->user()->role->kode == 'auditor')
-                    <th style="width: 150px;">STATUS AUDIT</th>
+                    @if($canAuditLed)
+                    <th style="width: 160px;">STATUS AUDIT</th>
                     @endif
-                    <th style="width: 210px; text-align: right;">AKSI</th>
+                    <th style="width: 230px; text-align: right;">AKSI</th>
                 </tr>
             </thead>
             <tbody>
@@ -163,7 +168,7 @@
                 @php
                     $entryQuery = \App\Models\LedEntry::with('unit')->where('objek_kode', $standard->kode)
                                         ->where('tahun', $tahun ?? date('Y'));
-                    if (isset($unit_id) && $unit_id != 'all') {
+                    if (isset($unit_id) && $unit_id != 'all' && $unit_id != -1) {
                         $entryQuery->where('unit_id', $unit_id);
                     }
                     $entries = $entryQuery->get();
@@ -177,10 +182,30 @@
                     foreach($entries as $e) {
                         if($e->unit) $unitNames[] = $e->unit->nama;
                     }
+
+                    $auditFinding = null;
+                    if ($canAuditLed && isset($unit_id) && $unit_id != 'all' && $unit_id != -1) {
+                        $auditFinding = \App\Models\AmiFinding::where('standar_kode', $standard->kode)
+                                        ->where('unit_id', $unit_id)
+                                        ->where(function($q) use ($tahun) {
+                                            $q->where('tahun', $tahun ?? date('Y'))
+                                              ->orWhereYear('tanggal', $tahun ?? date('Y'));
+                                        })
+                                        ->orderBy('created_at', 'desc')
+                                        ->first();
+                    }
                 @endphp
                 <tr>
                     <td style="font-family: monospace; font-size: 0.875rem; padding-left: 1.5rem;">{{ $standard->kode }}</td>
-                    <td style="font-weight: 500; color: var(--brand-primary);">{{ $standard->nama }}</td>
+                    <td style="font-weight: 500;">
+                        @if($canAuditLed && isset($unit_id) && $unit_id != 'all' && $unit_id != -1)
+                            <a href="{{ route('led.audit', ['kode' => $standard->kode, 'unit_id' => $unit_id, 'tahun' => $tahun ?? date('Y')]) }}" style="color: var(--brand-primary); text-decoration: none;" title="Audit Standar Ini">
+                                {{ $standard->nama }}
+                            </a>
+                        @else
+                            <span style="color: var(--brand-primary);">{{ $standard->nama }}</span>
+                        @endif
+                    </td>
                     <td style="font-size: 0.875rem;">
                         @if(count($unitNames) > 0)
                             {{ implode(', ', $unitNames) }}
@@ -197,47 +222,47 @@
                             <span class="badge" style="background-color: var(--border-color); color: var(--text-muted);">Belum Ada</span>
                         @endif
                     </td>
-                    @if(auth()->user()->role->kode == 'auditor')
-                    @php
-                        $isAudited = false;
-                        $auditScore = null;
-                        if(isset($unit_id) && $unit_id != 'all') {
-                            $finding = \App\Models\AmiFinding::where('standar_kode', $standard->kode)
-                                            ->where('unit_id', $unit_id)
-                                            ->whereYear('tanggal', $tahun ?? date('Y'))
-                                            ->orderBy('created_at', 'desc')
-                                            ->first();
-                            if ($finding) {
-                                $isAudited = true;
-                                $auditScore = $finding->skor;
-                            }
-                        }
-                    @endphp
+                    @if($canAuditLed)
                     <td>
-                        @if($isAudited)
+                        @if($auditFinding && $auditFinding->status_audit === 'Sedang Dinilai')
+                            <span class="badge" style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a;">
+                                <i data-feather="clock" style="width: 12px; height: 12px;"></i> Sedang Dinilai
+                            </span>
+                        @elseif($auditFinding && ($auditFinding->status_audit === 'Sudah Diaudit' || $auditFinding->skor !== null))
                             <span class="badge" style="background-color: var(--status-success-bg); color: var(--status-success);">
                                 <i data-feather="check-circle" style="width: 12px; height: 12px;"></i> Sudah Diaudit
                             </span>
-                            @if($auditScore)
-                                <div style="font-size: 0.75rem; margin-top: 4px; color: var(--text-muted);">Skor: {{ $auditScore }}</div>
-                            @endif
+                            <div style="font-size: 0.75rem; margin-top: 4px; color: var(--text-muted); font-weight: 500;">
+                                Skor: {{ $auditFinding->skor }} ({{ $auditFinding->kategori_temuan }})
+                            </div>
                         @else
-                            <span class="badge" style="background-color: var(--status-warning-bg); color: var(--status-warning);">
-                                <i data-feather="clock" style="width: 12px; height: 12px;"></i> Belum Diaudit
+                            <span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-muted); border: 1px solid var(--border-color);">
+                                <i data-feather="minus-circle" style="width: 12px; height: 12px;"></i> Belum Dinilai
                             </span>
                         @endif
                     </td>
                     @endif
                     <td>
-                        <div style="display: flex; gap: 0.25rem; justify-content: flex-end;">
-                            @if(auth()->user()->role->kode == 'auditor')
-                                @if(!$hasSubmitted && !$isAudited)
+                        <div style="display: flex; gap: 0.25rem; justify-content: flex-end; align-items: center;">
+                            @if($canAuditLed && isset($unit_id) && $unit_id != 'all' && $unit_id != -1)
+                                @php
+                                    $auditUrl = route('led.audit', ['kode' => $standard->kode, 'unit_id' => $unit_id, 'tahun' => $tahun ?? date('Y')]);
+                                @endphp
+                                @if(!$hasSubmitted && !$auditFinding)
                                     <span class="badge" style="background-color: var(--bg-tertiary); color: var(--text-muted); padding: 0.4rem 0.75rem; font-size: 0.7rem; border: 1px dashed var(--border-color);">
                                         ⏳ Menunggu Unit Mengajukan LED
                                     </span>
+                                @elseif(!$auditFinding || $auditFinding->status_audit === 'Belum Dinilai')
+                                    <a href="{{ $auditUrl }}" class="btn btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;" title="Mulai Audit">
+                                        <i data-feather="check-square" style="width: 14px; height: 14px; margin-right: 4px;"></i> Audit
+                                    </a>
+                                @elseif($auditFinding->status_audit === 'Sedang Dinilai')
+                                    <a href="{{ $auditUrl }}" class="btn" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; background-color: #f59e0b; color: white; border: none;" title="Lanjutkan Penilaian">
+                                        <i data-feather="clock" style="width: 14px; height: 14px; margin-right: 4px;"></i> Lanjutkan
+                                    </a>
                                 @else
-                                    <a href="{{ route('ami.create', ['standar_kode' => $standard->kode, 'unit_id' => $unit_id != 'all' ? $unit_id : '']) }}" class="btn {{ $isAudited ? 'btn-outline' : 'btn-primary' }}" style="padding: 0.25rem 0.75rem; font-size: 0.75rem;">
-                                        <i data-feather="{{ $isAudited ? 'edit' : 'check-square' }}" style="width: 14px; height: 14px;"></i> {{ $isAudited ? 'Edit Audit' : 'Audit LED' }}
+                                    <a href="{{ $auditUrl }}" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.75rem; color: #4b5563; border-color: #9ca3af;" title="Ubah Penilaian Audit">
+                                        <i data-feather="edit-2" style="width: 14px; height: 14px; margin-right: 4px;"></i> Ubah Audit
                                     </a>
                                 @endif
                             @else

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -20,16 +21,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $tanggal
  * @property string $status_tindak_lanjut
  * @property string|null $catatan_tindak_lanjut
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
  * @property string|null $akar_penyebab
  * @property string|null $akibat
  * @property string|null $rekomendasi
  * @property string|null $tanggapan_auditi
  * @property string|null $rencana_pencegahan
- * @property-read \App\Models\User $auditor
- * @property-read \App\Models\Standard|null $standard
- * @property-read \App\Models\Unit $unit
+ * @property-read User $auditor
+ * @property-read Standard|null $standard
+ * @property-read Unit $unit
+ *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AmiFinding newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AmiFinding newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AmiFinding query()
@@ -55,6 +57,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AmiFinding whereUnitId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AmiFinding whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|AmiFinding whereUraian($value)
+ *
  * @mixin \Eloquent
  */
 class AmiFinding extends Model
@@ -74,5 +77,26 @@ class AmiFinding extends Model
     public function standard()
     {
         return $this->belongsTo(Standard::class, 'standar_kode', 'kode');
+    }
+
+    public function pka()
+    {
+        return $this->hasOne(Pka::class, 'standar_kode', 'standar_kode')
+            ->where('unit_id', $this->unit_id);
+    }
+
+    public function nilaiTahap()
+    {
+        return $this->hasMany(AmiNilaiTahap::class, 'ami_id');
+    }
+
+    public function getSkorTahap(string $tahap): ?int
+    {
+        $nt = $this->nilaiTahap->firstWhere('tahap', $tahap);
+        if ($nt && $nt->skor !== null) {
+            return (int) $nt->skor;
+        }
+
+        return $this->skor !== null ? (int) $this->skor : null;
     }
 }

@@ -221,9 +221,15 @@
                                         <textarea name="rencana_tindakan" rows="3" required class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->rencana_tindakan }}</textarea>
                                     </div>
 
-                                    <div style="margin-bottom: 1rem;">
-                                        <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Rencana Pencegahan (Agar masalah serupa tidak terjadi)</label>
-                                        <textarea name="rencana_pencegahan" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->rencana_pencegahan }}</textarea>
+                                    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                        <div>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Rencana Pencegahan (Agar masalah serupa tidak terjadi)</label>
+                                            <textarea name="rencana_pencegahan" rows="3" class="form-control" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->rencana_pencegahan }}</textarea>
+                                        </div>
+                                        <div>
+                                            <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Jadwal Pencegahan</label>
+                                            <textarea name="jadwal_pencegahan" rows="3" class="form-control" placeholder="Contoh: Rutin setiap 2 tahun / tiap awal semester" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">{{ $finding->jadwal_pencegahan }}</textarea>
+                                        </div>
                                     </div>
                                     
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">

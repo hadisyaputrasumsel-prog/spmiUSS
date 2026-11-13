@@ -90,18 +90,18 @@
     <table class="table-identitas">
         <tr>
             <td>Tanggal Audit</td>
-            <td>: {{ date('d F Y') }}</td>
+            <td>: {{ $tanggalAudit ?? date('d F Y') }}</td>
         </tr>
         <tr>
             <td>Ketua Tim Auditor</td>
-            <td>: {{ ($auditors ?? collect())->count() > 0 ? $auditors[0]->name : 'Ketua LPMA / Lead Auditor' }}</td>
+            <td>: {{ ($auditors ?? collect())->count() > 0 ? ($auditors[0]->nama_lengkap ?: $auditors[0]->name) : 'Ketua LPMA / Lead Auditor' }}</td>
         </tr>
         @if(($auditors ?? collect())->count() > 1)
         <tr>
             <td>Anggota Tim Auditor</td>
             <td>: 
                 @foreach($auditors->slice(1) as $anggota)
-                    {{ $anggota->name }}<br>&nbsp;&nbsp;
+                    {{ $anggota->nama_lengkap ?: $anggota->name }}<br>&nbsp;&nbsp;
                 @endforeach
             </td>
         </tr>
@@ -112,11 +112,11 @@
         <tr>
             <td>
                 Ketua Tim Auditor,<br><br><br><br><br>
-                <strong><u>{{ ($auditors ?? collect())->count() > 0 ? $auditors[0]->name : 'Lead Auditor' }}</u></strong>
+                <strong><u>{{ ($auditors ?? collect())->count() > 0 ? ($auditors[0]->nama_lengkap ?: $auditors[0]->name) : 'Lead Auditor' }}</u></strong>
             </td>
             <td>
                 Teraudit (Auditee),<br><br><br><br><br>
-                <strong><u>Pimpinan {{ $unit ? $unit->nama : 'Unit' }}</u></strong>
+                <strong><u>{{ $auditSesi && $auditSesi->wakil_auditi ? $auditSesi->wakil_auditi : ($unit ? ($unit->pimpinan ?: 'Pimpinan ' . $unit->nama) : 'Pimpinan Unit') }}</u></strong>
             </td>
         </tr>
     </table>
@@ -170,6 +170,10 @@
                 <td class="text-center">
                     @if(strpos(strtolower($finding->kategori_temuan), 'sesuai') !== false || $finding->kategori_temuan == 'K')
                         <span class="badge-k">{{ $finding->kategori_temuan }}</span>
+                    @elseif(strpos(strtolower($finding->kategori_temuan), 'positif') !== false || $finding->kategori_temuan == 'TP')
+                        <span class="badge-k" style="background-color: #059669;">{{ $finding->kategori_temuan }}</span>
+                    @elseif(strpos(strtolower($finding->kategori_temuan), 'peluang') !== false || $finding->kategori_temuan == 'OFI')
+                        <span class="badge-ob" style="background-color: #7c3aed;">{{ $finding->kategori_temuan }}</span>
                     @elseif(strpos(strtolower($finding->kategori_temuan), 'ob') !== false)
                         <span class="badge-ob">{{ $finding->kategori_temuan }}</span>
                     @elseif(strpos(strtolower($finding->kategori_temuan), 'minor') !== false)

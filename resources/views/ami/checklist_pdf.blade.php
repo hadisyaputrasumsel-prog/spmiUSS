@@ -56,7 +56,7 @@
         <ol style="font-size: 12px; line-height: 1.8;">
             @if(count($auditors) > 0)
                 @foreach($auditors as $auditor)
-                    <li>{{ $auditor->name }}</li>
+                    <li>{{ $auditor->nama_lengkap ?: $auditor->name }}</li>
                 @endforeach
             @else
                 <li>-</li>
@@ -73,7 +73,7 @@
         <p>Tujuan umum AMI adalah membantu seluruh Pengelola Unit/Program Studi di lingkungan Universitas Sumatera Selatan dalam melaksanakan tugasnya untuk: 1) mencapai sasaran mutu baik akademik maupun non akademik yang telah ditetapkan secara efektif dan bertanggung jawab dalam standar mutu internal; 2) membantu pengelola mengidentifikasi lingkup perbaikan dan mengembangkannya secara berkelanjutan; dan 3) memperbaiki program dan merencanakan kegiatan di lingkungan Universitas Sumatera Selatan.</p>
         <p>Hasil AMI dapat dijadikan refleksi dan perbaikan serta peningkatan mutu secara berkelanjutan.</p>
         <p style="text-align: left; margin-top: 40px;">
-            Palembang, {{ date('d F Y') }}
+            Palembang, {{ $tanggalAudit ?? date('d F Y') }}
         </p>
     </div>
     <div class="page-break"></div>
@@ -103,15 +103,15 @@
         <tr>
             <td>
                 Ketua Auditor<br><br><br><br><br>
-                ({{ count($auditors) > 0 ? $auditors[0]->name : '..........................' }})
+                ({{ count($auditors) > 0 ? ($auditors[0]->nama_lengkap ?: $auditors[0]->name) : '..........................' }})
             </td>
             <td>
                 Auditi<br><br><br><br><br>
-                ({{ $unit ? $unit->pimpinan ?? 'Pimpinan Unit' : '..........................' }})
+                ({{ $auditSesi && $auditSesi->wakil_auditi ? $auditSesi->wakil_auditi : ($unit ? ($unit->pimpinan ?: 'Pimpinan Unit') : '..........................') }})
             </td>
             <td>
                 Auditor Anggota<br><br><br><br><br>
-                ({{ count($auditors) > 1 ? $auditors[1]->name : '..........................' }})
+                ({{ count($auditors) > 1 ? ($auditors[1]->nama_lengkap ?: $auditors[1]->name) : '..........................' }})
             </td>
         </tr>
     </table>
@@ -136,14 +136,14 @@
 
     @foreach($standards as $index => $standard)
         @php
+            $fUmum = $findings->where('standar_kode', $standard->kode)->where('tahap', 'Umum')->whereNotNull('skor')->sortByDesc('created_at')->first();
             $stdScores = [];
-            foreach (array_keys($tahapanEnum) as $t) {
-                if ($t === 'P1') {
-                    $stdScores[] = 4; // Penetapan selalu nilai maksimal (4)
-                } else {
-                    // Pick the most recent finding score if multiple
+            if ($fUmum) {
+                $stdScores[] = (float) $fUmum->skor;
+            } else {
+                foreach (array_keys($tahapanEnum) as $t) {
                     $f = $findings->where('standar_kode', $standard->kode)->where('tahap', $t)->whereNotNull('skor')->sortByDesc('created_at')->first();
-                    if ($f) $stdScores[] = $f->skor;
+                    if ($f) $stdScores[] = (float) $f->skor;
                 }
             }
             
@@ -170,44 +170,58 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($tahapanEnum as $tahapCode => $tahapName)
-                    @php
-                        if ($tahapCode === 'P1') {
-                            $skor = 4;
-                        } else {
-                            if ($unit) {
-                                $f = $findings->where('standar_kode', $standard->kode)->where('tahap', $tahapCode)->whereNotNull('skor')->sortByDesc('created_at')->first();
-                                $skor = $f ? $f->skor : null;
-                            } else {
-                                $fs = $findings->where('standar_kode', $standard->kode)->where('tahap', $tahapCode)->whereNotNull('skor');
-                                $skor = $fs->count() > 0 ? round($fs->avg('skor'), 2) : null;
-                            }
-                        }
-                        
-                        $propName = 'indikator_' . strtolower($tahapCode);
-                        $indikatorText = $standard->$propName ?: $standard->indikator;
-                    @endphp
+                @if($fUmum)
                     <tr>
-                        <td class="text-center" style="font-weight: bold;">{{ $tahapCode }}<br><small style="font-weight: normal;">{{ $tahapName }}</small></td>
+                        <td class="text-center" style="font-weight: bold;">Umum<br><small style="font-weight: normal;">Siklus</small></td>
                         <td style="text-align: justify;">
-                            <b>Indikator:</b><br>{!! nl2br(e($indikatorText ?? $standard->nama)) !!}
-                            
-                            @if($tahapCode === 'P1' && $standard->rubrik_penilaian && is_array($standard->rubrik_penilaian))
-                                <div style="margin-top: 10px; font-size: 9px; line-height: 1.3;">
-                                    <i>(Referensi Rubrik Penilaian):</i><br>
-                                    @foreach([4,3,2,1] as $val)
-                                        @if(isset($standard->rubrik_penilaian[$val]))
-                                            <div><b>{{ $val }}:</b> {{ $standard->rubrik_penilaian[$val] }}</div>
-                                        @endif
-                                    @endforeach
+                            <b>Indikator:</b><br>{!! nl2br(e($standard->indikator ?: $standard->nama)) !!}
+                            @if($fUmum->uraian)
+                                <div style="margin-top: 6px; font-size: 8.5pt; color: #444;">
+                                    <b>Uraian Temuan:</b> {!! nl2br(e($fUmum->uraian)) !!}
                                 </div>
                             @endif
                         </td>
                         <td class="text-center" style="font-size: 14px; font-weight: bold; vertical-align: middle;">
-                            {{ $skor ?? '-' }}
+                            {{ $fUmum->skor ?? '-' }}
                         </td>
                     </tr>
-                @endforeach
+                @else
+                    @foreach($tahapanEnum as $tahapCode => $tahapName)
+                        @php
+                            if ($unit) {
+                                $f = $findings->where('standar_kode', $standard->kode)->whereNotNull('skor')->sortByDesc('created_at')->first();
+                                $skor = $f ? $f->getSkorTahap($tahapCode) : null;
+                            } else {
+                                $fs = $findings->where('standar_kode', $standard->kode)->whereNotNull('skor');
+                                $skors = $fs->map(fn($item) => $item->getSkorTahap($tahapCode))->filter(fn($val) => $val !== null);
+                                $skor = $skors->count() > 0 ? round($skors->avg(), 2) : null;
+                            }
+                            
+                            $propName = 'indikator_' . strtolower($tahapCode);
+                            $indikatorText = $standard->$propName ?: $standard->indikator;
+                        @endphp
+                        <tr>
+                            <td class="text-center" style="font-weight: bold;">{{ $tahapCode }}<br><small style="font-weight: normal;">{{ $tahapName }}</small></td>
+                            <td style="text-align: justify;">
+                                <b>Indikator:</b><br>{!! nl2br(e($indikatorText ?? $standard->nama)) !!}
+                                
+                                @if($tahapCode === 'P1' && $standard->rubrik_penilaian && is_array($standard->rubrik_penilaian))
+                                    <div style="margin-top: 10px; font-size: 9px; line-height: 1.3;">
+                                        <i>(Referensi Rubrik Penilaian):</i><br>
+                                        @foreach([4,3,2,1] as $val)
+                                            @if(isset($standard->rubrik_penilaian[$val]))
+                                                <div><b>{{ $val }}:</b> {{ $standard->rubrik_penilaian[$val] }}</div>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </td>
+                            <td class="text-center" style="font-size: 14px; font-weight: bold; vertical-align: middle;">
+                                {{ $skor !== null ? $skor : '-' }}
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
             </tbody>
         </table>
         

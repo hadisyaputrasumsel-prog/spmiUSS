@@ -53,10 +53,14 @@
                     Bank Dokumen
                 </a>
                 
-                @if(auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma', 'pimpinan']))
+                @if(auth()->user()->isAuditor() || in_array(auth()->user()->role->kode, ['lpma', 'pimpinan', 'super_admin']))
                 <a href="{{ route('ami.index') }}" class="nav-item {{ request()->is('ami*') ? 'active' : '' }}">
                     <i data-feather="clipboard" class="nav-icon"></i>
                     Instrumen AMI
+                </a>
+                <a href="{{ route('pka.index') }}" class="nav-item {{ request()->is('pka*') ? 'active' : '' }}">
+                    <i data-feather="check-square" class="nav-icon"></i>
+                    Program Kerja Audit
                 </a>
                 @endif
                 
@@ -69,6 +73,10 @@
                 <a href="{{ route('standar-mutu.index') }}" class="nav-item {{ request()->is('standar-mutu*') ? 'active' : '' }}">
                     <i data-feather="book-open" class="nav-icon"></i>
                     Standar Mutu
+                </a>
+                <a href="{{ route('laporan_ami.index') }}" class="nav-item {{ request()->is('laporan-ami*') ? 'active' : '' }}">
+                    <i data-feather="book" class="nav-icon"></i>
+                    Laporan AMI
                 </a>
                 @endif
                 

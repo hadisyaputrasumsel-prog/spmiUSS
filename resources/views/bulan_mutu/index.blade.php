@@ -39,7 +39,9 @@
                 <select name="tahun" id="tahunSelect" onchange="this.form.submit()" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-secondary); color: var(--text-primary);">
                     @php
                         $userRole = auth()->user()->role->kode;
-                        $dropdownYears = in_array($userRole, ['super_admin', 'lpma']) ? empty($availableYears) ? [date('Y')] : $availableYears : [\App\Models\BulanMutuConfig::where('is_active', true)->value('tahun') ?? date('Y')];
+                        $dropdownYears = (in_array($userRole, ['super_admin', 'lpma', 'auditor', 'auditor_anggota']) || auth()->user()->isAuditor())
+                            ? (empty($availableYears) ? [date('Y')] : $availableYears)
+                            : [\App\Models\BulanMutuConfig::where('is_active', true)->value('tahun') ?? date('Y')];
                     @endphp
                     @foreach($dropdownYears as $y)
                         <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>{{ $y }}</option>
@@ -255,9 +257,9 @@
             hint.innerText = 'Maks 5MB. Dokumen bukti sebelumnya sudah tersimpan; unggah file baru hanya jika ingin mengganti.';
         } else {
             fileInput.required = false;
-            badge.innerText = '(Opsional)';
+            badge.innerText = '';
             badge.style.color = 'var(--text-muted)';
-            hint.innerText = 'Maks 5MB. Upload dokumen terkait rapat/kegiatan ini (wajib jika status diubah ke Terlaksana).';
+            hint.innerText = 'Maks 5MB. Wajib diunggah jika status diubah ke Terlaksana.';
         }
     }
 

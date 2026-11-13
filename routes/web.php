@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AmiController;
 use App\Http\Controllers\AuditorAssignmentController;
+use App\Http\Controllers\AuditSesiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BulanMutuController;
 use App\Http\Controllers\EvidenceDocumentController;
+use App\Http\Controllers\LaporanAmiController;
 use App\Http\Controllers\LedController;
 use App\Http\Controllers\PetunjukAmiController;
+use App\Http\Controllers\PkaController;
 use App\Http\Controllers\RtmController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SpmiPeriodController;
@@ -177,8 +180,8 @@ Route::middleware('auth')->group(function () {
         } catch (Throwable $e) {
             $activeConfig = null;
         }
-        if (in_array(auth()->user()->role->kode, ['lpma', 'super_admin'])) {
-            $tahun = request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
+        if (in_array(auth()->user()->role->kode, ['lpma', 'super_admin', 'auditor', 'auditor_anggota']) || auth()->user()->isAuditor()) {
+            $tahun = (int) request()->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         } else {
             $tahun = $activeConfig ? $activeConfig->tahun : date('Y');
         }
@@ -340,6 +343,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:auditee_upps,auditee_prodi,auditee_unit,gpm_upm,super_admin,auditor,auditor_anggota,lpma')->group(function () {
         Route::get('/led', [LedController::class, 'index'])->name('led.index');
         Route::post('/led/submit', [LedController::class, 'submit'])->name('led.submit');
+        Route::get('/led/{kode}/audit', [LedController::class, 'showAudit'])->name('led.audit');
+        Route::put('/led/{kode}/audit', [LedController::class, 'updateAudit'])->name('led.audit.update');
         Route::get('/led/{kode}/edit', [LedController::class, 'edit'])->name('led.edit');
         Route::get('/led/{kode}/pdf', [LedController::class, 'exportPdf'])->name('led.pdf');
         Route::get('/led-full/{unit_id}/pdf', [LedController::class, 'exportFullPdf'])->name('led.pdf_full');
@@ -350,15 +355,33 @@ Route::middleware('auth')->group(function () {
         Route::get('/ami/rtl/pdf', [AmiController::class, 'exportRtlPdf'])->name('ami.rtl.pdf');
     });
 
-    // Auditor, LPMA, Pimpinan and Super Admin can access AMI
+    // Auditor, LPMA, Pimpinan and Super Admin can access AMI & PKA
     Route::middleware('role:auditor,auditor_anggota,lpma,pimpinan,super_admin')->group(function () {
         Route::get('/ami', [AmiController::class, 'index'])->name('ami.index');
         Route::get('/ami/pdf', [AmiController::class, 'exportPdf'])->name('ami.pdf');
+        Route::get('/ami/kka-pdf', [AmiController::class, 'exportKkaPdf'])->name('ami.kka.pdf');
         Route::get('/ami/checklist-pdf', [AmiController::class, 'exportChecklistPdf'])->name('ami.checklist.pdf');
         Route::get('/ami/{id}/pka-pdf', [AmiController::class, 'exportPkaPdf'])->name('ami.pka.pdf');
         Route::post('/ami/import', [AmiController::class, 'import'])->name('ami.import');
         Route::get('/ami/create', [AmiController::class, 'create'])->name('ami.create');
         Route::post('/ami', [AmiController::class, 'store'])->name('ami.store');
+        Route::get('/ami/{id}/edit', [AmiController::class, 'edit'])->name('ami.edit');
+        Route::put('/ami/{id}', [AmiController::class, 'update'])->name('ami.update');
+        Route::delete('/ami/{id}', [AmiController::class, 'destroy'])->name('ami.destroy');
+
+        // Data Sesi Audit
+        Route::get('/ami/audit-sesi', [AuditSesiController::class, 'edit'])->name('audit-sesi.edit');
+        Route::post('/ami/audit-sesi', [AuditSesiController::class, 'update'])->name('audit-sesi.update');
+
+        // Program Kerja Audit (PKA)
+        Route::get('/pka', [PkaController::class, 'index'])->name('pka.index');
+        Route::get('/pka/create', [PkaController::class, 'create'])->name('pka.create');
+        Route::post('/pka', [PkaController::class, 'store'])->name('pka.store');
+        Route::get('/pka/{id}/edit', [PkaController::class, 'edit'])->name('pka.edit');
+        Route::put('/pka/{id}', [PkaController::class, 'update'])->name('pka.update');
+        Route::delete('/pka/{id}', [PkaController::class, 'destroy'])->name('pka.destroy');
+        Route::get('/pka/{id}/pdf', [PkaController::class, 'exportPdf'])->name('pka.export-pdf');
+        Route::get('/pka/unit/{unit_id}/pdf', [PkaController::class, 'exportUnitPdf'])->name('pka.export-unit-pdf');
     });
 
     // Auditor, assigned auditors, LPMA, and Super Admin can verify RTL
@@ -381,6 +404,14 @@ Route::middleware('auth')->group(function () {
 
     // LPMA and Super Admin routes for system setup
     Route::middleware('role:lpma,super_admin')->group(function () {
+        // Buku Laporan AMI
+        Route::get('/laporan-ami', [LaporanAmiController::class, 'index'])->name('laporan_ami.index');
+        Route::post('/laporan-ami', [LaporanAmiController::class, 'update'])->name('laporan_ami.update');
+        Route::post('/laporan-ami/import-jadwal', [LaporanAmiController::class, 'importJadwal'])->name('laporan_ami.import-jadwal');
+        Route::get('/laporan-ami/preview', [LaporanAmiController::class, 'preview'])->name('laporan_ami.preview');
+        Route::get('/laporan-ami/pdf', [LaporanAmiController::class, 'exportPdf'])->name('laporan_ami.pdf');
+        Route::post('/laporan-ami/arsip', [LaporanAmiController::class, 'arsip'])->name('laporan_ami.arsip');
+
         Route::get('/rtm/cetak-berita-acara', [RtmController::class, 'generatePdf'])->name('rtm.cetak');
         Route::resource('standar-mutu', StandardController::class)->except(['show']);
         Route::post('spmi-period', [SpmiPeriodController::class, 'store'])->name('spmi-period.store');

@@ -8,7 +8,10 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 
 /**
  * @property int $id
@@ -16,15 +19,16 @@ use Illuminate\Notifications\Notifiable;
  * @property string $email
  * @property int $role_id
  * @property int|null $unit_id
- * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read DatabaseNotificationCollection<int, DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
- * @property-read \App\Models\Role $role
- * @property-read \App\Models\Unit|null $unit
+ * @property-read Role $role
+ * @property-read Unit|null $unit
+ *
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
@@ -39,9 +43,10 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUnitId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
-#[Fillable(['name', 'email', 'password', 'role_id', 'unit_id'])]
+#[Fillable(['name', 'nama_lengkap', 'email', 'password', 'role_id', 'unit_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
@@ -61,6 +66,16 @@ class User extends Authenticatable
         ];
     }
 
+    public function getNamaLengkapAttribute($value): string
+    {
+        return $value ?: ($this->attributes['name'] ?? '');
+    }
+
+    public function getNamaGelarAttribute(): string
+    {
+        return $this->nama_lengkap ?: $this->name;
+    }
+
     public function role()
     {
         return $this->belongsTo(Role::class);
@@ -78,12 +93,13 @@ class User extends Authenticatable
         }
 
         // Check if assigned as auditor in current active Bulan Mutu
-        $activeConfig = \App\Models\BulanMutuConfig::where('is_active', true)->first();
+        $activeConfig = BulanMutuConfig::where('is_active', true)->first();
         if ($activeConfig) {
-            return \App\Models\AuditorAssignment::where('auditor_id', $this->id)
+            return AuditorAssignment::where('auditor_id', $this->id)
                 ->where('tahun', $activeConfig->tahun)
                 ->exists();
         }
+
         return false;
     }
 }
