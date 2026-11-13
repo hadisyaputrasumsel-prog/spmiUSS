@@ -16,6 +16,7 @@ use App\Models\Unit;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -200,7 +201,25 @@ class AmiController extends Controller
         $validated['auditor_id'] = $user->id;
         $validated['status_tindak_lanjut'] = in_array($validated['kategori_temuan'], ['Sesuai', 'Temuan Positif (TP)'], true) ? 'Selesai' : 'Belum';
 
-        AmiFinding::create($validated);
+        if (! Schema::hasColumn('ami_findings', 'jadwal_pencegahan')) {
+            unset($validated['jadwal_pencegahan']);
+        }
+        if (! Schema::hasColumn('ami_findings', 'rencana_pencegahan')) {
+            unset($validated['rencana_pencegahan']);
+        }
+        if (AmiFinding::hasTahunColumn()) {
+            $validated['tahun'] = $findingYear;
+        }
+
+        try {
+            AmiFinding::create($validated);
+        } catch (\Throwable $e) {
+            Log::error('AMI Store Error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()
+                ->with('error', 'Gagal mencatat temuan: basis data belum lengkap. Silakan jalankan perintah migrasi: php artisan migrate')
+                ->withInput();
+        }
 
         return redirect()->route('ami.index', ['unit_id' => $validated['unit_id'], 'tahun' => $findingYear])
             ->with('success', 'Temuan audit (AMI) berhasil dicatat.');
@@ -252,7 +271,22 @@ class AmiController extends Controller
             'jadwal_pencegahan' => 'nullable|string',
         ]);
 
-        $finding->update($validated);
+        if (! Schema::hasColumn('ami_findings', 'jadwal_pencegahan')) {
+            unset($validated['jadwal_pencegahan']);
+        }
+        if (! Schema::hasColumn('ami_findings', 'rencana_pencegahan')) {
+            unset($validated['rencana_pencegahan']);
+        }
+
+        try {
+            $finding->update($validated);
+        } catch (\Throwable $e) {
+            Log::error('AMI Update Error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()
+                ->with('error', 'Gagal memperbarui temuan: basis data belum lengkap. Silakan jalankan perintah migrasi: php artisan migrate')
+                ->withInput();
+        }
 
         $findingYear = (int) date('Y', strtotime($finding->tanggal));
 
@@ -336,14 +370,27 @@ class AmiController extends Controller
         $finding->rekomendasi = $request->rekomendasi;
         $finding->tanggapan_auditi = $request->tanggapan_auditi;
         $finding->rencana_tindakan = $request->rencana_tindakan;
-        $finding->rencana_pencegahan = $request->rencana_pencegahan;
-        $finding->jadwal_pencegahan = $request->jadwal_pencegahan;
+        if (Schema::hasColumn('ami_findings', 'rencana_pencegahan')) {
+            $finding->rencana_pencegahan = $request->rencana_pencegahan;
+        }
+        if (Schema::hasColumn('ami_findings', 'jadwal_pencegahan')) {
+            $finding->jadwal_pencegahan = $request->jadwal_pencegahan;
+        }
         $finding->pic = $request->pic;
         $finding->batas_waktu = $request->batas_waktu;
         if (in_array($finding->status_tindak_lanjut, ['Belum', 'N/A', ''], true) || ! $finding->status_tindak_lanjut) {
             $finding->status_tindak_lanjut = 'Sedang Berjalan';
         }
-        $finding->save();
+
+        try {
+            $finding->save();
+        } catch (\Throwable $e) {
+            Log::error('AMI RTL Save Error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()
+                ->with('error', 'Gagal menyimpan RTL: basis data belum lengkap. Silakan jalankan perintah migrasi: php artisan migrate')
+                ->withInput();
+        }
 
         return redirect()->back()->with('success', 'Rencana Tindak Lanjut (RTL) berhasil disimpan.');
     }

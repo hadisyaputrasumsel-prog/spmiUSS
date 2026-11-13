@@ -392,7 +392,9 @@ class LaporanAmiController extends Controller
         $overallRtlPct = $totalFindings > 0 ? round(($totalRtlSelesai / $totalFindings) * 100, 1) : 100;
 
         // Tanggal audit riil untuk dicetak
-        $auditSesi = AuditSesi::whereIn('unit_id', $targetUnitIds)->where('tahun', $tahun)->first();
+        $auditSesi = Schema::hasTable('audit_sesi')
+            ? AuditSesi::whereIn('unit_id', $targetUnitIds)->where('tahun', $tahun)->first()
+            : null;
         $tanggalAuditTerpilih = $auditSesi && $auditSesi->tanggal_audit
             ? $auditSesi->tanggal_audit
             : ($findings->isNotEmpty() ? $findings->min('tanggal') : sprintf('%d-10-16', $tahun));

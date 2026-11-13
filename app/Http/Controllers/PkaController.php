@@ -11,6 +11,7 @@ use App\Models\Unit;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 
 class PkaController extends Controller
@@ -60,6 +61,11 @@ class PkaController extends Controller
         $tahun = (int) $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $unit_id = $request->query('unit_id');
 
+        if (! Schema::hasTable('pka')) {
+            return redirect()->route('pka.index', ['unit_id' => $unit_id, 'tahun' => $tahun])
+                ->with('warning', 'Tabel pka belum tersedia di basis data. Silakan jalankan migrasi database di server: php artisan migrate');
+        }
+
         if ($user->role->kode === 'auditor') {
             $assignedUnitIds = AuditorAssignment::where('auditor_id', $user->id)
                 ->where('tahun', $tahun)
@@ -82,6 +88,12 @@ class PkaController extends Controller
 
     public function store(Request $request)
     {
+        if (! Schema::hasTable('pka')) {
+            return redirect()->back()
+                ->with('error', 'Tabel pka belum tersedia di basis data. Silakan jalankan migrasi database di server: php artisan migrate')
+                ->withInput();
+        }
+
         $validated = $request->validate([
             'unit_id' => 'required|exists:units,id',
             'tahun' => 'required|integer',
@@ -103,41 +115,54 @@ class PkaController extends Controller
             'langkah.*.disusun_oleh' => 'nullable|string',
         ]);
 
-        $pka = Pka::create([
-            'unit_id' => $validated['unit_id'],
-            'tahun' => $validated['tahun'],
-            'nomor' => $validated['nomor'],
-            'ruang_lingkup' => $validated['ruang_lingkup'],
-            'kriteria' => $validated['kriteria'],
-            'standar_kode' => $validated['standar_kode'] ?? null,
-            'tentative_audit_objective' => $validated['tentative_audit_objective'] ?? null,
-            'tujuan_audit' => $validated['tujuan_audit'] ?? null,
-            'disusun_oleh' => $validated['disusun_oleh'] ?? auth()->id(),
-            'diperiksa_oleh' => $validated['diperiksa_oleh'] ?? null,
-            'tanggal_disusun' => $validated['tanggal_disusun'] ?? null,
-            'tanggal_diperiksa' => $validated['tanggal_diperiksa'] ?? null,
-        ]);
-
-        $defaultPenyusunName = $pka->penyusun ? ($pka->penyusun->nama_lengkap ?: $pka->penyusun->name) : auth()->user()->name;
-
-        foreach ($validated['langkah'] as $index => $step) {
-            PkaLangkah::create([
-                'pka_id' => $pka->id,
-                'no_urut' => $index + 1,
-                'uraian' => $step['uraian'],
-                'anggaran_waktu' => $step['anggaran_waktu'] ?? null,
-                'realisasi' => $step['realisasi'] ?? null,
-                'no_kka' => $step['no_kka'] ?? null,
-                'disusun_oleh' => $step['disusun_oleh'] ?? $defaultPenyusunName,
+        try {
+            $pka = Pka::create([
+                'unit_id' => $validated['unit_id'],
+                'tahun' => $validated['tahun'],
+                'nomor' => $validated['nomor'],
+                'ruang_lingkup' => $validated['ruang_lingkup'],
+                'kriteria' => $validated['kriteria'],
+                'standar_kode' => $validated['standar_kode'] ?? null,
+                'tentative_audit_objective' => $validated['tentative_audit_objective'] ?? null,
+                'tujuan_audit' => $validated['tujuan_audit'] ?? null,
+                'disusun_oleh' => $validated['disusun_oleh'] ?? auth()->id(),
+                'diperiksa_oleh' => $validated['diperiksa_oleh'] ?? null,
+                'tanggal_disusun' => $validated['tanggal_disusun'] ?? null,
+                'tanggal_diperiksa' => $validated['tanggal_diperiksa'] ?? null,
             ]);
-        }
 
-        return redirect()->route('pka.index', ['unit_id' => $pka->unit_id, 'tahun' => $pka->tahun])
-            ->with('success', 'Program Kerja Audit (PKA) berhasil ditambahkan.');
+            $defaultPenyusunName = $pka->penyusun ? ($pka->penyusun->nama_lengkap ?: $pka->penyusun->name) : auth()->user()->name;
+
+            foreach ($validated['langkah'] as $index => $step) {
+                PkaLangkah::create([
+                    'pka_id' => $pka->id,
+                    'no_urut' => $index + 1,
+                    'uraian' => $step['uraian'],
+                    'anggaran_waktu' => $step['anggaran_waktu'] ?? null,
+                    'realisasi' => $step['realisasi'] ?? null,
+                    'no_kka' => $step['no_kka'] ?? null,
+                    'disusun_oleh' => $step['disusun_oleh'] ?? $defaultPenyusunName,
+                ]);
+            }
+
+            return redirect()->route('pka.index', ['unit_id' => $pka->unit_id, 'tahun' => $pka->tahun])
+                ->with('success', 'Program Kerja Audit (PKA) berhasil ditambahkan.');
+        } catch (\Throwable $e) {
+            Log::error('PKA Store Error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()
+                ->with('error', 'Gagal menyimpan PKA: '.$e->getMessage().'. Pastikan migrasi database telah dijalankan: php artisan migrate')
+                ->withInput();
+        }
     }
 
     public function edit($id)
     {
+        if (! Schema::hasTable('pka')) {
+            return redirect()->route('pka.index')
+                ->with('error', 'Tabel pka belum tersedia di basis data. Silakan jalankan migrasi database di server: php artisan migrate');
+        }
+
         $pka = Pka::with('langkah')->findOrFail($id);
         $units = Unit::orderBy('nama')->get();
         $standards = Standard::activePeriod()->get();
@@ -150,6 +175,12 @@ class PkaController extends Controller
 
     public function update(Request $request, $id)
     {
+        if (! Schema::hasTable('pka')) {
+            return redirect()->back()
+                ->with('error', 'Tabel pka belum tersedia di basis data. Silakan jalankan migrasi database di server: php artisan migrate')
+                ->withInput();
+        }
+
         $pka = Pka::findOrFail($id);
 
         $validated = $request->validate([
@@ -173,54 +204,75 @@ class PkaController extends Controller
             'langkah.*.disusun_oleh' => 'nullable|string',
         ]);
 
-        $pka->update([
-            'unit_id' => $validated['unit_id'],
-            'tahun' => $validated['tahun'],
-            'nomor' => $validated['nomor'],
-            'ruang_lingkup' => $validated['ruang_lingkup'],
-            'kriteria' => $validated['kriteria'],
-            'standar_kode' => $validated['standar_kode'] ?? null,
-            'tentative_audit_objective' => $validated['tentative_audit_objective'] ?? null,
-            'tujuan_audit' => $validated['tujuan_audit'] ?? null,
-            'disusun_oleh' => $validated['disusun_oleh'] ?? null,
-            'diperiksa_oleh' => $validated['diperiksa_oleh'] ?? null,
-            'tanggal_disusun' => $validated['tanggal_disusun'] ?? null,
-            'tanggal_diperiksa' => $validated['tanggal_diperiksa'] ?? null,
-        ]);
-
-        $pka->langkah()->delete();
-
-        $defaultPenyusunName = $pka->penyusun ? ($pka->penyusun->nama_lengkap ?: $pka->penyusun->name) : auth()->user()->name;
-
-        foreach ($validated['langkah'] as $index => $step) {
-            PkaLangkah::create([
-                'pka_id' => $pka->id,
-                'no_urut' => $index + 1,
-                'uraian' => $step['uraian'],
-                'anggaran_waktu' => $step['anggaran_waktu'] ?? null,
-                'realisasi' => $step['realisasi'] ?? null,
-                'no_kka' => $step['no_kka'] ?? null,
-                'disusun_oleh' => $step['disusun_oleh'] ?? $defaultPenyusunName,
+        try {
+            $pka->update([
+                'unit_id' => $validated['unit_id'],
+                'tahun' => $validated['tahun'],
+                'nomor' => $validated['nomor'],
+                'ruang_lingkup' => $validated['ruang_lingkup'],
+                'kriteria' => $validated['kriteria'],
+                'standar_kode' => $validated['standar_kode'] ?? null,
+                'tentative_audit_objective' => $validated['tentative_audit_objective'] ?? null,
+                'tujuan_audit' => $validated['tujuan_audit'] ?? null,
+                'disusun_oleh' => $validated['disusun_oleh'] ?? null,
+                'diperiksa_oleh' => $validated['diperiksa_oleh'] ?? null,
+                'tanggal_disusun' => $validated['tanggal_disusun'] ?? null,
+                'tanggal_diperiksa' => $validated['tanggal_diperiksa'] ?? null,
             ]);
-        }
 
-        return redirect()->route('pka.index', ['unit_id' => $pka->unit_id, 'tahun' => $pka->tahun])
-            ->with('success', 'Program Kerja Audit (PKA) berhasil diperbarui.');
+            $pka->langkah()->delete();
+
+            $defaultPenyusunName = $pka->penyusun ? ($pka->penyusun->nama_lengkap ?: $pka->penyusun->name) : auth()->user()->name;
+
+            foreach ($validated['langkah'] as $index => $step) {
+                PkaLangkah::create([
+                    'pka_id' => $pka->id,
+                    'no_urut' => $index + 1,
+                    'uraian' => $step['uraian'],
+                    'anggaran_waktu' => $step['anggaran_waktu'] ?? null,
+                    'realisasi' => $step['realisasi'] ?? null,
+                    'no_kka' => $step['no_kka'] ?? null,
+                    'disusun_oleh' => $step['disusun_oleh'] ?? $defaultPenyusunName,
+                ]);
+            }
+
+            return redirect()->route('pka.index', ['unit_id' => $pka->unit_id, 'tahun' => $pka->tahun])
+                ->with('success', 'Program Kerja Audit (PKA) berhasil diperbarui.');
+        } catch (\Throwable $e) {
+            Log::error('PKA Update Error: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()
+                ->with('error', 'Gagal memperbarui PKA: '.$e->getMessage())
+                ->withInput();
+        }
     }
 
     public function destroy($id)
     {
-        $pka = Pka::findOrFail($id);
-        $unit_id = $pka->unit_id;
-        $tahun = $pka->tahun;
-        $pka->delete();
+        if (! Schema::hasTable('pka')) {
+            return redirect()->route('pka.index')
+                ->with('error', 'Tabel pka belum tersedia di basis data.');
+        }
 
-        return redirect()->route('pka.index', ['unit_id' => $unit_id, 'tahun' => $tahun])
-            ->with('success', 'Program Kerja Audit (PKA) berhasil dihapus.');
+        try {
+            $pka = Pka::findOrFail($id);
+            $unit_id = $pka->unit_id;
+            $tahun = $pka->tahun;
+            $pka->delete();
+
+            return redirect()->route('pka.index', ['unit_id' => $unit_id, 'tahun' => $tahun])
+                ->with('success', 'Program Kerja Audit (PKA) berhasil dihapus.');
+        } catch (\Throwable $e) {
+            return redirect()->route('pka.index')->with('error', 'Gagal menghapus PKA: '.$e->getMessage());
+        }
     }
 
     public function exportPdf($id)
     {
+        if (! Schema::hasTable('pka')) {
+            abort(404, 'Tabel pka belum dimigrasikan.');
+        }
+
         ini_set('memory_limit', '-1');
         set_time_limit(300);
 

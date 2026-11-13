@@ -14,6 +14,27 @@
     </p>
 </div>
 
+@if(session('success'))
+    <div style="background-color: var(--status-success-bg); color: var(--status-success); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="check-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('success') }}
+    </div>
+@endif
+
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('warning'))
+    <div style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-triangle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('warning') }}
+    </div>
+@endif
+
 @if($errors->any())
     <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
         <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>

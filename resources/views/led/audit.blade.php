@@ -26,6 +26,15 @@
         </div>
     @endif
 
+    @if(!\Illuminate\Support\Facades\Schema::hasTable('ami_nilai_tahap'))
+        <div style="background: #fffbeb; border: 1px solid #f59e0b; color: #92400e; padding: 1rem 1.25rem; border-radius: 8px; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;">
+            <i data-feather="database" style="width: 20px; height: 20px; color: #f59e0b;"></i>
+            <div>
+                <strong>Perhatian:</strong> Migrasi basis data belum lengkap di server (tabel <code>ami_nilai_tahap</code> belum ada). Silakan jalankan perintah migrasi di server: <code>php artisan migrate</code> agar rincian nilai tahap dapat tersimpan penuh.
+            </div>
+        </div>
+    @endif
+
     <!-- Top Navigation & Progress Bar -->
     <div class="card" style="margin-bottom: 1.5rem; background: var(--bg-card); border-radius: 10px; border: 1px solid var(--border-color); padding: 1rem 1.5rem;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">

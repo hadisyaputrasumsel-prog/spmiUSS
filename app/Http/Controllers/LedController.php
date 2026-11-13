@@ -17,6 +17,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
@@ -391,11 +392,15 @@ class LedController extends Controller
             'rencana_tindakan' => $request->input('rencana_tindakan'),
             'pic' => $request->input('pic'),
             'batas_waktu' => $request->input('batas_waktu'),
-            'rencana_pencegahan' => $request->input('rencana_pencegahan'),
-            'jadwal_pencegahan' => $request->input('jadwal_pencegahan'),
             'auditor_id' => $user->id,
             'status_tindak_lanjut' => $existing ? $existing->status_tindak_lanjut : ($kategori === 'Sesuai' ? 'Selesai' : 'Proses'),
         ];
+        if (Schema::hasColumn('ami_findings', 'rencana_pencegahan')) {
+            $findingData['rencana_pencegahan'] = $request->input('rencana_pencegahan');
+        }
+        if (Schema::hasColumn('ami_findings', 'jadwal_pencegahan')) {
+            $findingData['jadwal_pencegahan'] = $request->input('jadwal_pencegahan');
+        }
         if (AmiFinding::hasTahunColumn()) {
             $findingData['tahun'] = $tahun;
         }
@@ -406,7 +411,15 @@ class LedController extends Controller
             $findingData['alasan_ubah_skor'] = $request->input('alasan_ubah_skor');
         }
 
-        $finding = AmiFinding::updateOrCreate($matchAttributes, $findingData);
+        try {
+            $finding = AmiFinding::updateOrCreate($matchAttributes, $findingData);
+        } catch (\Throwable $e) {
+            Log::error('Error saving audit finding: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
+            return redirect()->back()
+                ->with('error', 'Gagal menyimpan penilaian audit. Pastikan migrasi basis data telah dijalankan: php artisan migrate')
+                ->withInput();
+        }
 
         // Simpan nilai tahap ke ami_nilai_tahap jika tabel ada
         if (AmiFinding::hasNilaiTahapTable()) {

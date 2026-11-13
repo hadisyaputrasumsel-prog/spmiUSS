@@ -37,6 +37,43 @@
     </div>
 @endif
 
+@if(session('error'))
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('error') }}
+    </div>
+@endif
+
+@if(session('warning'))
+    <div style="background-color: #fef3c7; color: #b45309; border: 1px solid #fde68a; padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-triangle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        {{ session('warning') }}
+    </div>
+@endif
+
+@if($errors->any())
+    <div style="background-color: var(--status-danger-bg); color: var(--status-danger); padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem; font-weight: 500;">
+        <i data-feather="alert-circle" style="width: 18px; height: 18px; vertical-align: middle; margin-right: 0.5rem;"></i>
+        Terdapat kesalahan isian:
+        <ul style="margin: 0.5rem 0 0 1.25rem;">
+            @foreach($errors->all() as $err)
+                <li>{{ $err }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+@if(!\Illuminate\Support\Facades\Schema::hasTable('audit_sesi'))
+    <div style="background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+            <i data-feather="database" style="width: 20px; height: 20px;"></i>
+            <div>
+                <strong>Perhatian:</strong> Tabel <code>audit_sesi</code> belum dibuat di basis data. Silakan jalankan perintah migrasi di server: <code>php artisan migrate</code> agar data sesi audit dapat disimpan permanen.
+            </div>
+        </div>
+    </div>
+@endif
+
 <form action="{{ route('audit-sesi.update') }}" method="POST">
     @csrf
     <input type="hidden" name="unit_id" value="{{ $unit->id }}">
