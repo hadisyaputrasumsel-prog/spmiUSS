@@ -7,6 +7,7 @@ use App\Models\AuditSesi;
 use App\Models\BulanMutuConfig;
 use App\Models\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class AuditSesiController extends Controller
 {
@@ -43,7 +44,10 @@ class AuditSesiController extends Controller
             }
         }
 
-        $auditSesi = AuditSesi::firstOrNew([
+        $auditSesi = Schema::hasTable('audit_sesi') ? AuditSesi::firstOrNew([
+            'unit_id' => $unit->id,
+            'tahun' => $tahun,
+        ]) : new AuditSesi([
             'unit_id' => $unit->id,
             'tahun' => $tahun,
         ]);
@@ -115,22 +119,27 @@ class AuditSesiController extends Controller
             }
         }
 
-        AuditSesi::updateOrCreate(
-            ['unit_id' => $unitId, 'tahun' => $tahun],
-            [
-                'no_kka' => $validated['no_kka'] ?? null,
-                'kriteria' => $validated['kriteria'] ?? null,
-                'lokasi' => $validated['lokasi'] ?? null,
-                'ruang_lingkup' => $validated['ruang_lingkup'] ?? null,
-                'tanggal_audit' => $validated['tanggal_audit'] ?? null,
-                'wakil_auditi' => $validated['wakil_auditi'] ?? null,
-                'distribusi' => $validated['distribusi'] ?? [],
-                'penjamin_mutu' => $validated['penjamin_mutu'] ?? null,
-                'catatan_penutup' => $validated['catatan_penutup'] ?? null,
-            ]
-        );
+        if (Schema::hasTable('audit_sesi')) {
+            AuditSesi::updateOrCreate(
+                ['unit_id' => $unitId, 'tahun' => $tahun],
+                [
+                    'no_kka' => $validated['no_kka'] ?? null,
+                    'kriteria' => $validated['kriteria'] ?? null,
+                    'lokasi' => $validated['lokasi'] ?? null,
+                    'ruang_lingkup' => $validated['ruang_lingkup'] ?? null,
+                    'tanggal_audit' => $validated['tanggal_audit'] ?? null,
+                    'wakil_auditi' => $validated['wakil_auditi'] ?? null,
+                    'distribusi' => $validated['distribusi'] ?? [],
+                    'penjamin_mutu' => $validated['penjamin_mutu'] ?? null,
+                    'catatan_penutup' => $validated['catatan_penutup'] ?? null,
+                ]
+            );
+
+            return redirect()->route('audit-sesi.edit', ['unit_id' => $unitId, 'tahun' => $tahun])
+                ->with('success', 'Data Sesi Audit berhasil disimpan.');
+        }
 
         return redirect()->route('audit-sesi.edit', ['unit_id' => $unitId, 'tahun' => $tahun])
-            ->with('success', 'Data Sesi Audit berhasil disimpan.');
+            ->with('error', 'Tabel audit_sesi belum ada di database. Silakan jalankan: php artisan migrate');
     }
 }

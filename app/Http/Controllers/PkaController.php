@@ -11,6 +11,7 @@ use App\Models\Unit;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class PkaController extends Controller
 {
