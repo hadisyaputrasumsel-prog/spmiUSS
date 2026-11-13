@@ -241,11 +241,15 @@ class LedController extends Controller
         }
 
         // Temuan AMI yang sudah ada
-        $finding = AmiFinding::with('nilaiTahap')
-            ->where('unit_id', $unit_id)
+        $findingQuery = AmiFinding::where('unit_id', $unit_id)
             ->where('standar_kode', $kode)
-            ->forTahun($tahun)
-            ->first();
+            ->forTahun($tahun);
+
+        if (AmiFinding::hasNilaiTahapTable()) {
+            $findingQuery->with('nilaiTahap');
+        }
+
+        $finding = $findingQuery->first();
 
         // Kunci penilaian jika RTL diverifikasi Selesai (berlaku untuk temuan non-Sesuai dengan RTL)
         $isLocked = $finding && ($finding->status_tindak_lanjut === 'Selesai') && ! in_array($finding->kategori_temuan, ['Sesuai', 'Temuan Positif (TP)', 'TP'], true);
@@ -253,19 +257,23 @@ class LedController extends Controller
         // Nilai per tahap P1..P5
         $tahapScores = [];
         $tahapNotes = [];
-        if ($finding) {
-            foreach ($finding->nilaiTahap as $nt) {
-                $tahapScores[$nt->tahap] = $nt->skor;
-                $tahapNotes[$nt->tahap] = $nt->catatan;
+        if ($finding && AmiFinding::hasNilaiTahapTable()) {
+            try {
+                foreach ($finding->nilaiTahap as $nt) {
+                    $tahapScores[$nt->tahap] = $nt->skor;
+                    $tahapNotes[$nt->tahap] = $nt->catatan;
+                }
+            } catch (\Throwable $e) {
+                // Table might not exist yet
             }
-            if (empty($tahapScores) && $finding->skor !== null) {
-                $defaultTahap = $finding->tahap && in_array($finding->tahap, ['P1', 'P2', 'P3', 'P4', 'P5']) ? $finding->tahap : 'P1';
-                $tahapScores[$defaultTahap] = (int) $finding->skor;
-            }
+        }
+        if ($finding && empty($tahapScores) && $finding->skor !== null) {
+            $defaultTahap = $finding->tahap && in_array($finding->tahap, ['P1', 'P2', 'P3', 'P4', 'P5']) ? $finding->tahap : 'P1';
+            $tahapScores[$defaultTahap] = (int) $finding->skor;
         }
 
         // Tanggal Audit default
-        $auditSesi = AuditSesi::where('unit_id', $unit_id)->where('tahun', $tahun)->first();
+        $auditSesi = Schema::hasTable('audit_sesi') ? AuditSesi::where('unit_id', $unit_id)->where('tahun', $tahun)->first() : null;
         $defaultTanggal = $finding?->tanggal ?: ($auditSesi?->tanggal_audit ? $auditSesi->tanggal_audit->format('Y-m-d') : sprintf('%d-10-16', $tahun));
 
         // Navigasi & Indikator Kemajuan
@@ -400,18 +408,20 @@ class LedController extends Controller
 
         $finding = AmiFinding::updateOrCreate($matchAttributes, $findingData);
 
-        // Simpan nilai tahap ke ami_nilai_tahap
-        foreach (['P1', 'P2', 'P3', 'P4', 'P5'] as $t) {
-            $skorTahap = $request->input('skor_'.strtolower($t));
-            $catatanTahap = $request->input('catatan_'.strtolower($t));
+        // Simpan nilai tahap ke ami_nilai_tahap jika tabel ada
+        if (AmiFinding::hasNilaiTahapTable()) {
+            foreach (['P1', 'P2', 'P3', 'P4', 'P5'] as $t) {
+                $skorTahap = $request->input('skor_'.strtolower($t));
+                $catatanTahap = $request->input('catatan_'.strtolower($t));
 
-            AmiNilaiTahap::updateOrCreate(
-                ['ami_id' => $finding->id, 'tahap' => $t],
-                [
-                    'skor' => ($skorTahap !== '' && $skorTahap !== null) ? (int) $skorTahap : null,
-                    'catatan' => $catatanTahap,
-                ]
-            );
+                AmiNilaiTahap::updateOrCreate(
+                    ['ami_id' => $finding->id, 'tahap' => $t],
+                    [
+                        'skor' => ($skorTahap !== '' && $skorTahap !== null) ? (int) $skorTahap : null,
+                        'catatan' => $catatanTahap,
+                    ]
+                );
+            }
         }
 
         if ($actionType === 'save_next') {

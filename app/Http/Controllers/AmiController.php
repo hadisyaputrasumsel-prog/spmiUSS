@@ -455,7 +455,7 @@ class AmiController extends Controller
         $auditSesi = null;
         $auditors = collect();
         if ($unit) {
-            $auditSesi = AuditSesi::where('unit_id', $unit->id)->where('tahun', $tahun)->first();
+            $auditSesi = Schema::hasTable('audit_sesi') ? AuditSesi::where('unit_id', $unit->id)->where('tahun', $tahun)->first() : null;
             $assignments = AuditorAssignment::with('auditor')->where('unit_id', $unit->id)->where('tahun', $tahun)->get();
             $auditors = $assignments->pluck('auditor');
         }
@@ -505,7 +505,7 @@ class AmiController extends Controller
         }
 
         $unit = Unit::findOrFail($unit_id);
-        $auditSesi = AuditSesi::firstOrNew(['unit_id' => $unit->id, 'tahun' => $tahun]);
+        $auditSesi = Schema::hasTable('audit_sesi') ? AuditSesi::firstOrNew(['unit_id' => $unit->id, 'tahun' => $tahun]) : new AuditSesi(['unit_id' => $unit->id, 'tahun' => $tahun]);
 
         if (! $auditSesi->exists) {
             $slug = strtoupper(str_replace(['Prodi ', 'Fakultas ', ' '], ['', '', ''], $unit->nama));
@@ -575,7 +575,7 @@ class AmiController extends Controller
         }
 
         $unit = Unit::findOrFail($unit_id);
-        $auditSesi = AuditSesi::firstOrNew(['unit_id' => $unit->id, 'tahun' => $tahun]);
+        $auditSesi = Schema::hasTable('audit_sesi') ? AuditSesi::firstOrNew(['unit_id' => $unit->id, 'tahun' => $tahun]) : new AuditSesi(['unit_id' => $unit->id, 'tahun' => $tahun]);
 
         if (! $auditSesi->exists) {
             $slug = strtoupper(str_replace(['Prodi ', 'Fakultas ', ' '], ['', '', ''], $unit->nama));
@@ -655,7 +655,7 @@ class AmiController extends Controller
         $auditSesi = null;
         $auditors = collect();
         if ($unit) {
-            $auditSesi = AuditSesi::where('unit_id', $unit->id)->where('tahun', $tahun)->first();
+            $auditSesi = Schema::hasTable('audit_sesi') ? AuditSesi::where('unit_id', $unit->id)->where('tahun', $tahun)->first() : null;
             $assignments = AuditorAssignment::with('auditor')->where('unit_id', $unit->id)->where('tahun', $tahun)->get();
             $auditors = $assignments->pluck('auditor');
         }

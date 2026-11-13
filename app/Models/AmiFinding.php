@@ -67,6 +67,21 @@ class AmiFinding extends Model
 
     protected static ?bool $hasTahunColumn = null;
 
+    protected static ?bool $hasNilaiTahapTable = null;
+
+    public static function hasNilaiTahapTable(): bool
+    {
+        if (static::$hasNilaiTahapTable === null) {
+            try {
+                static::$hasNilaiTahapTable = Schema::hasTable('ami_nilai_tahap');
+            } catch (\Throwable $e) {
+                static::$hasNilaiTahapTable = false;
+            }
+        }
+
+        return static::$hasNilaiTahapTable;
+    }
+
     public static function hasTahunColumn(): bool
     {
         if (static::$hasTahunColumn === null) {
@@ -120,9 +135,15 @@ class AmiFinding extends Model
 
     public function getSkorTahap(string $tahap): ?int
     {
-        $nt = $this->nilaiTahap->firstWhere('tahap', $tahap);
-        if ($nt && $nt->skor !== null) {
-            return (int) $nt->skor;
+        if (static::hasNilaiTahapTable()) {
+            try {
+                $nt = $this->nilaiTahap->firstWhere('tahap', $tahap);
+                if ($nt && $nt->skor !== null) {
+                    return (int) $nt->skor;
+                }
+            } catch (\Throwable $e) {
+                // Table might not exist yet
+            }
         }
 
         return $this->skor !== null ? (int) $this->skor : null;
