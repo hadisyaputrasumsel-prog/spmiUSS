@@ -21,6 +21,15 @@ class PkaController extends Controller
         $tahun = (int) $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $unit_id = $request->query('unit_id', 'all');
 
+        if (! Schema::hasTable('pka')) {
+            $pkas = collect();
+            $units = Unit::orderBy('nama')->get();
+            $availableYears = BulanMutuConfig::availableYears($tahun);
+
+            return view('pka.index', compact('pkas', 'units', 'tahun', 'unit_id', 'availableYears'))
+                ->with('warning', 'Tabel PKA belum ada di basis data. Silakan jalankan migrasi: php artisan migrate');
+        }
+
         $query = Pka::with(['unit', 'penyusun', 'pemeriksa', 'langkah'])->where('tahun', $tahun);
 
         if ($unit_id && $unit_id !== 'all') {

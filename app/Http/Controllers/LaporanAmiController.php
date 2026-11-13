@@ -53,7 +53,7 @@ class LaporanAmiController extends Controller
 
         $tahun = (int) $request->get('tahun', in_array(2023, $availableYears) ? 2023 : $availableYears[0]);
 
-        $laporan = LaporanAmi::where('tahun', $tahun)->first();
+        $laporan = Schema::hasTable('laporan_ami') ? LaporanAmi::where('tahun', $tahun)->first() : null;
         if (! $laporan) {
             $laporan = new LaporanAmi(LaporanAmi::getDefaultData($tahun));
         }
@@ -178,7 +178,7 @@ class LaporanAmiController extends Controller
      */
     public function getLaporanData(int $tahun, array $unitIds = [], array $lampiran = []): array
     {
-        $laporan = LaporanAmi::where('tahun', $tahun)->first();
+        $laporan = Schema::hasTable('laporan_ami') ? LaporanAmi::where('tahun', $tahun)->first() : null;
         if (! $laporan) {
             $laporan = new LaporanAmi(LaporanAmi::getDefaultData($tahun));
         }
@@ -494,10 +494,12 @@ class LaporanAmiController extends Controller
         Storage::disk('public')->put($fullPath, $pdf->output());
 
         // Update record LaporanAmi
-        $laporan = LaporanAmi::where('tahun', $tahun)->first();
-        if ($laporan) {
-            $laporan->file_path = $fullPath;
-            $laporan->save();
+        if (Schema::hasTable('laporan_ami')) {
+            $laporan = LaporanAmi::where('tahun', $tahun)->first();
+            if ($laporan) {
+                $laporan->file_path = $fullPath;
+                $laporan->save();
+            }
         }
 
         // Simpan ke Bank Dokumen (evidence_documents)

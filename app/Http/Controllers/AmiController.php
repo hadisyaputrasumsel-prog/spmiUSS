@@ -784,21 +784,24 @@ class AmiController extends Controller
         $tahun = (int) date('Y', strtotime($finding->tanggal));
 
         // Check if there is an official PKA for this unit and standard
-        $pka = Pka::with(['unit', 'penyusun', 'pemeriksa', 'langkah'])
-            ->where('unit_id', $unit->id)
-            ->where('tahun', $tahun)
-            ->where(function ($q) use ($finding) {
-                $q->where('standar_kode', $finding->standar_kode)
-                    ->orWhere('nomor', 'LIKE', '%'.$finding->standar_kode.'%');
-            })
-            ->first();
-
-        if (! $pka) {
-            // Check if any PKA exists for this unit and year
+        $pka = null;
+        if (Schema::hasTable('pka')) {
             $pka = Pka::with(['unit', 'penyusun', 'pemeriksa', 'langkah'])
                 ->where('unit_id', $unit->id)
                 ->where('tahun', $tahun)
+                ->where(function ($q) use ($finding) {
+                    $q->where('standar_kode', $finding->standar_kode)
+                        ->orWhere('nomor', 'LIKE', '%'.$finding->standar_kode.'%');
+                })
                 ->first();
+
+            if (! $pka) {
+                // Check if any PKA exists for this unit and year
+                $pka = Pka::with(['unit', 'penyusun', 'pemeriksa', 'langkah'])
+                    ->where('unit_id', $unit->id)
+                    ->where('tahun', $tahun)
+                    ->first();
+            }
         }
 
         if ($pka) {
