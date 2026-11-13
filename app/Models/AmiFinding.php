@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Schema;
 
 /**
  * @property int $id
@@ -63,6 +64,33 @@ use Illuminate\Support\Carbon;
 class AmiFinding extends Model
 {
     protected $guarded = [];
+
+    protected static ?bool $hasTahunColumn = null;
+
+    public static function hasTahunColumn(): bool
+    {
+        if (static::$hasTahunColumn === null) {
+            try {
+                static::$hasTahunColumn = Schema::hasColumn('ami_findings', 'tahun');
+            } catch (\Throwable $e) {
+                static::$hasTahunColumn = false;
+            }
+        }
+
+        return static::$hasTahunColumn;
+    }
+
+    public function scopeForTahun($query, $tahun)
+    {
+        if (static::hasTahunColumn()) {
+            return $query->where(function ($q) use ($tahun) {
+                $q->where('tahun', $tahun)
+                    ->orWhereYear('tanggal', $tahun);
+            });
+        }
+
+        return $query->whereYear('tanggal', $tahun);
+    }
 
     public function unit()
     {

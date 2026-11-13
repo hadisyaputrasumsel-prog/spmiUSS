@@ -187,10 +187,7 @@
                     if ($canAuditLed && isset($unit_id) && $unit_id != 'all' && $unit_id != -1) {
                         $auditFinding = \App\Models\AmiFinding::where('standar_kode', $standard->kode)
                                         ->where('unit_id', $unit_id)
-                                        ->where(function($q) use ($tahun) {
-                                            $q->where('tahun', $tahun ?? date('Y'))
-                                              ->orWhereYear('tanggal', $tahun ?? date('Y'));
-                                        })
+                                        ->forTahun($tahun ?? date('Y'))
                                         ->orderBy('created_at', 'desc')
                                         ->first();
                     }

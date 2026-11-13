@@ -243,8 +243,8 @@ class LedController extends Controller
         // Temuan AMI yang sudah ada
         $finding = AmiFinding::with('nilaiTahap')
             ->where('unit_id', $unit_id)
-            ->where('tahun', $tahun)
             ->where('standar_kode', $kode)
+            ->forTahun($tahun)
             ->first();
 
         // Kunci penilaian jika RTL diverifikasi Selesai (berlaku untuk temuan non-Sesuai dengan RTL)
@@ -278,7 +278,7 @@ class LedController extends Controller
         $nextStandard = ($currentIndex < $totalStandards - 1) ? $standardsList[$currentIndex + 1] : null;
 
         // Hitung statistik penilaian unit ini
-        $allUnitFindings = AmiFinding::where('unit_id', $unit_id)->where('tahun', $tahun)->get();
+        $allUnitFindings = AmiFinding::where('unit_id', $unit_id)->forTahun($tahun)->get();
         $countAudited = $allUnitFindings->where('status_audit', 'Sudah Diaudit')->count();
         $countDraft = $allUnitFindings->where('status_audit', 'Sedang Dinilai')->count();
 
@@ -336,7 +336,10 @@ class LedController extends Controller
         }
 
         // Kunci jika RTL selesai
-        $existing = AmiFinding::where('unit_id', $unit_id)->where('tahun', $tahun)->where('standar_kode', $kode)->first();
+        $existing = AmiFinding::where('unit_id', $unit_id)
+            ->where('standar_kode', $kode)
+            ->forTahun($tahun)
+            ->first();
         if ($existing && $existing->status_tindak_lanjut === 'Selesai' && ! in_array($existing->kategori_temuan, ['Sesuai', 'Temuan Positif (TP)', 'TP'], true)) {
             return redirect()->back()->with('error', 'Penilaian ini telah terkunci karena tindak lanjut (RTL) telah diverifikasi Selesai.');
         }
@@ -358,34 +361,44 @@ class LedController extends Controller
         $request->validate($rules);
 
         // Update or create single finding for (unit_id, tahun, standar_kode)
-        $finding = AmiFinding::updateOrCreate(
-            [
-                'unit_id' => $unit_id,
-                'tahun' => $tahun,
-                'standar_kode' => $kode,
-            ],
-            [
-                'jenis' => ($standard->kelompok == 'Non-Akademik') ? 'nonakademik' : 'akademik',
-                'tanggal' => $request->input('tanggal'),
-                'skor' => $request->input('skor'),
-                'alasan_ubah_skor' => $request->input('alasan_ubah_skor'),
-                'kategori_temuan' => $kategori,
-                'tahap' => $request->input('tahap', 'Umum'),
-                'uraian' => $request->input('uraian') ?: 'Pelaksanaan standar '.$standard->nama.' telah sesuai.',
-                'akar_penyebab' => $request->input('akar_penyebab'),
-                'akibat' => $request->input('akibat'),
-                'rekomendasi' => $request->input('rekomendasi'),
-                'tanggapan_auditi' => $request->input('tanggapan_auditi'),
-                'rencana_tindakan' => $request->input('rencana_tindakan'),
-                'pic' => $request->input('pic'),
-                'batas_waktu' => $request->input('batas_waktu'),
-                'rencana_pencegahan' => $request->input('rencana_pencegahan'),
-                'jadwal_pencegahan' => $request->input('jadwal_pencegahan'),
-                'auditor_id' => $user->id,
-                'status_audit' => $statusAudit,
-                'status_tindak_lanjut' => $existing ? $existing->status_tindak_lanjut : ($kategori === 'Sesuai' ? 'Selesai' : 'Proses'),
-            ]
-        );
+        $matchAttributes = [
+            'unit_id' => $unit_id,
+            'standar_kode' => $kode,
+        ];
+        if (AmiFinding::hasTahunColumn()) {
+            $matchAttributes['tahun'] = $tahun;
+        }
+
+        $findingData = [
+            'jenis' => ($standard->kelompok == 'Non-Akademik') ? 'nonakademik' : 'akademik',
+            'tanggal' => $request->input('tanggal'),
+            'skor' => $request->input('skor'),
+            'kategori_temuan' => $kategori,
+            'tahap' => $request->input('tahap', 'Umum'),
+            'uraian' => $request->input('uraian') ?: 'Pelaksanaan standar '.$standard->nama.' telah sesuai.',
+            'akar_penyebab' => $request->input('akar_penyebab'),
+            'akibat' => $request->input('akibat'),
+            'rekomendasi' => $request->input('rekomendasi'),
+            'tanggapan_auditi' => $request->input('tanggapan_auditi'),
+            'rencana_tindakan' => $request->input('rencana_tindakan'),
+            'pic' => $request->input('pic'),
+            'batas_waktu' => $request->input('batas_waktu'),
+            'rencana_pencegahan' => $request->input('rencana_pencegahan'),
+            'jadwal_pencegahan' => $request->input('jadwal_pencegahan'),
+            'auditor_id' => $user->id,
+            'status_tindak_lanjut' => $existing ? $existing->status_tindak_lanjut : ($kategori === 'Sesuai' ? 'Selesai' : 'Proses'),
+        ];
+        if (AmiFinding::hasTahunColumn()) {
+            $findingData['tahun'] = $tahun;
+        }
+        if (Schema::hasColumn('ami_findings', 'status_audit')) {
+            $findingData['status_audit'] = $statusAudit;
+        }
+        if (Schema::hasColumn('ami_findings', 'alasan_ubah_skor')) {
+            $findingData['alasan_ubah_skor'] = $request->input('alasan_ubah_skor');
+        }
+
+        $finding = AmiFinding::updateOrCreate($matchAttributes, $findingData);
 
         // Simpan nilai tahap ke ami_nilai_tahap
         foreach (['P1', 'P2', 'P3', 'P4', 'P5'] as $t) {

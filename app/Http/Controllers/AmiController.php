@@ -107,10 +107,7 @@ class AmiController extends Controller
         if ($request->filled('unit_id') && $request->filled('standar_kode')) {
             $existingFinding = AmiFinding::where('unit_id', $request->query('unit_id'))
                 ->where('standar_kode', $request->query('standar_kode'))
-                ->where(function ($q) use ($tahun) {
-                    $q->where('tahun', $tahun)
-                        ->orWhereYear('tanggal', $tahun);
-                })
+                ->forTahun($tahun)
                 ->first();
 
             if ($existingFinding) {
