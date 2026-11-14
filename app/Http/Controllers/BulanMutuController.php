@@ -123,22 +123,36 @@ class BulanMutuController extends Controller
         if (str_contains($nama, 'surat tugas tim auditor') || str_contains($nama, 'pelaksanaan audit mutu')) {
             $status = BulanMutuStatus::where('tahun', $tahun)->where('kegiatan_id', $activity->id)->first();
 
+            $isNonAkademik = str_contains($nama, 'non-akademik');
+            $isAkademik = str_contains($nama, 'akademik') && ! $isNonAkademik;
+            $isGeneral = ! $isNonAkademik && ! $isAkademik;
+
             $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
             $bulanRomawi = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+            $prefix = $isNonAkademik ? 'ST-AMINON' : ($isAkademik ? 'ST-AMAI' : 'ST-AMI');
 
             if ($status && $status->tanggal_pelaksanaan) {
                 $time = strtotime($status->tanggal_pelaksanaan);
                 $m = (int) date('n', $time);
                 $y = (int) date('Y', $time);
                 $rom = $bulanRomawi[$m] ?? 'VIII';
-                $nomorSurat = sprintf('024/ST-AMI/LPMA/USS/%s/%d', $rom, $y);
+                $nomorSurat = sprintf('024/%s/LPMA/USS/%s/%d', $prefix, $rom, $y);
                 $tanggalSurat = date('j', $time).' '.$bulanIndo[$m].' '.$y;
                 $tanggalAudit = date('j', $time).' s.d. '.date('j', strtotime('+20 days', $time)).' '.$bulanIndo[$m].' '.$y;
             } else {
-                $nomorSurat = sprintf('.../ST-AMI/LPMA/USS/VIII/%d', $tahun);
+                $nomorSurat = sprintf('.../%s/LPMA/USS/VIII/%d', $prefix, $tahun);
                 $tanggalSurat = '01 Agustus '.$tahun;
                 $tanggalAudit = '01 s.d. 25 Agustus '.$tahun;
             }
+
+            $judulTentang = $isNonAkademik
+                ? 'PENUGASAN TIM AUDITOR PELAKSANAAN AUDIT MUTU INTERNAL UNIT NON-AKADEMIK / PENUNJANG'
+                : ($isAkademik ? 'PENUGASAN TIM AUDITOR PELAKSANAAN AUDIT MUTU AKADEMIK INTERNAL (AMAI)' : 'PENUGASAN TIM AUDITOR AUDIT MUTU INTERNAL (AMAI & AMI NON-AKADEMIK)');
+
+            $namaTahapan = $isNonAkademik
+                ? 'Audit Mutu Internal Unit Non-Akademik / Penunjang'
+                : ($isAkademik ? 'Audit Mutu Akademik Internal (AMAI)' : 'Audit Mutu Internal (AMI)');
 
             $laporan = LaporanAmi::where('tahun', $tahun)->first() ?? LaporanAmi::first();
             $kepalaLpmaNama = $laporan?->penandatangan_lpma_nama ?? 'Dr. H. Ahmad Fauzi, M.Pd';
@@ -185,6 +199,11 @@ class BulanMutuController extends Controller
                 'nomorSurat',
                 'tanggalSurat',
                 'tanggalAudit',
+                'isNonAkademik',
+                'isAkademik',
+                'isGeneral',
+                'judulTentang',
+                'namaTahapan',
                 'kepalaLpmaNama',
                 'kepalaLpmaJabatan',
                 'rektorNama',
@@ -197,7 +216,9 @@ class BulanMutuController extends Controller
                 'selectedUnitIds'
             ));
 
-            return $pdf->stream('Surat_Tugas_Auditor_'.$tahun.'.pdf');
+            $filename = $isNonAkademik ? 'Surat_Tugas_Auditor_NonAkademik_'.$tahun.'.pdf' : ($isAkademik ? 'Surat_Tugas_Auditor_AMAI_'.$tahun.'.pdf' : 'Surat_Tugas_Auditor_'.$tahun.'.pdf');
+
+            return $pdf->stream($filename);
 
         } elseif (str_contains($nama, 'evaluasi diri')) {
             $status = BulanMutuStatus::where('tahun', $tahun)->where('kegiatan_id', $activity->id)->first();

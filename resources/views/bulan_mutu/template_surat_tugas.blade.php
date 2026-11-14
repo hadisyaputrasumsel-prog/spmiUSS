@@ -109,14 +109,14 @@
 
     <div class="text-center text-bold" style="font-size: 10.5pt; margin-bottom: 12px; text-transform: uppercase; line-height: 1.25;">
         TENTANG<br>
-        PENUGASAN TIM AUDITOR PELAKSANAAN AUDIT MUTU AKADEMIK INTERNAL (AMAI)<br>
+        {{ $judulTentang ?? 'PENUGASAN TIM AUDITOR PELAKSANAAN AUDIT MUTU INTERNAL (AMI)' }}<br>
         SIKLUS BULAN MUTU TAHUN {{ $tahun }}
     </div>
 
     <!-- PENGANTAR PENUGASAN -->
     <div class="content">
         <p style="margin-top: 0; margin-bottom: 6px;">
-            Berdasarkan Peraturan Rektor Universitas Sumatera Selatan tentang Sistem Penjaminan Mutu Internal (SPMI) dan Program Kerja Lembaga Penjaminan Mutu Akademik (LPMA) mengenai Pelaksanaan Siklus SPMI Tahun <strong>{{ $tahun }}</strong>, dengan ini Ketua LPMA Universitas Sumatera Selatan memberikan penugasan kepada Tim Auditor Mutu Internal untuk melaksanakan tahapan <strong>Audit Mutu Akademik Internal (AMAI)</strong>.
+            Berdasarkan Peraturan Rektor Universitas Sumatera Selatan tentang Sistem Penjaminan Mutu Internal (SPMI) dan Program Kerja Lembaga Penjaminan Mutu Akademik (LPMA) mengenai Pelaksanaan Siklus SPMI Tahun <strong>{{ $tahun }}</strong>, dengan ini Ketua LPMA Universitas Sumatera Selatan memberikan penugasan kepada Tim Auditor Mutu Internal untuk melaksanakan tahapan <strong>{{ $namaTahapan ?? 'Audit Mutu Internal' }}</strong>.
         </p>
 
         <!-- KOTAK CEKLIS SASARAN AUDIT PER PRODI / UNIT -->
@@ -130,17 +130,27 @@
                     <!-- Kolom 1: Program Studi & Fakultas (Akademik) -->
                     <td style="width: 52%; vertical-align: top; padding-right: 8px;">
                         <div style="font-weight: bold; border-bottom: 1px dashed #666; margin-bottom: 4px; padding-bottom: 2px;">
-                            A. PROGRAM STUDI & FAKULTAS (SASARAN UTAMA AMAI):
+                            A. PROGRAM STUDI & FAKULTAS ({{ !empty($isAkademik) ? 'SASARAN UTAMA AMAI' : 'AKADEMIK' }}):
                         </div>
                         @foreach($prodiUnits as $pu)
+                            @php
+                                $puChecked = !empty($selectedUnitIds) 
+                                    ? in_array($pu->id, $selectedUnitIds) 
+                                    : (!empty($isAkademik) || !empty($isGeneral));
+                            @endphp
                             <div style="margin-bottom: 2.5px;">
-                                <span class="checkbox-square">{{ (empty($selectedUnitIds) || in_array($pu->id, $selectedUnitIds)) ? '✓' : '' }}</span>
+                                <span class="checkbox-square">{{ $puChecked ? '✓' : '' }}</span>
                                 <strong>{{ $pu->nama }}</strong>
                             </div>
                         @endforeach
                         @foreach($fakultasUnits as $fu)
+                            @php
+                                $fuChecked = !empty($selectedUnitIds) 
+                                    ? in_array($fu->id, $selectedUnitIds) 
+                                    : (!empty($isAkademik) || !empty($isGeneral));
+                            @endphp
                             <div style="margin-bottom: 2.5px;">
-                                <span class="checkbox-square">{{ (empty($selectedUnitIds) || in_array($fu->id, $selectedUnitIds)) ? '✓' : '' }}</span>
+                                <span class="checkbox-square">{{ $fuChecked ? '✓' : '' }}</span>
                                 {{ $fu->nama }}
                             </div>
                         @endforeach
@@ -149,11 +159,16 @@
                     <!-- Kolom 2: Lembaga & Unit Non-Akademik -->
                     <td style="width: 48%; vertical-align: top; padding-left: 8px; border-left: 1px solid #ccc;">
                         <div style="font-weight: bold; border-bottom: 1px dashed #666; margin-bottom: 4px; padding-bottom: 2px;">
-                            B. LEMBAGA, BIRO & UNIT (NON-AKADEMIK):
+                            B. LEMBAGA, BIRO & UNIT ({{ !empty($isNonAkademik) ? 'SASARAN UTAMA AUDIT NON-AKADEMIK' : 'NON-AKADEMIK' }}):
                         </div>
                         @foreach($nonAkademikUnits as $nu)
+                            @php
+                                $nuChecked = !empty($selectedUnitIds) 
+                                    ? in_array($nu->id, $selectedUnitIds) 
+                                    : (!empty($isNonAkademik) || !empty($isGeneral));
+                            @endphp
                             <div style="margin-bottom: 2.5px;">
-                                <span class="checkbox-square">{{ (!empty($selectedUnitIds) && in_array($nu->id, $selectedUnitIds)) ? '✓' : '' }}</span>
+                                <span class="checkbox-square">{{ $nuChecked ? '✓' : '' }}</span>
                                 {{ $nu->nama }}
                             </div>
                         @endforeach
@@ -243,59 +258,128 @@
         <tbody>
             @php $no = 1; @endphp
 
-            <!-- Kelompok 1: Program Studi -->
-            <tr style="background-color: #f8fafc; font-weight: bold;">
-                <td colspan="6" style="padding: 4px 6px;">I. KELOMPOK PROGRAM STUDI (AMAI)</td>
-            </tr>
-            @foreach($prodiUnits as $u)
-            @php $assign = $unitAssignments[$u->id] ?? null; @endphp
-            <tr>
-                <td class="text-center">{{ $no++ }}</td>
-                <td class="text-center">
-                    <div class="table-checkbox">{{ (empty($selectedUnitIds) || in_array($u->id, $selectedUnitIds)) ? '✓' : '' }}</div>
-                </td>
-                <td><strong>{{ $u->nama }}</strong></td>
-                <td class="text-center">Program Studi</td>
-                <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
-                <td>{{ $assign['anggota'] ?? '-' }}</td>
-            </tr>
-            @endforeach
+            @if(!empty($isNonAkademik))
+                <!-- Jika Non-Akademik, Kelompok Biro & Lembaga Ditampilkan Pertama Sebagai Prioritas -->
+                <tr style="background-color: #f8fafc; font-weight: bold;">
+                    <td colspan="6" style="padding: 4px 6px;">I. KELOMPOK BIRO, LEMBAGA & UNIT PENUNJANG (SASARAN UTAMA AUDIT)</td>
+                </tr>
+                @foreach($nonAkademikUnits as $u)
+                @php 
+                    $assign = $unitAssignments[$u->id] ?? null; 
+                    $rowChecked = !empty($selectedUnitIds) ? in_array($u->id, $selectedUnitIds) : true;
+                @endphp
+                <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td class="text-center">
+                        <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    </td>
+                    <td><strong>{{ $u->nama }}</strong></td>
+                    <td class="text-center">{{ ucfirst($u->jenis ?? 'Non-Akademik') }}</td>
+                    <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
+                    <td>{{ $assign['anggota'] ?? '-' }}</td>
+                </tr>
+                @endforeach
 
-            <!-- Kelompok 2: Fakultas (UPPS) -->
-            <tr style="background-color: #f8fafc; font-weight: bold;">
-                <td colspan="6" style="padding: 4px 6px;">II. KELOMPOK FAKULTAS (UPPS)</td>
-            </tr>
-            @foreach($fakultasUnits as $u)
-            @php $assign = $unitAssignments[$u->id] ?? null; @endphp
-            <tr>
-                <td class="text-center">{{ $no++ }}</td>
-                <td class="text-center">
-                    <div class="table-checkbox">{{ (empty($selectedUnitIds) || in_array($u->id, $selectedUnitIds)) ? '✓' : '' }}</div>
-                </td>
-                <td><strong>{{ $u->nama }}</strong></td>
-                <td class="text-center">Fakultas</td>
-                <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
-                <td>{{ $assign['anggota'] ?? '-' }}</td>
-            </tr>
-            @endforeach
+                <tr style="background-color: #f8fafc; font-weight: bold;">
+                    <td colspan="6" style="padding: 4px 6px;">II. KELOMPOK PROGRAM STUDI & FAKULTAS (AKADEMIK)</td>
+                </tr>
+                @foreach($prodiUnits as $u)
+                @php 
+                    $assign = $unitAssignments[$u->id] ?? null; 
+                    $rowChecked = !empty($selectedUnitIds) && in_array($u->id, $selectedUnitIds);
+                @endphp
+                <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td class="text-center">
+                        <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    </td>
+                    <td><strong>{{ $u->nama }}</strong></td>
+                    <td class="text-center">Program Studi</td>
+                    <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
+                    <td>{{ $assign['anggota'] ?? '-' }}</td>
+                </tr>
+                @endforeach
+                @foreach($fakultasUnits as $u)
+                @php 
+                    $assign = $unitAssignments[$u->id] ?? null; 
+                    $rowChecked = !empty($selectedUnitIds) && in_array($u->id, $selectedUnitIds);
+                @endphp
+                <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td class="text-center">
+                        <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    </td>
+                    <td><strong>{{ $u->nama }}</strong></td>
+                    <td class="text-center">Fakultas</td>
+                    <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
+                    <td>{{ $assign['anggota'] ?? '-' }}</td>
+                </tr>
+                @endforeach
 
-            <!-- Kelompok 3: Lembaga, Biro & Unit Penunjang -->
-            <tr style="background-color: #f8fafc; font-weight: bold;">
-                <td colspan="6" style="padding: 4px 6px;">III. KELOMPOK BIRO, LEMBAGA & UNIT PENUNJANG</td>
-            </tr>
-            @foreach($nonAkademikUnits as $u)
-            @php $assign = $unitAssignments[$u->id] ?? null; @endphp
-            <tr>
-                <td class="text-center">{{ $no++ }}</td>
-                <td class="text-center">
-                    <div class="table-checkbox">{{ (!empty($selectedUnitIds) && in_array($u->id, $selectedUnitIds)) ? '✓' : '' }}</div>
-                </td>
-                <td><strong>{{ $u->nama }}</strong></td>
-                <td class="text-center">{{ ucfirst($u->jenis ?? 'Non-Akademik') }}</td>
-                <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
-                <td>{{ $assign['anggota'] ?? '-' }}</td>
-            </tr>
-            @endforeach
+            @else
+                <!-- Kelompok 1: Program Studi -->
+                <tr style="background-color: #f8fafc; font-weight: bold;">
+                    <td colspan="6" style="padding: 4px 6px;">I. KELOMPOK PROGRAM STUDI (AMAI)</td>
+                </tr>
+                @foreach($prodiUnits as $u)
+                @php 
+                    $assign = $unitAssignments[$u->id] ?? null; 
+                    $rowChecked = !empty($selectedUnitIds) ? in_array($u->id, $selectedUnitIds) : (!empty($isAkademik) || !empty($isGeneral));
+                @endphp
+                <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td class="text-center">
+                        <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    </td>
+                    <td><strong>{{ $u->nama }}</strong></td>
+                    <td class="text-center">Program Studi</td>
+                    <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
+                    <td>{{ $assign['anggota'] ?? '-' }}</td>
+                </tr>
+                @endforeach
+
+                <!-- Kelompok 2: Fakultas (UPPS) -->
+                <tr style="background-color: #f8fafc; font-weight: bold;">
+                    <td colspan="6" style="padding: 4px 6px;">II. KELOMPOK FAKULTAS (UPPS)</td>
+                </tr>
+                @foreach($fakultasUnits as $u)
+                @php 
+                    $assign = $unitAssignments[$u->id] ?? null; 
+                    $rowChecked = !empty($selectedUnitIds) ? in_array($u->id, $selectedUnitIds) : (!empty($isAkademik) || !empty($isGeneral));
+                @endphp
+                <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td class="text-center">
+                        <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    </td>
+                    <td><strong>{{ $u->nama }}</strong></td>
+                    <td class="text-center">Fakultas</td>
+                    <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
+                    <td>{{ $assign['anggota'] ?? '-' }}</td>
+                </tr>
+                @endforeach
+
+                <!-- Kelompok 3: Lembaga, Biro & Unit Penunjang -->
+                <tr style="background-color: #f8fafc; font-weight: bold;">
+                    <td colspan="6" style="padding: 4px 6px;">III. KELOMPOK BIRO, LEMBAGA & UNIT PENUNJANG</td>
+                </tr>
+                @foreach($nonAkademikUnits as $u)
+                @php 
+                    $assign = $unitAssignments[$u->id] ?? null; 
+                    $rowChecked = !empty($selectedUnitIds) ? in_array($u->id, $selectedUnitIds) : (!empty($isGeneral));
+                @endphp
+                <tr>
+                    <td class="text-center">{{ $no++ }}</td>
+                    <td class="text-center">
+                        <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    </td>
+                    <td><strong>{{ $u->nama }}</strong></td>
+                    <td class="text-center">{{ ucfirst($u->jenis ?? 'Non-Akademik') }}</td>
+                    <td>{{ $assign['ketua'] ?? 'Tim Auditor LPMA' }}</td>
+                    <td>{{ $assign['anggota'] ?? '-' }}</td>
+                </tr>
+                @endforeach
+            @endif
         </tbody>
     </table>
 
