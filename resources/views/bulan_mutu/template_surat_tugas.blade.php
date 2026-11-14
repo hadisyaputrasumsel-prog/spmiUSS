@@ -26,7 +26,7 @@
 <body>
     <div class="header text-center border-bottom">
         <div class="header-title">UNIVERSITAS SUMATERA SELATAN</div>
-        <div class="header-title">LEMBAGA PENJAMINAN MUTU (LPMA)</div>
+        <div class="header-title">LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)</div>
         <div class="header-sub">Alamat: Jl. Letnan Murod, KM. 5, Palembang, Sumatera Selatan</div>
     </div>
 
@@ -34,7 +34,7 @@
     <div class="text-center" style="margin-bottom: 25px;">Nomor: ....../ST-AMI/LPMA/USS/{{ date('m/Y') }}</div>
 
     <div class="content">
-        <p>Berdasarkan Program Kerja Lembaga Penjaminan Mutu (LPMA) Universitas Sumatera Selatan mengenai Pelaksanaan Siklus Sistem Penjaminan Mutu Internal (SPMI) Tahun Pelaksanaan <strong>{{ $tahun }}</strong>, dengan ini Ketua LPMA menugaskan nama-nama di bawah ini sebagai <strong>Tim Auditor Mutu Internal (AMI)</strong>:</p>
+        <p>Berdasarkan Program Kerja Lembaga Penjaminan Mutu Akademik (LPMA) Universitas Sumatera Selatan mengenai Pelaksanaan Siklus Sistem Penjaminan Mutu Internal (SPMI) Tahun Pelaksanaan <strong>{{ $tahun }}</strong>, dengan ini Ketua LPMA menugaskan nama-nama di bawah ini sebagai <strong>Tim Auditor Mutu Internal (AMI)</strong>:</p>
 
         <table class="table-bordered">
             <thead>

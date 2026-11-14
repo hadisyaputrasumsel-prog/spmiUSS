@@ -53,7 +53,7 @@
             <div style="display: flex; align-items: center; gap: 1rem;">
                 <div style="font-size: 0.85rem; color: var(--text-muted); text-align: right;">
                     <div>Standar <b>{{ $position }}</b> dari <b>{{ $totalStandards }}</b></div>
-                    <small style="color: #0284c7;"><b>{{ $countAudited }}</b> sudah dinilai &bull; <b>{{ $countDraft }}</b> draft</small>
+                    <small style="color: #0284c7;"><b>{{ $countAudited }}</b> dari <b>{{ $totalStandards }}</b> sudah dinilai @if($countDraft > 0) &bull; <b>{{ $countDraft }}</b> draft @endif</small>
                 </div>
 
                 <div style="display: flex; gap: 0.4rem;">
@@ -298,34 +298,45 @@
                             <input type="date" name="tanggal" value="{{ old('tanggal', $defaultTanggal) }}" class="form-control" required style="font-size: 0.85rem;">
                         </div>
 
-                        <!-- Penilaian per Tahap (P1 s.d. P5) -->
+                        <!-- Penilaian per Tahap (P1 s.d. P5) & Catatan Auditor -->
                         <div style="background: var(--bg-hover); padding: 0.85rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid var(--border-color);">
-                            <label style="font-weight: 700; font-size: 0.8rem; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
-                                Nilai Capaian per Tahap (1 - 4):
+                            <label style="font-weight: 700; font-size: 0.82rem; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
+                                Nilai Capaian per Tahap (1 - 4) & Catatan Tahap:
                             </label>
 
-                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
                                 @foreach(['P1', 'P2', 'P3', 'P4', 'P5'] as $st)
                                     @php
                                         $currSkor = $tahapScores[$st] ?? ($finding?->skor ?? 3);
                                         $currNote = $tahapNotes[$st] ?? '';
+                                        $stName = match($st) {
+                                            'P1' => 'Penetapan',
+                                            'P2' => 'Pelaksanaan',
+                                            'P3' => 'Evaluasi',
+                                            'P4' => 'Pengendalian',
+                                            'P5' => 'Peningkatan',
+                                            default => $st
+                                        };
                                     @endphp
-                                    <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.8rem;">
-                                        <b style="width: 35px;">{{ $st }}:</b>
-                                        <div style="display: flex; gap: 0.5rem; align-items: center;">
-                                            @foreach([1, 2, 3, 4] as $val)
-                                                <label style="display: inline-flex; align-items: center; gap: 2px; cursor: pointer; margin: 0; font-weight: normal;">
-                                                    <input type="radio" name="skor_{{ strtolower($st) }}" value="{{ $val }}" {{ $currSkor == $val ? 'checked' : '' }} onchange="calculateAutoScore()">
-                                                    <span>{{ $val }}</span>
-                                                </label>
-                                            @endforeach
-                                            @if($st === 'P4')
-                                                <label style="display: inline-flex; align-items: center; gap: 2px; cursor: pointer; margin: 0; font-size: 0.75rem; color: #64748b;">
-                                                    <input type="radio" name="skor_p4" value="" {{ empty($currSkor) ? 'checked' : '' }} onchange="calculateAutoScore()">
-                                                    <span>N/A</span>
-                                                </label>
-                                            @endif
+                                    <div style="background: var(--bg-card); padding: 6px 8px; border-radius: 4px; border: 1px solid var(--border-color);">
+                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.8rem; margin-bottom: 4px;">
+                                            <b style="color: var(--text-main);">{{ $st }} <span style="font-weight: normal; color: var(--text-muted);">({{ $stName }})</span>:</b>
+                                            <div style="display: flex; gap: 0.6rem; align-items: center;">
+                                                @foreach([1, 2, 3, 4] as $val)
+                                                    <label style="display: inline-flex; align-items: center; gap: 2px; cursor: pointer; margin: 0; font-weight: normal;">
+                                                        <input type="radio" name="skor_{{ strtolower($st) }}" value="{{ $val }}" {{ $currSkor == $val ? 'checked' : '' }} onchange="calculateAutoScore()">
+                                                        <span>{{ $val }}</span>
+                                                    </label>
+                                                @endforeach
+                                                @if($st === 'P4')
+                                                    <label style="display: inline-flex; align-items: center; gap: 2px; cursor: pointer; margin: 0; font-size: 0.75rem; color: #64748b;">
+                                                        <input type="radio" name="skor_p4" value="" {{ empty($currSkor) ? 'checked' : '' }} onchange="calculateAutoScore()">
+                                                        <span>N/A</span>
+                                                    </label>
+                                                @endif
+                                            </div>
                                         </div>
+                                        <input type="text" name="catatan_{{ strtolower($st) }}" value="{{ old('catatan_'.strtolower($st), $currNote) }}" class="form-control" style="font-size: 0.78rem; padding: 4px 8px;" placeholder="Catatan auditor tahap {{ $st }} (opsional)...">
                                     </div>
                                 @endforeach
                             </div>
@@ -347,7 +358,7 @@
                                 <label style="font-size: 0.75rem; font-weight: 600; color: #991b1b; display: block; margin-bottom: 2px;">
                                     * Wajib isi Alasan jika mengubah skor berbeda dari rata-rata:
                                 </label>
-                                <textarea name="alasan_ubah_skor" id="input-alasan-override" rows="2" class="form-control" style="font-size: 0.75rem;" placeholder="Alasan pertimbangan auditor...">{{ old('alasan_ubah_skor', $finding?->alasan_ubah_skor) }}</textarea>
+                                <textarea name="alasan_ubah_skor" id="input-alasan-override" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical;" placeholder="Alasan pertimbangan auditor...">{{ old('alasan_ubah_skor', $finding?->alasan_ubah_skor) }}</textarea>
                             </div>
                         </div>
 
@@ -406,12 +417,23 @@
                             </select>
                         </div>
 
+                        <!-- Kriteria Standar / Rujukan -->
+                        <div style="margin-bottom: 1rem;">
+                            <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.25rem;">
+                                Kriteria Standar / Rujukan
+                            </label>
+                            @php
+                                $defaultKriteriaVal = $finding?->kriteria ?: ($standard->kelompok . ' — ' . $standard->nama . ($standard->pernyataan_standar ? ': ' . $standard->pernyataan_standar : ''));
+                            @endphp
+                            <textarea name="kriteria" id="input-kriteria" rows="4" class="form-control" style="font-size: 0.85rem; line-height: 1.5; min-height: 90px; resize: vertical;" placeholder="Tolok ukur / pernyataan standar yang menjadi kriteria penilaian...">{{ old('kriteria', $defaultKriteriaVal) }}</textarea>
+                        </div>
+
                         <!-- Uraian Temuan -->
                         <div style="margin-bottom: 1rem;">
                             <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.25rem;">
                                 Deskripsi / Uraian Temuan <span id="label-uraian-req" style="color: #dc2626;">*</span>
                             </label>
-                            <textarea name="uraian" id="input-uraian" rows="3" class="form-control" style="font-size: 0.85rem;" placeholder="Catatan temuan audit...">{{ old('uraian', $finding?->uraian) }}</textarea>
+                            <textarea name="uraian" id="input-uraian" rows="5" class="form-control" style="font-size: 0.85rem; line-height: 1.5; min-height: 110px; resize: vertical;" placeholder="Catatan temuan audit...">{{ old('uraian', $finding?->uraian) }}</textarea>
                         </div>
 
                         <!-- Detail Temuan Non-Sesuai (RCA, Akibat, RTL) -->
@@ -420,27 +442,32 @@
                                 Detail Ketidaksesuaian & Rencana Tindak Lanjut:
                             </div>
 
-                            <div style="margin-bottom: 0.5rem;">
+                            <div style="margin-bottom: 0.75rem;">
                                 <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Akar Masalah (RCA):</label>
-                                <input type="text" name="akar_penyebab" value="{{ old('akar_penyebab', $finding?->akar_penyebab) }}" class="form-control" style="font-size: 0.8rem;" placeholder="Akar penyebab...">
+                                <textarea name="akar_penyebab" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Akar penyebab ketidaksesuaian...">{{ old('akar_penyebab', $finding?->akar_penyebab) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.5rem;">
+                            <div style="margin-bottom: 0.75rem;">
                                 <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Akibat / Dampak Risiko:</label>
-                                <input type="text" name="akibat" value="{{ old('akibat', $finding?->akibat) }}" class="form-control" style="font-size: 0.8rem;" placeholder="Akibat...">
+                                <textarea name="akibat" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Akibat atau dampak risiko...">{{ old('akibat', $finding?->akibat) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.5rem;">
+                            <div style="margin-bottom: 0.75rem;">
                                 <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rekomendasi Auditor:</label>
-                                <input type="text" name="rekomendasi" value="{{ old('rekomendasi', $finding?->rekomendasi) }}" class="form-control" style="font-size: 0.8rem;" placeholder="Rekomendasi...">
+                                <textarea name="rekomendasi" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Rekomendasi tindakan auditor...">{{ old('rekomendasi', $finding?->rekomendasi) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.5rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rencana Perbaikan (RTL):</label>
-                                <textarea name="rencana_tindakan" rows="2" class="form-control" style="font-size: 0.8rem;" placeholder="Tindakan perbaikan...">{{ old('rencana_tindakan', $finding?->rencana_tindakan) }}</textarea>
+                            <div style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rencana Perbaikan (Koreksi):</label>
+                                <textarea name="rencana_tindakan" rows="4" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 90px;" placeholder="Tindakan perbaikan jangka pendek...">{{ old('rencana_tindakan', $finding?->rencana_tindakan) }}</textarea>
                             </div>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.5rem;">
+                            <div style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rencana Tindakan Pencegahan:</label>
+                                <textarea name="rencana_pencegahan" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Rencana tindakan pencegahan agar tidak terulang...">{{ old('rencana_pencegahan', $finding?->rencana_pencegahan) }}</textarea>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.75rem;">
                                 <div>
                                     <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">PIC:</label>
                                     <input type="text" name="pic" value="{{ old('pic', $finding?->pic) }}" class="form-control" style="font-size: 0.8rem;" placeholder="Kaprodi / GPM">

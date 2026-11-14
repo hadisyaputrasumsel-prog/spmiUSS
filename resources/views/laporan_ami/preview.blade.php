@@ -221,7 +221,7 @@
 
         <div style="margin-top: 80px;">
             <div style="font-size: 10pt; font-weight: bold; color: #64748b;">Disusun Oleh :</div>
-            <div style="font-size: 12pt; font-weight: bold; color: #0f172a;">LEMBAGA PENJAMINAN MUTU DAN AKREDITASI (LPMA)</div>
+            <div style="font-size: 12pt; font-weight: bold; color: #0f172a;">LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)</div>
             <div style="font-size: 11pt; font-weight: bold; color: #0284c7;">UNIVERSITAS SUMATERA SELATAN</div>
             <div style="font-size: 10pt; color: #64748b; margin-top: 10px;">PALEMBANG, {{ $tahun }}</div>
         </div>
@@ -522,6 +522,167 @@
         <h2 class="subbab-title">5.2 Rekomendasi Pimpinan / RTM</h2>
         <div style="line-height: 1.6; margin-left: 15px;">{!! nl2br(e($laporan->rekomendasi_pimpinan)) !!}</div>
     </div>
+
+    <!-- 9. LAMPIRAN DOKUMEN -->
+    @php
+        $lampOptions = (array) ($laporan->lampiran_options ?: ['form4', 'form5', 'daftar_hadir', 'standar']);
+    @endphp
+
+    @if(in_array('form4', $lampOptions) || in_array('form5', $lampOptions) || in_array('daftar_hadir', $lampOptions) || in_array('standar', $lampOptions))
+        <div class="page-divider"><span>Lampiran Dokumen Audit (13+)</span></div>
+
+        <div>
+            <h1 class="bab-title">LAMPIRAN DOKUMEN AUDIT</h1>
+
+            @if(in_array('form4', $lampOptions))
+                <h2 class="subbab-title">Lampiran 1: Form 4 Ringkasan Temuan Audit (KKA)</h2>
+                <p>Ringkasan temuan audit yang ditandatangani oleh Auditi, Ketua Auditor, dan Penjamin Mutu LPMA:</p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 6%;">No</th>
+                            <th style="width: 24%;">Unit Kerja</th>
+                            <th style="width: 18%;">No KKA</th>
+                            <th style="width: 32%;">Deskripsi Singkat Temuan</th>
+                            <th style="width: 20%;">Kategori</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($nonSesuaiFindings as $f)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td><b>{{ $f->unit->nama ?? '-' }}</b></td>
+                                <td>KKA-{{ $tahun }}-{{ sprintf('%02d', $loop->iteration) }}</td>
+                                <td>{{ $f->uraian }}</td>
+                                <td class="text-center font-bold">{{ $f->kategori_temuan }}</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="5" class="text-center">Tidak ada temuan ketidaksesuaian pada Form 4.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            @endif
+
+            @if(in_array('form5', $lampOptions))
+                <h2 class="subbab-title" style="margin-top: 30px;">Lampiran 2: Form 5 Deskripsi Temuan Audit & RTL</h2>
+                <p>Rincian matriks akar penyebab (RCA), rencana perbaikan, dan jadwal pencegahan:</p>
+
+                @foreach($nonSesuaiFindings as $f)
+                    <div style="border: 1px solid #cbd5e1; padding: 12px; margin-bottom: 12px; font-size: 9pt; border-radius: 6px;">
+                        <div style="font-weight: bold; color: #0284c7; margin-bottom: 6px; border-bottom: 1px dashed #e2e8f0; padding-bottom: 4px;">
+                            Temuan No. {{ $loop->iteration }} — {{ $f->standar_kode }} [{{ $f->kategori_temuan }}] — {{ $f->unit->nama ?? 'Unit' }}
+                        </div>
+                        <div><b>Deskripsi Temuan:</b> {{ $f->uraian }}</div>
+                        <div><b>Akar Masalah:</b> {{ $f->akar_penyebab ?: '-' }}</div>
+                        <div><b>Rencana Perbaikan:</b> {{ $f->rencana_tindakan ?: '-' }} (PIC: {{ $f->pic ?: '-' }}, Target: {{ $f->batas_waktu ?: '-' }})</div>
+                        <div><b>Jadwal Pencegahan:</b> {{ $f->jadwal_pencegahan ?: '-' }}</div>
+                        <div><b>Status Verifikasi:</b> <span style="font-weight: bold; color: #16a34a;">{{ $f->status_tindak_lanjut ?: 'Selesai' }}</span></div>
+                    </div>
+                @endforeach
+            @endif
+
+            @if(in_array('daftar_hadir', $lampOptions))
+                <h2 class="subbab-title" style="margin-top: 30px;">Lampiran 3: Daftar Hadir & Berita Acara RTM</h2>
+                <p>Berita Acara dan Daftar Hadir pelaksanaan Rapat Tinjauan Manajemen (RTM) serta ekspose hasil Audit Mutu Internal Tahun {{ $tahun }}:</p>
+
+                <table class="data-table" style="margin-bottom: 20px;">
+                    <tr>
+                        <td style="width: 25%; font-weight: bold; background: #f8fafc;">Hari / Tanggal</td>
+                        <td style="width: 75%;">{{ $tanggalAuditTerpilih ? \Carbon\Carbon::parse($tanggalAuditTerpilih)->translatedFormat('d F Y') : '16 Oktober ' . $tahun }}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; background: #f8fafc;">Waktu & Tempat</td>
+                        <td>09.00 WIB s.d. Selesai — Ruang Rapat Rektorat / Kampus Universitas Sumatera Selatan</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; background: #f8fafc;">Agenda Rapat</td>
+                        <td>Penyampaian Laporan Hasil Audit Mutu Internal (AMI) Tahun Akademik {{ $tahun }} dan Penandatanganan Kesepakatan RTL</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; background: #f8fafc;">Pimpinan Rapat</td>
+                        <td>{{ $laporan->penandatangan_rektor_nama ?: 'Rektor Universitas Sumatera Selatan' }} & {{ $laporan->penandatangan_lpma_nama ?: 'Kepala LPMA' }}</td>
+                    </tr>
+                </table>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 6%;">No</th>
+                            <th style="width: 32%;">Nama Lengkap</th>
+                            <th style="width: 26%;">Jabatan / Unit Kerja</th>
+                            <th style="width: 18%;">Peran</th>
+                            <th style="width: 18%;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $noHadir = 1; @endphp
+                        @if($laporan->penandatangan_rektor_nama)
+                            <tr>
+                                <td class="text-center">{{ $noHadir++ }}</td>
+                                <td><b>{{ $laporan->penandatangan_rektor_nama }}</b></td>
+                                <td>Rektorat USS</td>
+                                <td>Pimpinan Rapat</td>
+                                <td class="text-center font-bold" style="color: #16a34a;">Hadir</td>
+                            </tr>
+                        @endif
+                        @if($laporan->penandatangan_lpma_nama)
+                            <tr>
+                                <td class="text-center">{{ $noHadir++ }}</td>
+                                <td><b>{{ $laporan->penandatangan_lpma_nama }}</b></td>
+                                <td>LPMA USS</td>
+                                <td>Penyelenggara</td>
+                                <td class="text-center font-bold" style="color: #16a34a;">Hadir</td>
+                            </tr>
+                        @endif
+                        @foreach($targetUnits as $u)
+                            @php $uTeam = $auditorTeams[$u->id] ?? null; @endphp
+                            @if($uTeam && $uTeam['ketua'])
+                                <tr>
+                                    <td class="text-center">{{ $noHadir++ }}</td>
+                                    <td>{{ $uTeam['ketua']->nama_lengkap ?: $uTeam['ketua']->name }}</td>
+                                    <td>Tim Auditor Mutu Internal</td>
+                                    <td>Auditor Ketua ({{ $u->nama }})</td>
+                                    <td class="text-center font-bold" style="color: #16a34a;">Hadir</td>
+                                </tr>
+                            @endif
+                            <tr>
+                                <td class="text-center">{{ $noHadir++ }}</td>
+                                <td>{{ $u->pimpinan ?: 'Pimpinan ' . $u->nama }}</td>
+                                <td>{{ $u->nama }}</td>
+                                <td>Auditi / Kepala Unit</td>
+                                <td class="text-center font-bold" style="color: #16a34a;">Hadir</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+
+            @if(in_array('standar', $lampOptions))
+                <h2 class="subbab-title" style="margin-top: 30px;">Lampiran 4: Daftar Standar Mutu SPMI USS yang Diaudit</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 8%;">No</th>
+                            <th style="width: 25%;">Kode Standar</th>
+                            <th style="width: 42%;">Nama Standar Mutu</th>
+                            <th style="width: 25%;">Kelompok Standar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($standards->take(50) as $s)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td><b>{{ $s->kode }}</b></td>
+                                <td>{{ $s->nama }}</td>
+                                <td>{{ $s->kelompok }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
+        </div>
+    @endif
 </div>
 
 </body>

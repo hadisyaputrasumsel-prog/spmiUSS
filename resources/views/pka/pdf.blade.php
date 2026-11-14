@@ -144,11 +144,19 @@
 </head>
 <body>
 @php
-    $logoPath = public_path('storage/logos/1788738305_Logo USS.png');
-    if (!file_exists($logoPath)) {
-        $logoPath = storage_path('app/public/logos/1788738305_Logo USS.png');
+    $logoCandidates = [
+        public_path('images/logo-uss.png'),
+        public_path('images/logo.png'),
+        public_path('storage/logos/1788738305_Logo USS.png'),
+        storage_path('app/public/logos/1788738305_Logo USS.png'),
+    ];
+    $logoBase64 = null;
+    foreach ($logoCandidates as $cand) {
+        if (file_exists($cand)) {
+            $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents($cand));
+            break;
+        }
     }
-    $logoBase64 = file_exists($logoPath) ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath)) : null;
 @endphp
 
 @foreach($pkas as $idx => $pka)
@@ -163,7 +171,7 @@
                 @endif
             </td>
             <td class="kop-text">
-                <div class="unit-name">KANTOR AUDIT INTERNAL</div>
+                <div class="unit-name">LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)</div>
                 <div class="inst-name">UNIVERSITAS SUMATERA SELATAN</div>
                 <div class="address">Jl. Letnan Murod No. 55, Talang Ratu, KM 5, Palembang</div>
             </td>

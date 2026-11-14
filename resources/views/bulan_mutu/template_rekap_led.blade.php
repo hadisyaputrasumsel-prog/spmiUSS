@@ -23,7 +23,7 @@
 <body>
     <div class="header text-center border-bottom">
         <div class="header-title">UNIVERSITAS SUMATERA SELATAN</div>
-        <div class="header-title">LEMBAGA PENJAMINAN MUTU (LPMA)</div>
+        <div class="header-title">LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)</div>
         <div class="header-sub">Alamat: Jl. Letnan Murod, KM. 5, Palembang, Sumatera Selatan</div>
     </div>
 

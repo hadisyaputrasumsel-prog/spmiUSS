@@ -186,11 +186,19 @@
 <body>
 
 @php
-    $logoPath = public_path('storage/logos/1788738305_Logo USS.png');
-    if (!file_exists($logoPath)) {
-        $logoPath = storage_path('app/public/logos/1788738305_Logo USS.png');
+    $logoCandidates = [
+        public_path('images/logo-uss.png'),
+        public_path('images/logo.png'),
+        public_path('storage/logos/1788738305_Logo USS.png'),
+        storage_path('app/public/logos/1788738305_Logo USS.png'),
+    ];
+    $logoBase64 = null;
+    foreach ($logoCandidates as $cand) {
+        if (file_exists($cand)) {
+            $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents($cand));
+            break;
+        }
     }
-    $logoBase64 = file_exists($logoPath) ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath)) : null;
 
     $tglAuditFormatted = $tanggalAuditTerpilih ? \Carbon\Carbon::parse($tanggalAuditTerpilih)->translatedFormat('d F Y') : '16 Oktober ' . $tahun;
     $tglTerbitFormatted = $laporan->tanggal_terbit ? $laporan->tanggal_terbit->translatedFormat('d F Y') : '20 November ' . $tahun;
@@ -229,7 +237,7 @@
     <div style="margin-top: 100px;">
         <div style="font-size: 10pt; font-weight: bold; color: #475569; margin-bottom: 5px;">Disusun Oleh :</div>
         <div style="font-size: 12pt; font-weight: bold; color: #0f172a; text-transform: uppercase;">
-            LEMBAGA PENJAMINAN MUTU DAN AKREDITASI (LPMA)
+            LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)
         </div>
         <div style="font-size: 11pt; font-weight: bold; color: #0284c7; text-transform: uppercase; margin-top: 4px;">
             UNIVERSITAS SUMATERA SELATAN
@@ -248,7 +256,7 @@
     <h1 class="bab-title">LEMBAR PENGESAHAN</h1>
 
     <p style="text-align: justify; margin-top: 25px; margin-bottom: 20px;">
-        Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan Tahun Akademik {{ $tahun }} telah disusun secara seksama oleh Tim Lembaga Penjaminan Mutu dan Akreditasi (LPMA) bersama Tim Auditor Internal berdasarkan hasil audit lapangan, verifikasi borang Evaluasi Diri (LED), serta rekapitulasi Rencana Tindak Lanjut (RTL) pada seluruh unit kerja.
+        Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan Tahun Akademik {{ $tahun }} telah disusun secara seksama oleh Tim Lembaga Penjaminan Mutu Akademik (LPMA) bersama Tim Auditor Internal berdasarkan hasil audit lapangan, verifikasi borang Evaluasi Diri (LED), serta rekapitulasi Rencana Tindak Lanjut (RTL) pada seluruh unit kerja.
     </p>
 
     <table class="data-table" style="margin-bottom: 30px;">
@@ -1172,7 +1180,7 @@
     <div style="margin-top: 50px; text-align: center; page-break-inside: avoid;">
         <p style="font-size: 9.5pt; margin-bottom: 25px;">
             Palembang, {{ $tglTerbitFormatted }}<br>
-            <b>Lembaga Penjaminan Mutu dan Akreditasi (LPMA)</b><br>
+            <b>Lembaga Penjaminan Mutu Akademik (LPMA)</b><br>
             Universitas Sumatera Selatan
         </p>
 
@@ -1197,10 +1205,10 @@
 <!-- 11. LAMPIRAN (Halaman Arab 13+)                                           -->
 <!-- ========================================================================= -->
 @php
-    $lampOptions = (array) ($laporan->lampiran_options ?: ['form4', 'form5', 'standar']);
+    $lampOptions = (array) ($laporan->lampiran_options ?: ['form4', 'form5', 'daftar_hadir', 'standar']);
 @endphp
 
-@if(in_array('form4', $lampOptions) || in_array('form5', $lampOptions) || in_array('standar', $lampOptions))
+@if(in_array('form4', $lampOptions) || in_array('form5', $lampOptions) || in_array('daftar_hadir', $lampOptions) || in_array('standar', $lampOptions))
 <div class="page-break"></div>
 <div>
     <h1 class="bab-title">LAMPIRAN DOKUMEN AUDIT</h1>
@@ -1257,8 +1265,89 @@
         @endforeach
     @endif
 
+    @if(in_array('daftar_hadir', $lampOptions))
+        <div class="page-break"></div>
+        <h2 class="subbab-title" style="margin-top: 25px;">Lampiran 3: Daftar Hadir & Berita Acara RTM</h2>
+        <p>
+            Berita Acara dan Daftar Hadir pelaksanaan Rapat Tinjauan Manajemen (RTM) serta ekspose hasil Audit Mutu Internal Tahun {{ $tahun }}:
+        </p>
+
+        <!-- Berita Acara Box -->
+        <table class="data-table" style="margin-bottom: 20px;">
+            <tr>
+                <td style="width: 25%; font-weight: bold; background: #f1f5f9;">Hari / Tanggal</td>
+                <td style="width: 75%;">{{ $tglAuditFormatted }}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background: #f1f5f9;">Waktu & Tempat</td>
+                <td>09.00 WIB s.d. Selesai — Ruang Rapat Rektorat / Kampus Universitas Sumatera Selatan</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background: #f1f5f9;">Agenda Rapat</td>
+                <td>Penyampaian Laporan Hasil Audit Mutu Internal (AMI) Tahun Akademik {{ $tahun }} dan Penandatanganan Kesepakatan RTL</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold; background: #f1f5f9;">Pimpinan Rapat</td>
+                <td>{{ $laporan->penandatangan_rektor_nama ?: 'Rektor Universitas Sumatera Selatan' }} & {{ $laporan->penandatangan_lpma_nama ?: 'Kepala LPMA' }}</td>
+            </tr>
+        </table>
+
+        <!-- Daftar Hadir Table -->
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th style="width: 6%;">No</th>
+                    <th style="width: 32%;">Nama Lengkap</th>
+                    <th style="width: 26%;">Jabatan / Unit Kerja</th>
+                    <th style="width: 18%;">Peran</th>
+                    <th style="width: 18%;">Tanda Tangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php $noHadir = 1; @endphp
+                @if($laporan->penandatangan_rektor_nama)
+                    <tr>
+                        <td class="text-center">{{ $noHadir++ }}</td>
+                        <td><b>{{ $laporan->penandatangan_rektor_nama }}</b></td>
+                        <td>Rektorat USS</td>
+                        <td>Pimpinan Rapat</td>
+                        <td class="text-center" style="font-size: 8pt; color: #16a34a;"><i>(Tertanda)</i></td>
+                    </tr>
+                @endif
+                @if($laporan->penandatangan_lpma_nama)
+                    <tr>
+                        <td class="text-center">{{ $noHadir++ }}</td>
+                        <td><b>{{ $laporan->penandatangan_lpma_nama }}</b></td>
+                        <td>LPMA USS</td>
+                        <td>Penyelenggara</td>
+                        <td class="text-center" style="font-size: 8pt; color: #16a34a;"><i>(Tertanda)</i></td>
+                    </tr>
+                @endif
+                @foreach($targetUnits as $u)
+                    @php $uTeam = $auditorTeams[$u->id] ?? null; @endphp
+                    @if($uTeam && $uTeam['ketua'])
+                        <tr>
+                            <td class="text-center">{{ $noHadir++ }}</td>
+                            <td>{{ $uTeam['ketua']->nama_lengkap ?: $uTeam['ketua']->name }}</td>
+                            <td>Tim Auditor Mutu Internal</td>
+                            <td>Auditor Ketua ({{ $u->nama }})</td>
+                            <td class="text-center" style="font-size: 8pt; color: #16a34a;"><i>(Tertanda)</i></td>
+                        </tr>
+                    @endif
+                    <tr>
+                        <td class="text-center">{{ $noHadir++ }}</td>
+                        <td>{{ $u->pimpinan ?: 'Pimpinan ' . $u->nama }}</td>
+                        <td>{{ $u->nama }}</td>
+                        <td>Auditi / Kepala Unit</td>
+                        <td class="text-center" style="font-size: 8pt; color: #16a34a;"><i>(Tertanda)</i></td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    @endif
+
     @if(in_array('standar', $lampOptions))
-        <h2 class="subbab-title" style="margin-top: 30px;">Lampiran 3: Daftar Standar Mutu SPMI USS yang Diaudit</h2>
+        <h2 class="subbab-title" style="margin-top: 30px;">Lampiran 4: Daftar Standar Mutu SPMI USS yang Diaudit</h2>
         <table class="data-table">
             <thead>
                 <tr>
@@ -1298,7 +1387,7 @@ if (isset($pdf)) {
         $color = [0.4, 0.45, 0.5]; // Slate color
 
         // Header halaman (halaman 2 ke atas)
-        $headerText = "Lembaga Penjaminan Mutu dan Akreditasi (LPMA) — Universitas Sumatera Selatan";
+        $headerText = "Lembaga Penjaminan Mutu Akademik (LPMA) — Universitas Sumatera Selatan";
         $canvas->text(113, 35, $headerText, $font, 7.5, $color);
         $canvas->line(113, 45, 510, 45, [0.8, 0.85, 0.9], 0.75);
 

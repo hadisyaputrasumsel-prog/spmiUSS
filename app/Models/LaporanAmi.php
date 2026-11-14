@@ -70,11 +70,11 @@ class LaporanAmi extends Model
             'rekomendasi_pimpinan' => "1. Pimpinan Universitas dan Fakultas perlu memprioritaskan alokasi anggaran penjaminan mutu, khususnya untuk fasilitasi integrasi riset dosen ke dalam bahan ajar dan modul perkuliahan.\n2. Unit Pengelola Program Studi (UPPS) wajib menyelenggarakan monitoring berkala terhadap pengarsipan RPS dan bukti umpan balik penilaian mahasiswa setiap awal dan akhir semester.\n3. LPMA secara terprogram menyelenggarakan pelatihan berkelanjutan bagi Gugus Penjaminan Mutu (GPM) Fakultas dan Unit Penjaminan Mutu (UPM) Program Studi.\n4. Hasil temuan AMI ini direkomendasikan menjadi agenda pembahasan utama dalam Rapat Tinjauan Manajemen (RTM) Universitas guna menetapkan target peningkatan standar mutu SPMI pada siklus berikutnya.",
             'penandatangan_lpma_nama' => 'Dr. H. Ahmad Fauzi, M.Pd',
             'penandatangan_lpma_nidn' => '0214057801',
-            'penandatangan_lpma_jabatan' => 'Kepala Lembaga Penjaminan Mutu dan Akreditasi (LPMA)',
+            'penandatangan_lpma_jabatan' => 'Kepala Lembaga Penjaminan Mutu Akademik (LPMA)',
             'penandatangan_rektor_nama' => 'Prof. Dr. Ir. H. M. Syahril, M.S.',
             'penandatangan_rektor_nidn' => '0015086002',
             'penandatangan_rektor_jabatan' => 'Rektor Universitas Sumatera Selatan',
-            'lampiran_options' => ['form4', 'form5', 'standar'],
+            'lampiran_options' => ['form4', 'form5', 'daftar_hadir', 'standar'],
             'selected_unit_ids' => ['all'],
         ];
     }

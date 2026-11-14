@@ -46,7 +46,7 @@
         <h1>LAPORAN AUDIT MUTU INTERNAL (AMI)</h1>
         <h2>{{ $unit ? mb_strtoupper($unit->nama) : 'SELURUH UNIT KERJA' }}</h2>
         <br><br><br><br>
-        <h3>LEMBAGA PENJAMINAN MUTU DAN AKREDITASI<br>UNIVERSITAS SUMATERA SELATAN<br>{{ $tahun }}</h3>
+        <h3>LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)<br>UNIVERSITAS SUMATERA SELATAN<br>{{ $tahun }}</h3>
     </div>
     <div class="page-break"></div>
     
@@ -69,7 +69,7 @@
     <!-- PAGE 3: KATA PENGANTAR -->
     <div class="page-title">KATA PENGANTAR</div>
     <div style="text-align: justify; font-size: 12px; line-height: 1.8;">
-        <p>Audit Mutu Internal (AMI) merupakan kegiatan evaluasi yang dilakukan secara internal oleh Lembaga Penjaminan Mutu dan Akreditasi (LPMA) guna menjamin kelangsungan jaminan mutu. AMI merupakan suatu kegiatan untuk memastikan kesesuaian antara Standar Mutu dengan pelaksanaannya oleh unit pelaksana akademik dan non akademik yang terdiri dari audit sistem dan audit kepatuhan/kesadaran mutu.</p>
+        <p>Audit Mutu Internal (AMI) merupakan kegiatan evaluasi yang dilakukan secara internal oleh Lembaga Penjaminan Mutu Akademik (LPMA) guna menjamin kelangsungan jaminan mutu. AMI merupakan suatu kegiatan untuk memastikan kesesuaian antara Standar Mutu dengan pelaksanaannya oleh unit pelaksana akademik dan non akademik yang terdiri dari audit sistem dan audit kepatuhan/kesadaran mutu.</p>
         <p>Tujuan umum AMI adalah membantu seluruh Pengelola Unit/Program Studi di lingkungan Universitas Sumatera Selatan dalam melaksanakan tugasnya untuk: 1) mencapai sasaran mutu baik akademik maupun non akademik yang telah ditetapkan secara efektif dan bertanggung jawab dalam standar mutu internal; 2) membantu pengelola mengidentifikasi lingkup perbaikan dan mengembangkannya secara berkelanjutan; dan 3) memperbaiki program dan merencanakan kegiatan di lingkungan Universitas Sumatera Selatan.</p>
         <p>Hasil AMI dapat dijadikan refleksi dan perbaikan serta peningkatan mutu secara berkelanjutan.</p>
         <p style="text-align: left; margin-top: 40px;">

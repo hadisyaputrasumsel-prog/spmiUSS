@@ -106,13 +106,38 @@
                 </div>
             </div>
 
+            <!-- Pilihan Unit Kerja yang Dicakup -->
+            <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main); margin: 0;">
+                        Cakupan Unit Kerja / Program Studi dalam Laporan:
+                    </label>
+                    <label style="font-size: 0.8rem; color: #0284c7; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
+                        <input type="checkbox" id="check-all-units" onchange="toggleAllUnits(this)">
+                        <b>Pilih Semua Unit</b>
+                    </label>
+                </div>
+                @php
+                    $selectedUnits = (array) ($laporan->selected_unit_ids ?: ['all']);
+                    $isAllUnits = empty($selectedUnits) || in_array('all', $selectedUnits);
+                @endphp
+                <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; max-height: 180px; overflow-y: auto; background: var(--bg-hover); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                    @foreach($units as $u)
+                        <label style="display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; cursor: pointer;">
+                            <input type="checkbox" name="selected_unit_ids[]" value="{{ $u->id }}" class="unit-checkbox" {{ ($isAllUnits || in_array($u->id, $selectedUnits)) ? 'checked' : '' }}>
+                            <span>{{ $u->nama }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
             <!-- Opsi Lampiran -->
             <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
                 <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
                     Lampiran yang Dilibatkan dalam Buku Laporan:
                 </label>
                 @php
-                    $lampOptions = (array) ($laporan->lampiran_options ?: ['form4', 'form5', 'standar']);
+                    $lampOptions = (array) ($laporan->lampiran_options ?: ['form4', 'form5', 'daftar_hadir', 'standar']);
                 @endphp
                 <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; font-size: 0.9rem;">
                     <label style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;">
@@ -124,8 +149,12 @@
                         <span><b>Lampiran 2:</b> Form 5 Deskripsi Temuan Audit (RTL)</span>
                     </label>
                     <label style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+                        <input type="checkbox" name="lampiran_options[]" value="daftar_hadir" {{ in_array('daftar_hadir', $lampOptions) ? 'checked' : '' }}>
+                        <span><b>Lampiran 3:</b> Daftar Hadir & Berita Acara RTM</span>
+                    </label>
+                    <label style="display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer;">
                         <input type="checkbox" name="lampiran_options[]" value="standar" {{ in_array('standar', $lampOptions) ? 'checked' : '' }}>
-                        <span><b>Lampiran 3:</b> Daftar Standar Mutu SPMI</span>
+                        <span><b>Lampiran 4:</b> Daftar Standar Mutu SPMI</span>
                     </label>
                 </div>
             </div>
@@ -137,7 +166,7 @@
                 <i data-feather="message-square" style="width: 18px; height: 18px; color: #0284c7;"></i>
                 Kata Pengantar
             </h3>
-            <textarea name="kata_pengantar" rows="6" class="form-control" style="font-size: 0.9rem; line-height: 1.6;" placeholder="Tuliskan kata pengantar pimpinan LPMA...">{{ old('kata_pengantar', $laporan->kata_pengantar) }}</textarea>
+            <textarea name="kata_pengantar" rows="8" class="form-control" style="font-size: 0.9rem; line-height: 1.6; min-height: 180px; resize: vertical;" placeholder="Tuliskan kata pengantar pimpinan LPMA...">{{ old('kata_pengantar', $laporan->kata_pengantar) }}</textarea>
         </div>
 
         <!-- Card 3: Bab I Pendahuluan (Naratif) -->
@@ -150,24 +179,24 @@
             <div style="display: flex; flex-direction: column; gap: 1rem;">
                 <div>
                     <label class="form-label" style="font-weight: 600; font-size: 0.85rem;">1.2 Dasar Hukum (Satu per baris)</label>
-                    <textarea name="dasar_hukum" rows="5" class="form-control" style="font-size: 0.85rem; line-height: 1.5;">{{ old('dasar_hukum', $laporan->dasar_hukum) }}</textarea>
+                    <textarea name="dasar_hukum" rows="6" class="form-control" style="font-size: 0.85rem; line-height: 1.6; min-height: 140px; resize: vertical;">{{ old('dasar_hukum', $laporan->dasar_hukum) }}</textarea>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem;">
                     <div>
                         <label class="form-label" style="font-weight: 600; font-size: 0.85rem;">1.3 Tujuan AMI</label>
-                        <textarea name="tujuan" rows="5" class="form-control" style="font-size: 0.85rem; line-height: 1.5;">{{ old('tujuan', $laporan->tujuan) }}</textarea>
+                        <textarea name="tujuan" rows="6" class="form-control" style="font-size: 0.85rem; line-height: 1.6; min-height: 140px; resize: vertical;">{{ old('tujuan', $laporan->tujuan) }}</textarea>
                     </div>
 
                     <div>
                         <label class="form-label" style="font-weight: 600; font-size: 0.85rem;">1.4 Ruang Lingkup</label>
-                        <textarea name="ruang_lingkup" rows="5" class="form-control" style="font-size: 0.85rem; line-height: 1.5;">{{ old('ruang_lingkup', $laporan->ruang_lingkup) }}</textarea>
+                        <textarea name="ruang_lingkup" rows="6" class="form-control" style="font-size: 0.85rem; line-height: 1.6; min-height: 140px; resize: vertical;">{{ old('ruang_lingkup', $laporan->ruang_lingkup) }}</textarea>
                     </div>
                 </div>
 
                 <div>
                     <label class="form-label" style="font-weight: 600; font-size: 0.85rem;">1.5 Metode Audit (Desk Evaluation, Visitasi, Verifikasi RTL)</label>
-                    <textarea name="metode" rows="4" class="form-control" style="font-size: 0.85rem; line-height: 1.5;">{{ old('metode', $laporan->metode) }}</textarea>
+                    <textarea name="metode" rows="6" class="form-control" style="font-size: 0.85rem; line-height: 1.6; min-height: 140px; resize: vertical;">{{ old('metode', $laporan->metode) }}</textarea>
                 </div>
             </div>
         </div>
@@ -252,12 +281,12 @@
             <div style="display: flex; flex-direction: column; gap: 1rem;">
                 <div>
                     <label class="form-label" style="font-weight: 600; font-size: 0.85rem;">5.1 Kesimpulan Umum (Di luar kalkulasi statistik otomatis)</label>
-                    <textarea name="kesimpulan" rows="4" class="form-control" style="font-size: 0.85rem; line-height: 1.5;">{{ old('kesimpulan', $laporan->kesimpulan) }}</textarea>
+                    <textarea name="kesimpulan" rows="6" class="form-control" style="font-size: 0.85rem; line-height: 1.6; min-height: 140px; resize: vertical;">{{ old('kesimpulan', $laporan->kesimpulan) }}</textarea>
                 </div>
 
                 <div>
                     <label class="form-label" style="font-weight: 600; font-size: 0.85rem;">5.2 Rekomendasi untuk Rapat Tinjauan Manajemen (RTM) dan Pimpinan</label>
-                    <textarea name="rekomendasi_pimpinan" rows="5" class="form-control" style="font-size: 0.85rem; line-height: 1.5;">{{ old('rekomendasi_pimpinan', $laporan->rekomendasi_pimpinan) }}</textarea>
+                    <textarea name="rekomendasi_pimpinan" rows="7" class="form-control" style="font-size: 0.85rem; line-height: 1.6; min-height: 160px; resize: vertical;">{{ old('rekomendasi_pimpinan', $laporan->rekomendasi_pimpinan) }}</textarea>
                 </div>
             </div>
         </div>
@@ -328,6 +357,11 @@
 </div>
 
 <script>
+    function toggleAllUnits(source) {
+        const checkboxes = document.querySelectorAll('.unit-checkbox');
+        checkboxes.forEach(cb => cb.checked = source.checked);
+    }
+
     function addJadwalRow() {
         const tbody = document.getElementById('jadwal-tbody');
         const tr = document.createElement('tr');

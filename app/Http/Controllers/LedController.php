@@ -288,7 +288,9 @@ class LedController extends Controller
 
         // Hitung statistik penilaian unit ini
         $allUnitFindings = AmiFinding::where('unit_id', $unit_id)->forTahun($tahun)->get();
-        $countAudited = $allUnitFindings->where('status_audit', 'Sudah Diaudit')->count();
+        $countAudited = $allUnitFindings->filter(function ($f) {
+            return $f->status_audit === 'Sudah Diaudit' || ($f->skor !== null && $f->status_audit !== 'Sedang Dinilai');
+        })->count();
         $countDraft = $allUnitFindings->where('status_audit', 'Sedang Dinilai')->count();
 
         return view('led.audit', compact(
@@ -395,6 +397,9 @@ class LedController extends Controller
             'auditor_id' => $user->id,
             'status_tindak_lanjut' => $existing ? $existing->status_tindak_lanjut : ($kategori === 'Sesuai' ? 'Selesai' : 'Proses'),
         ];
+        if (Schema::hasColumn('ami_findings', 'kriteria')) {
+            $findingData['kriteria'] = $request->input('kriteria');
+        }
         if (Schema::hasColumn('ami_findings', 'rencana_pencegahan')) {
             $findingData['rencana_pencegahan'] = $request->input('rencana_pencegahan');
         }

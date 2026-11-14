@@ -23,6 +23,9 @@ return new class extends Migration
             if (! Schema::hasColumn('ami_findings', 'alasan_ubah_skor')) {
                 $table->text('alasan_ubah_skor')->nullable()->after('skor');
             }
+            if (! Schema::hasColumn('ami_findings', 'kriteria')) {
+                $table->text('kriteria')->nullable()->after('standar_kode');
+            }
         });
 
         // 2. Buat tabel ami_nilai_tahap
@@ -113,7 +116,7 @@ return new class extends Migration
     {
         Schema::table('ami_findings', function (Blueprint $table) {
             $table->dropUnique('ami_findings_unit_tahun_standar_unique');
-            $table->dropColumn(['tahun', 'status_audit', 'alasan_ubah_skor']);
+            $table->dropColumn(['tahun', 'status_audit', 'alasan_ubah_skor', 'kriteria']);
         });
 
         Schema::dropIfExists('ami_nilai_tahap');

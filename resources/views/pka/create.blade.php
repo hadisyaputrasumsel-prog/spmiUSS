@@ -115,7 +115,7 @@
                     <select name="disusun_oleh" class="form-select" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
                         @foreach($auditors as $aud)
                             <option value="{{ $aud->id }}" {{ old('disusun_oleh', auth()->id()) == $aud->id ? 'selected' : '' }}>
-                                {{ $aud->nama_lengkap ?: $aud->name }}
+                                {{ $aud->nama_lengkap ?: $aud->name }}{{ $aud->unit ? ' (' . $aud->unit->nama . ')' : '' }}
                             </option>
                         @endforeach
                     </select>
@@ -134,7 +134,7 @@
                         <option value="">-- Pilih Pemeriksa --</option>
                         @foreach($auditors as $aud)
                             <option value="{{ $aud->id }}" {{ old('diperiksa_oleh') == $aud->id ? 'selected' : '' }}>
-                                {{ $aud->nama_lengkap ?: $aud->name }}
+                                {{ $aud->nama_lengkap ?: $aud->name }}{{ $aud->unit ? ' (' . $aud->unit->nama . ')' : '' }}
                             </option>
                         @endforeach
                     </select>

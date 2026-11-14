@@ -234,30 +234,33 @@
                             </a>
 
                             @php
-                                $canEditDelete = ($finding->status_tindak_lanjut !== 'Selesai') && (
-                                    in_array($amiRoleKode, ['super_admin', 'lpma'], true) ||
+                                $findingTahun = $finding->tahun ?: (int) date('Y', strtotime($finding->tanggal));
+                                $canEdit = in_array($amiRoleKode, ['super_admin', 'lpma', 'auditor', 'auditor_anggota'], true) ||
                                     $finding->auditor_id == auth()->id() ||
                                     \App\Models\AuditorAssignment::where('auditor_id', auth()->id())
                                         ->where('unit_id', $finding->unit_id)
-                                        ->where('tahun', date('Y', strtotime($finding->tanggal)))
-                                        ->where('peran', 'Auditor Ketua')
-                                        ->exists()
-                                );
+                                        ->where('tahun', $findingTahun)
+                                        ->exists();
+
+                                $canDelete = $canEdit && ($finding->status_tindak_lanjut !== 'Selesai');
                             @endphp
 
-                            @if($canEditDelete)
+                            @if($canEdit)
                             @php
                                 $editUrl = $finding->standar_kode
                                     ? route('led.audit', [
                                         'kode' => $finding->standar_kode,
                                         'unit_id' => $finding->unit_id,
-                                        'tahun' => $finding->tahun ?: date('Y', strtotime($finding->tanggal))
+                                        'tahun' => $findingTahun
                                     ])
                                     : route('ami.edit', $finding->id);
                             @endphp
-                            <a href="{{ $editUrl }}" class="btn btn-sm btn-outline" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #f59e0b; color: #f59e0b; background: transparent; border-radius: 4px; display: inline-flex; align-items: center;" title="Ubah Temuan">
+                            <a href="{{ $editUrl }}" class="btn btn-sm btn-outline" style="padding: 4px 8px; font-size: 0.75rem; border: 1px solid #f59e0b; color: #f59e0b; background: transparent; border-radius: 4px; display: inline-flex; align-items: center;" title="Ubah Penilaian Audit">
                                 <i data-feather="edit-2" style="width: 14px; height: 14px; margin-right: 4px;"></i> Ubah
                             </a>
+                            @endif
+
+                            @if($canDelete)
                             <form action="{{ route('ami.destroy', $finding->id) }}" method="POST" onsubmit="return confirm('Hapus temuan ini?')" style="display: inline;">
                                 @csrf
                                 @method('DELETE')

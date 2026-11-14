@@ -430,8 +430,12 @@ class LaporanAmiController extends Controller
         $this->checkRole();
 
         $tahun = (int) $request->get('tahun', 2023);
-        $selectedUnitIds = (array) $request->get('unit_ids', ['all']);
-        $lampiran = (array) $request->get('lampiran', ['form4', 'form5', 'standar']);
+        $laporan = Schema::hasTable('laporan_ami') ? LaporanAmi::where('tahun', $tahun)->first() : null;
+        $defaultUnits = $laporan?->selected_unit_ids ?: ['all'];
+        $defaultLampiran = $laporan?->lampiran_options ?: ['form4', 'form5', 'daftar_hadir', 'standar'];
+
+        $selectedUnitIds = (array) $request->get('unit_ids', $defaultUnits);
+        $lampiran = (array) $request->get('lampiran', $defaultLampiran);
 
         $data = $this->getLaporanData($tahun, $selectedUnitIds, $lampiran);
 
@@ -449,8 +453,12 @@ class LaporanAmiController extends Controller
         set_time_limit(300);
 
         $tahun = (int) $request->get('tahun', 2023);
-        $selectedUnitIds = (array) $request->get('unit_ids', ['all']);
-        $lampiran = (array) $request->get('lampiran', ['form4', 'form5', 'standar']);
+        $laporan = Schema::hasTable('laporan_ami') ? LaporanAmi::where('tahun', $tahun)->first() : null;
+        $defaultUnits = $laporan?->selected_unit_ids ?: ['all'];
+        $defaultLampiran = $laporan?->lampiran_options ?: ['form4', 'form5', 'daftar_hadir', 'standar'];
+
+        $selectedUnitIds = (array) $request->get('unit_ids', $defaultUnits);
+        $lampiran = (array) $request->get('lampiran', $defaultLampiran);
 
         $data = $this->getLaporanData($tahun, $selectedUnitIds, $lampiran);
 

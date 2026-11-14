@@ -64,7 +64,7 @@
 
     <div class="header">
         <h1 class="fw-bold">UNIVERSITAS SUMATERA SELATAN</h1>
-        <h2 class="fw-bold">Lembaga Penjaminan Mutu dan Akreditasi (LPMA)</h2>
+        <h2 class="fw-bold">Lembaga Penjaminan Mutu Akademik (LPMA)</h2>
         <p>Palembang — lpma.uss.ac.id</p>
     </div>
 

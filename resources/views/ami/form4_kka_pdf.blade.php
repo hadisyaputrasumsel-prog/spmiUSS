@@ -135,11 +135,19 @@
 </head>
 <body>
 @php
-    $logoPath = public_path('storage/logos/1788738305_Logo USS.png');
-    if (!file_exists($logoPath)) {
-        $logoPath = storage_path('app/public/logos/1788738305_Logo USS.png');
+    $logoCandidates = [
+        public_path('images/logo-uss.png'),
+        public_path('images/logo.png'),
+        public_path('storage/logos/1788738305_Logo USS.png'),
+        storage_path('app/public/logos/1788738305_Logo USS.png'),
+    ];
+    $logoBase64 = null;
+    foreach ($logoCandidates as $cand) {
+        if (file_exists($cand)) {
+            $logoBase64 = 'data:image/png;base64,' . base64_encode(file_get_contents($cand));
+            break;
+        }
     }
-    $logoBase64 = file_exists($logoPath) ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath)) : null;
 
     $distArray = $auditSesi->distribusi ?: ['Auditi', 'Auditor', 'LPMA', 'Arsip'];
 
@@ -166,7 +174,7 @@
         </td>
         <td class="kop-center">
             <div class="inst">UNIVERSITAS SUMATERA SELATAN</div>
-            <div class="sub">LEMBAGA PENJAMINAN MUTU DAN AKREDITASI (LPMA)</div>
+            <div class="sub">LEMBAGA PENJAMINAN MUTU AKADEMIK (LPMA)</div>
         </td>
         <td class="kop-no">
             <div class="box-no">No : {{ $auditSesi->no_kka ?: 'KKA-'.$tahun }}</div>

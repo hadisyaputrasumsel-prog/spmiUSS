@@ -79,9 +79,13 @@ class PkaController extends Controller
         }
 
         $standards = Standard::activePeriod()->get();
-        $auditors = User::whereHas('role', function ($q) {
-            $q->whereIn('kode', ['auditor', 'auditor_anggota', 'lpma', 'super_admin']);
-        })->get();
+        $assignedAuditorIds = AuditorAssignment::pluck('auditor_id')->unique()->filter()->toArray();
+        $auditors = User::whereIn('id', $assignedAuditorIds)
+            ->orWhereHas('role', function ($q) {
+                $q->whereIn('kode', ['auditor', 'auditor_anggota', 'lpma', 'super_admin']);
+            })
+            ->orderBy('name')
+            ->get();
 
         return view('pka.create', compact('units', 'standards', 'auditors', 'tahun', 'unit_id'));
     }
@@ -166,9 +170,13 @@ class PkaController extends Controller
         $pka = Pka::with('langkah')->findOrFail($id);
         $units = Unit::orderBy('nama')->get();
         $standards = Standard::activePeriod()->get();
-        $auditors = User::whereHas('role', function ($q) {
-            $q->whereIn('kode', ['auditor', 'auditor_anggota', 'lpma', 'super_admin']);
-        })->get();
+        $assignedAuditorIds = AuditorAssignment::pluck('auditor_id')->unique()->filter()->toArray();
+        $auditors = User::whereIn('id', $assignedAuditorIds)
+            ->orWhereHas('role', function ($q) {
+                $q->whereIn('kode', ['auditor', 'auditor_anggota', 'lpma', 'super_admin']);
+            })
+            ->orderBy('name')
+            ->get();
 
         return view('pka.edit', compact('pka', 'units', 'standards', 'auditors'));
     }
