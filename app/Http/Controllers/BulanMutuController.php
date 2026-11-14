@@ -7,6 +7,7 @@ use App\Models\AuditorAssignment;
 use App\Models\BulanMutuActivity;
 use App\Models\BulanMutuConfig;
 use App\Models\BulanMutuStatus;
+use App\Models\LaporanAmi;
 use App\Models\LedSubmission;
 use App\Models\Unit;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -131,12 +132,48 @@ class BulanMutuController extends Controller
             return $pdf->stream('Surat_Tugas_Auditor_'.$tahun.'.pdf');
 
         } elseif (str_contains($nama, 'evaluasi diri')) {
+            $status = BulanMutuStatus::where('tahun', $tahun)->where('kegiatan_id', $activity->id)->first();
+
+            $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            $bulanRomawi = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+            if ($status && $status->tanggal_pelaksanaan) {
+                $time = strtotime($status->tanggal_pelaksanaan);
+                $m = (int) date('n', $time);
+                $y = (int) date('Y', $time);
+                $rom = $bulanRomawi[$m] ?? 'VII';
+                $nomorSurat = sprintf('038/SE-LED/LPMA/USS/%s/%d', $rom, $y);
+                $tanggalSurat = date('j', $time).' '.$bulanIndo[$m].' '.$y;
+                $tanggalMulai = $tanggalSurat;
+                $selesaiTime = strtotime('+16 days', $time);
+                $tanggalSelesai = date('j', $selesaiTime).' '.$bulanIndo[(int) date('n', $selesaiTime)].' '.$y;
+            } else {
+                $nomorSurat = sprintf('.../SE-LED/LPMA/USS/VII/%d', $tahun);
+                $tanggalSurat = '05 Juli '.$tahun;
+                $tanggalMulai = '07 Juli '.$tahun;
+                $tanggalSelesai = '28 Juli '.$tahun;
+            }
+
+            $laporan = LaporanAmi::where('tahun', $tahun)->first() ?? LaporanAmi::first();
+            $kepalaLpmaNama = $laporan?->penandatangan_lpma_nama ?? 'Dr. H. Ahmad Fauzi, M.Pd';
+            $kepalaLpmaJabatan = $laporan?->penandatangan_lpma_jabatan ?? 'Kepala Lembaga Penjaminan Mutu Akademik (LPMA)';
+
             $units = Unit::orderBy('jenis')->orderBy('nama')->get();
-            $submissions = LedSubmission::where('tahun', $tahun)->get()->keyBy('unit_id');
 
-            $pdf = Pdf::loadView('bulan_mutu.template_rekap_led', compact('activity', 'tahun', 'units', 'submissions'));
+            $pdf = Pdf::loadView('bulan_mutu.template_surat_edaran_led', compact(
+                'activity',
+                'tahun',
+                'status',
+                'nomorSurat',
+                'tanggalSurat',
+                'tanggalMulai',
+                'tanggalSelesai',
+                'kepalaLpmaNama',
+                'kepalaLpmaJabatan',
+                'units'
+            ));
 
-            return $pdf->stream('Rekapitulasi_LED_'.$tahun.'.pdf');
+            return $pdf->stream('Surat_Edaran_Pengisian_LED_'.$tahun.'.pdf');
 
         } elseif (str_contains($nama, 'pelaksanaan audit mutu akademik internal')) {
             return redirect()->route('ami.pdf', ['tahun' => $tahun, 'jenis' => 'akademik']);
