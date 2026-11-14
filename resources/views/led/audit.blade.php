@@ -262,23 +262,263 @@
         </div>
 
         <!-- ================================================================= -->
+        <!-- ================================================================= -->
         <!-- KOLOM KANAN: Panel Penilaian Auditor (Sticky)                     -->
         <!-- ================================================================= -->
+        <style>
+            /* Modern Panel Penilaian Styling */
+            .audit-card {
+                background: var(--bg-card, #ffffff);
+                border-radius: 12px;
+                border: 2px solid #0284c7;
+                box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.12), 0 8px 10px -6px rgba(2, 132, 199, 0.08);
+                padding: 1.5rem;
+            }
+            .audit-form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.35rem;
+                margin-bottom: 1.15rem;
+                width: 100%;
+            }
+            .audit-label {
+                display: flex !important;
+                align-items: center;
+                gap: 0.4rem;
+                font-weight: 700;
+                font-size: 0.83rem;
+                color: #1e293b;
+                margin: 0 0 0.2rem 0;
+                line-height: 1.4;
+            }
+            .audit-input,
+            .audit-select,
+            .audit-textarea {
+                display: block !important;
+                width: 100% !important;
+                padding: 0.65rem 0.85rem !important;
+                font-size: 0.875rem !important;
+                font-family: inherit !important;
+                line-height: 1.55 !important;
+                color: #0f172a !important;
+                background-color: #ffffff !important;
+                border: 1.5px solid #cbd5e1 !important;
+                border-radius: 8px !important;
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+                transition: all 0.15s ease-in-out !important;
+                box-sizing: border-box !important;
+            }
+            .audit-input:focus,
+            .audit-select:focus,
+            .audit-textarea:focus {
+                border-color: #0284c7 !important;
+                box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18) !important;
+                background-color: #ffffff !important;
+                outline: none !important;
+            }
+            .audit-textarea {
+                resize: vertical !important;
+            }
+
+            /* Kartu Penilaian Tahap P1-P5 */
+            .stage-card {
+                background: #ffffff;
+                border: 1.5px solid #e2e8f0;
+                border-radius: 8px;
+                padding: 9px 12px;
+                display: flex;
+                flex-direction: column;
+                gap: 7px;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+                transition: border-color 0.15s ease;
+            }
+            .stage-card:hover {
+                border-color: #cbd5e1;
+            }
+            .stage-card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+            }
+            .stage-badge-group {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .stage-pill {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                padding: 3px 8px;
+                border-radius: 6px;
+                font-weight: 800;
+                font-size: 0.78rem;
+                letter-spacing: 0.3px;
+            }
+            .stage-pill.p1 { background: #e0f2fe; color: #0284c7; }
+            .stage-pill.p2 { background: #ede9fe; color: #7c3aed; }
+            .stage-pill.p3 { background: #dcfce7; color: #16a34a; }
+            .stage-pill.p4 { background: #fef3c7; color: #d97706; }
+            .stage-pill.p5 { background: #ccfbf1; color: #0d9488; }
+
+            .stage-name {
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: #475569;
+            }
+
+            /* Score Pill Buttons */
+            .score-btn-group {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+            }
+            .score-btn-label {
+                margin: 0;
+                cursor: pointer;
+                display: inline-flex;
+                position: relative;
+            }
+            .score-btn-label input[type="radio"] {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+                pointer-events: none;
+            }
+            .score-btn-box {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-width: 30px;
+                height: 28px;
+                padding: 0 7px;
+                border-radius: 6px;
+                border: 1.5px solid #cbd5e1;
+                background: #f8fafc;
+                font-weight: 700;
+                font-size: 0.8rem;
+                color: #475569;
+                transition: all 0.15s ease;
+                user-select: none;
+            }
+            .score-btn-label:hover .score-btn-box {
+                background: #f1f5f9;
+                border-color: #94a3b8;
+                color: #0f172a;
+            }
+            .score-btn-label input[type="radio"]:checked + .score-btn-box {
+                background: #0284c7;
+                color: #ffffff;
+                border-color: #0284c7;
+                box-shadow: 0 2px 4px rgba(2, 132, 199, 0.3);
+                font-weight: 800;
+            }
+            .score-btn-label.na input[type="radio"]:checked + .score-btn-box {
+                background: #64748b;
+                color: #ffffff;
+                border-color: #64748b;
+            }
+
+            /* Note Field */
+            .stage-note-field {
+                width: 100% !important;
+                display: block !important;
+                padding: 6px 11px !important;
+                font-size: 0.8rem !important;
+                border: 1px solid #cbd5e1 !important;
+                border-radius: 6px !important;
+                background: #f8fafc !important;
+                color: #1e293b !important;
+                box-sizing: border-box !important;
+                transition: all 0.15s ease !important;
+            }
+            .stage-note-field:focus {
+                background: #ffffff !important;
+                border-color: #0284c7 !important;
+                box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15) !important;
+                outline: none !important;
+            }
+
+            /* Kategori Temuan Grid */
+            .cat-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 7px;
+                width: 100%;
+            }
+            .cat-btn-label {
+                margin: 0;
+                cursor: pointer;
+                display: flex;
+                position: relative;
+            }
+            .cat-btn-label input[type="radio"] {
+                position: absolute;
+                opacity: 0;
+                width: 0;
+                height: 0;
+                pointer-events: none;
+            }
+            .cat-btn-box {
+                display: flex;
+                align-items: center;
+                gap: 7px;
+                width: 100%;
+                padding: 8px 10px;
+                border-radius: 8px;
+                border: 2px solid transparent;
+                font-size: 0.78rem;
+                font-weight: 700;
+                transition: all 0.15s ease;
+                user-select: none;
+            }
+            .cat-btn-box .cat-circle {
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                border: 2px solid currentColor;
+                flex-shrink: 0;
+                display: inline-block;
+                transition: all 0.15s ease;
+            }
+            .cat-sesuai { background: #f0fdf4; color: #166534; border-color: #bbf7d0; }
+            .cat-ob { background: #f0f9ff; color: #0369a1; border-color: #bae6fd; }
+            .cat-minor { background: #fefce8; color: #854d0e; border-color: #fef08a; }
+            .cat-mayor { background: #fef2f2; color: #991b1b; border-color: #fecaca; }
+            .cat-ofi { background: #faf5ff; color: #6b21a8; border-color: #e9d5ff; }
+            .cat-tp { background: #f0fdfa; color: #0f766e; border-color: #99f6e4; }
+
+            .cat-btn-label:hover .cat-btn-box {
+                transform: translateY(-1px);
+                box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            }
+            .cat-btn-label input[type="radio"]:checked + .cat-btn-box {
+                box-shadow: 0 0 0 2.5px currentColor, 0 3px 6px rgba(0,0,0,0.06);
+                font-weight: 800;
+            }
+            .cat-btn-label input[type="radio"]:checked + .cat-btn-box .cat-circle {
+                background: currentColor;
+                box-shadow: inset 0 0 0 2px #ffffff;
+            }
+        </style>
+
         <div style="position: sticky; top: 80px;">
-            <div class="card" style="background: var(--bg-card); border-radius: 10px; border: 2px solid #0284c7; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.1); padding: 1.5rem;">
+            <div class="audit-card">
                 
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">
-                    <h3 style="font-size: 1.1rem; font-weight: 700; color: #0284c7; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
-                        <i data-feather="check-square" style="width: 20px; height: 20px;"></i>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.85rem;">
+                    <h3 style="font-size: 1.15rem; font-weight: 800; color: #0284c7; margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-feather="check-square" style="width: 22px; height: 22px; color: #0284c7;"></i>
                         Panel Penilaian Audit
                     </h3>
 
                     @if($finding)
-                        <span class="badge" style="background: {{ $finding->status_audit == 'Sudah Diaudit' ? '#dcfce7' : '#fef3c7' }}; color: {{ $finding->status_audit == 'Sudah Diaudit' ? '#15803d' : '#92400e' }}; font-weight: bold; font-size: 0.75rem;">
+                        <span class="badge" style="background: {{ $finding->status_audit == 'Sudah Diaudit' ? '#dcfce7' : '#fef3c7' }}; color: {{ $finding->status_audit == 'Sudah Diaudit' ? '#15803d' : '#92400e' }}; font-weight: 700; font-size: 0.78rem; padding: 4px 10px; border-radius: 6px;">
                             {{ $finding->status_audit ?: 'Sudah Diaudit' }}
                         </span>
                     @else
-                        <span class="badge" style="background: #f1f5f9; color: #64748b; font-size: 0.75rem;">Belum Dinilai</span>
+                        <span class="badge" style="background: #f1f5f9; color: #64748b; font-size: 0.78rem; padding: 4px 10px; border-radius: 6px;">Belum Dinilai</span>
                     @endif
                 </div>
 
@@ -292,19 +532,23 @@
                     <!-- Fieldset jika terkunci atau belum diajukan -->
                     <fieldset {{ ($isLocked || !$hasSubmitted) ? 'disabled' : '' }} style="border: none; padding: 0; margin: 0;">
 
-                        <!-- Tanggal Audit -->
-                        <div style="margin-bottom: 1rem;">
-                            <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.25rem;">Tanggal Pelaksanaan Audit</label>
-                            <input type="date" name="tanggal" value="{{ old('tanggal', $defaultTanggal) }}" class="form-control" required style="font-size: 0.85rem;">
+                        <!-- Tanggal Pelaksanaan Audit -->
+                        <div class="audit-form-group">
+                            <label class="audit-label">
+                                <i data-feather="calendar" style="width: 15px; height: 15px; color: #0284c7;"></i>
+                                Tanggal Pelaksanaan Audit
+                            </label>
+                            <input type="date" name="tanggal" value="{{ old('tanggal', $defaultTanggal) }}" class="audit-input" required>
                         </div>
 
                         <!-- Penilaian per Tahap (P1 s.d. P5) & Catatan Auditor -->
-                        <div style="background: var(--bg-hover); padding: 0.85rem; border-radius: 6px; margin-bottom: 1rem; border: 1px solid var(--border-color);">
-                            <label style="font-weight: 700; font-size: 0.82rem; color: var(--text-main); display: block; margin-bottom: 0.5rem;">
-                                Nilai Capaian per Tahap (1 - 4) & Catatan Tahap:
+                        <div style="background: #f8fafc; padding: 1rem; border-radius: 10px; margin-bottom: 1.25rem; border: 1.5px solid #e2e8f0;">
+                            <label style="font-weight: 700; font-size: 0.85rem; color: #0f172a; display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                                <span>Nilai Capaian per Tahap (1 - 4):</span>
+                                <small style="font-weight: normal; color: #64748b; font-size: 0.75rem;">Skor & catatan auditor</small>
                             </label>
 
-                            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                            <div style="display: flex; flex-direction: column; gap: 0.65rem;">
                                 @foreach(['P1', 'P2', 'P3', 'P4', 'P5'] as $st)
                                     @php
                                         $currSkor = $tahapScores[$st] ?? ($finding?->skor ?? 3);
@@ -318,97 +562,122 @@
                                             default => $st
                                         };
                                     @endphp
-                                    <div style="background: var(--bg-card); padding: 6px 8px; border-radius: 4px; border: 1px solid var(--border-color);">
-                                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; font-size: 0.8rem; margin-bottom: 4px;">
-                                            <b style="color: var(--text-main);">{{ $st }} <span style="font-weight: normal; color: var(--text-muted);">({{ $stName }})</span>:</b>
-                                            <div style="display: flex; gap: 0.6rem; align-items: center;">
+                                    <div class="stage-card">
+                                        <div class="stage-card-header">
+                                            <div class="stage-badge-group">
+                                                <span class="stage-pill {{ strtolower($st) }}">{{ $st }}</span>
+                                                <span class="stage-name">{{ $stName }}</span>
+                                            </div>
+                                            <div class="score-btn-group">
                                                 @foreach([1, 2, 3, 4] as $val)
-                                                    <label style="display: inline-flex; align-items: center; gap: 2px; cursor: pointer; margin: 0; font-weight: normal;">
+                                                    <label class="score-btn-label" title="Skor {{ $val }}">
                                                         <input type="radio" name="skor_{{ strtolower($st) }}" value="{{ $val }}" {{ $currSkor == $val ? 'checked' : '' }} onchange="calculateAutoScore()">
-                                                        <span>{{ $val }}</span>
+                                                        <span class="score-btn-box">{{ $val }}</span>
                                                     </label>
                                                 @endforeach
                                                 @if($st === 'P4')
-                                                    <label style="display: inline-flex; align-items: center; gap: 2px; cursor: pointer; margin: 0; font-size: 0.75rem; color: #64748b;">
+                                                    <label class="score-btn-label na" title="Tidak Berlaku (N/A)">
                                                         <input type="radio" name="skor_p4" value="" {{ empty($currSkor) ? 'checked' : '' }} onchange="calculateAutoScore()">
-                                                        <span>N/A</span>
+                                                        <span class="score-btn-box" style="font-size: 0.72rem; min-width: 32px;">N/A</span>
                                                     </label>
                                                 @endif
                                             </div>
                                         </div>
-                                        <input type="text" name="catatan_{{ strtolower($st) }}" value="{{ old('catatan_'.strtolower($st), $currNote) }}" class="form-control" style="font-size: 0.78rem; padding: 4px 8px;" placeholder="Catatan auditor tahap {{ $st }} (opsional)...">
+                                        <input type="text" name="catatan_{{ strtolower($st) }}" value="{{ old('catatan_'.strtolower($st), $currNote) }}" class="stage-note-field" placeholder="Tuliskan catatan auditor tahap {{ $st }} (opsional)...">
                                     </div>
                                 @endforeach
                             </div>
                         </div>
 
                         <!-- Skor Akhir Standar & Alasan Override -->
-                        <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 0.85rem; border-radius: 6px; margin-bottom: 1rem;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border: 1.5px solid #bfdbfe; padding: 1rem 1.15rem; border-radius: 10px; margin-bottom: 1.25rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
                                 <div>
-                                    <label style="font-weight: 700; font-size: 0.85rem; color: #1e40af; margin: 0; display: block;">
+                                    <label style="font-weight: 800; font-size: 0.9rem; color: #1e40af; margin: 0 0 2px 0; display: block;">
                                         Skor Akhir Standar:
                                     </label>
-                                    <small style="font-size: 0.75rem; color: #3b82f6;">Rata-rata terhitung: <b id="auto-score-display">-</b></small>
+                                    <small style="font-size: 0.78rem; color: #3b82f6;">Rata-rata terhitung: <b id="auto-score-display">-</b></small>
                                 </div>
-                                <input type="number" step="1" min="1" max="4" name="skor" id="input-final-score" value="{{ old('skor', $finding?->skor ?? 3) }}" class="form-control" style="width: 80px; text-align: center; font-size: 1.1rem; font-weight: bold; color: #1e40af; border-color: #3b82f6;" required oninput="checkScoreOverride()">
+                                <input type="number" step="1" min="1" max="4" name="skor" id="input-final-score" value="{{ old('skor', $finding?->skor ?? 3) }}" style="width: 85px; height: 44px; text-align: center; font-size: 1.35rem; font-weight: 800; color: #0284c7; background: #ffffff; border: 2px solid #0284c7; border-radius: 8px; box-shadow: 0 2px 6px rgba(2, 132, 199, 0.2);" required oninput="checkScoreOverride()">
                             </div>
 
-                            <div id="box-alasan-override" style="display: none; margin-top: 0.75rem; border-top: 1px dashed #bfdbfe; padding-top: 0.5rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; color: #991b1b; display: block; margin-bottom: 2px;">
+                            <div id="box-alasan-override" style="display: none; margin-top: 0.75rem; border-top: 1px dashed #bfdbfe; padding-top: 0.65rem;">
+                                <label style="font-size: 0.78rem; font-weight: 700; color: #991b1b; display: block; margin-bottom: 4px;">
                                     * Wajib isi Alasan jika mengubah skor berbeda dari rata-rata:
                                 </label>
-                                <textarea name="alasan_ubah_skor" id="input-alasan-override" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical;" placeholder="Alasan pertimbangan auditor...">{{ old('alasan_ubah_skor', $finding?->alasan_ubah_skor) }}</textarea>
+                                <textarea name="alasan_ubah_skor" id="input-alasan-override" rows="3" class="audit-textarea" style="font-size: 0.8rem; background: #fff;" placeholder="Alasan pertimbangan auditor override skor...">{{ old('alasan_ubah_skor', $finding?->alasan_ubah_skor) }}</textarea>
                             </div>
                         </div>
 
                         <!-- Kategori Temuan -->
-                        <div style="margin-bottom: 1rem;">
-                            <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.4rem;">
+                        <div class="audit-form-group">
+                            <label class="audit-label">
+                                <i data-feather="tag" style="width: 15px; height: 15px; color: #0284c7;"></i>
                                 Kategori Temuan Audit:
                             </label>
                             @php
                                 $selectedKat = old('kategori_temuan', $finding?->kategori_temuan ?? 'Sesuai');
                             @endphp
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; font-size: 0.75rem;">
-                                <label style="display: flex; align-items: center; gap: 0.3rem; background: #dcfce7; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 1px solid #86efac;">
+                            <div class="cat-grid">
+                                <label class="cat-btn-label">
                                     <input type="radio" name="kategori_temuan" value="Sesuai" {{ $selectedKat == 'Sesuai' ? 'checked' : '' }} onchange="toggleCategoryFields()">
-                                    <span style="color: #166534; font-weight: bold;">Sesuai</span>
+                                    <div class="cat-btn-box cat-sesuai">
+                                        <span class="cat-circle"></span>
+                                        <span>Sesuai</span>
+                                    </div>
                                 </label>
 
-                                <label style="display: flex; align-items: center; gap: 0.3rem; background: #e0f2fe; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 1px solid #7dd3fc;">
+                                <label class="cat-btn-label">
                                     <input type="radio" name="kategori_temuan" value="Observasi (OB)" {{ $selectedKat == 'Observasi (OB)' ? 'checked' : '' }} onchange="toggleCategoryFields()">
-                                    <span style="color: #0369a1; font-weight: bold;">Observasi (OB)</span>
+                                    <div class="cat-btn-box cat-ob">
+                                        <span class="cat-circle"></span>
+                                        <span>Observasi (OB)</span>
+                                    </div>
                                 </label>
 
-                                <label style="display: flex; align-items: center; gap: 0.3rem; background: #fef3c7; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 1px solid #fde047;">
+                                <label class="cat-btn-label">
                                     <input type="radio" name="kategori_temuan" value="KTS Minor" {{ $selectedKat == 'KTS Minor' ? 'checked' : '' }} onchange="toggleCategoryFields()">
-                                    <span style="color: #854d0e; font-weight: bold;">KTS Minor</span>
+                                    <div class="cat-btn-box cat-minor">
+                                        <span class="cat-circle"></span>
+                                        <span>KTS Minor</span>
+                                    </div>
                                 </label>
 
-                                <label style="display: flex; align-items: center; gap: 0.3rem; background: #fee2e2; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 1px solid #fca5a5;">
+                                <label class="cat-btn-label">
                                     <input type="radio" name="kategori_temuan" value="KTS Mayor" {{ $selectedKat == 'KTS Mayor' ? 'checked' : '' }} onchange="toggleCategoryFields()">
-                                    <span style="color: #991b1b; font-weight: bold;">KTS Mayor</span>
+                                    <div class="cat-btn-box cat-mayor">
+                                        <span class="cat-circle"></span>
+                                        <span>KTS Mayor</span>
+                                    </div>
                                 </label>
 
-                                <label style="display: flex; align-items: center; gap: 0.3rem; background: #f3e8ff; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 1px solid #d8b4fe;">
+                                <label class="cat-btn-label">
                                     <input type="radio" name="kategori_temuan" value="Peluang Peningkatan (OFI)" {{ $selectedKat == 'Peluang Peningkatan (OFI)' ? 'checked' : '' }} onchange="toggleCategoryFields()">
-                                    <span style="color: #6b21a8; font-weight: bold;">OFI</span>
+                                    <div class="cat-btn-box cat-ofi">
+                                        <span class="cat-circle"></span>
+                                        <span>OFI</span>
+                                    </div>
                                 </label>
 
-                                <label style="display: flex; align-items: center; gap: 0.3rem; background: #ccfbf1; padding: 4px 6px; border-radius: 4px; cursor: pointer; border: 1px solid #5eead4;">
+                                <label class="cat-btn-label">
                                     <input type="radio" name="kategori_temuan" value="Temuan Positif (TP)" {{ $selectedKat == 'Temuan Positif (TP)' ? 'checked' : '' }} onchange="toggleCategoryFields()">
-                                    <span style="color: #115e59; font-weight: bold;">Temuan Positif</span>
+                                    <div class="cat-btn-box cat-tp">
+                                        <span class="cat-circle"></span>
+                                        <span>Temuan Positif</span>
+                                    </div>
                                 </label>
                             </div>
                         </div>
 
                         <!-- Tahap Munculnya Temuan -->
-                        <div style="margin-bottom: 1rem;">
-                            <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.25rem;">Tahap PPEPP Temuan</label>
+                        <div class="audit-form-group">
+                            <label class="audit-label">
+                                <i data-feather="clock" style="width: 15px; height: 15px; color: #0284c7;"></i>
+                                Tahap PPEPP Temuan
+                            </label>
                             @php $selectedTahap = old('tahap', $finding?->tahap ?? 'Umum'); @endphp
-                            <select name="tahap" class="form-control" style="font-size: 0.85rem;" required>
-                                <option value="Umum" {{ $selectedTahap == 'Umum' ? 'selected' : '' }}>Umum (Keseluruhan Siklus)</option>
+                            <select name="tahap" class="audit-select" required>
+                                <option value="Umum" {{ $selectedTahap == 'Umum' ? 'selected' : '' }}>Umum (Keseluruhan Siklus PPEPP)</option>
                                 <option value="P1" {{ $selectedTahap == 'P1' ? 'selected' : '' }}>P1 - Penetapan</option>
                                 <option value="P2" {{ $selectedTahap == 'P2' ? 'selected' : '' }}>P2 - Pelaksanaan</option>
                                 <option value="P3" {{ $selectedTahap == 'P3' ? 'selected' : '' }}>P3 - Evaluasi (Monev)</option>
@@ -418,69 +687,78 @@
                         </div>
 
                         <!-- Kriteria Standar / Rujukan -->
-                        <div style="margin-bottom: 1rem;">
-                            <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.25rem;">
-                                Kriteria Standar / Rujukan
-                            </label>
+                        <div class="audit-form-group">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem;">
+                                <label class="audit-label">
+                                    <i data-feather="bookmark" style="width: 15px; height: 15px; color: #0284c7;"></i>
+                                    Kriteria Standar / Rujukan
+                                </label>
+                                <small style="font-size: 0.72rem; color: #64748b;">Tolok ukur standar</small>
+                            </div>
                             @php
                                 $defaultKriteriaVal = $finding?->kriteria ?: ($standard->kelompok . ' — ' . $standard->nama . ($standard->pernyataan_standar ? ': ' . $standard->pernyataan_standar : ''));
                             @endphp
-                            <textarea name="kriteria" id="input-kriteria" rows="4" class="form-control" style="font-size: 0.85rem; line-height: 1.5; min-height: 90px; resize: vertical;" placeholder="Tolok ukur / pernyataan standar yang menjadi kriteria penilaian...">{{ old('kriteria', $defaultKriteriaVal) }}</textarea>
+                            <textarea name="kriteria" id="input-kriteria" rows="4" class="audit-textarea" style="background: #f8fafc;" placeholder="Tolok ukur / pernyataan standar yang menjadi kriteria penilaian...">{{ old('kriteria', $defaultKriteriaVal) }}</textarea>
                         </div>
 
                         <!-- Uraian Temuan -->
-                        <div style="margin-bottom: 1rem;">
-                            <label class="form-label" style="font-weight: 600; font-size: 0.8rem; margin-bottom: 0.25rem;">
-                                Deskripsi / Uraian Temuan <span id="label-uraian-req" style="color: #dc2626;">*</span>
-                            </label>
-                            <textarea name="uraian" id="input-uraian" rows="5" class="form-control" style="font-size: 0.85rem; line-height: 1.5; min-height: 110px; resize: vertical;" placeholder="Catatan temuan audit...">{{ old('uraian', $finding?->uraian) }}</textarea>
+                        <div class="audit-form-group">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.2rem;">
+                                <label class="audit-label">
+                                    <i data-feather="file-text" style="width: 15px; height: 15px; color: #0284c7;"></i>
+                                    Deskripsi / Uraian Temuan <span id="label-uraian-req" style="color: #dc2626;">*</span>
+                                </label>
+                                <small style="font-size: 0.72rem; color: #64748b;">Fakta & kondisi lapangan</small>
+                            </div>
+                            <textarea name="uraian" id="input-uraian" rows="5" class="audit-textarea" placeholder="Tuliskan catatan dan deskripsi temuan audit lapangan...">{{ old('uraian', $finding?->uraian) }}</textarea>
                         </div>
 
                         <!-- Detail Temuan Non-Sesuai (RCA, Akibat, RTL) -->
-                        <div id="section-detail-kts" style="display: none; border-top: 1px dashed var(--border-color); padding-top: 0.75rem; margin-top: 0.75rem;">
-                            <div style="font-weight: 700; font-size: 0.8rem; color: #dc2626; margin-bottom: 0.5rem;">
+                        <div id="section-detail-kts" style="display: none; border-top: 2px dashed #fca5a5; padding-top: 1rem; margin-top: 1rem; background: #fff5f5; padding: 1rem; border-radius: 10px; border: 1.5px solid #fecaca;">
+                            <div style="font-weight: 800; font-size: 0.85rem; color: #991b1b; margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.4rem;">
+                                <i data-feather="alert-triangle" style="width: 16px; height: 16px; color: #dc2626;"></i>
                                 Detail Ketidaksesuaian & Rencana Tindak Lanjut:
                             </div>
 
-                            <div style="margin-bottom: 0.75rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Akar Masalah (RCA):</label>
-                                <textarea name="akar_penyebab" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Akar penyebab ketidaksesuaian...">{{ old('akar_penyebab', $finding?->akar_penyebab) }}</textarea>
+                            <div class="audit-form-group">
+                                <label class="audit-label" style="color: #991b1b;">Akar Masalah (RCA):</label>
+                                <textarea name="akar_penyebab" rows="3" class="audit-textarea" placeholder="Akar penyebab mengapa ketidaksesuaian terjadi...">{{ old('akar_penyebab', $finding?->akar_penyebab) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.75rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Akibat / Dampak Risiko:</label>
-                                <textarea name="akibat" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Akibat atau dampak risiko...">{{ old('akibat', $finding?->akibat) }}</textarea>
+                            <div class="audit-form-group">
+                                <label class="audit-label" style="color: #991b1b;">Akibat / Dampak Risiko:</label>
+                                <textarea name="akibat" rows="3" class="audit-textarea" placeholder="Akibat atau dampak risiko terhadap mutu unit...">{{ old('akibat', $finding?->akibat) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.75rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rekomendasi Auditor:</label>
-                                <textarea name="rekomendasi" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Rekomendasi tindakan auditor...">{{ old('rekomendasi', $finding?->rekomendasi) }}</textarea>
+                            <div class="audit-form-group">
+                                <label class="audit-label" style="color: #991b1b;">Rekomendasi Auditor:</label>
+                                <textarea name="rekomendasi" rows="3" class="audit-textarea" placeholder="Rekomendasi tindakan auditor...">{{ old('rekomendasi', $finding?->rekomendasi) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.75rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rencana Perbaikan (Koreksi):</label>
-                                <textarea name="rencana_tindakan" rows="4" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 90px;" placeholder="Tindakan perbaikan jangka pendek...">{{ old('rencana_tindakan', $finding?->rencana_tindakan) }}</textarea>
+                            <div class="audit-form-group">
+                                <label class="audit-label" style="color: #991b1b;">Rencana Perbaikan (Koreksi):</label>
+                                <textarea name="rencana_tindakan" rows="4" class="audit-textarea" placeholder="Tindakan perbaikan langsung jangka pendek...">{{ old('rencana_tindakan', $finding?->rencana_tindakan) }}</textarea>
                             </div>
 
-                            <div style="margin-bottom: 0.75rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Rencana Tindakan Pencegahan:</label>
-                                <textarea name="rencana_pencegahan" rows="3" class="form-control" style="font-size: 0.8rem; resize: vertical; min-height: 70px;" placeholder="Rencana tindakan pencegahan agar tidak terulang...">{{ old('rencana_pencegahan', $finding?->rencana_pencegahan) }}</textarea>
+                            <div class="audit-form-group">
+                                <label class="audit-label" style="color: #991b1b;">Rencana Tindakan Pencegahan:</label>
+                                <textarea name="rencana_pencegahan" rows="3" class="audit-textarea" placeholder="Rencana tindakan pencegahan sistemik agar tidak terulang...">{{ old('rencana_pencegahan', $finding?->rencana_pencegahan) }}</textarea>
                             </div>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.75rem;">
-                                <div>
-                                    <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">PIC:</label>
-                                    <input type="text" name="pic" value="{{ old('pic', $finding?->pic) }}" class="form-control" style="font-size: 0.8rem;" placeholder="Kaprodi / GPM">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.85rem;">
+                                <div class="audit-form-group" style="margin-bottom: 0;">
+                                    <label class="audit-label" style="color: #991b1b;">PIC Pelaksana:</label>
+                                    <input type="text" name="pic" value="{{ old('pic', $finding?->pic) }}" class="audit-input" placeholder="Kaprodi / GPM">
                                 </div>
-                                <div>
-                                    <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Batas Waktu:</label>
-                                    <input type="date" name="batas_waktu" value="{{ old('batas_waktu', $finding?->batas_waktu) }}" class="form-control" style="font-size: 0.8rem;">
+                                <div class="audit-form-group" style="margin-bottom: 0;">
+                                    <label class="audit-label" style="color: #991b1b;">Batas Waktu RTL:</label>
+                                    <input type="date" name="batas_waktu" value="{{ old('batas_waktu', $finding?->batas_waktu) }}" class="audit-input">
                                 </div>
                             </div>
 
-                            <div style="margin-bottom: 0.5rem;">
-                                <label style="font-size: 0.75rem; font-weight: 600; display: block; margin-bottom: 2px;">Jadwal Pencegahan:</label>
-                                <input type="text" name="jadwal_pencegahan" value="{{ old('jadwal_pencegahan', $finding?->jadwal_pencegahan) }}" class="form-control" style="font-size: 0.8rem;" placeholder="Jadwal pencegahan...">
+                            <div class="audit-form-group" style="margin-bottom: 0;">
+                                <label class="audit-label" style="color: #991b1b;">Jadwal Tindakan Pencegahan:</label>
+                                <input type="text" name="jadwal_pencegahan" value="{{ old('jadwal_pencegahan', $finding?->jadwal_pencegahan) }}" class="audit-input" placeholder="Misal: Evaluasi berkas tiap akhir semester">
                             </div>
                         </div>
 
@@ -617,6 +895,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         calculateAutoScore();
         toggleCategoryFields();
+        if (typeof feather !== 'undefined') {
+            feather.replace();
+        }
     });
 </script>
 

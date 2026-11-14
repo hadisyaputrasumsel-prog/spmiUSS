@@ -511,3 +511,60 @@ a:hover {
     background-color: var(--bg-tertiary);
     border-color: var(--border-color);
 }
+
+/* ==========================================================================
+   Modern Form Controls & Input Styling
+   ========================================================================== */
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block !important;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select,
+textarea.form-control,
+input.form-control {
+    display: block !important;
+    width: 100% !important;
+    padding: 0.65rem 0.875rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--bg-secondary);
+    background-clip: padding-box;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, background-color 0.15s ease-in-out;
+    box-sizing: border-box;
+}
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus,
+input.form-control:focus {
+    color: var(--text-primary);
+    background-color: #ffffff;
+    border-color: #0284c7;
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+    opacity: 0.8;
+}
+
+textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+}
