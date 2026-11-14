@@ -184,7 +184,7 @@
             </div>
 
             <div style="border-top: 1px solid var(--border-color); margin: 2rem 0; padding-top: 1.5rem;">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
                     
                     <div>
                         <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 600;">Sifat Standar <span style="color: var(--status-danger);">*</span></label>
@@ -217,6 +217,18 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div style="padding: 1rem 1.25rem; background: var(--bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                    <div>
+                        <strong style="display: block; font-size: 0.9rem; color: var(--text-primary);">Status Keaktifan Standar</strong>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">Standar yang aktif akan ditampilkan pada instrumen LED dan audit mutu internal (AMI).</span>
+                    </div>
+                    <label style="display: inline-flex; align-items: center; gap: 0.6rem; cursor: pointer; font-size: 0.875rem; font-weight: 600; color: var(--text-primary); user-select: none;">
+                        <input type="hidden" name="is_active" value="0">
+                        <input type="checkbox" name="is_active" value="1" {{ old('is_active', $standard->is_active) ? 'checked' : '' }} style="width: 18px; height: 18px; cursor: pointer; accent-color: #10b981;">
+                        <span>Status Aktif</span>
+                    </label>
                 </div>
             </div>
 

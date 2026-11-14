@@ -77,7 +77,7 @@ class StandardController extends Controller
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active') ? true : false;
+        $data['is_active'] = $request->has('is_active') ? $request->boolean('is_active') : true;
 
         if ($request->hasFile('template_dokumen_file')) {
             $file = $request->file('template_dokumen_file');
@@ -133,7 +133,11 @@ class StandardController extends Controller
         ]);
 
         $data = $request->all();
-        $data['is_active'] = $request->has('is_active') ? true : false;
+        if ($request->has('is_active')) {
+            $data['is_active'] = $request->boolean('is_active');
+        } else {
+            unset($data['is_active']);
+        }
         
         if (!$request->has('sasaran_unit')) {
             $data['sasaran_unit'] = null;
