@@ -6,6 +6,7 @@ use App\Models\AuditorAssignment;
 use App\Models\AuditSesi;
 use App\Models\BulanMutuConfig;
 use App\Models\Unit;
+use App\Providers\AppServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 
@@ -41,6 +42,14 @@ class AuditSesiController extends Controller
 
             if (! $isAssigned) {
                 abort(403, 'Anda tidak ditugaskan sebagai auditor untuk unit ini pada tahun '.$tahun);
+            }
+        }
+
+        if (! Schema::hasTable('audit_sesi')) {
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
             }
         }
 
@@ -116,6 +125,14 @@ class AuditSesiController extends Controller
 
             if (! $isAssigned) {
                 abort(403, 'Anda tidak ditugaskan untuk unit ini.');
+            }
+        }
+
+        if (! Schema::hasTable('audit_sesi')) {
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
             }
         }
 

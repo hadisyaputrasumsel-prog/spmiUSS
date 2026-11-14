@@ -14,6 +14,7 @@ use App\Models\LedEntry;
 use App\Models\LedSubmission;
 use App\Models\Standard;
 use App\Models\Unit;
+use App\Providers\AppServiceProvider;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -54,6 +55,14 @@ class LaporanAmiController extends Controller
 
         $tahun = (int) $request->get('tahun', in_array(2023, $availableYears) ? 2023 : $availableYears[0]);
 
+        if (! Schema::hasTable('laporan_ami')) {
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
+            }
+        }
+
         $laporan = Schema::hasTable('laporan_ami') ? LaporanAmi::where('tahun', $tahun)->first() : null;
         if (! $laporan) {
             $laporan = new LaporanAmi(LaporanAmi::getDefaultData($tahun));
@@ -75,6 +84,14 @@ class LaporanAmiController extends Controller
         $this->checkRole();
 
         $tahun = (int) $request->input('tahun');
+
+        if (! Schema::hasTable('laporan_ami')) {
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
+            }
+        }
 
         $validated = $request->validate([
             'nomor_dokumen' => 'nullable|string|max:255',
@@ -151,6 +168,14 @@ class LaporanAmiController extends Controller
         $this->checkRole();
 
         $tahun = (int) $request->input('tahun');
+
+        if (! Schema::hasTable('laporan_ami')) {
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
+            }
+        }
         $activities = BulanMutuActivity::orderBy('index_kegiatan')->get();
         $statuses = BulanMutuStatus::where('tahun', $tahun)->get()->keyBy('kegiatan_id');
 

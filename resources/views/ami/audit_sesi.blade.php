@@ -65,11 +65,14 @@
 
 @if(!\Illuminate\Support\Facades\Schema::hasTable('audit_sesi'))
     <div style="background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a; padding: 1rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
-        <div style="display: flex; gap: 0.75rem; align-items: center;">
-            <i data-feather="database" style="width: 20px; height: 20px;"></i>
-            <div>
-                <strong>Perhatian:</strong> Tabel <code>audit_sesi</code> belum dibuat di basis data. Silakan jalankan perintah migrasi di server: <code>php artisan migrate</code> agar data sesi audit dapat disimpan permanen.
+        <div style="display: flex; gap: 0.75rem; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+            <div style="display: flex; gap: 0.75rem; align-items: center;">
+                <i data-feather="database" style="width: 20px; height: 20px;"></i>
+                <div>
+                    <strong>Perhatian:</strong> Tabel <code>audit_sesi</code> belum dibuat di basis data. Klik tombol di samping untuk membuat tabel secara otomatis sekarang.
+                </div>
             </div>
+            <a href="/run-migrate" class="btn" style="background:#ea580c; color:#fff; text-decoration:none; padding:6px 14px; border-radius:6px; font-weight:600; font-size:0.875rem;">⚡ Buat Tabel Otomatis (/run-migrate)</a>
         </div>
     </div>
 @endif
