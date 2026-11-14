@@ -211,10 +211,40 @@ class LaporanAmiController extends Controller
 
         // Tentukan unit-unit yang masuk cakupan
         $allUnits = Unit::orderBy('id')->get();
-        if (empty($unitIds) || in_array('all', $unitIds)) {
+        $unitIdsClean = array_values(array_filter(array_map('strval', $unitIds), fn ($v) => $v !== '' && $v !== null));
+
+        $isAllUnits = empty($unitIdsClean)
+            || in_array('all', $unitIdsClean, true)
+            || count($unitIdsClean) >= $allUnits->count();
+
+        if ($isAllUnits) {
             $targetUnits = $allUnits;
+            $judulCakupan = 'UNIVERSITAS SUMATERA SELATAN';
+            $judulDokumenLengkap = 'Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan';
+            $subjudulLaporan = 'Potret Komprehensif Siklus Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan (PPEPP) Standar SPMI dan Hasil Audit Mutu Internal di Lingkungan Universitas Sumatera Selatan';
+            $unitScopeLabel = 'Universitas Sumatera Selatan';
         } else {
-            $targetUnits = $allUnits->whereIn('id', $unitIds);
+            $targetUnits = $allUnits->whereIn('id', array_map('intval', $unitIdsClean));
+            if ($targetUnits->isEmpty()) {
+                $targetUnits = $allUnits;
+                $isAllUnits = true;
+                $judulCakupan = 'UNIVERSITAS SUMATERA SELATAN';
+                $judulDokumenLengkap = 'Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan';
+                $subjudulLaporan = 'Potret Komprehensif Siklus Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan (PPEPP) Standar SPMI dan Hasil Audit Mutu Internal di Lingkungan Universitas Sumatera Selatan';
+                $unitScopeLabel = 'Universitas Sumatera Selatan';
+            } elseif ($targetUnits->count() === 1) {
+                $singleUnit = $targetUnits->first();
+                $judulCakupan = mb_strtoupper($singleUnit->nama);
+                $judulDokumenLengkap = 'Buku Laporan Hasil Audit Mutu Internal (AMI) '.$singleUnit->nama;
+                $subjudulLaporan = 'Potret Komprehensif Siklus Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan (PPEPP) Standar SPMI dan Hasil Audit Mutu Internal pada '.$singleUnit->nama.' Universitas Sumatera Selatan';
+                $unitScopeLabel = $singleUnit->nama;
+            } else {
+                $unitNames = $targetUnits->pluck('nama')->implode(', ');
+                $judulCakupan = mb_strtoupper($unitNames);
+                $judulDokumenLengkap = 'Buku Laporan Hasil Audit Mutu Internal (AMI) '.$unitNames;
+                $subjudulLaporan = 'Potret Komprehensif Siklus Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan (PPEPP) Standar SPMI dan Hasil Audit Mutu Internal pada Unit Kerja Terpilih di Lingkungan Universitas Sumatera Selatan';
+                $unitScopeLabel = $unitNames;
+            }
         }
 
         $targetUnitIds = $targetUnits->pluck('id')->toArray();
@@ -428,6 +458,11 @@ class LaporanAmiController extends Controller
             'tahun' => $tahun,
             'laporan' => $laporan,
             'targetUnits' => $targetUnits,
+            'isAllUnits' => $isAllUnits,
+            'judulCakupan' => $judulCakupan,
+            'judulDokumenLengkap' => $judulDokumenLengkap,
+            'subjudulLaporan' => $subjudulLaporan,
+            'unitScopeLabel' => $unitScopeLabel,
             'auditorTeams' => $auditorTeams,
             'ledStatuses' => $ledStatuses,
             'findings' => $findings,
@@ -492,10 +527,9 @@ class LaporanAmiController extends Controller
         $pdf->setPaper('a4', 'portrait');
         $pdf->getDomPDF()->getOptions()->set('isPhpEnabled', true);
         $pdf->getDomPDF()->getOptions()->set('isRemoteEnabled', true);
-        $pdf->getDomPDF()->getOptions()->set('isPhpEnabled', true);
-        $pdf->getDomPDF()->getOptions()->set('isRemoteEnabled', true);
 
-        $filename = sprintf('Buku_Laporan_AMI_USS_%d.pdf', $tahun);
+        $slugUnit = $data['isAllUnits'] ? 'Universitas' : str_replace([' ', '/', '\\', ':', '*'], '_', $data['unitScopeLabel']);
+        $filename = sprintf('Buku_Laporan_AMI_%s_%d.pdf', $slugUnit, $tahun);
 
         if ($request->has('download')) {
             return $pdf->download($filename);

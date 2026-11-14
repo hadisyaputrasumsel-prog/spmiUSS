@@ -28,12 +28,12 @@
 
         <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
             <!-- Tombol Pratinjau -->
-            <a href="{{ route('laporan_ami.preview', ['tahun' => $tahun]) }}" target="_blank" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem; border-color: #0284c7; color: #0284c7; padding: 0.55rem 1.1rem; font-weight: 600;">
+            <a href="{{ route('laporan_ami.preview', ['tahun' => $tahun]) }}" id="btn-preview-buku" target="_blank" class="btn btn-outline" style="display: inline-flex; align-items: center; gap: 0.5rem; border-color: #0284c7; color: #0284c7; padding: 0.55rem 1.1rem; font-weight: 600;">
                 <i data-feather="eye" style="width: 16px; height: 16px;"></i> Pratinjau Buku
             </a>
 
             <!-- Tombol Cetak PDF -->
-            <a href="{{ route('laporan_ami.pdf', ['tahun' => $tahun]) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #0284c7; border-color: #0284c7; padding: 0.55rem 1.1rem; font-weight: 600;">
+            <a href="{{ route('laporan_ami.pdf', ['tahun' => $tahun]) }}" id="btn-pdf-buku" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; background: #0284c7; border-color: #0284c7; padding: 0.55rem 1.1rem; font-weight: 600;">
                 <i data-feather="printer" style="width: 16px; height: 16px;"></i> Cetak PDF (A4)
             </a>
 
@@ -108,19 +108,19 @@
 
             <!-- Pilihan Unit Kerja yang Dicakup -->
             <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed var(--border-color);">
+                @php
+                    $selectedUnits = (array) ($laporan->selected_unit_ids ?: ['all']);
+                    $isAllUnits = empty($selectedUnits) || in_array('all', $selectedUnits);
+                @endphp
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem;">
                     <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-main); margin: 0;">
                         Cakupan Unit Kerja / Program Studi dalam Laporan:
                     </label>
                     <label style="font-size: 0.82rem; color: #0284c7; cursor: pointer; display: inline-flex; align-items: center; gap: 4px;">
-                        <input type="checkbox" id="check-all-units" onchange="toggleAllUnits(this)">
+                        <input type="checkbox" id="check-all-units" onchange="toggleAllUnits(this)" {{ $isAllUnits ? 'checked' : '' }}>
                         <b>Pilih Semua Unit</b>
                     </label>
                 </div>
-                @php
-                    $selectedUnits = (array) ($laporan->selected_unit_ids ?: ['all']);
-                    $isAllUnits = empty($selectedUnits) || in_array('all', $selectedUnits);
-                @endphp
                 <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 0.6rem; max-height: 200px; overflow-y: auto; background: var(--bg-hover); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border-color);">
                     @foreach($units as $u)
                         <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
@@ -484,10 +484,42 @@
         });
     }
 
+    function updateActionLinks() {
+        const previewBtn = document.getElementById('btn-preview-buku');
+        const pdfBtn = document.getElementById('btn-pdf-buku');
+        const checkboxes = document.querySelectorAll('.unit-checkbox:checked');
+        const totalCheckboxes = document.querySelectorAll('.unit-checkbox').length;
+        const checkAll = document.getElementById('check-all-units');
+
+        if (checkAll) {
+            checkAll.checked = (checkboxes.length === totalCheckboxes && totalCheckboxes > 0);
+        }
+
+        let unitParams = [];
+        if (checkboxes.length > 0 && checkboxes.length < totalCheckboxes) {
+            checkboxes.forEach(cb => {
+                unitParams.push('unit_ids[]=' + encodeURIComponent(cb.value));
+            });
+        }
+
+        const baseQuery = 'tahun={{ $tahun }}' + (unitParams.length > 0 ? '&' + unitParams.join('&') : '');
+        if (previewBtn) previewBtn.href = '{{ route("laporan_ami.preview") }}?' + baseQuery;
+        if (pdfBtn) pdfBtn.href = '{{ route("laporan_ami.pdf") }}?' + baseQuery;
+    }
+
     function toggleAllUnits(source) {
         const checkboxes = document.querySelectorAll('.unit-checkbox');
         checkboxes.forEach(cb => cb.checked = source.checked);
+        updateActionLinks();
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.unit-checkbox');
+        checkboxes.forEach(cb => {
+            cb.addEventListener('change', updateActionLinks);
+        });
+        updateActionLinks();
+    });
 
     function addJadwalRow() {
         const tbody = document.getElementById('jadwal-tbody');

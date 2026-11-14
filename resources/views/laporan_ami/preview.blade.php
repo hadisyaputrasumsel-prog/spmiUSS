@@ -214,14 +214,20 @@
             <img src="{{ $logoBase64 }}" alt="Logo USS" style="width: 130px; height: auto; margin-bottom: 25px;">
         @endif
         <div style="font-size: 12pt; font-weight: bold; letter-spacing: 1px; color: #475569;">BUKU LAPORAN RESMI</div>
-        <h1 style="font-size: 20pt; font-weight: 800; color: #0f172a; margin: 10px 0;">
-            AUDIT MUTU INTERNAL (AMI)<br>UNIVERSITAS SUMATERA SELATAN
+        <h1 style="font-size: 20pt; font-weight: 800; color: #0f172a; margin: 10px 0; line-height: 1.3;">
+            AUDIT MUTU INTERNAL (AMI)<br>
+            @if($isAllUnits)
+                UNIVERSITAS SUMATERA SELATAN
+            @else
+                <span style="color: #0284c7;">{{ $judulCakupan }}</span><br>
+                <span style="font-size: 14pt; font-weight: 700; color: #475569;">UNIVERSITAS SUMATERA SELATAN</span>
+            @endif
         </h1>
         <div style="font-size: 14pt; font-weight: bold; color: #0284c7; margin-bottom: 25px;">
             TAHUN AKADEMIK {{ $tahun }}
         </div>
-        <p style="text-align: center; color: #475569; max-width: 90%; margin: 0 auto 60px auto;">
-            Potret Komprehensif Siklus Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan (PPEPP) Standar SPMI dan Hasil Audit Mutu Internal di Lingkungan Universitas Sumatera Selatan
+        <p style="text-align: center; color: #475569; max-width: 90%; margin: 0 auto 60px auto; line-height: 1.6;">
+            {{ $subjudulLaporan }}
         </p>
 
         <div style="margin-top: 80px;">
@@ -240,7 +246,7 @@
         <table class="data-table">
             <tr>
                 <td style="width: 30%; background: #f8fafc; font-weight: bold;">Judul Dokumen</td>
-                <td>Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan</td>
+                <td>{{ $judulDokumenLengkap }}</td>
             </tr>
             <tr>
                 <td style="background: #f8fafc; font-weight: bold;">Tahun Audit</td>
@@ -391,8 +397,8 @@
             <tbody>
                 <tr>
                     <td><b>Sesuai (Kepatuhan Penuh)</b></td>
-                    <td class="text-center font-bold" style="color: #16a34a;">{{ $rekapNasional['Sesuai'] }}</td>
-                    <td class="text-center font-bold">{{ $totalFindings > 0 ? round(($rekapNasional['Sesuai'] / $totalFindings) * 100, 1) : 0 }}%</td>
+                    <td class="text-center font-bold" style="color: #16a34a;">{{ $rekapNasional['Sesuai'] ?? 0 }}</td>
+                    <td class="text-center font-bold">{{ $totalFindings > 0 ? round((($rekapNasional['Sesuai'] ?? 0) / $totalFindings) * 100, 1) : 0 }}%</td>
                 </tr>
                 <tr>
                     <td><b>Observasi (OB)</b></td>

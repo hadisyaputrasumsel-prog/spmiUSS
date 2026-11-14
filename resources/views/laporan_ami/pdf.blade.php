@@ -227,7 +227,13 @@
     </div>
 
     <h1 style="font-size: 18pt; font-weight: 800; color: #0f172a; margin: 0 0 10px 0; line-height: 1.3;">
-        AUDIT MUTU INTERNAL (AMI)<br>UNIVERSITAS SUMATERA SELATAN
+        AUDIT MUTU INTERNAL (AMI)<br>
+        @if($isAllUnits)
+            UNIVERSITAS SUMATERA SELATAN
+        @else
+            <span style="color: #0284c7;">{{ $judulCakupan }}</span><br>
+            <span style="font-size: 13pt; font-weight: 700; color: #475569;">UNIVERSITAS SUMATERA SELATAN</span>
+        @endif
     </h1>
 
     <div style="font-size: 14pt; font-weight: bold; color: #0284c7; margin-bottom: 25px;">
@@ -237,7 +243,7 @@
     <div style="width: 60px; height: 3px; background: #0284c7; margin: 0 auto 30px auto;"></div>
 
     <p style="text-align: center; font-size: 10pt; color: #334155; max-width: 80%; margin: 0 auto 80px auto; line-height: 1.6;">
-        Potret Komprehensif Siklus Penetapan, Pelaksanaan, Evaluasi, Pengendalian, dan Peningkatan (PPEPP) Standar SPMI dan Hasil Audit Mutu Internal di Lingkungan Universitas Sumatera Selatan
+        {{ $subjudulLaporan }}
     </p>
 
     <div style="margin-top: 100px;">
@@ -262,13 +268,13 @@
     <h1 class="bab-title">LEMBAR PENGESAHAN</h1>
 
     <p style="text-align: justify; margin-top: 25px; margin-bottom: 20px;">
-        Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan Tahun Akademik {{ $tahun }} telah disusun secara seksama oleh Tim Lembaga Penjaminan Mutu Akademik (LPMA) bersama Tim Auditor Internal berdasarkan hasil audit lapangan, verifikasi borang Evaluasi Diri (LED), serta rekapitulasi Rencana Tindak Lanjut (RTL) pada seluruh unit kerja.
+        {{ $judulDokumenLengkap }} Tahun Akademik {{ $tahun }} telah disusun secara seksama oleh Tim Lembaga Penjaminan Mutu Akademik (LPMA) bersama Tim Auditor Internal berdasarkan hasil audit lapangan, verifikasi borang Evaluasi Diri (LED), serta rekapitulasi Rencana Tindak Lanjut (RTL) {{ $isAllUnits ? 'pada seluruh unit kerja di lingkungan Universitas Sumatera Selatan.' : 'pada ' . $unitScopeLabel . ' Universitas Sumatera Selatan.' }}
     </p>
 
     <table class="data-table" style="margin-bottom: 30px;">
         <tr>
             <td style="width: 30%; background: #f8fafc; font-weight: bold;">Judul Dokumen</td>
-            <td style="width: 70%;">Buku Laporan Hasil Audit Mutu Internal (AMI) Universitas Sumatera Selatan</td>
+            <td style="width: 70%;">{{ $judulDokumenLengkap }}</td>
         </tr>
         <tr>
             <td style="background: #f8fafc; font-weight: bold;">Tahun Audit</td>
@@ -771,8 +777,8 @@
         <tbody>
             <tr>
                 <td><b>Sesuai (Kepatuhan Penuh)</b></td>
-                <td class="text-center font-bold" style="color: #16a34a;">{{ $rekapNasional['Sesuai'] }}</td>
-                <td class="text-center font-bold">{{ $totalFindings > 0 ? round(($rekapNasional['Sesuai'] / $totalFindings) * 100, 1) : 0 }}%</td>
+                <td class="text-center font-bold" style="color: #16a34a;">{{ $rekapNasional['Sesuai'] ?? 0 }}</td>
+                <td class="text-center font-bold">{{ $totalFindings > 0 ? round((($rekapNasional['Sesuai'] ?? 0) / $totalFindings) * 100, 1) : 0 }}%</td>
                 <td>Standar terpenuhi dan terbukti sahih mengikuti siklus PPEPP.</td>
             </tr>
             <tr>
@@ -1163,7 +1169,7 @@
         <b>Ringkasan Kuantitatif Temuan AMI {{ $tahun }} :</b>
         <ul style="margin: 6px 0 0 15px; padding-left: 0;">
             <li>Total temuan yang diaudit: <b>{{ $totalFindings }} butir standar</b>.</li>
-            <li>Standar dengan status <b>Sesuai</b> (Kepatuhan Penuh): <b>{{ $rekapNasional['Sesuai'] }} temuan</b> ({{ $totalFindings > 0 ? round(($rekapNasional['Sesuai'] / $totalFindings) * 100, 1) : 0 }}%).</li>
+            <li>Standar dengan status <b>Sesuai</b> (Kepatuhan Penuh): <b>{{ $rekapNasional['Sesuai'] ?? 0 }} temuan</b> ({{ $totalFindings > 0 ? round((($rekapNasional['Sesuai'] ?? 0) / $totalFindings) * 100, 1) : 0 }}%).</li>
             <li>Temuan <b>Ketidaksesuaian Mayor (KTS Mayor)</b>: <b>{{ $rekapNasional['KTS Mayor'] }} temuan</b>.</li>
             <li>Temuan <b>Ketidaksesuaian Minor (KTS Minor)</b>: <b>{{ $rekapNasional['KTS Minor'] }} temuan</b>.</li>
             <li>Temuan <b>Observasi (OB)</b>: <b>{{ $rekapNasional['Observasi (OB)'] }} temuan</b>.</li>
