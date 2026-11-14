@@ -956,25 +956,34 @@
         @foreach($rekapPerUnit as $r)
             @php
                 $tot = max(1, $r['total']);
-                $pSesuai = ($r['counts']['Sesuai'] / $tot) * 100;
-                $pOb = ($r['counts']['Observasi (OB)'] / $tot) * 100;
-                $pMinor = ($r['counts']['KTS Minor'] / $tot) * 100;
-                $pMayor = ($r['counts']['KTS Mayor'] / $tot) * 100;
-                $pOfi = ($r['counts']['Peluang Peningkatan (OFI)'] / $tot) * 100;
-                $pTp = ($r['counts']['Temuan Positif (TP)'] / $tot) * 100;
+                $pSesuai = round(($r['counts']['Sesuai'] / $tot) * 100, 1);
+                $pOb = round(($r['counts']['Observasi (OB)'] / $tot) * 100, 1);
+                $pMinor = round(($r['counts']['KTS Minor'] / $tot) * 100, 1);
+                $pMayor = round(($r['counts']['KTS Mayor'] / $tot) * 100, 1);
+                $pOfi = round(($r['counts']['Peluang Peningkatan (OFI)'] / $tot) * 100, 1);
+                $pTp = round(($r['counts']['Temuan Positif (TP)'] / $tot) * 100, 1);
             @endphp
-            <div class="bar-container">
-                <div class="bar-label">
-                    {{ $r['unit']->nama }} (Total: {{ $r['total'] }})
-                </div>
-                <div class="bar-track">
-                    @if($pSesuai > 0)<div class="bar-fill" style="width: {{ $pSesuai }}%; background: #16a34a;"></div>@endif
-                    @if($pOb > 0)<div class="bar-fill" style="width: {{ $pOb }}%; background: #0284c7;"></div>@endif
-                    @if($pMinor > 0)<div class="bar-fill" style="width: {{ $pMinor }}%; background: #d97706;"></div>@endif
-                    @if($pMayor > 0)<div class="bar-fill" style="width: {{ $pMayor }}%; background: #dc2626;"></div>@endif
-                    @if($pOfi > 0)<div class="bar-fill" style="width: {{ $pOfi }}%; background: #7c3aed;"></div>@endif
-                    @if($pTp > 0)<div class="bar-fill" style="width: {{ $pTp }}%; background: #0d9488;"></div>@endif
-                </div>
+            <div style="margin-bottom: 8px;">
+                <table style="width: 100%; border: none; margin-bottom: 2px;">
+                    <tr>
+                        <td style="border: none; padding: 0; font-size: 8pt; font-weight: bold; color: #334155; text-align: left;">
+                            {{ $r['unit']->nama }}
+                        </td>
+                        <td style="border: none; padding: 0; font-size: 8pt; color: #64748b; text-align: right;">
+                            Total: {{ $r['total'] }} Temuan
+                        </td>
+                    </tr>
+                </table>
+                <table style="width: 100%; border-collapse: collapse; height: 12px; background: #e2e8f0; border: 1px solid #cbd5e1;">
+                    <tr>
+                        @if($pSesuai > 0)<td style="width: {{ $pSesuai }}%; background: #16a34a; height: 12px; padding: 0; border: none;"></td>@endif
+                        @if($pOb > 0)<td style="width: {{ $pOb }}%; background: #0284c7; height: 12px; padding: 0; border: none;"></td>@endif
+                        @if($pMinor > 0)<td style="width: {{ $pMinor }}%; background: #d97706; height: 12px; padding: 0; border: none;"></td>@endif
+                        @if($pMayor > 0)<td style="width: {{ $pMayor }}%; background: #dc2626; height: 12px; padding: 0; border: none;"></td>@endif
+                        @if($pOfi > 0)<td style="width: {{ $pOfi }}%; background: #7c3aed; height: 12px; padding: 0; border: none;"></td>@endif
+                        @if($pTp > 0)<td style="width: {{ $pTp }}%; background: #0d9488; height: 12px; padding: 0; border: none;"></td>@endif
+                    </tr>
+                </table>
             </div>
         @endforeach
     </div>
@@ -985,16 +994,29 @@
         @foreach($rekapPerUnit as $r)
             @php
                 $score = $r['avg_score'];
-                $pScore = min(100, max(0, ($score / 4.0) * 100));
+                $pScore = round(min(100, max(0, ($score / 4.0) * 100)), 1);
             @endphp
-            <div class="bar-container">
-                <div class="bar-label" style="display: flex; justify-content: space-between;">
-                    <span>{{ $r['unit']->nama }}</span>
-                    <span style="font-weight: bold; color: #1e40af;">{{ number_format($score, 2) }} / 4.00</span>
-                </div>
-                <div class="bar-track">
-                    <div class="bar-fill" style="width: {{ $pScore }}%; background: linear-gradient(to right, #38bdf8, #0284c7);"></div>
-                </div>
+            <div style="margin-bottom: 8px;">
+                <table style="width: 100%; border: none; margin-bottom: 2px;">
+                    <tr>
+                        <td style="border: none; padding: 0; font-size: 8pt; font-weight: bold; color: #334155; text-align: left;">
+                            {{ $r['unit']->nama }}
+                        </td>
+                        <td style="border: none; padding: 0; font-size: 8pt; font-weight: bold; color: #0284c7; text-align: right;">
+                            {{ number_format($score, 2) }} / 4.00 ({{ $pScore }}%)
+                        </td>
+                    </tr>
+                </table>
+                <table style="width: 100%; border-collapse: collapse; height: 12px; background: #e2e8f0; border: 1px solid #cbd5e1;">
+                    <tr>
+                        @if($pScore > 0)
+                            <td style="width: {{ $pScore }}%; background: #0284c7; height: 12px; padding: 0; border: none;"></td>
+                        @endif
+                        @if($pScore < 100)
+                            <td style="width: {{ 100 - $pScore }}%; background: #e2e8f0; height: 12px; padding: 0; border: none;"></td>
+                        @endif
+                    </tr>
+                </table>
             </div>
         @endforeach
     </div>
@@ -1004,16 +1026,29 @@
         <div class="chart-title">Grafik 3.3 Skor Rata-Rata Capaian per Kelompok Standar SPMI</div>
         @foreach($rekapKelompokStandar as $kName => $kScore)
             @php
-                $pKScore = min(100, max(0, ($kScore / 4.0) * 100));
+                $pKScore = round(min(100, max(0, ($kScore / 4.0) * 100)), 1);
             @endphp
-            <div class="bar-container">
-                <div class="bar-label" style="display: flex; justify-content: space-between;">
-                    <span>{{ $kName }}</span>
-                    <span style="font-weight: bold; color: #0284c7;">{{ number_format($kScore, 2) }} / 4.00</span>
-                </div>
-                <div class="bar-track">
-                    <div class="bar-fill" style="width: {{ $pKScore }}%; background: #059669;"></div>
-                </div>
+            <div style="margin-bottom: 8px;">
+                <table style="width: 100%; border: none; margin-bottom: 2px;">
+                    <tr>
+                        <td style="border: none; padding: 0; font-size: 8pt; font-weight: bold; color: #334155; text-align: left;">
+                            {{ $kName }}
+                        </td>
+                        <td style="border: none; padding: 0; font-size: 8pt; font-weight: bold; color: #059669; text-align: right;">
+                            {{ number_format($kScore, 2) }} / 4.00 ({{ $pKScore }}%)
+                        </td>
+                    </tr>
+                </table>
+                <table style="width: 100%; border-collapse: collapse; height: 12px; background: #e2e8f0; border: 1px solid #cbd5e1;">
+                    <tr>
+                        @if($pKScore > 0)
+                            <td style="width: {{ $pKScore }}%; background: #059669; height: 12px; padding: 0; border: none;"></td>
+                        @endif
+                        @if($pKScore < 100)
+                            <td style="width: {{ 100 - $pKScore }}%; background: #e2e8f0; height: 12px; padding: 0; border: none;"></td>
+                        @endif
+                    </tr>
+                </table>
             </div>
         @endforeach
     </div>

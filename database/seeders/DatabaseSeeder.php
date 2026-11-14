@@ -182,6 +182,9 @@ class DatabaseSeeder extends Seeder
             ],
         ]);
 
-        $this->call(PetunjukAmiSeeder::class);
+        $this->call([
+            PetunjukAmiSeeder::class,
+            AuditSesiAndPkaSimulasiSeeder::class,
+        ]);
     }
 }

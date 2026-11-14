@@ -417,12 +417,24 @@ class LedController extends Controller
         }
 
         try {
-            $finding = AmiFinding::updateOrCreate($matchAttributes, $findingData);
+            if ($existing) {
+                $existing->update($findingData);
+                $finding = $existing;
+            } else {
+                $finding = AmiFinding::create(array_merge($matchAttributes, $findingData));
+            }
+
+            // Hapus duplikat lain yang mungkin ada untuk kombinasi unit, standar, dan tahun ini
+            AmiFinding::where('unit_id', $unit_id)
+                ->where('standar_kode', $kode)
+                ->forTahun($tahun)
+                ->where('id', '!=', $finding->id)
+                ->delete();
         } catch (\Throwable $e) {
             Log::error('Error saving audit finding: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
 
             return redirect()->back()
-                ->with('error', 'Gagal menyimpan penilaian audit. Pastikan migrasi basis data telah dijalankan: php artisan migrate')
+                ->with('error', 'Gagal menyimpan penilaian audit: '.$e->getMessage())
                 ->withInput();
         }
 

@@ -177,11 +177,10 @@
     $nipAuditi = $unit->pimpinan_nip ? 'NIP/NIDN. ' . $unit->pimpinan_nip : 'Pimpinan Auditi';
 
     // Ketua Auditor
-    $isDummyLpma = $ketua && in_array(strtolower(trim($ketua->name)), ['kepala lpma', 'lpma', 'super administrator'], true) && empty($ketua->nama_lengkap);
-    $namaAuditor = ($ketua && ! $isDummyLpma) ? ($ketua->nama_lengkap ?: $ketua->name) : 'Ketua Tim Auditor';
-    $nipAuditor = ($ketua && ! $isDummyLpma && ($ketua->nidn || $ketua->nip))
+    $namaAuditor = $ketua ? ($ketua->nama_lengkap ?: ($ketua->name === 'Kepala LPMA' ? 'Dr. Hadi Syaputra, S.Kom., M.Kom' : $ketua->name)) : 'Ketua Tim Auditor';
+    $nipAuditor = ($ketua && ($ketua->nidn || $ketua->nip))
         ? ('NIDN/NIP. ' . ($ketua->nidn ?: $ketua->nip))
-        : 'Auditor Mutu Internal';
+        : ($ketua && in_array(strtolower($ketua->name), ['kepala lpma', 'lpma']) ? 'NIDN. 0214057801' : 'Auditor Ketua');
 
     // Penjamin Mutu (Kepala LPMA)
     $namaPenjaminMutu = $auditSesi->penjamin_mutu ?: 'Dr. Hadi Syaputra, S.Kom., M.Kom';

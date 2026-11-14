@@ -454,6 +454,23 @@ class LaporanAmiController extends Controller
             ? $auditSesi->tanggal_audit
             : ($findings->isNotEmpty() ? $findings->min('tanggal') : sprintf('%d-10-16', $tahun));
 
+        // Sinkronkan jadwal pelaksanaan Tabel 2.1 dengan tanggal audit riil
+        $jadwalList = (array) ($laporan->jadwal_ami ?: LaporanAmi::getDefaultData($tahun)['jadwal_ami']);
+        if ($tanggalAuditTerpilih) {
+            $formattedAuditDate = \Carbon\Carbon::parse($tanggalAuditTerpilih)->translatedFormat('d F Y');
+            foreach ($jadwalList as &$j) {
+                if (str_contains(strtolower($j['kegiatan'] ?? ''), 'visitasi') || str_contains(strtolower($j['kegiatan'] ?? ''), 'audit lapangan')) {
+                    if (! $isAllUnits && $targetUnits->count() === 1) {
+                        $j['tanggal'] = $formattedAuditDate;
+                    } else {
+                        $j['tanggal'] = sprintf('05 s.d. 25 Oktober %d', $tahun);
+                    }
+                }
+            }
+            unset($j);
+            $laporan->jadwal_ami = $jadwalList;
+        }
+
         return [
             'tahun' => $tahun,
             'laporan' => $laporan,

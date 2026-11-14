@@ -451,18 +451,25 @@
             @foreach($rekapPerUnit as $r)
                 @php
                     $tot = max(1, $r['total']);
-                    $pSesuai = ($r['counts']['Sesuai'] / $tot) * 100;
-                    $pOb = ($r['counts']['Observasi (OB)'] / $tot) * 100;
-                    $pMinor = ($r['counts']['KTS Minor'] / $tot) * 100;
-                    $pMayor = ($r['counts']['KTS Mayor'] / $tot) * 100;
+                    $pSesuai = round(($r['counts']['Sesuai'] / $tot) * 100, 1);
+                    $pOb = round(($r['counts']['Observasi (OB)'] / $tot) * 100, 1);
+                    $pMinor = round(($r['counts']['KTS Minor'] / $tot) * 100, 1);
+                    $pMayor = round(($r['counts']['KTS Mayor'] / $tot) * 100, 1);
+                    $pOfi = round(($r['counts']['Peluang Peningkatan (OFI)'] / $tot) * 100, 1);
+                    $pTp = round(($r['counts']['Temuan Positif (TP)'] / $tot) * 100, 1);
                 @endphp
-                <div class="bar-container">
-                    <div class="bar-label">{{ $r['unit']->nama }} (Total: {{ $r['total'] }})</div>
-                    <div class="bar-track">
-                        @if($pSesuai > 0)<div class="bar-fill" style="width: {{ $pSesuai }}%; background: #16a34a;" title="Sesuai: {{ $r['counts']['Sesuai'] }}"></div>@endif
-                        @if($pOb > 0)<div class="bar-fill" style="width: {{ $pOb }}%; background: #0284c7;" title="OB: {{ $r['counts']['Observasi (OB)'] }}"></div>@endif
-                        @if($pMinor > 0)<div class="bar-fill" style="width: {{ $pMinor }}%; background: #d97706;" title="KTS Minor: {{ $r['counts']['KTS Minor'] }}"></div>@endif
-                        @if($pMayor > 0)<div class="bar-fill" style="width: {{ $pMayor }}%; background: #dc2626;" title="KTS Mayor: {{ $r['counts']['KTS Mayor'] }}"></div>@endif
+                <div style="margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; color: #334155;">
+                        <span>{{ $r['unit']->nama }}</span>
+                        <span style="color: #64748b;">Total: {{ $r['total'] }} Temuan</span>
+                    </div>
+                    <div style="display: flex; height: 16px; background: #e2e8f0; border-radius: 4px; overflow: hidden; border: 1px solid #cbd5e1;">
+                        @if($pSesuai > 0)<div style="width: {{ $pSesuai }}%; background: #16a34a;" title="Sesuai: {{ $r['counts']['Sesuai'] }}"></div>@endif
+                        @if($pOb > 0)<div style="width: {{ $pOb }}%; background: #0284c7;" title="OB: {{ $r['counts']['Observasi (OB)'] }}"></div>@endif
+                        @if($pMinor > 0)<div style="width: {{ $pMinor }}%; background: #d97706;" title="KTS Minor: {{ $r['counts']['KTS Minor'] }}"></div>@endif
+                        @if($pMayor > 0)<div style="width: {{ $pMayor }}%; background: #dc2626;" title="KTS Mayor: {{ $r['counts']['KTS Mayor'] }}"></div>@endif
+                        @if($pOfi > 0)<div style="width: {{ $pOfi }}%; background: #7c3aed;" title="OFI: {{ $r['counts']['Peluang Peningkatan (OFI)'] }}"></div>@endif
+                        @if($pTp > 0)<div style="width: {{ $pTp }}%; background: #0d9488;" title="TP: {{ $r['counts']['Temuan Positif (TP)'] }}"></div>@endif
                     </div>
                 </div>
             @endforeach
@@ -474,15 +481,15 @@
             @foreach($rekapPerUnit as $r)
                 @php
                     $score = $r['avg_score'];
-                    $pScore = min(100, max(0, ($score / 4.0) * 100));
+                    $pScore = round(min(100, max(0, ($score / 4.0) * 100)), 1);
                 @endphp
-                <div class="bar-container">
-                    <div class="bar-label" style="display: flex; justify-content: space-between;">
+                <div style="margin-bottom: 12px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 600; margin-bottom: 4px; color: #334155;">
                         <span>{{ $r['unit']->nama }}</span>
-                        <span style="font-weight: bold; color: #0284c7;">{{ number_format($score, 2) }} / 4.00</span>
+                        <span style="color: #0284c7; font-weight: 700;">{{ number_format($score, 2) }} / 4.00 ({{ $pScore }}%)</span>
                     </div>
-                    <div class="bar-track">
-                        <div class="bar-fill" style="width: {{ $pScore }}%; background: #0284c7;"></div>
+                    <div style="display: flex; height: 16px; background: #e2e8f0; border-radius: 4px; overflow: hidden; border: 1px solid #cbd5e1;">
+                        <div style="width: {{ $pScore }}%; background: #0284c7; height: 100%;"></div>
                     </div>
                 </div>
             @endforeach

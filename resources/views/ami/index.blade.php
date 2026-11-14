@@ -242,7 +242,7 @@
                                         ->where('tahun', $findingTahun)
                                         ->exists();
 
-                                $canDelete = $canEdit && ($finding->status_tindak_lanjut !== 'Selesai');
+                                $canDelete = $canEdit && ($finding->status_tindak_lanjut !== 'Selesai' || in_array($amiRoleKode, ['super_admin', 'lpma'], true) || $finding->kategori_temuan === 'Sesuai');
                             @endphp
 
                             @if($canEdit)

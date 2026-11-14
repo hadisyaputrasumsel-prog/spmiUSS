@@ -27,12 +27,35 @@ class AuditSesiAndPkaSimulasiSeeder extends Seeder
         $unitId = $unit ? $unit->id : 17;
 
         // 2. Tentukan Auditor Penyusun & Pemeriksa
-        $auditorKetua = User::where('name', 'like', '%Budi Fachrudin%')->first()
-            ?? User::where('email', 'like', '%auditor%')->first()
+        $kepalaLpma = User::where('name', 'like', '%Kepala LPMA%')
+            ->orWhere('email', 'like', '%lpma%')
+            ->first();
+        if ($kepalaLpma) {
+            $kepalaLpma->nama_lengkap = 'Dr. Hadi Syaputra, S.Kom., M.Kom';
+            $kepalaLpma->nidn = '0214057801';
+            $kepalaLpma->save();
+        }
+
+        $auditorKetua = $kepalaLpma
+            ?? User::where('name', 'like', '%Budi Fachrudin%')->first()
             ?? User::first();
 
-        $auditorAnggota = User::where('name', 'like', '%Auditor Satu%')->first()
-            ?? $auditorKetua;
+        $auditorAnggota = User::where('name', 'like', '%Auditor Internal%')
+            ->orWhere('name', 'like', '%Auditor Satu%')
+            ->orWhere('email', 'like', '%auditor%')
+            ->first() ?? $auditorKetua;
+
+        // Pastikan Penugasan Auditor untuk simulasi 2023 tercatat
+        \App\Models\AuditorAssignment::updateOrCreate(
+            ['unit_id' => $unitId, 'tahun' => '2023', 'auditor_id' => $auditorKetua->id],
+            ['peran' => 'Auditor Ketua']
+        );
+        if ($auditorAnggota->id !== $auditorKetua->id) {
+            \App\Models\AuditorAssignment::updateOrCreate(
+                ['unit_id' => $unitId, 'tahun' => '2023', 'auditor_id' => $auditorAnggota->id],
+                ['peran' => 'Auditor Anggota']
+            );
+        }
 
         // 3. Update or Create Audit Sesi 2023 [SIMULASI]
         AuditSesi::updateOrCreate(

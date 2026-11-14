@@ -302,8 +302,8 @@ class AmiController extends Controller
             abort(403, 'Anda tidak memiliki hak akses untuk menghapus temuan ini.');
         }
 
-        if ($finding->status_tindak_lanjut === 'Selesai') {
-            return redirect()->back()->with('error', 'Temuan yang verifikasi RTL-nya sudah Selesai tidak dapat dihapus.');
+        if ($finding->status_tindak_lanjut === 'Selesai' && ! in_array(auth()->user()->role->kode ?? '', ['super_admin', 'lpma'], true) && $finding->kategori_temuan !== 'Sesuai') {
+            return redirect()->back()->with('error', 'Temuan non-sesuai yang verifikasi RTL-nya sudah Selesai tidak dapat dihapus.');
         }
 
         $unitId = $finding->unit_id;
@@ -568,30 +568,12 @@ class AmiController extends Controller
             ->where('tahun', $tahun)
             ->get();
 
-        $nonLpmaAssignments = $assignments->filter(function ($a) {
-            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
-
-            return $a->auditor && ! in_array($name, ['kepala lpma', 'lpma', 'super administrator'], true);
-        });
-
-        $ketua = $nonLpmaAssignments->firstWhere('peran', 'Auditor Ketua')?->auditor
-            ?? $nonLpmaAssignments->first(function ($a) {
-                return str_contains(strtolower((string) ($a->auditor?->name ?? '')), 'auditor');
-            })?->auditor
-            ?? $nonLpmaAssignments->first()?->auditor
-            ?? $assignments->firstWhere('peran', 'Auditor Ketua')?->auditor
+        $ketua = $assignments->firstWhere('peran', 'Auditor Ketua')?->auditor
+            ?? $assignments->first(fn ($a) => str_contains(strtolower((string) ($a->peran ?? '')), 'ketua'))?->auditor
             ?? $assignments->first()?->auditor;
 
         $anggota = $assignments->filter(function ($a) use ($ketua) {
-            if ($ketua && $a->auditor_id === $ketua->id) {
-                return false;
-            }
-            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
-            if ($a->auditor && in_array($name, ['kepala lpma', 'lpma'], true)) {
-                return false;
-            }
-
-            return true;
+            return ! $ketua || $a->auditor_id !== $ketua->id;
         })->pluck('auditor');
 
         $query = AmiFinding::with('standard')->where('unit_id', $unit->id)->whereYear('tanggal', $tahun);
@@ -657,30 +639,12 @@ class AmiController extends Controller
             ->where('tahun', $tahun)
             ->get();
 
-        $nonLpmaAssignments = $assignments->filter(function ($a) {
-            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
-
-            return $a->auditor && ! in_array($name, ['kepala lpma', 'lpma', 'super administrator'], true);
-        });
-
-        $ketua = $nonLpmaAssignments->firstWhere('peran', 'Auditor Ketua')?->auditor
-            ?? $nonLpmaAssignments->first(function ($a) {
-                return str_contains(strtolower((string) ($a->auditor?->name ?? '')), 'auditor');
-            })?->auditor
-            ?? $nonLpmaAssignments->first()?->auditor
-            ?? $assignments->firstWhere('peran', 'Auditor Ketua')?->auditor
+        $ketua = $assignments->firstWhere('peran', 'Auditor Ketua')?->auditor
+            ?? $assignments->first(fn ($a) => str_contains(strtolower((string) ($a->peran ?? '')), 'ketua'))?->auditor
             ?? $assignments->first()?->auditor;
 
         $anggota = $assignments->filter(function ($a) use ($ketua) {
-            if ($ketua && $a->auditor_id === $ketua->id) {
-                return false;
-            }
-            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
-            if ($a->auditor && in_array($name, ['kepala lpma', 'lpma'], true)) {
-                return false;
-            }
-
-            return true;
+            return ! $ketua || $a->auditor_id !== $ketua->id;
         })->pluck('auditor');
 
         $query = AmiFinding::with('standard')->where('unit_id', $unit->id)->whereYear('tanggal', $tahun);

@@ -128,35 +128,39 @@ class AuditSesiController extends Controller
             }
         }
 
-        if (! Schema::hasTable('audit_sesi')) {
-            try {
+        try {
+            if (! Schema::hasTable('audit_sesi') || ! Schema::hasColumn('audit_sesi', 'tanggal_audit')) {
                 AppServiceProvider::syncSchema();
-            } catch (\Throwable $e) {
-                // fallback
             }
-        }
 
-        if (Schema::hasTable('audit_sesi')) {
-            AuditSesi::updateOrCreate(
-                ['unit_id' => $unitId, 'tahun' => $tahun],
-                [
-                    'no_kka' => $validated['no_kka'] ?? null,
-                    'kriteria' => $validated['kriteria'] ?? null,
-                    'lokasi' => $validated['lokasi'] ?? null,
-                    'ruang_lingkup' => $validated['ruang_lingkup'] ?? null,
-                    'tanggal_audit' => $validated['tanggal_audit'] ?? null,
-                    'wakil_auditi' => $validated['wakil_auditi'] ?? null,
-                    'distribusi' => $validated['distribusi'] ?? [],
-                    'penjamin_mutu' => $validated['penjamin_mutu'] ?? null,
-                    'catatan_penutup' => $validated['catatan_penutup'] ?? null,
-                ]
-            );
+            if (Schema::hasTable('audit_sesi')) {
+                $payload = [];
+                $columns = ['no_kka', 'kriteria', 'lokasi', 'ruang_lingkup', 'tanggal_audit', 'wakil_auditi', 'distribusi', 'penjamin_mutu', 'catatan_penutup'];
+                foreach ($columns as $col) {
+                    if (Schema::hasColumn('audit_sesi', $col)) {
+                        $payload[$col] = $validated[$col] ?? null;
+                    }
+                }
+                if (isset($payload['distribusi']) && ! is_array($payload['distribusi'])) {
+                    $payload['distribusi'] = [];
+                }
+
+                AuditSesi::updateOrCreate(
+                    ['unit_id' => $unitId, 'tahun' => $tahun],
+                    $payload
+                );
+
+                return redirect()->route('audit-sesi.edit', ['unit_id' => $unitId, 'tahun' => $tahun])
+                    ->with('success', 'Data Sesi Audit berhasil disimpan.');
+            }
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::error('Error saving audit_sesi: '.$e->getMessage());
 
             return redirect()->route('audit-sesi.edit', ['unit_id' => $unitId, 'tahun' => $tahun])
-                ->with('success', 'Data Sesi Audit berhasil disimpan.');
+                ->with('error', 'Gagal menyimpan data sesi audit: '.$e->getMessage());
         }
 
         return redirect()->route('audit-sesi.edit', ['unit_id' => $unitId, 'tahun' => $tahun])
-            ->with('error', 'Tabel audit_sesi belum ada di database. Silakan jalankan: php artisan migrate');
+            ->with('error', 'Tabel audit_sesi belum siap di database.');
     }
 }

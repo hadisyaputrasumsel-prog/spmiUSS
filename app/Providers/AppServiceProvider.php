@@ -53,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
         self::ensureMissingColumns();
         self::ensureColumnTypes();
         self::ensureDefaultPetunjukAmi();
+        self::cleanupDuplicateFindings();
     }
 
     /**
@@ -81,6 +82,60 @@ class AppServiceProvider extends ServiceProvider
                 'petunjuk_ami' => PetunjukAmiSeeder::defaultContent(),
                 'updated_at' => now(),
             ]);
+        }
+    }
+
+    /**
+     * Deduplicate findings per (unit_id, standar_kode, tahun) and clean up duplicate ID 51.
+     */
+    private static function cleanupDuplicateFindings(): void
+    {
+        if (! Schema::hasTable('ami_findings')) {
+            return;
+        }
+
+        try {
+            // Ensure tahun is populated
+            if (Schema::hasColumn('ami_findings', 'tahun')) {
+                DB::statement('UPDATE ami_findings SET tahun = YEAR(tanggal) WHERE tahun IS NULL AND tanggal IS NOT NULL');
+            }
+
+            // Find duplicate groups
+            $duplicates = DB::table('ami_findings')
+                ->select('unit_id', 'standar_kode', DB::raw('COALESCE(tahun, YEAR(tanggal)) as thn'), DB::raw('COUNT(*) as total'))
+                ->groupBy('unit_id', 'standar_kode', DB::raw('COALESCE(tahun, YEAR(tanggal))'))
+                ->havingRaw('COUNT(*) > 1')
+                ->get();
+
+            foreach ($duplicates as $dup) {
+                $records = DB::table('ami_findings')
+                    ->where('unit_id', $dup->unit_id)
+                    ->where('standar_kode', $dup->standar_kode)
+                    ->whereRaw('COALESCE(tahun, YEAR(tanggal)) = ?', [$dup->thn])
+                    ->orderByRaw("CASE WHEN kategori_temuan != 'Sesuai' THEN 1 ELSE 2 END")
+                    ->orderBy('id')
+                    ->get();
+
+                // Keep the primary record, delete subsequent duplicate records (such as duplicate ID 51)
+                $deleteIds = $records->slice(1)->pluck('id')->toArray();
+                if (! empty($deleteIds)) {
+                    if (Schema::hasTable('ami_nilai_tahap')) {
+                        DB::table('ami_nilai_tahap')->whereIn('ami_id', $deleteIds)->delete();
+                    }
+                    DB::table('ami_findings')->whereIn('id', $deleteIds)->delete();
+                }
+            }
+
+            // Pastikan data simulasi 2023 unit 17 terinisialisasi tepat 50 temuan dan sesi audit lengkap
+            if (class_exists(\Database\Seeders\AuditSesiAndPkaSimulasiSeeder::class) && Schema::hasTable('audit_sesi') && Schema::hasTable('ami_findings')) {
+                $count2023 = DB::table('ami_findings')->where('unit_id', 17)->whereYear('tanggal', 2023)->count();
+                $sesiExist = DB::table('audit_sesi')->where('unit_id', 17)->where('tahun', 2023)->exists();
+                if (! $sesiExist || $count2023 !== 50) {
+                    (new \Database\Seeders\AuditSesiAndPkaSimulasiSeeder())->run();
+                }
+            }
+        } catch (\Throwable $e) {
+            Log::warning('Deduplication cleanup notice: '.$e->getMessage());
         }
     }
 
@@ -350,10 +405,11 @@ class AppServiceProvider extends ServiceProvider
                 $table->text('kriteria')->nullable();
                 $table->string('lokasi')->nullable();
                 $table->text('ruang_lingkup')->nullable();
-                $table->json('distribusi')->nullable();
+                $table->date('tanggal_audit')->nullable();
                 $table->string('wakil_auditi')->nullable();
-                $table->string('ketua_auditor')->nullable();
+                $table->json('distribusi')->nullable();
                 $table->string('penjamin_mutu')->nullable();
+                $table->text('catatan_penutup')->nullable();
                 $table->timestamps();
                 $table->unique(['unit_id', 'tahun']);
             });
@@ -514,6 +570,18 @@ class AppServiceProvider extends ServiceProvider
 
         self::ensureColumns('auditor_assignments', [
             'peran' => fn (Blueprint $table) => $table->string('peran')->default('Auditor Ketua'),
+        ]);
+
+        self::ensureColumns('audit_sesi', [
+            'tanggal_audit' => fn (Blueprint $table) => $table->date('tanggal_audit')->nullable()->after('ruang_lingkup'),
+            'catatan_penutup' => fn (Blueprint $table) => $table->text('catatan_penutup')->nullable()->after('penjamin_mutu'),
+            'wakil_auditi' => fn (Blueprint $table) => $table->string('wakil_auditi')->nullable(),
+            'distribusi' => fn (Blueprint $table) => $table->json('distribusi')->nullable(),
+            'penjamin_mutu' => fn (Blueprint $table) => $table->string('penjamin_mutu')->nullable(),
+            'no_kka' => fn (Blueprint $table) => $table->string('no_kka')->nullable(),
+            'kriteria' => fn (Blueprint $table) => $table->text('kriteria')->nullable(),
+            'lokasi' => fn (Blueprint $table) => $table->string('lokasi')->nullable(),
+            'ruang_lingkup' => fn (Blueprint $table) => $table->text('ruang_lingkup')->nullable(),
         ]);
     }
 

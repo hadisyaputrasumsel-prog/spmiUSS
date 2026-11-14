@@ -319,7 +319,7 @@ class PkaController extends Controller
         }
 
         if (! Schema::hasTable('pka')) {
-            return redirect()->back()->with('error', 'Tabel Program Kerja Audit (PKA) belum ada di basis data. Silakan klik Jalankan Migrasi Database terlebih dahulu di /run-migrate.');
+            return redirect()->back()->with('error', 'Tabel Program Kerja Audit (PKA) belum siap di basis data. Silakan hubungi administrator sistem.');
         }
 
         ini_set('memory_limit', '-1');
