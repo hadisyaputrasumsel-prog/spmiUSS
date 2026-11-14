@@ -104,7 +104,7 @@
     <!-- NOMOR DAN JUDUL SURAT EDARAN -->
     <div class="letter-number">SURAT EDARAN</div>
     <div class="text-center" style="margin-top: 3px; margin-bottom: 8px; font-size: 10.5pt;">
-        Nomor: {{ $nomorSurat }}
+        Nomor: {{ (!empty($nomorSurat) && !str_starts_with($nomorSurat, '...')) ? $nomorSurat : '' }}
     </div>
 
     <div class="text-center text-bold" style="font-size: 10.5pt; margin-bottom: 12px; text-transform: uppercase; line-height: 1.25;">
@@ -113,8 +113,8 @@
         DALAM RANGKA AUDIT MUTU INTERNAL (AMI) SIKLUS TAHUN {{ $tahun }}
     </div>
 
-    <!-- TUJUAN SURAT DAN KOTAK CEKLIS SASARAN PRODI / UNIT -->
-    <table style="width: 100%; margin-bottom: 6px;">
+    <!-- TUJUAN SURAT -->
+    <table style="width: 100%; margin-bottom: 12px;">
         <tr>
             <td style="width: 80px; vertical-align: top;"><strong>Kepada Yth.</strong></td>
             <td style="width: 10px; vertical-align: top;">:</td>
@@ -123,53 +123,12 @@
                     <strong>{{ $selectedUnit->pimpinan ?: ($selectedUnit->jenis == 'Program Studi' ? 'Ketua ' . $selectedUnit->nama : 'Pimpinan ' . $selectedUnit->nama) }}</strong><br>
                     <span>{{ $selectedUnit->nama }} — Universitas Sumatera Selatan</span>
                 @else
-                    <strong>Pimpinan Program Studi & Unit Kerja Sasaran</strong> <em>(Beri tanda centang &#10003; pada kotak unit tujuan):</em>
+                    <strong>Pimpinan Program Studi & Unit Kerja Sasaran</strong><br>
+                    <span>Universitas Sumatera Selatan</span>
                 @endif
             </td>
         </tr>
     </table>
-
-    <!-- KOTAK CEKLIS PRODI & UNIT SASARAN -->
-    <div style="border: 1px solid #000; padding: 6px 10px; margin-bottom: 10px; background-color: #fafafa; font-size: 8.5pt;">
-        <table style="width: 100%; border: none;">
-            <tr>
-                <!-- Kolom 1: Program Studi & Fakultas -->
-                <td style="width: 52%; vertical-align: top; padding-right: 8px;">
-                    <div style="font-weight: bold; border-bottom: 1px dashed #666; margin-bottom: 4px; padding-bottom: 2px;">
-                        A. PROGRAM STUDI & FAKULTAS (AKADEMIK):
-                    </div>
-                    @foreach($prodiUnits as $pu)
-                        @php $isPuChecked = in_array($pu->id, $selectedUnitIds); @endphp
-                        <div style="margin-bottom: 2.5px; {{ $isPuChecked ? 'font-weight: bold; color: #0284c7;' : '' }}">
-                            <span class="checkbox-square" style="{{ $isPuChecked ? 'background-color: #e0f2fe; color: #0284c7; font-weight: bold;' : '' }}">{!! $isPuChecked ? '&#10003;' : '' !!}</span>
-                            {{ $pu->nama }}
-                        </div>
-                    @endforeach
-                    @foreach($fakultasUnits as $fu)
-                        @php $isFuChecked = in_array($fu->id, $selectedUnitIds); @endphp
-                        <div style="margin-bottom: 2.5px; {{ $isFuChecked ? 'font-weight: bold; color: #0284c7;' : '' }}">
-                            <span class="checkbox-square" style="{{ $isFuChecked ? 'background-color: #e0f2fe; color: #0284c7; font-weight: bold;' : '' }}">{!! $isFuChecked ? '&#10003;' : '' !!}</span>
-                            {{ $fu->nama }}
-                        </div>
-                    @endforeach
-                </td>
-
-                <!-- Kolom 2: Lembaga, Biro & Unit Penunjang -->
-                <td style="width: 48%; vertical-align: top; padding-left: 8px; border-left: 1px solid #ccc;">
-                    <div style="font-weight: bold; border-bottom: 1px dashed #666; margin-bottom: 4px; padding-bottom: 2px;">
-                        B. LEMBAGA, BIRO & UNIT (NON-AKADEMIK):
-                    </div>
-                    @foreach($nonAkademikUnits as $nu)
-                        @php $isNuChecked = in_array($nu->id, $selectedUnitIds); @endphp
-                        <div style="margin-bottom: 2.5px; {{ $isNuChecked ? 'font-weight: bold; color: #0284c7;' : '' }}">
-                            <span class="checkbox-square" style="{{ $isNuChecked ? 'background-color: #e0f2fe; color: #0284c7; font-weight: bold;' : '' }}">{!! $isNuChecked ? '&#10003;' : '' !!}</span>
-                            {{ $nu->nama }}
-                        </div>
-                    @endforeach
-                </td>
-            </tr>
-        </table>
-    </div>
 
     <!-- ISI SURAT EDARAN -->
     <div class="content">
@@ -237,7 +196,7 @@
 
     <div style="font-size: 9.5pt; margin-bottom: 8px;">
         <strong>LAMPIRAN SURAT EDARAN KEPALA LPMA UNIVERSITAS SUMATERA SELATAN</strong><br>
-        Nomor &nbsp;: {{ $nomorSurat }}<br>
+        Nomor &nbsp;: {{ (!empty($nomorSurat) && !str_starts_with($nomorSurat, '...')) ? $nomorSurat : '' }}<br>
         Tanggal : {{ $tanggalSurat }}<br>
         Perihal : Lembar Ceklis Distribusi & Sasaran Pengisian Laporan Evaluasi Diri (LED) Tahun {{ $tahun }}
     </div>

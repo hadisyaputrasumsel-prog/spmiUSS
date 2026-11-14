@@ -248,7 +248,7 @@ class BulanMutuController extends Controller
                 $selesaiTime = strtotime('+16 days', $time);
                 $tanggalSelesai = date('j', $selesaiTime).' '.$bulanIndo[(int) date('n', $selesaiTime)].' '.$y;
             } else {
-                $nomorSurat = sprintf('.../SE-LED/LPMA/USS/VII/%d', $tahun);
+                $nomorSurat = '';
                 $tanggalSurat = '05 Juli '.$tahun;
                 $tanggalMulai = '07 Juli '.$tahun;
                 $tanggalSelesai = '28 Juli '.$tahun;
