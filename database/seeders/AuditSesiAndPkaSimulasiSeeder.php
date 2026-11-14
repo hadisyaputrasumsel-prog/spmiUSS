@@ -48,7 +48,7 @@ class AuditSesiAndPkaSimulasiSeeder extends Seeder
                 'tanggal_audit' => '2023-10-16',
                 'wakil_auditi' => 'Kaprodi Ilmu Komputer [SIMULASI]',
                 'distribusi' => ['Auditi', 'Auditor', 'LPMA', 'Arsip'],
-                'penjamin_mutu' => 'Dr. H. Ahmad Fauzi, M.Pd [SIMULASI]',
+                'penjamin_mutu' => 'Dr. Hadi Syaputra, S.Kom., M.Kom',
                 'catatan_penutup' => "VI. Catatan Penutup dan Tindak Lanjut:\nTemuan KTS Major pada C.6.4.g memerlukan perhatian segera dari Dekan dan Rektor terkait alokasi anggaran integrasi penelitian ke dalam bahan ajar. Auditi berkomitmen menyelesaikan akar penyebab sebelum Audit Tindak Lanjut (ATL) yang dijadwalkan pada 16 November 2023.",
             ]
         );

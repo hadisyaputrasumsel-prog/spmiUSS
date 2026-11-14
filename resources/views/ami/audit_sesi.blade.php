@@ -142,7 +142,7 @@
                         <label style="display: block; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem;">
                             Penjamin Mutu Audit (Reviewer LPMA)
                         </label>
-                        <input type="text" name="penjamin_mutu" value="{{ old('penjamin_mutu', $auditSesi->penjamin_mutu) }}" placeholder="Contoh: Dr. H. Ahmad Fauzi, M.Pd" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
+                        <input type="text" name="penjamin_mutu" value="{{ old('penjamin_mutu', $auditSesi->penjamin_mutu) }}" placeholder="Contoh: Dr. Hadi Syaputra, S.Kom., M.Kom" class="form-control" style="width: 100%; padding: 0.625rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-primary); color: var(--text-primary);">
                     </div>
                     <div>
                         <label style="display: block; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem;">

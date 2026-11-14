@@ -263,10 +263,10 @@
         <div style="display: flex; justify-content: space-between; margin-top: 50px; text-align: center;">
             <div style="width: 45%;">
                 Mengetahui dan Mengesahkan,<br>
-                <b>{{ $laporan->penandatangan_lpma_jabatan ?: 'Kepala LPMA' }}</b><br>
+                <b>{{ $laporan->penandatangan_lpma_jabatan ?: 'Kepala LPMA Universitas Sumatera Selatan' }}</b><br>
                 Universitas Sumatera Selatan
                 <br><br><br><br>
-                <u><b>{{ $laporan->penandatangan_lpma_nama ?: 'Dr. H. Ahmad Fauzi, M.Pd' }}</b></u><br>
+                <u><b>{{ $laporan->penandatangan_lpma_nama ?: 'Dr. Hadi Syaputra, S.Kom., M.Kom' }}</b></u><br>
                 NIDN: {{ $laporan->penandatangan_lpma_nidn ?: '0214057801' }}
             </div>
             <div style="width: 45%;">
@@ -290,8 +290,8 @@
         </div>
         <div style="float: right; text-align: center; margin-top: 30px;">
             Palembang, {{ $tglTerbitFormatted }}<br>
-            Kepala LPMA USS,<br><br><br><br>
-            <u><b>{{ $laporan->penandatangan_lpma_nama ?: 'Dr. H. Ahmad Fauzi, M.Pd' }}</b></u>
+            Kepala LPMA Universitas Sumatera Selatan,<br><br><br><br>
+            <u><b>{{ $laporan->penandatangan_lpma_nama ?: 'Dr. Hadi Syaputra, S.Kom., M.Kom' }}</b></u>
         </div>
         <div style="clear: both;"></div>
     </div>

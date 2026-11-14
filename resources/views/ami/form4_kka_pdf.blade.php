@@ -184,7 +184,7 @@
         : 'Auditor Mutu Internal';
 
     // Penjamin Mutu (Kepala LPMA)
-    $namaPenjaminMutu = $auditSesi->penjamin_mutu ?: 'Dr. H. Ahmad Fauzi, M.Pd';
+    $namaPenjaminMutu = $auditSesi->penjamin_mutu ?: 'Dr. Hadi Syaputra, S.Kom., M.Kom';
     $nidnPenjaminMutu = '0214057801';
 @endphp
 
@@ -363,7 +363,7 @@
             </td>
             <td style="width: 33.33%; border: none; text-align: center; vertical-align: top; padding: 4px 6px;">
                 <div style="font-weight: bold; font-size: 8.5pt;">Penjamin Mutu Audit,</div>
-                <div style="font-size: 8pt; color: #555; margin-bottom: 45px;">Kepala LPMA USS</div>
+                <div style="font-size: 8pt; color: #555; margin-bottom: 45px;">Kepala LPMA Universitas Sumatera Selatan</div>
                 <div style="font-size: 8.5pt;">
                     <u><b>{{ $namaPenjaminMutu }}</b></u>
                 </div>

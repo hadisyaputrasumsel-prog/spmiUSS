@@ -328,7 +328,7 @@
                     
                     <div style="margin-bottom: 0.85rem;">
                         <label class="laporan-label">Nama Lengkap & Gelar</label>
-                        <input type="text" name="penandatangan_lpma_nama" value="{{ old('penandatangan_lpma_nama', $laporan->penandatangan_lpma_nama) }}" class="laporan-input" placeholder="Dr. H. Ahmad Fauzi, M.Pd" required>
+                        <input type="text" name="penandatangan_lpma_nama" value="{{ old('penandatangan_lpma_nama', $laporan->penandatangan_lpma_nama) }}" class="laporan-input" placeholder="Dr. Hadi Syaputra, S.Kom., M.Kom" required>
                     </div>
 
                     <div style="margin-bottom: 0.85rem;">
@@ -338,7 +338,7 @@
 
                     <div>
                         <label class="laporan-label">Jabatan</label>
-                        <input type="text" name="penandatangan_lpma_jabatan" value="{{ old('penandatangan_lpma_jabatan', $laporan->penandatangan_lpma_jabatan ?: 'Kepala LPMA') }}" class="laporan-input" required>
+                        <input type="text" name="penandatangan_lpma_jabatan" value="{{ old('penandatangan_lpma_jabatan', $laporan->penandatangan_lpma_jabatan ?: 'Kepala LPMA Universitas Sumatera Selatan') }}" class="laporan-input" required>
                     </div>
                 </div>
 
