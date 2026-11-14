@@ -17,12 +17,12 @@
 
     <!-- Quick Switcher Unit & Tahun -->
     <form method="GET" action="{{ route('audit-sesi.edit') }}" style="display: flex; gap: 0.5rem; align-items: center;">
-        <select name="unit_id" class="form-select" onchange="this.form.submit()" style="padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); font-size: 0.875rem;">
+        <select name="unit_id" class="form-select" onchange="this.form.submit()" style="min-width: 320px; max-width: 450px; width: auto; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
             @foreach($units as $u)
                 <option value="{{ $u->id }}" {{ $unit->id == $u->id ? 'selected' : '' }}>{{ $u->nama }}</option>
             @endforeach
         </select>
-        <select name="tahun" class="form-select" onchange="this.form.submit()" style="padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); font-size: 0.875rem;">
+        <select name="tahun" class="form-select" onchange="this.form.submit()" style="min-width: 95px; width: auto; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
             @foreach([2027, 2026, 2025, 2024, 2023] as $y)
                 <option value="{{ $y }}" {{ $tahun == $y ? 'selected' : '' }}>{{ $y }}</option>
             @endforeach
