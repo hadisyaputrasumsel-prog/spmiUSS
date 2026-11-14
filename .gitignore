@@ -43,3 +43,8 @@ Thumbs.db
 !/server.php
 *.ps1
 /docs/
+
+# --- SENSITIVE DATA & DUMPS ---
+*.sql
+*.sql.gz
+error*.html
