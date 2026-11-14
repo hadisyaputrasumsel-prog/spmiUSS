@@ -192,7 +192,7 @@ class AppServiceProvider extends ServiceProvider
                 $table->text('indikator_p5')->nullable();
                 $table->text('target')->nullable();
                 $table->string('acuan')->nullable();
-                $table->string('template_dokumen')->nullable();
+                $table->text('template_dokumen')->nullable();
                 $table->string('penanggung_jawab')->nullable();
                 $table->boolean('is_akademik')->default(true);
                 $table->string('kelompok');
@@ -526,7 +526,7 @@ class AppServiceProvider extends ServiceProvider
             'rubrik_penilaian' => fn (Blueprint $table) => $table->json('rubrik_penilaian')->nullable(),
             'target' => fn (Blueprint $table) => $table->text('target')->nullable(),
             'acuan' => fn (Blueprint $table) => $table->string('acuan')->nullable(),
-            'template_dokumen' => fn (Blueprint $table) => $table->string('template_dokumen')->nullable(),
+            'template_dokumen' => fn (Blueprint $table) => $table->text('template_dokumen')->nullable(),
         ]);
 
         self::ensureColumns('ami_findings', [

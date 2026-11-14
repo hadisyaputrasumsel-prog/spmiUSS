@@ -16,8 +16,8 @@
     </div>
 
     <!-- Quick Switcher Unit & Tahun -->
-    <form method="GET" action="{{ route('audit-sesi.edit') }}" style="display: flex; gap: 0.5rem; align-items: center;">
-        <select name="unit_id" class="form-select" onchange="this.form.submit()" style="min-width: 320px; max-width: 450px; width: auto; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
+    <form method="GET" action="{{ route('audit-sesi.edit') }}" style="display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0;">
+        <select name="unit_id" class="form-select" onchange="this.form.submit()" style="width: 380px !important; min-width: 380px !important; flex: 0 0 380px !important; padding: 0.5rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background: var(--bg-secondary); color: var(--text-primary); font-size: 0.875rem; font-weight: 500; cursor: pointer;">
             @foreach($units as $u)
                 <option value="{{ $u->id }}" {{ $unit->id == $u->id ? 'selected' : '' }}>{{ $u->nama }}</option>
             @endforeach

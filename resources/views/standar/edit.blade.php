@@ -59,17 +59,42 @@
                     <input type="text" name="acuan" value="{{ old('acuan', $standard->acuan) }}" class="form-control" placeholder="Cth: SM-USS-03-01-01 (Revisi: 23-04-2025)" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                 </div>
                 
-                <div class="form-group" style="margin-bottom: 2rem;">
-                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Template Dokumen Mutu (Opsional)</label>
+                <div class="form-group" style="margin-bottom: 2rem; background: var(--bg-secondary); padding: 1.25rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 600;">Dokumen Mutu (Optional)</label>
+                    
                     @if($standard->template_dokumen)
-                        <div style="margin-bottom: 0.75rem; padding: 0.5rem; background-color: var(--status-success-bg); border-radius: var(--radius-md); border: 1px solid var(--status-success);">
-                            <a href="{{ Storage::url($standard->template_dokumen) }}" target="_blank" style="color: var(--status-success); font-weight: 600; display: flex; align-items: center; gap: 0.5rem;">
-                                <i data-feather="file" style="width: 16px; height: 16px;"></i> Template Tersedia (Klik untuk lihat)
+                        @php
+                            $isUrl = \Illuminate\Support\Str::startsWith($standard->template_dokumen, ['http://', 'https://']);
+                            $docUrl = $isUrl ? $standard->template_dokumen : Storage::url($standard->template_dokumen);
+                        @endphp
+                        <div style="margin-bottom: 1rem; padding: 0.625rem 0.875rem; background-color: var(--status-success-bg); border-radius: var(--radius-md); border: 1px solid var(--status-success); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem;">
+                            <a href="{{ $docUrl }}" target="_blank" style="color: var(--status-success); font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                                <i data-feather="{{ $isUrl ? 'external-link' : 'file-text' }}" style="width: 16px; height: 16px;"></i>
+                                <span>{{ $isUrl ? 'Tautan Dokumen Mutu Aktif: ' . \Illuminate\Support\Str::limit($standard->template_dokumen, 50) : 'File Dokumen Mutu Tersedia (Klik untuk lihat/unduh)' }}</span>
                             </a>
+                            <span style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.2); color: var(--status-success); padding: 2px 8px; border-radius: 9999px; font-weight: 600;">
+                                {{ $isUrl ? 'Link URL' : 'File Upload' }}
+                            </span>
                         </div>
                     @endif
-                    <input type="file" name="template_dokumen" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
-                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Unggah file baru jika ingin mengganti template dokumen (PDF, Word, Excel).</small>
+
+                    <div style="margin-bottom: 1rem;">
+                        <span style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem;">Opsi 1: Unggah File Baru (PDF, Word, Excel)</span>
+                        <input type="file" name="template_dokumen_file" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">Pilih file dari komputer jika ingin mengganti dengan file dokumen baru (Maks. 10MB).</small>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin: 0.75rem 0;">
+                        <hr style="flex: 1; border: none; border-top: 1px solid var(--border-color); margin: 0;">
+                        <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Atau</span>
+                        <hr style="flex: 1; border: none; border-top: 1px solid var(--border-color); margin: 0;">
+                    </div>
+
+                    <div>
+                        <span style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem;">Opsi 2: Tautan / Link URL Dokumen</span>
+                        <input type="url" name="template_dokumen_link" value="{{ old('template_dokumen_link', (\Illuminate\Support\Str::startsWith($standard->template_dokumen, ['http://', 'https://']) ? $standard->template_dokumen : '')) }}" placeholder="https://drive.google.com/... atau https://..." class="form-control" style="width: 100%; padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">Masukkan link URL dokumen jika tersimpan di Google Drive, Dropbox, atau repositori web.</small>
+                    </div>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 1.5rem;">

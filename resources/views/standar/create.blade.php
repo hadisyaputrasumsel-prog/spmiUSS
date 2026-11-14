@@ -58,10 +58,30 @@
                     <input type="text" name="acuan" value="{{ old('acuan') }}" class="form-control" placeholder="Cth: SM-USS-03-01-01 (Revisi: 23-04-2025)" style="width: 100%; padding: 0.75rem 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
                 </div>
                 
-                <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); padding: 1rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
-                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.5rem; font-weight: 600;">Unggah Template Borang / Dokumen Pendukung (Opsional)</label>
-                    <input type="file" name="template_dokumen" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
-                    <small style="color: var(--text-muted); display: block; margin-top: 0.5rem;">Dokumen ini nantinya dapat diunduh oleh Prodi/Unit saat mengisi LED sebagai referensi atau format pengisian.</small>
+                <div style="margin-bottom: 1.5rem; background: var(--bg-secondary); padding: 1.25rem; border-radius: var(--radius-md); border: 1px dashed var(--border-color);">
+                    <label style="display: block; font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 0.75rem; font-weight: 600;">Dokumen Mutu (Optional)</label>
+                    
+                    <div style="margin-bottom: 1rem;">
+                        <span style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem;">Opsi 1: Unggah File (PDF, Word, Excel)</span>
+                        <input type="file" name="template_dokumen_file" class="form-control" accept=".pdf,.doc,.docx,.xls,.xlsx" style="width: 100%; padding: 0.5rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">Pilih file langsung dari perangkat Anda (Maks. 10MB).</small>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin: 0.75rem 0;">
+                        <hr style="flex: 1; border: none; border-top: 1px solid var(--border-color); margin: 0;">
+                        <span style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Atau</span>
+                        <hr style="flex: 1; border: none; border-top: 1px solid var(--border-color); margin: 0;">
+                    </div>
+
+                    <div>
+                        <span style="display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem;">Opsi 2: Tautan / Link URL Dokumen</span>
+                        <input type="url" name="template_dokumen_link" value="{{ old('template_dokumen_link') }}" placeholder="https://drive.google.com/... atau https://..." class="form-control" style="width: 100%; padding: 0.6rem 0.85rem; border-radius: var(--radius-md); border: 1px solid var(--border-color); background-color: var(--bg-primary); color: var(--text-primary);">
+                        <small style="color: var(--text-muted); display: block; margin-top: 0.25rem;">Masukkan link URL dokumen jika tersimpan di Google Drive, Dropbox, atau repositori web.</small>
+                    </div>
+
+                    <small style="color: var(--text-secondary); display: block; margin-top: 0.75rem; padding-top: 0.5rem; border-top: 1px solid var(--border-color); font-size: 0.8rem;">
+                        Dokumen ini nantinya dapat diunduh/dibuka oleh Prodi/Unit saat mengisi LED sebagai referensi atau format pengisian.
+                    </small>
                 </div>
 
                 <div class="form-group" style="margin-bottom: 1.5rem;">

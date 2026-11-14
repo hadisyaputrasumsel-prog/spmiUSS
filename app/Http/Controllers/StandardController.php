@@ -71,17 +71,30 @@ class StandardController extends Controller
             'indikator_p4' => 'nullable|string',
             'indikator_p5' => 'nullable|string',
             'rubrik_penilaian' => 'nullable|array',
-            'template_dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
+            'template_dokumen' => 'nullable',
+            'template_dokumen_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
+            'template_dokumen_link' => 'nullable|url|max:1000',
         ]);
 
         $data = $request->all();
         $data['is_active'] = $request->has('is_active') ? true : false;
 
-        if ($request->hasFile('template_dokumen')) {
+        if ($request->hasFile('template_dokumen_file')) {
+            $file = $request->file('template_dokumen_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('templates', $filename, 'public');
+            $data['template_dokumen'] = $path;
+        } elseif ($request->hasFile('template_dokumen')) {
             $file = $request->file('template_dokumen');
             $filename = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('templates', $filename, 'public');
             $data['template_dokumen'] = $path;
+        } elseif ($request->filled('template_dokumen_link')) {
+            $data['template_dokumen'] = trim($request->input('template_dokumen_link'));
+        } elseif (is_string($request->input('template_dokumen')) && !empty(trim($request->input('template_dokumen')))) {
+            $data['template_dokumen'] = trim($request->input('template_dokumen'));
+        } else {
+            $data['template_dokumen'] = null;
         }
 
         Standard::create($data);
@@ -114,7 +127,9 @@ class StandardController extends Controller
             'indikator_p4' => 'nullable|string',
             'indikator_p5' => 'nullable|string',
             'rubrik_penilaian' => 'nullable|array',
-            'template_dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
+            'template_dokumen' => 'nullable',
+            'template_dokumen_file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:10240',
+            'template_dokumen_link' => 'nullable|url|max:1000',
         ]);
 
         $data = $request->all();
@@ -124,11 +139,24 @@ class StandardController extends Controller
             $data['sasaran_unit'] = null;
         }
 
-        if ($request->hasFile('template_dokumen')) {
+        if ($request->hasFile('template_dokumen_file')) {
+            $file = $request->file('template_dokumen_file');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $path = $file->storeAs('templates', $filename, 'public');
+            $data['template_dokumen'] = $path;
+        } elseif ($request->hasFile('template_dokumen')) {
             $file = $request->file('template_dokumen');
             $filename = time() . '_' . $file->getClientOriginalName();
             $path = $file->storeAs('templates', $filename, 'public');
             $data['template_dokumen'] = $path;
+        } elseif ($request->filled('template_dokumen_link')) {
+            $data['template_dokumen'] = trim($request->input('template_dokumen_link'));
+        } elseif ($request->boolean('hapus_template_dokumen')) {
+            $data['template_dokumen'] = null;
+        } elseif ($request->has('template_dokumen_link') && empty($request->input('template_dokumen_link')) && \Illuminate\Support\Str::startsWith($standar_mutu->template_dokumen ?? '', ['http://', 'https://'])) {
+            $data['template_dokumen'] = null;
+        } else {
+            $data['template_dokumen'] = $standar_mutu->template_dokumen;
         }
 
         $standar_mutu->update($data);

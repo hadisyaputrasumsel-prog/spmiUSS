@@ -87,9 +87,13 @@
                     </div>
                     @endif
                     @if(!empty($standard->template_dokumen))
+                    @php
+                        $isUrlDoc = \Illuminate\Support\Str::startsWith($standard->template_dokumen, ['http://', 'https://']);
+                        $dokumenUrl = $isUrlDoc ? $standard->template_dokumen : Storage::url($standard->template_dokumen);
+                    @endphp
                     <div style="margin-top: 0.5rem;">
-                        <a href="{{ asset('storage/' . $standard->template_dokumen) }}" target="_blank" class="btn" style="background: white; border: 1px solid #10b981; color: #10b981; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 2px 4px rgba(16,185,129,0.1); width: 100%; justify-content: center; display: flex;">
-                            <i data-feather="download-cloud" style="width: 16px; height: 16px; margin-right: 8px;"></i> Unduh Template Resmi
+                        <a href="{{ $dokumenUrl }}" target="_blank" class="btn" style="background: white; border: 1px solid #10b981; color: #10b981; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border-radius: var(--radius-md); box-shadow: 0 2px 4px rgba(16,185,129,0.1); width: 100%; justify-content: center; display: flex; align-items: center;">
+                            <i data-feather="{{ $isUrlDoc ? 'external-link' : 'download-cloud' }}" style="width: 16px; height: 16px; margin-right: 8px;"></i> {{ $isUrlDoc ? 'Buka Dokumen Mutu' : 'Unduh Dokumen Mutu' }}
                         </a>
                     </div>
                     @endif
