@@ -158,7 +158,14 @@ class BulanMutuController extends Controller
             $kepalaLpmaNama = $laporan?->penandatangan_lpma_nama ?? 'Dr. H. Ahmad Fauzi, M.Pd';
             $kepalaLpmaJabatan = $laporan?->penandatangan_lpma_jabatan ?? 'Kepala Lembaga Penjaminan Mutu Akademik (LPMA)';
 
-            $units = Unit::orderBy('jenis')->orderBy('nama')->get();
+            $prodiUnits = Unit::where('jenis', 'Program Studi')->orderBy('nama')->get();
+            $fakultasUnits = Unit::where('jenis', 'Fakultas')->orderBy('nama')->get();
+            $nonAkademikUnits = Unit::whereNotIn('jenis', ['Program Studi', 'Fakultas', 'Universitas'])->orderBy('nama')->get();
+            $units = Unit::where('jenis', '!=', 'Universitas')->orderBy('jenis')->orderBy('nama')->get();
+
+            $selectedUnitsRaw = $request->query('unit_ids', []);
+            $selectedUnitIds = is_array($selectedUnitsRaw) ? $selectedUnitsRaw : explode(',', (string) $selectedUnitsRaw);
+            $selectedUnitIds = array_filter(array_map('intval', $selectedUnitIds));
 
             $pdf = Pdf::loadView('bulan_mutu.template_surat_edaran_led', compact(
                 'activity',
@@ -170,7 +177,11 @@ class BulanMutuController extends Controller
                 'tanggalSelesai',
                 'kepalaLpmaNama',
                 'kepalaLpmaJabatan',
-                'units'
+                'prodiUnits',
+                'fakultasUnits',
+                'nonAkademikUnits',
+                'units',
+                'selectedUnitIds'
             ));
 
             return $pdf->stream('Surat_Edaran_Pengisian_LED_'.$tahun.'.pdf');
