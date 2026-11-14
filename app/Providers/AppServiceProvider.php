@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $flagPath = storage_path('framework/schema_synced_v9.flag');
+        $flagPath = storage_path('framework/schema_synced_v10.flag');
         if (file_exists($flagPath)) {
             return;
         }

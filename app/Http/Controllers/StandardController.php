@@ -28,9 +28,14 @@ class StandardController extends Controller
 
         $query = Standard::orderBy('kode', 'asc');
         
-        if ($selectedPeriodeName === 'Periode Utama' || empty($selectedPeriodeName)) {
+        $isPrimaryPeriod = ($selectedPeriodeId == 1 || in_array($selectedPeriodeName, ['Periode Utama', 'INSTRUMEN STANDAR USS']) || empty($selectedPeriodeName));
+
+        if ($isPrimaryPeriod) {
             $query->where(function($q) use ($selectedPeriodeName) {
-                $q->whereNull('periode')->orWhere('periode', '')->orWhere('periode', $selectedPeriodeName);
+                $q->whereNull('periode')
+                  ->orWhere('periode', '')
+                  ->orWhere('periode', $selectedPeriodeName)
+                  ->orWhereIn('periode', ['Periode Utama', 'INSTRUMEN STANDAR USS']);
             });
         } else {
             $query->where('periode', $selectedPeriodeName);
@@ -184,9 +189,14 @@ class StandardController extends Controller
         $selectedPeriodeName = $periode->nama ?? '';
 
         $query = Standard::orderBy('kode', 'asc');
-        if ($selectedPeriodeName === 'Periode Utama' || empty($selectedPeriodeName)) {
+        $isPrimaryPeriod = ($selectedPeriodeId == 1 || in_array($selectedPeriodeName, ['Periode Utama', 'INSTRUMEN STANDAR USS']) || empty($selectedPeriodeName));
+
+        if ($isPrimaryPeriod) {
             $query->where(function($q) use ($selectedPeriodeName) {
-                $q->whereNull('periode')->orWhere('periode', '')->orWhere('periode', $selectedPeriodeName);
+                $q->whereNull('periode')
+                  ->orWhere('periode', '')
+                  ->orWhere('periode', $selectedPeriodeName)
+                  ->orWhereIn('periode', ['Periode Utama', 'INSTRUMEN STANDAR USS']);
             });
         } else {
             $query->where('periode', $selectedPeriodeName);

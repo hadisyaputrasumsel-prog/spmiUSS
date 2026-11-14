@@ -67,11 +67,14 @@ class Standard extends Model
     public function scopeActivePeriod($query)
     {
         $activePeriod = \App\Models\SpmiPeriod::where('is_active', true)->first();
-        $activePeriodName = $activePeriod ? $activePeriod->nama : 'Periode Utama';
+        $activePeriodName = $activePeriod ? $activePeriod->nama : 'INSTRUMEN STANDAR USS';
         
         return $query->where(function($q) use ($activePeriodName) {
-            if ($activePeriodName === 'Periode Utama') {
-                $q->whereNull('periode')->orWhere('periode', '')->orWhere('periode', 'Periode Utama');
+            if (in_array($activePeriodName, ['Periode Utama', 'INSTRUMEN STANDAR USS']) || empty($activePeriodName)) {
+                $q->whereNull('periode')
+                  ->orWhere('periode', '')
+                  ->orWhere('periode', $activePeriodName)
+                  ->orWhereIn('periode', ['Periode Utama', 'INSTRUMEN STANDAR USS']);
             } else {
                 $q->where('periode', $activePeriodName);
             }
