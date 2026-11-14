@@ -53,8 +53,11 @@
             </div>
         </div>
         
-        <div>
-            <a href="{{ route('standar-mutu.create') }}" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+        <div style="display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap;">
+            <a href="{{ route('standar-mutu.buku-pdf', ['periode_id' => $selectedPeriodeId]) }}" target="_blank" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.875rem; border-color: #0284c7; color: #0284c7; font-weight: 600; display: inline-flex; align-items: center; gap: 0.4rem; background: #fff; box-shadow: 0 1px 2px rgba(2, 132, 199, 0.1);" title="Cetak Buku Standar SPMI & Matriks (PDF)">
+                <i data-feather="printer" style="width: 16px; height: 16px;"></i> Cetak Buku Standar (PDF)
+            </a>
+            <a href="{{ route('standar-mutu.create') }}" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.4rem;">
                 <i data-feather="plus" style="width: 16px; height: 16px;"></i> Tambah Standar Baru
             </a>
         </div>

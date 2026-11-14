@@ -316,6 +316,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/laporan-ami/arsip', [LaporanAmiController::class, 'arsip'])->name('laporan_ami.arsip');
 
         Route::get('/rtm/cetak-berita-acara', [RtmController::class, 'generatePdf'])->name('rtm.cetak');
+        Route::get('standar-mutu/buku-pdf', [StandardController::class, 'bukuPdf'])->name('standar-mutu.buku-pdf');
         Route::resource('standar-mutu', StandardController::class)->except(['show']);
         Route::post('spmi-period', [SpmiPeriodController::class, 'store'])->name('spmi-period.store');
         Route::put('spmi-period/{id}', [SpmiPeriodController::class, 'update'])->name('spmi-period.update');

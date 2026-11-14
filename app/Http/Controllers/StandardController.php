@@ -168,6 +168,59 @@ class StandardController extends Controller
         return redirect()->route('standar-mutu.index')->with('success', 'Standar mutu berhasil diperbarui.');
     }
 
+    public function bukuPdf(Request $request)
+    {
+        $periodes = \App\Models\SpmiPeriod::orderBy('created_at', 'desc')->get();
+        if ($periodes->isEmpty()) {
+            \App\Models\SpmiPeriod::create(['nama' => 'Periode Utama', 'is_active' => true]);
+            $periodes = \App\Models\SpmiPeriod::orderBy('created_at', 'desc')->get();
+        }
+
+        $activePeriode = $periodes->where('is_active', true)->first();
+        if (!$activePeriode) $activePeriode = $periodes->first();
+
+        $selectedPeriodeId = $request->query('periode_id', $activePeriode->id);
+        $periode = $periodes->firstWhere('id', $selectedPeriodeId) ?? $activePeriode;
+        $selectedPeriodeName = $periode->nama ?? '';
+
+        $query = Standard::orderBy('kode', 'asc');
+        if ($selectedPeriodeName === 'Periode Utama' || empty($selectedPeriodeName)) {
+            $query->where(function($q) use ($selectedPeriodeName) {
+                $q->whereNull('periode')->orWhere('periode', '')->orWhere('periode', $selectedPeriodeName);
+            });
+        } else {
+            $query->where('periode', $selectedPeriodeName);
+        }
+
+        $standards = $query->get();
+        $groupedStandards = $standards->groupBy(function($item) {
+            return empty($item->kelompok) ? 'Tanpa Kelompok' : $item->kelompok;
+        });
+
+        $settings = \App\Models\Setting::first();
+        $kepalaLpmaNama = 'Dr. Hadi Syaputra, S.Kom., M.Kom.';
+        $kepalaLpmaJabatan = 'Ketua Lembaga Penjaminan Mutu & Audit (LPMA)';
+        $rektorNama = $settings->nama_rektor ?? 'Prof. Dr. Ir. Hj. Yudha Pratomo, M.Sc., Ph.D.';
+        $rektorJabatan = 'Rektor Universitas Sumatera Selatan';
+
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('standar.buku_pdf', compact(
+            'periode',
+            'standards',
+            'groupedStandards',
+            'kepalaLpmaNama',
+            'kepalaLpmaJabatan',
+            'rektorNama',
+            'rektorJabatan'
+        ));
+
+        $pdf->setPaper('a4', 'portrait');
+        $pdf->getDomPDF()->getOptions()->set('isPhpEnabled', true);
+        $pdf->getDomPDF()->getOptions()->set('isRemoteEnabled', true);
+
+        $filename = 'Buku_Standar_Mutu_SPMI_' . \Illuminate\Support\Str::slug($periode->nama) . '.pdf';
+        return $pdf->stream($filename);
+    }
+
     public function destroy(Standard $standar_mutu)
     {
         $standar_mutu->delete();
