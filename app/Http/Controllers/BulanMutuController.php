@@ -276,7 +276,83 @@ class BulanMutuController extends Controller
             return $pdf->stream('Surat_Edaran_Pengisian_LED_'.$tahun.'.pdf');
 
         } elseif (str_contains($nama, 'laporan hasil amai/emi')) {
-            return redirect()->route('ami.pdf', ['tahun' => $tahun]);
+            $status = BulanMutuStatus::where('tahun', $tahun)->where('kegiatan_id', $activity->id)->first();
+
+            $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            $bulanRomawi = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+            if ($status && $status->tanggal_pelaksanaan) {
+                $time = strtotime($status->tanggal_pelaksanaan);
+                $m = (int) date('n', $time);
+                $y = (int) date('Y', $time);
+                $rom = $bulanRomawi[$m] ?? 'VIII';
+                $nomorSurat = sprintf('031/BA-AMAI/LPMA/USS/%s/%d', $rom, $y);
+                $tanggalSurat = date('j', $time).' '.$bulanIndo[$m].' '.$y;
+                $tanggalSuratFormatted = date('j', $time).' '.$bulanIndo[$m].' '.$y;
+            } else {
+                $nomorSurat = sprintf('.../BA-AMAI/LPMA/USS/VIII/%d', $tahun);
+                $tanggalSurat = '29 Agustus '.$tahun;
+                $tanggalSuratFormatted = '29 Agustus '.$tahun;
+            }
+
+            $laporan = LaporanAmi::where('tahun', $tahun)->first() ?? LaporanAmi::first();
+            $kepalaLpmaNama = $laporan?->penandatangan_lpma_nama ?? 'Dr. H. Ahmad Fauzi, M.Pd';
+            $kepalaLpmaJabatan = $laporan?->penandatangan_lpma_jabatan ?? 'Kepala Lembaga Penjaminan Mutu Akademik (LPMA)';
+            $rektorNama = $laporan?->penandatangan_rektor_nama ?? 'Prof. Dr. Ir. H. M. Syahril, M.S.';
+            $rektorJabatan = $laporan?->penandatangan_rektor_jabatan ?? 'Rektor Universitas Sumatera Selatan';
+
+            $prodiUnits = Unit::where('jenis', 'Program Studi')->orderBy('nama')->get();
+            $fakultasUnits = Unit::where('jenis', 'Fakultas')->orderBy('nama')->get();
+            $nonAkademikUnits = Unit::whereNotIn('jenis', ['Program Studi', 'Fakultas', 'Universitas'])->orderBy('nama')->get();
+            $units = Unit::where('jenis', '!=', 'Universitas')->orderBy('jenis')->orderBy('nama')->get();
+
+            $assignments = AuditorAssignment::with(['auditor', 'unit'])
+                ->where('tahun', $tahun)
+                ->get();
+
+            $unitAssignments = [];
+            foreach ($units as $u) {
+                $ketua = $assignments->where('unit_id', $u->id)->where('peran', 'Auditor Ketua')->first()?->auditor?->name;
+                $anggota = $assignments->where('unit_id', $u->id)->where('peran', 'Auditor Anggota')->first()?->auditor?->name;
+
+                if (! $ketua || ! $anggota) {
+                    $sesi = AuditSesi::where('unit_id', $u->id)->where('tahun', $tahun)->first();
+                    if ($sesi) {
+                        $ketua = $ketua ?: $sesi->auditor_ketua_nama;
+                        $anggota = $anggota ?: $sesi->auditor_anggota_nama;
+                    }
+                }
+
+                $unitAssignments[$u->id] = [
+                    'ketua' => $ketua ?: 'Tim Auditor LPMA',
+                    'anggota' => $anggota ?: '-',
+                ];
+            }
+
+            $selectedUnitsRaw = $request->query('unit_ids', []);
+            $selectedUnitIds = is_array($selectedUnitsRaw) ? $selectedUnitsRaw : explode(',', (string) $selectedUnitsRaw);
+            $selectedUnitIds = array_filter(array_map('intval', $selectedUnitIds));
+
+            $pdf = Pdf::loadView('bulan_mutu.template_laporan_hasil_audit', compact(
+                'activity',
+                'tahun',
+                'status',
+                'nomorSurat',
+                'tanggalSurat',
+                'tanggalSuratFormatted',
+                'kepalaLpmaNama',
+                'kepalaLpmaJabatan',
+                'rektorNama',
+                'rektorJabatan',
+                'prodiUnits',
+                'fakultasUnits',
+                'nonAkademikUnits',
+                'units',
+                'unitAssignments',
+                'selectedUnitIds'
+            ));
+
+            return $pdf->stream('Berita_Acara_Laporan_Hasil_Audit_'.$tahun.'.pdf');
         }
 
         // Generic Template with Daftar Hadir
