@@ -568,3 +568,39 @@ textarea.form-control {
     min-height: 100px;
     resize: vertical;
 }
+
+/* Laporan AMI Form & TinyMCE Styles */
+.laporan-input,
+.laporan-select,
+.laporan-textarea {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0.65rem 0.85rem !important;
+    font-family: inherit !important;
+    font-size: 0.9rem !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    line-height: 1.5 !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.laporan-input:focus,
+.laporan-select:focus,
+.laporan-textarea:focus {
+    border-color: #0284c7 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+    background-color: #ffffff !important;
+}
+
+.tox-tinymce {
+    border-radius: 8px !important;
+    border: 1.5px solid #cbd5e1 !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+

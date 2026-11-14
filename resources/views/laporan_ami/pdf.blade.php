@@ -202,6 +202,18 @@
 
     $tglAuditFormatted = $tanggalAuditTerpilih ? \Carbon\Carbon::parse($tanggalAuditTerpilih)->translatedFormat('d F Y') : '16 Oktober ' . $tahun;
     $tglTerbitFormatted = $laporan->tanggal_terbit ? $laporan->tanggal_terbit->translatedFormat('d F Y') : '20 November ' . $tahun;
+
+    if (! function_exists('renderRichText')) {
+        function renderRichText($content) {
+            if (empty($content)) {
+                return '-';
+            }
+            if (preg_match('/<[a-z][\s\S]*>/i', $content)) {
+                return strip_tags($content, '<p><br><b><strong><i><em><u><ul><ol><li><table><thead><tbody><tr><td><th><span><div>');
+            }
+            return nl2br(e($content));
+        }
+    }
 @endphp
 
 <!-- ========================================================================= -->
@@ -316,7 +328,7 @@
     <h1 class="bab-title">KATA PENGANTAR</h1>
 
     <div style="font-size: 10pt; line-height: 1.6; text-align: justify;">
-        {!! nl2br(e($laporan->kata_pengantar)) !!}
+        {!! renderRichText($laporan->kata_pengantar) !!}
     </div>
 
     <div style="margin-top: 40px; float: right; width: 250px; text-align: center;">
@@ -602,22 +614,22 @@
     <h2 class="subbab-title">1.2 Dasar Hukum</h2>
     <p>Penyelenggaraan Audit Mutu Internal (AMI) Universitas Sumatera Selatan berlandaskan pada ketentuan perundang-undangan dan kebijakan internal sebagai berikut:</p>
     <div style="font-size: 9.5pt; line-height: 1.6; margin-left: 15px; margin-bottom: 15px;">
-        {!! nl2br(e($laporan->dasar_hukum)) !!}
+        {!! renderRichText($laporan->dasar_hukum) !!}
     </div>
 
     <h2 class="subbab-title">1.3 Tujuan Audit Mutu Internal</h2>
     <div style="font-size: 9.5pt; line-height: 1.6; margin-left: 15px; margin-bottom: 15px;">
-        {!! nl2br(e($laporan->tujuan)) !!}
+        {!! renderRichText($laporan->tujuan) !!}
     </div>
 
     <h2 class="subbab-title">1.4 Ruang Lingkup Audit</h2>
     <div style="font-size: 9.5pt; line-height: 1.6; margin-left: 15px; margin-bottom: 15px;">
-        {!! nl2br(e($laporan->ruang_lingkup)) !!}
+        {!! renderRichText($laporan->ruang_lingkup) !!}
     </div>
 
     <h2 class="subbab-title">1.5 Metode dan Mekanisme Audit</h2>
     <div style="font-size: 9.5pt; line-height: 1.6; margin-left: 15px; margin-bottom: 15px;">
-        {!! nl2br(e($laporan->metode)) !!}
+        {!! renderRichText($laporan->metode) !!}
     </div>
 </div>
 
@@ -1166,7 +1178,7 @@
     </div>
 
     <div style="font-size: 9.5pt; line-height: 1.6; text-align: justify; margin-bottom: 20px;">
-        {!! nl2br(e($laporan->kesimpulan)) !!}
+        {!! renderRichText($laporan->kesimpulan) !!}
     </div>
 
     <h2 class="subbab-title">5.2 Rekomendasi untuk Rapat Tinjauan Manajemen (RTM) dan Pimpinan</h2>
@@ -1174,7 +1186,7 @@
         Untuk menindaklanjuti temuan audit dan mewujudkan continuous quality improvement, Tim Auditor dan LPMA merekomendasikan poin-poin strategis berikut kepada Pimpinan Universitas dan jajaran UPPS:
     </p>
     <div style="font-size: 9.5pt; line-height: 1.6; margin-left: 15px; margin-bottom: 20px;">
-        {!! nl2br(e($laporan->rekomendasi_pimpinan)) !!}
+        {!! renderRichText($laporan->rekomendasi_pimpinan) !!}
     </div>
 
     <div style="margin-top: 50px; text-align: center; page-break-inside: avoid;">

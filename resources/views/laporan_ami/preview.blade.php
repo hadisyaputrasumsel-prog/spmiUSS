@@ -201,6 +201,17 @@
         }
         $logoBase64 = file_exists($logoPath) ? 'data:image/png;base64,' . base64_encode(file_get_contents($logoPath)) : null;
         $tglTerbitFormatted = $laporan->tanggal_terbit ? $laporan->tanggal_terbit->translatedFormat('d F Y') : '20 November ' . $tahun;
+        if (! function_exists('renderRichText')) {
+            function renderRichText($content) {
+                if (empty($content)) {
+                    return '-';
+                }
+                if (preg_match('/<[a-z][\s\S]*>/i', $content)) {
+                    return strip_tags($content, '<p><br><b><strong><i><em><u><ul><ol><li><table><thead><tbody><tr><td><th><span><div>');
+                }
+                return nl2br(e($content));
+            }
+        }
     @endphp
 
     <!-- 1. COVER -->
@@ -281,7 +292,7 @@
     <div>
         <h1 class="bab-title">KATA PENGANTAR</h1>
         <div style="text-align: justify; line-height: 1.7;">
-            {!! nl2br(e($laporan->kata_pengantar)) !!}
+            {!! renderRichText($laporan->kata_pengantar) !!}
         </div>
         <div style="float: right; text-align: center; margin-top: 30px;">
             Palembang, {{ $tglTerbitFormatted }}<br>
@@ -300,16 +311,16 @@
         <p>Sistem Penjaminan Mutu Internal (SPMI) merupakan pilar fundamental dalam menjamin dan meningkatkan mutu penyelenggaraan tridharma perguruan tinggi di Universitas Sumatera Selatan secara berkelanjutan berbasis PPEPP.</p>
 
         <h2 class="subbab-title">1.2 Dasar Hukum</h2>
-        <div style="line-height: 1.6; margin-left: 15px;">{!! nl2br(e($laporan->dasar_hukum)) !!}</div>
+        <div style="line-height: 1.6; margin-left: 15px;">{!! renderRichText($laporan->dasar_hukum) !!}</div>
 
         <h2 class="subbab-title">1.3 Tujuan Audit Mutu Internal</h2>
-        <div style="line-height: 1.6; margin-left: 15px;">{!! nl2br(e($laporan->tujuan)) !!}</div>
+        <div style="line-height: 1.6; margin-left: 15px;">{!! renderRichText($laporan->tujuan) !!}</div>
 
         <h2 class="subbab-title">1.4 Ruang Lingkup Audit</h2>
-        <div style="line-height: 1.6; margin-left: 15px;">{!! nl2br(e($laporan->ruang_lingkup)) !!}</div>
+        <div style="line-height: 1.6; margin-left: 15px;">{!! renderRichText($laporan->ruang_lingkup) !!}</div>
 
         <h2 class="subbab-title">1.5 Metode dan Mekanisme Audit</h2>
-        <div style="line-height: 1.6; margin-left: 15px;">{!! nl2br(e($laporan->metode)) !!}</div>
+        <div style="line-height: 1.6; margin-left: 15px;">{!! renderRichText($laporan->metode) !!}</div>
     </div>
 
     <div class="page-divider"><span>Bab II Pelaksanaan (3)</span></div>
@@ -517,10 +528,10 @@
     <div>
         <h1 class="bab-title">BAB V<br>KESIMPULAN DAN REKOMENDASI</h1>
         <h2 class="subbab-title">5.1 Kesimpulan Umum</h2>
-        <div style="line-height: 1.6; text-align: justify;">{!! nl2br(e($laporan->kesimpulan)) !!}</div>
+        <div style="line-height: 1.6; text-align: justify;">{!! renderRichText($laporan->kesimpulan) !!}</div>
 
         <h2 class="subbab-title">5.2 Rekomendasi Pimpinan / RTM</h2>
-        <div style="line-height: 1.6; margin-left: 15px;">{!! nl2br(e($laporan->rekomendasi_pimpinan)) !!}</div>
+        <div style="line-height: 1.6; margin-left: 15px;">{!! renderRichText($laporan->rekomendasi_pimpinan) !!}</div>
     </div>
 
     <!-- 9. LAMPIRAN DOKUMEN -->
