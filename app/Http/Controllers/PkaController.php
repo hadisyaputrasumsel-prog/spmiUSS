@@ -9,6 +9,7 @@ use App\Models\PkaLangkah;
 use App\Models\Standard;
 use App\Models\Unit;
 use App\Models\User;
+use App\Providers\AppServiceProvider;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -278,7 +279,15 @@ class PkaController extends Controller
     public function exportPdf($id)
     {
         if (! Schema::hasTable('pka')) {
-            abort(404, 'Tabel pka belum dimigrasikan.');
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
+            }
+        }
+
+        if (! Schema::hasTable('pka')) {
+            return redirect()->back()->with('error', 'Tabel Program Kerja Audit (PKA) belum ada di basis data.');
         }
 
         ini_set('memory_limit', '-1');
@@ -301,6 +310,18 @@ class PkaController extends Controller
 
     public function exportUnitPdf(Request $request, $unit_id)
     {
+        if (! Schema::hasTable('pka')) {
+            try {
+                AppServiceProvider::syncSchema();
+            } catch (\Throwable $e) {
+                // fallback
+            }
+        }
+
+        if (! Schema::hasTable('pka')) {
+            return redirect()->back()->with('error', 'Tabel Program Kerja Audit (PKA) belum ada di basis data. Silakan klik Jalankan Migrasi Database terlebih dahulu di /run-migrate.');
+        }
+
         ini_set('memory_limit', '-1');
         set_time_limit(300);
 
