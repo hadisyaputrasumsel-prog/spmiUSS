@@ -156,6 +156,15 @@
                         @endif
                         <button
                             type="button"
+                            onclick="openCetakModal({{ $activity->id }}, '{{ addslashes($activity->nama) }}')"
+                            class="btn btn-outline"
+                            style="padding: 0.25rem 0.6rem; font-size: 0.75rem; border-color: #0284c7; color: #0284c7; font-weight: 500;"
+                            title="Cetak Template Bukti Kegiatan (Pilih Unit/Prodi)"
+                        >
+                            <i data-feather="printer" style="width: 12px; height: 12px; margin-right: 2px;"></i> Template
+                        </button>
+                        <button
+                            type="button"
                             onclick="openStatusModal(this)"
                             data-id="{{ $activity->id }}"
                             data-name="{{ $activity->nama }}"
@@ -191,10 +200,44 @@
             <div style="padding: 1.5rem;">
                 <p id="modalActivityName" style="font-weight: 500; margin-bottom: 0.5rem; color: var(--text-primary);"></p>
                 
-                <div style="margin-bottom: 1.5rem;">
-                    <a id="btnCetakTemplate" href="#" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 0.75rem; color: var(--brand-primary); border-color: var(--brand-primary);">
-                        <i data-feather="printer" style="width: 14px; height: 14px; margin-right: 4px;"></i> Cetak Template Bukti Kegiatan (Kosong)
-                    </a>
+                @php
+                    $unitsList = isset($allUnits) ? $allUnits : \App\Models\Unit::where('jenis', '!=', 'Universitas')->orderBy('jenis')->orderBy('nama')->get();
+                @endphp
+                <div style="margin-bottom: 1.5rem; background: var(--bg-primary); padding: 0.875rem 1rem; border-radius: var(--radius-md); border: 1.5px dashed var(--border-color);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <label style="font-size: 0.825rem; font-weight: 600; color: var(--text-primary); margin: 0;">
+                            <i data-feather="printer" style="width: 14px; height: 14px; margin-right: 4px; vertical-align: middle; color: #0284c7;"></i> Cetak Template Bukti Kegiatan:
+                        </label>
+                    </div>
+                    <div style="margin-bottom: 0.5rem;">
+                        <label for="modalSelectUnit" style="display: block; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.25rem;">
+                            Pilihan Unit / Program Studi Spesifik:
+                        </label>
+                        <select id="modalSelectUnit" class="form-control" style="width: 100%; font-size: 0.825rem; padding: 0.45rem 0.65rem; border-radius: var(--radius-md); background: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-primary);" onchange="updateCetakTemplateUrl()">
+                            <option value="">-- Semua Unit & Program Studi (Format Lengkap) --</option>
+                            <optgroup label="Program Studi (Akademik)">
+                                @foreach($unitsList->where('jenis', 'Program Studi') as $u)
+                                    <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="Fakultas">
+                                @foreach($unitsList->where('jenis', 'Fakultas') as $u)
+                                    <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                                @endforeach
+                            </optgroup>
+                            <optgroup label="Lembaga / Biro / Unit Non-Akademik">
+                                @foreach($unitsList->whereNotIn('jenis', ['Program Studi', 'Fakultas', 'Universitas']) as $u)
+                                    <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                                @endforeach
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+                        <span id="unitSelectedHint" style="font-size: 0.725rem; color: var(--text-muted);">Format universal (semua unit).</span>
+                        <a id="btnCetakTemplate" href="#" target="_blank" class="btn btn-outline" style="font-size: 0.8rem; padding: 0.4rem 0.85rem; color: var(--brand-primary); border-color: var(--brand-primary); display: inline-flex; align-items: center; gap: 4px; background: #fff;">
+                            <i data-feather="printer" style="width: 13px; height: 13px;"></i> Cetak Template (PDF)
+                        </a>
+                    </div>
                 </div>
                 
                 <div style="margin-bottom: 1rem;">
@@ -235,6 +278,58 @@
     </div>
 </div>
 
+<!-- Modal Cetak Template Bukti Kegiatan Spesifik Unit -->
+<div id="cetakModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 105; align-items: center; justify-content: center;">
+    <div class="card" style="width: 100%; max-width: 480px; background: var(--bg-secondary); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
+            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+                <i data-feather="printer" style="width: 16px; height: 16px; color: #0284c7;"></i> Cetak Template Bukti Kegiatan
+            </h3>
+            <button type="button" onclick="closeCetakModal()" style="background: none; border: none; cursor: pointer; color: var(--text-muted);"><i data-feather="x"></i></button>
+        </div>
+        <div style="padding: 1.25rem;">
+            <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block;">Kegiatan:</span>
+                <strong id="cetakModalActivityName" style="font-size: 0.95rem; color: var(--text-primary); display: block; margin-top: 2px;"></strong>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+                <label for="directModalSelectUnit" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem;">
+                    Pilih Sasaran Unit / Program Studi Spesifik:
+                </label>
+                <select id="directModalSelectUnit" class="form-control" style="width: 100%; font-size: 0.875rem; padding: 0.55rem 0.75rem; border-radius: var(--radius-md); background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary);" onchange="updateDirectCetakUrl()">
+                    <option value="">-- Semua Unit & Program Studi (Format Lengkap) --</option>
+                    <optgroup label="Program Studi (Akademik)">
+                        @foreach($unitsList->where('jenis', 'Program Studi') as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Fakultas">
+                        @foreach($unitsList->where('jenis', 'Fakultas') as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Lembaga / Biro / Unit Non-Akademik">
+                        @foreach($unitsList->whereNotIn('jenis', ['Program Studi', 'Fakultas', 'Universitas']) as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                        @endforeach
+                    </optgroup>
+                </select>
+                <small id="directUnitSelectedHint" style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.35rem;">
+                    Format universal (lampiran mencakup semua unit kerja).
+                </small>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <button type="button" onclick="closeCetakModal()" class="btn btn-outline" style="padding: 0.5rem 1rem;">Tutup</button>
+                <a id="btnDirectCetakTemplate" href="#" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.25rem; display: inline-flex; align-items: center; gap: 6px; background-color: #0284c7; border-color: #0284c7;">
+                    <i data-feather="printer" style="width: 15px; height: 15px;"></i> Buka & Cetak PDF
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     let currentActivityHasDoc = false;
 
@@ -263,8 +358,38 @@
         }
     }
 
+    let currentActivityId = null;
+    let directCetakActivityId = null;
+
+    function openCetakModal(activityId, activityName) {
+        directCetakActivityId = activityId;
+        document.getElementById('cetakModalActivityName').innerText = activityName;
+        document.getElementById('directModalSelectUnit').value = '';
+        updateDirectCetakUrl();
+        document.getElementById('cetakModal').style.display = 'flex';
+        if (typeof feather !== 'undefined') feather.replace();
+    }
+
+    function closeCetakModal() {
+        document.getElementById('cetakModal').style.display = 'none';
+    }
+
+    function updateDirectCetakUrl() {
+        if (!directCetakActivityId) return;
+        const unitId = document.getElementById('directModalSelectUnit').value;
+        let url = "/bulan-mutu/" + directCetakActivityId + "/template?tahun={{ $tahun }}";
+        if (unitId) {
+            url += "&unit_id=" + unitId;
+            document.getElementById('directUnitSelectedHint').innerText = "Surat/dokumen dicetak khusus & tercentang spesifik untuk unit terpilih.";
+        } else {
+            document.getElementById('directUnitSelectedHint').innerText = "Format universal (lampiran mencakup semua unit kerja).";
+        }
+        document.getElementById('btnDirectCetakTemplate').href = url;
+    }
+
     function openStatusModal(button) {
         const id = button.dataset.id;
+        currentActivityId = id;
         const name = button.dataset.name;
         const currentStatus = button.dataset.status;
         const tanggal = button.dataset.tanggal || '';
@@ -277,9 +402,26 @@
         document.getElementById('modalCatatan').value = catatan;
         document.getElementById('modalDokumenBukti').value = '';
         document.getElementById('updateStatusForm').action = "/bulan-mutu/" + id + "/status";
-        document.getElementById('btnCetakTemplate').href = "/bulan-mutu/" + id + "/template?tahun={{ $tahun }}";
+        
+        document.getElementById('modalSelectUnit').value = '';
+        updateCetakTemplateUrl();
+
         syncDokumenBuktiRequirement();
         document.getElementById('statusModal').style.display = 'flex';
+        if (typeof feather !== 'undefined') feather.replace();
+    }
+
+    function updateCetakTemplateUrl() {
+        if (!currentActivityId) return;
+        const unitId = document.getElementById('modalSelectUnit').value;
+        let url = "/bulan-mutu/" + currentActivityId + "/template?tahun={{ $tahun }}";
+        if (unitId) {
+            url += "&unit_id=" + unitId;
+            document.getElementById('unitSelectedHint').innerText = "Khusus dicetak & tercentang untuk unit terpilih.";
+        } else {
+            document.getElementById('unitSelectedHint').innerText = "Format universal (semua unit).";
+        }
+        document.getElementById('btnCetakTemplate').href = url;
     }
 
     document.getElementById('modalStatus').addEventListener('change', syncDokumenBuktiRequirement);
@@ -312,6 +454,58 @@
                 </div>
             </div>
         </form>
+    </div>
+</div>
+
+<!-- Modal Cetak Template Bukti Kegiatan Spesifik Unit -->
+<div id="cetakModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 105; align-items: center; justify-content: center;">
+    <div class="card" style="width: 100%; max-width: 480px; background: var(--bg-secondary); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);">
+        <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding: 1rem 1.25rem;">
+            <h3 style="margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+                <i data-feather="printer" style="width: 16px; height: 16px; color: #0284c7;"></i> Cetak Template Bukti Kegiatan
+            </h3>
+            <button type="button" onclick="closeCetakModal()" style="background: none; border: none; cursor: pointer; color: var(--text-muted);"><i data-feather="x"></i></button>
+        </div>
+        <div style="padding: 1.25rem;">
+            <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block;">Kegiatan:</span>
+                <strong id="cetakModalActivityName" style="font-size: 0.95rem; color: var(--text-primary); display: block; margin-top: 2px;"></strong>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+                <label for="directModalSelectUnit" style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.35rem;">
+                    Pilih Sasaran Unit / Program Studi Spesifik:
+                </label>
+                <select id="directModalSelectUnit" class="form-control" style="width: 100%; font-size: 0.875rem; padding: 0.55rem 0.75rem; border-radius: var(--radius-md); background: var(--bg-primary); border: 1px solid var(--border-color); color: var(--text-primary);" onchange="updateDirectCetakUrl()">
+                    <option value="">-- Semua Unit & Program Studi (Format Lengkap) --</option>
+                    <optgroup label="Program Studi (Akademik)">
+                        @foreach($unitsList->where('jenis', 'Program Studi') as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Fakultas">
+                        @foreach($unitsList->where('jenis', 'Fakultas') as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                        @endforeach
+                    </optgroup>
+                    <optgroup label="Lembaga / Biro / Unit Non-Akademik">
+                        @foreach($unitsList->whereNotIn('jenis', ['Program Studi', 'Fakultas', 'Universitas']) as $u)
+                            <option value="{{ $u->id }}">{{ $u->nama }}</option>
+                        @endforeach
+                    </optgroup>
+                </select>
+                <small id="directUnitSelectedHint" style="color: var(--text-muted); font-size: 0.75rem; display: block; margin-top: 0.35rem;">
+                    Format universal (lampiran mencakup semua unit kerja).
+                </small>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                <button type="button" onclick="closeCetakModal()" class="btn btn-outline" style="padding: 0.5rem 1rem;">Tutup</button>
+                <a id="btnDirectCetakTemplate" href="#" target="_blank" class="btn btn-primary" style="padding: 0.5rem 1.25rem; display: inline-flex; align-items: center; gap: 6px; background-color: #0284c7; border-color: #0284c7;">
+                    <i data-feather="printer" style="width: 15px; height: 15px;"></i> Buka & Cetak PDF
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

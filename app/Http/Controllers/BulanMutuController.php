@@ -31,7 +31,8 @@ class BulanMutuController extends Controller
         }
         rsort($availableYears);
 
-        return view('bulan_mutu.index', compact('activities', 'statuses', 'tahun', 'availableYears'));
+        $allUnits = Unit::where('jenis', '!=', 'Universitas')->orderBy('jenis')->orderBy('nama')->get();
+        return view('bulan_mutu.index', compact('activities', 'statuses', 'tahun', 'availableYears', 'allUnits'));
     }
 
     public function generate(Request $request)
@@ -119,6 +120,15 @@ class BulanMutuController extends Controller
         $tahun = $request->query('tahun', $activeConfig ? $activeConfig->tahun : date('Y'));
         $activity = BulanMutuActivity::findOrFail($id);
         $nama = strtolower($activity->nama);
+
+        $singleUnitId = $request->query('unit_id');
+        $selectedUnitsRaw = $request->query('unit_ids', $singleUnitId ? [$singleUnitId] : []);
+        $selectedUnitIds = is_array($selectedUnitsRaw) ? $selectedUnitsRaw : explode(',', (string) $selectedUnitsRaw);
+        if ($singleUnitId && !in_array((int) $singleUnitId, $selectedUnitIds)) {
+            $selectedUnitIds[] = (int) $singleUnitId;
+        }
+        $selectedUnitIds = array_filter(array_map('intval', $selectedUnitIds));
+        $selectedUnit = $singleUnitId ? Unit::find($singleUnitId) : (!empty($selectedUnitIds) && count($selectedUnitIds) === 1 ? Unit::find(reset($selectedUnitIds)) : null);
 
         if (str_contains($nama, 'surat tugas tim auditor') || str_contains($nama, 'pelaksanaan audit mutu')) {
             $status = BulanMutuStatus::where('tahun', $tahun)->where('kegiatan_id', $activity->id)->first();
@@ -213,7 +223,8 @@ class BulanMutuController extends Controller
                 'nonAkademikUnits',
                 'units',
                 'unitAssignments',
-                'selectedUnitIds'
+                'selectedUnitIds',
+                'selectedUnit'
             ));
 
             $filename = $isNonAkademik ? 'Surat_Tugas_Auditor_NonAkademik_'.$tahun.'.pdf' : ($isAkademik ? 'Surat_Tugas_Auditor_AMAI_'.$tahun.'.pdf' : 'Surat_Tugas_Auditor_'.$tahun.'.pdf');
@@ -270,7 +281,8 @@ class BulanMutuController extends Controller
                 'fakultasUnits',
                 'nonAkademikUnits',
                 'units',
-                'selectedUnitIds'
+                'selectedUnitIds',
+                'selectedUnit'
             ));
 
             return $pdf->stream('Surat_Edaran_Pengisian_LED_'.$tahun.'.pdf');
@@ -349,7 +361,8 @@ class BulanMutuController extends Controller
                 'nonAkademikUnits',
                 'units',
                 'unitAssignments',
-                'selectedUnitIds'
+                'selectedUnitIds',
+                'selectedUnit'
             ));
 
             return $pdf->stream('Berita_Acara_Laporan_Hasil_Audit_'.$tahun.'.pdf');

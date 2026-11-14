@@ -137,7 +137,7 @@
                                 $puChecked = !empty($selectedUnitIds) ? in_array($pu->id, $selectedUnitIds) : true;
                             @endphp
                             <div style="margin-bottom: 2.5px;">
-                                <span class="checkbox-square">{{ $puChecked ? '✓' : '' }}</span>
+                                <span class="checkbox-square">{{ $puChecked ? '&#10003;' : '' }}</span>
                                 <strong>{{ $pu->nama }}</strong>
                             </div>
                         @endforeach
@@ -146,7 +146,7 @@
                                 $fuChecked = !empty($selectedUnitIds) ? in_array($fu->id, $selectedUnitIds) : true;
                             @endphp
                             <div style="margin-bottom: 2.5px;">
-                                <span class="checkbox-square">{{ $fuChecked ? '✓' : '' }}</span>
+                                <span class="checkbox-square">{{ $fuChecked ? '&#10003;' : '' }}</span>
                                 {{ $fu->nama }}
                             </div>
                         @endforeach
@@ -162,7 +162,7 @@
                                 $nuChecked = !empty($selectedUnitIds) ? in_array($nu->id, $selectedUnitIds) : true;
                             @endphp
                             <div style="margin-bottom: 2.5px;">
-                                <span class="checkbox-square">{{ $nuChecked ? '✓' : '' }}</span>
+                                <span class="checkbox-square">{{ $nuChecked ? '&#10003;' : '' }}</span>
                                 {{ $nu->nama }}
                             </div>
                         @endforeach
@@ -266,7 +266,7 @@
             <tr>
                 <td class="text-center">{{ $no++ }}</td>
                 <td class="text-center">
-                    <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    <div class="table-checkbox">{{ $rowChecked ? '&#10003;' : '' }}</div>
                 </td>
                 <td><strong>{{ $u->nama }}</strong></td>
                 <td class="text-center">Program Studi</td>
@@ -287,7 +287,7 @@
             <tr>
                 <td class="text-center">{{ $no++ }}</td>
                 <td class="text-center">
-                    <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    <div class="table-checkbox">{{ $rowChecked ? '&#10003;' : '' }}</div>
                 </td>
                 <td><strong>{{ $u->nama }}</strong></td>
                 <td class="text-center">Fakultas</td>
@@ -308,7 +308,7 @@
             <tr>
                 <td class="text-center">{{ $no++ }}</td>
                 <td class="text-center">
-                    <div class="table-checkbox">{{ $rowChecked ? '✓' : '' }}</div>
+                    <div class="table-checkbox">{{ $rowChecked ? '&#10003;' : '' }}</div>
                 </td>
                 <td><strong>{{ $u->nama }}</strong></td>
                 <td class="text-center">{{ ucfirst($u->jenis ?? 'Non-Akademik') }}</td>

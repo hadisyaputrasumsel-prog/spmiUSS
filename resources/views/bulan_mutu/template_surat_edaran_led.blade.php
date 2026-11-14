@@ -119,7 +119,12 @@
             <td style="width: 80px; vertical-align: top;"><strong>Kepada Yth.</strong></td>
             <td style="width: 10px; vertical-align: top;">:</td>
             <td style="vertical-align: top;">
-                <strong>Pimpinan Program Studi & Unit Kerja Sasaran</strong> <em>(Beri tanda centang &check; pada kotak unit tujuan):</em>
+                @if(!empty($selectedUnit))
+                    <strong>{{ $selectedUnit->pimpinan ?: ($selectedUnit->jenis == 'Program Studi' ? 'Ketua ' . $selectedUnit->nama : 'Pimpinan ' . $selectedUnit->nama) }}</strong><br>
+                    <span>{{ $selectedUnit->nama }} — Universitas Sumatera Selatan</span>
+                @else
+                    <strong>Pimpinan Program Studi & Unit Kerja Sasaran</strong> <em>(Beri tanda centang &#10003; pada kotak unit tujuan):</em>
+                @endif
             </td>
         </tr>
     </table>
@@ -134,14 +139,16 @@
                         A. PROGRAM STUDI & FAKULTAS (AKADEMIK):
                     </div>
                     @foreach($prodiUnits as $pu)
-                        <div style="margin-bottom: 2.5px;">
-                            <span class="checkbox-square">{{ in_array($pu->id, $selectedUnitIds) ? '✓' : '' }}</span>
+                        @php $isPuChecked = in_array($pu->id, $selectedUnitIds); @endphp
+                        <div style="margin-bottom: 2.5px; {{ $isPuChecked ? 'font-weight: bold; color: #0284c7;' : '' }}">
+                            <span class="checkbox-square" style="{{ $isPuChecked ? 'background-color: #e0f2fe; color: #0284c7; font-weight: bold;' : '' }}">{!! $isPuChecked ? '&#10003;' : '' !!}</span>
                             {{ $pu->nama }}
                         </div>
                     @endforeach
                     @foreach($fakultasUnits as $fu)
-                        <div style="margin-bottom: 2.5px;">
-                            <span class="checkbox-square">{{ in_array($fu->id, $selectedUnitIds) ? '✓' : '' }}</span>
+                        @php $isFuChecked = in_array($fu->id, $selectedUnitIds); @endphp
+                        <div style="margin-bottom: 2.5px; {{ $isFuChecked ? 'font-weight: bold; color: #0284c7;' : '' }}">
+                            <span class="checkbox-square" style="{{ $isFuChecked ? 'background-color: #e0f2fe; color: #0284c7; font-weight: bold;' : '' }}">{!! $isFuChecked ? '&#10003;' : '' !!}</span>
                             {{ $fu->nama }}
                         </div>
                     @endforeach
@@ -153,8 +160,9 @@
                         B. LEMBAGA, BIRO & UNIT (NON-AKADEMIK):
                     </div>
                     @foreach($nonAkademikUnits as $nu)
-                        <div style="margin-bottom: 2.5px;">
-                            <span class="checkbox-square">{{ in_array($nu->id, $selectedUnitIds) ? '✓' : '' }}</span>
+                        @php $isNuChecked = in_array($nu->id, $selectedUnitIds); @endphp
+                        <div style="margin-bottom: 2.5px; {{ $isNuChecked ? 'font-weight: bold; color: #0284c7;' : '' }}">
+                            <span class="checkbox-square" style="{{ $isNuChecked ? 'background-color: #e0f2fe; color: #0284c7; font-weight: bold;' : '' }}">{!! $isNuChecked ? '&#10003;' : '' !!}</span>
                             {{ $nu->nama }}
                         </div>
                     @endforeach
