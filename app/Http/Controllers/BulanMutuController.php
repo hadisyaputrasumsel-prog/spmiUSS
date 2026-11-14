@@ -353,6 +353,55 @@ class BulanMutuController extends Controller
             ));
 
             return $pdf->stream('Berita_Acara_Laporan_Hasil_Audit_'.$tahun.'.pdf');
+        } elseif (str_contains($nama, 'permintaan tindakan korektif') || str_contains($nama, 'ptk')) {
+            $status = BulanMutuStatus::where('tahun', $tahun)->where('kegiatan_id', $activity->id)->first();
+
+            $bulanIndo = ['', 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+            $bulanRomawi = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'];
+
+            if ($status && $status->tanggal_pelaksanaan) {
+                $time = strtotime($status->tanggal_pelaksanaan);
+                $m = (int) date('n', $time);
+                $y = (int) date('Y', $time);
+                $rom = $bulanRomawi[$m] ?? 'IX';
+                $nomorSurat = sprintf('045/PTK-AMI/LPMA/USS/%s/%d', $rom, $y);
+                $tanggalSurat = date('j', $time).' '.$bulanIndo[$m].' '.$y;
+            } else {
+                $nomorSurat = sprintf('.../PTK-AMI/LPMA/USS/IX/%d', $tahun);
+                $tanggalSurat = '10 September '.$tahun;
+            }
+
+            $laporan = LaporanAmi::where('tahun', $tahun)->first() ?? LaporanAmi::first();
+            $kepalaLpmaNama = $laporan?->penandatangan_lpma_nama ?? 'Dr. H. Ahmad Fauzi, M.Pd';
+            $kepalaLpmaJabatan = $laporan?->penandatangan_lpma_jabatan ?? 'Kepala Lembaga Penjaminan Mutu Akademik (LPMA)';
+
+            $unitId = $request->query('unit_id');
+            $query = AmiFinding::with(['unit', 'standard'])
+                ->whereYear('tanggal', $tahun)
+                ->where('kategori_temuan', '!=', 'Sesuai');
+
+            if ($unitId && $unitId !== 'all') {
+                $query->where('unit_id', $unitId);
+            }
+
+            $findings = $query->orderBy('unit_id')->orderBy('id')->get();
+            $detailFindings = ($unitId && $unitId !== 'all') ? $findings : $findings->take(25);
+
+            $pdf = Pdf::loadView('bulan_mutu.template_ptk', compact(
+                'activity',
+                'tahun',
+                'status',
+                'nomorSurat',
+                'tanggalSurat',
+                'kepalaLpmaNama',
+                'kepalaLpmaJabatan',
+                'findings',
+                'detailFindings',
+                'unitId'
+            ));
+            $pdf->setPaper('a4', 'portrait');
+
+            return $pdf->stream('Formulir_PTK_AMI_'.$tahun.'.pdf');
         }
 
         // Generic Template with Daftar Hadir
