@@ -361,7 +361,11 @@
     </p>
 
     @foreach($groupedStandards as $kelompokNama => $stdGroup)
-        <div style="background-color: #0284c7; color: #ffffff; padding: 5px 8px; font-weight: bold; font-size: 9pt; margin-top: 10px; margin-bottom: 10px; text-transform: uppercase;">
+        @if(!$loop->first)
+            <div class="page-break"></div>
+        @endif
+
+        <div style="background-color: #0284c7; color: #ffffff; padding: 6px 10px; font-weight: bold; font-size: 9.5pt; margin-top: {{ $loop->first ? '6px' : '0' }}; margin-bottom: 12px; text-transform: uppercase;">
             Kelompok: {{ $kelompokNama }} ({{ count($stdGroup) }} Standar)
         </div>
 
