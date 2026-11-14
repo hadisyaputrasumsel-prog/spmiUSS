@@ -569,12 +569,14 @@ class AmiController extends Controller
             ->get();
 
         $nonLpmaAssignments = $assignments->filter(function ($a) {
-            return $a->auditor && ! in_array(strtolower(trim($a->auditor->name)), ['kepala lpma', 'lpma', 'super administrator'], true);
+            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
+
+            return $a->auditor && ! in_array($name, ['kepala lpma', 'lpma', 'super administrator'], true);
         });
 
         $ketua = $nonLpmaAssignments->firstWhere('peran', 'Auditor Ketua')?->auditor
             ?? $nonLpmaAssignments->first(function ($a) {
-                return str_contains(strtolower($a->auditor->name), 'auditor');
+                return str_contains(strtolower((string) ($a->auditor?->name ?? '')), 'auditor');
             })?->auditor
             ?? $nonLpmaAssignments->first()?->auditor
             ?? $assignments->firstWhere('peran', 'Auditor Ketua')?->auditor
@@ -584,7 +586,8 @@ class AmiController extends Controller
             if ($ketua && $a->auditor_id === $ketua->id) {
                 return false;
             }
-            if ($a->auditor && in_array(strtolower(trim($a->auditor->name)), ['kepala lpma', 'lpma'], true)) {
+            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
+            if ($a->auditor && in_array($name, ['kepala lpma', 'lpma'], true)) {
                 return false;
             }
 
@@ -655,12 +658,14 @@ class AmiController extends Controller
             ->get();
 
         $nonLpmaAssignments = $assignments->filter(function ($a) {
-            return $a->auditor && ! in_array(strtolower(trim($a->auditor->name)), ['kepala lpma', 'lpma', 'super administrator'], true);
+            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
+
+            return $a->auditor && ! in_array($name, ['kepala lpma', 'lpma', 'super administrator'], true);
         });
 
         $ketua = $nonLpmaAssignments->firstWhere('peran', 'Auditor Ketua')?->auditor
             ?? $nonLpmaAssignments->first(function ($a) {
-                return str_contains(strtolower($a->auditor->name), 'auditor');
+                return str_contains(strtolower((string) ($a->auditor?->name ?? '')), 'auditor');
             })?->auditor
             ?? $nonLpmaAssignments->first()?->auditor
             ?? $assignments->firstWhere('peran', 'Auditor Ketua')?->auditor
@@ -670,7 +675,8 @@ class AmiController extends Controller
             if ($ketua && $a->auditor_id === $ketua->id) {
                 return false;
             }
-            if ($a->auditor && in_array(strtolower(trim($a->auditor->name)), ['kepala lpma', 'lpma'], true)) {
+            $name = strtolower(trim((string) ($a->auditor?->name ?? '')));
+            if ($a->auditor && in_array($name, ['kepala lpma', 'lpma'], true)) {
                 return false;
             }
 

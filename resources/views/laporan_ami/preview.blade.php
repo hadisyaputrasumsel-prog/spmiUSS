@@ -203,13 +203,7 @@
         $tglTerbitFormatted = $laporan->tanggal_terbit ? $laporan->tanggal_terbit->translatedFormat('d F Y') : '20 November ' . $tahun;
         if (! function_exists('renderRichText')) {
             function renderRichText($content) {
-                if (empty($content)) {
-                    return '-';
-                }
-                if (preg_match('/<[a-z][\s\S]*>/i', $content)) {
-                    return strip_tags($content, '<p><br><b><strong><i><em><u><ul><ol><li><table><thead><tbody><tr><td><th><span><div>');
-                }
-                return nl2br(e($content));
+                return \App\Models\LaporanAmi::renderRichText($content);
             }
         }
     @endphp

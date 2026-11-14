@@ -92,9 +92,17 @@
         </p>
 
         <a href="/" class="btn">Kembali ke Beranda AMIRA</a>
+        <a href="/run-migrate" class="btn" style="background:#ea580c; margin-left: 8px;">🛠️ Jalankan Migrasi Database</a>
+
+        @if(isset($exception) && $exception->getMessage())
+            <div style="margin-top: 1.25rem; text-align: left; background: #fee2e2; border: 1px solid #fca5a5; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.8rem; color: #991b1b; word-break: break-all;">
+                <strong>Detail Kesalahan Teknis:</strong>
+                <div style="margin-top: 4px; font-family: monospace;">{{ $exception->getMessage() }}</div>
+            </div>
+        @endif
 
         <div class="notice-box">
-            <strong>Catatan Administrator:</strong> Jika error terjadi setelah pembaruan kode, jalankan perintah migrasi pada terminal server: <code>php artisan migrate</code>.
+            <strong>Catatan Administrator:</strong> Jika error terjadi setelah pembaruan kode, Anda dapat langsung mengklik tombol oranye <strong>Jalankan Migrasi Database</strong> di atas atau akses <code>/run-migrate</code>.
         </div>
     </div>
 </body>

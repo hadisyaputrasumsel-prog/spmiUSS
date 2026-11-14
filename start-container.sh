@@ -8,7 +8,7 @@ max_tries=30
 count=0
 db_ready=0
 while [ $count -lt $max_tries ]; do
-    if php -r "try { new PDO('mysql:host=db;dbname=amira_uss', 'root', 'password'); exit(0); } catch(Exception \$e) { exit(1); }"; then
+    if php -r "try { new PDO('mysql:host=db;dbname=amira_uss', 'root', getenv('DB_PASSWORD') ?: 'password'); exit(0); } catch(Exception \$e) { exit(1); }"; then
         echo "Database is ready!"
         db_ready=1
         break
@@ -28,6 +28,9 @@ fi
 mkdir -p /var/www/html/storage/app/public /var/www/html/storage/app/private
 rm -rf /var/www/html/public/storage
 php artisan storage:link || true
+
+# Clear cached schema sync flag to ensure latest schema is verified on deploy
+rm -f /var/www/html/storage/framework/schema_synced_*.flag || true
 
 # Run Laravel commands
 php artisan migrate --force || true

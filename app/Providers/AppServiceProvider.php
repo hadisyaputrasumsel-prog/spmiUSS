@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $flagPath = storage_path('framework/schema_synced_v7.flag');
+        $flagPath = storage_path('framework/schema_synced_v9.flag');
         if (file_exists($flagPath)) {
             return;
         }
@@ -43,8 +43,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public static function syncSchema(): void
     {
-        if (! Schema::hasTable('migrations')) {
+        try {
             Artisan::call('migrate', ['--force' => true]);
+        } catch (\Throwable $e) {
+            Log::warning('Auto migrate execution notice: '.$e->getMessage());
         }
 
         self::ensureCoreTablesExist();
@@ -338,6 +340,99 @@ class AppServiceProvider extends ServiceProvider
                 $table->timestamps();
             });
         }
+
+        if (! Schema::hasTable('audit_sesi')) {
+            Schema::create('audit_sesi', function (Blueprint $table): void {
+                $table->id();
+                $table->unsignedBigInteger('unit_id');
+                $table->integer('tahun');
+                $table->string('no_kka')->nullable();
+                $table->text('kriteria')->nullable();
+                $table->string('lokasi')->nullable();
+                $table->text('ruang_lingkup')->nullable();
+                $table->json('distribusi')->nullable();
+                $table->string('wakil_auditi')->nullable();
+                $table->string('ketua_auditor')->nullable();
+                $table->string('penjamin_mutu')->nullable();
+                $table->timestamps();
+                $table->unique(['unit_id', 'tahun']);
+            });
+        }
+
+        if (! Schema::hasTable('pka')) {
+            Schema::create('pka', function (Blueprint $table): void {
+                $table->id();
+                $table->foreignId('unit_id')->constrained('units')->cascadeOnDelete();
+                $table->integer('tahun');
+                $table->string('nomor');
+                $table->text('ruang_lingkup');
+                $table->text('kriteria');
+                $table->string('standar_kode')->nullable();
+                $table->text('tentative_audit_objective')->nullable();
+                $table->text('tujuan_audit')->nullable();
+                $table->foreignId('disusun_oleh')->nullable()->constrained('users')->nullOnDelete();
+                $table->foreignId('diperiksa_oleh')->nullable()->constrained('users')->nullOnDelete();
+                $table->date('tanggal_disusun')->nullable();
+                $table->date('tanggal_diperiksa')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        if (! Schema::hasTable('pka_langkah')) {
+            Schema::create('pka_langkah', function (Blueprint $table): void {
+                $table->id();
+                $table->foreignId('pka_id')->constrained('pka')->cascadeOnDelete();
+                $table->integer('no_urut');
+                $table->text('uraian');
+                $table->string('anggaran_waktu')->nullable();
+                $table->string('realisasi')->nullable();
+                $table->string('no_kka')->nullable();
+                $table->string('disusun_oleh')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        if (! Schema::hasTable('laporan_ami')) {
+            Schema::create('laporan_ami', function (Blueprint $table): void {
+                $table->id();
+                $table->year('tahun')->unique();
+                $table->string('nomor_dokumen')->nullable();
+                $table->date('tanggal_terbit')->nullable();
+                $table->string('versi')->default('1.0');
+                $table->longText('kata_pengantar')->nullable();
+                $table->text('dasar_hukum')->nullable();
+                $table->text('tujuan')->nullable();
+                $table->text('ruang_lingkup')->nullable();
+                $table->text('metode')->nullable();
+                $table->json('jadwal_ami')->nullable();
+                $table->text('kesimpulan')->nullable();
+                $table->text('rekomendasi_pimpinan')->nullable();
+                $table->string('penandatangan_lpma_nama')->nullable();
+                $table->string('penandatangan_lpma_nidn')->nullable();
+                $table->string('penandatangan_lpma_jabatan')->default('Kepala LPMA');
+                $table->string('penandatangan_rektor_nama')->nullable();
+                $table->string('penandatangan_rektor_nidn')->nullable();
+                $table->string('penandatangan_rektor_jabatan')->default('Rektor Universitas Sumatera Selatan');
+                $table->json('lampiran_options')->nullable();
+                $table->json('selected_unit_ids')->nullable();
+                $table->string('file_path')->nullable();
+                $table->timestamps();
+            });
+        }
+
+        if (! Schema::hasTable('ami_nilai_tahap')) {
+            Schema::create('ami_nilai_tahap', function (Blueprint $table): void {
+                $table->id();
+                $table->unsignedBigInteger('ami_id');
+                $table->string('tahap', 10);
+                $table->tinyInteger('skor')->nullable();
+                $table->text('catatan')->nullable();
+                $table->timestamps();
+
+                $table->foreign('ami_id')->references('id')->on('ami_findings')->onDelete('cascade');
+                $table->unique(['ami_id', 'tahap']);
+            });
+        }
     }
 
     /**
@@ -379,17 +474,29 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         self::ensureColumns('ami_findings', [
+            'tahun' => fn (Blueprint $table) => $table->year('tahun')->nullable()->after('unit_id'),
+            'status_audit' => fn (Blueprint $table) => $table->string('status_audit', 30)->default('Sudah Diaudit')->after('status_tindak_lanjut'),
+            'alasan_ubah_skor' => fn (Blueprint $table) => $table->text('alasan_ubah_skor')->nullable()->after('skor'),
+            'kriteria' => fn (Blueprint $table) => $table->text('kriteria')->nullable()->after('standar_kode'),
             'skor' => fn (Blueprint $table) => $table->tinyInteger('skor')->nullable(),
             'akar_penyebab' => fn (Blueprint $table) => $table->text('akar_penyebab')->nullable(),
             'akibat' => fn (Blueprint $table) => $table->text('akibat')->nullable(),
             'rekomendasi' => fn (Blueprint $table) => $table->text('rekomendasi')->nullable(),
             'tanggapan_auditi' => fn (Blueprint $table) => $table->string('tanggapan_auditi')->nullable(),
             'rencana_pencegahan' => fn (Blueprint $table) => $table->text('rencana_pencegahan')->nullable(),
+            'jadwal_pencegahan' => fn (Blueprint $table) => $table->string('jadwal_pencegahan')->nullable()->after('rencana_pencegahan'),
+        ]);
+
+        self::ensureColumns('users', [
+            'nama_lengkap' => fn (Blueprint $table) => $table->string('nama_lengkap')->nullable()->after('name'),
+            'nidn' => fn (Blueprint $table) => $table->string('nidn', 50)->nullable()->after('email'),
+            'nip' => fn (Blueprint $table) => $table->string('nip', 50)->nullable()->after('email'),
         ]);
 
         self::ensureColumns('units', [
             'pimpinan' => fn (Blueprint $table) => $table->string('pimpinan')->nullable(),
             'nuptk_pimpinan' => fn (Blueprint $table) => $table->string('nuptk_pimpinan')->nullable(),
+            'pimpinan_nip' => fn (Blueprint $table) => $table->string('pimpinan_nip')->nullable(),
         ]);
 
         self::ensureColumns('bulan_mutu_statuses', [

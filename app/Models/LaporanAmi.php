@@ -43,6 +43,21 @@ class LaporanAmi extends Model
     ];
 
     /**
+     * Format teks naratif (HTML TinyMCE atau teks biasa) agar aman dirender di PDF & Web.
+     */
+    public static function renderRichText(?string $content): string
+    {
+        if (empty($content)) {
+            return '-';
+        }
+        if (preg_match('/<[a-z][\s\S]*>/i', $content)) {
+            return strip_tags($content, '<p><br><b><strong><i><em><u><ul><ol><li><table><thead><tbody><tr><td><th><span><div>');
+        }
+
+        return nl2br(e($content));
+    }
+
+    /**
      * Teks baku default apabila belum pernah diisi oleh LPMA.
      */
     public static function getDefaultData(int $tahun): array

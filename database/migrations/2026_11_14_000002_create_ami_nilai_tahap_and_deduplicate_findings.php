@@ -29,17 +29,19 @@ return new class extends Migration
         });
 
         // 2. Buat tabel ami_nilai_tahap
-        Schema::create('ami_nilai_tahap', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('ami_id');
-            $table->string('tahap', 10); // P1, P2, P3, P4, P5
-            $table->tinyInteger('skor')->nullable(); // 1, 2, 3, 4
-            $table->text('catatan')->nullable();
-            $table->timestamps();
+        if (! Schema::hasTable('ami_nilai_tahap')) {
+            Schema::create('ami_nilai_tahap', function (Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('ami_id');
+                $table->string('tahap', 10); // P1, P2, P3, P4, P5
+                $table->tinyInteger('skor')->nullable(); // 1, 2, 3, 4
+                $table->text('catatan')->nullable();
+                $table->timestamps();
 
-            $table->foreign('ami_id')->references('id')->on('ami_findings')->onDelete('cascade');
-            $table->unique(['ami_id', 'tahap']);
-        });
+                $table->foreign('ami_id')->references('id')->on('ami_findings')->onDelete('cascade');
+                $table->unique(['ami_id', 'tahap']);
+            });
+        }
 
         // 3. Populate kolom tahun dari tanggal (atau created_at)
         DB::statement('UPDATE ami_findings SET tahun = YEAR(tanggal) WHERE tanggal IS NOT NULL');
@@ -103,10 +105,14 @@ return new class extends Migration
             }
         }
 
-        // 6. Tambahkan unique index pada ami_findings untuk (unit_id, tahun, standar_kode)
-        Schema::table('ami_findings', function (Blueprint $table) {
-            $table->unique(['unit_id', 'tahun', 'standar_kode'], 'ami_findings_unit_tahun_standar_unique');
-        });
+        // 6. Tambahkan unique index pada ami_findings untuk (unit_id, tahun, standar_kode) jika belum ada
+        try {
+            Schema::table('ami_findings', function (Blueprint $table) {
+                $table->unique(['unit_id', 'tahun', 'standar_kode'], 'ami_findings_unit_tahun_standar_unique');
+            });
+        } catch (Throwable $e) {
+            // Index mungkin sudah ada atau masih ada duplikat data lama
+        }
     }
 
     /**
