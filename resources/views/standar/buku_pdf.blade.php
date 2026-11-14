@@ -474,28 +474,6 @@
         @endforeach
     @endforeach
 
-    <!-- LEMBAR PENGESAHAN DOKUMEN -->
-    <div style="margin-top: 25px; page-break-inside: avoid; border-top: 1px solid #cbd5e1; padding-top: 15px;">
-        <table class="signature-table">
-            <tr>
-                <td>
-                    Ditetapkan & Diverifikasi Oleh:<br>
-                    <strong>Ketua LPMA Universitas Sumatera Selatan</strong>
-                    <div class="signature-space"></div>
-                    <strong><u>{{ $kepalaLpmaNama }}</u></strong><br>
-                    <span>{{ $kepalaLpmaJabatan }}</span>
-                </td>
-                <td>
-                    Mengetahui & Mengesahkan:<br>
-                    <strong>Rektor Universitas Sumatera Selatan</strong>
-                    <div class="signature-space"></div>
-                    <strong><u>{{ $rektorNama }}</u></strong><br>
-                    <span>{{ $rektorJabatan }}</span>
-                </td>
-            </tr>
-        </table>
-    </div>
-
     <!-- SCRIPT NOMOR HALAMAN DOMPDF -->
     <script type="text/php">
     if (isset($pdf)) {
