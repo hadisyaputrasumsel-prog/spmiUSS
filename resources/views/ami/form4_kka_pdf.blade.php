@@ -160,6 +160,24 @@
             $tanggalAuditFormatted = \Carbon\Carbon::parse($minDate)->translatedFormat('d F Y');
         }
     }
+    if ($tanggalAuditFormatted === '-') {
+        $tanggalAuditFormatted = '16 Oktober ' . $tahun;
+    }
+
+    // Pihak Auditi
+    $namaAuditi = $auditSesi->wakil_auditi ?: ($unit->pimpinan ?: null);
+    $nipAuditi = $unit->pimpinan_nip ? 'NIP/NIDN. ' . $unit->pimpinan_nip : ($namaAuditi ? 'Pimpinan / Wakil Auditi' : 'NIP/NIDN. ........................................');
+
+    // Ketua Auditor
+    $isDummyLpma = $ketua && in_array(strtolower(trim($ketua->name)), ['kepala lpma', 'lpma', 'super administrator'], true) && empty($ketua->nama_lengkap);
+    $namaAuditor = ($ketua && ! $isDummyLpma) ? ($ketua->nama_lengkap ?: $ketua->name) : null;
+    $nipAuditor = ($ketua && ! $isDummyLpma && ($ketua->nidn || $ketua->nip))
+        ? ('NIDN/NIP. ' . ($ketua->nidn ?: $ketua->nip))
+        : ($namaAuditor ? 'Auditor Mutu Internal' : 'NIDN/NIP. ........................................');
+
+    // Penjamin Mutu (Kepala LPMA)
+    $namaPenjaminMutu = $auditSesi->penjamin_mutu ?: 'Dr. H. Ahmad Fauzi, M.Pd';
+    $nidnPenjaminMutu = '0214057801';
 @endphp
 
 <!-- KOP -->
@@ -225,11 +243,11 @@
     <tr>
         <td>
             <b>Wakil Auditi:</b><br>
-            {{ $auditSesi->wakil_auditi ?: ($unit->pimpinan ?: 'Pimpinan Unit') }}
+            {{ $namaAuditi ?: ($unit->nama ? 'Pimpinan ' . $unit->nama : 'Pimpinan Unit') }}
         </td>
         <td>
             <b>Auditor Ketua:</b><br>
-            {{ $ketua ? ($ketua->nama_lengkap ?: $ketua->name) : 'Lead Auditor' }}
+            {{ $namaAuditor ?: 'Ketua Tim Auditor' }}
             <div style="margin-top: 4px;">
                 <b>Auditor Anggota:</b><br>
                 @if($anggota->count() > 0)
@@ -302,27 +320,63 @@
 
 <!-- TEMPAT PERSETUJUAN -->
 <div class="ttd-section">
-    <div class="ttd-title">Tempat Persetujuan</div>
-    <table style="width: 100%; border: none;">
+    <table style="width: 100%; border: none; margin-bottom: 6px;">
         <tr>
-            <td style="width: 50%; border: none; vertical-align: top; padding: 4px;">
-                <b>Pimpinan Auditi</b><br><br><br><br>
-                ( <b>{{ $auditSesi->wakil_auditi ?: ($unit->pimpinan ?: '................................') }}</b> )<br>
-                Tanda Tangan: ..............................
+            <td style="border: none; padding: 0; font-weight: bold; font-size: 9pt; text-transform: uppercase;">
+                Tempat Persetujuan
             </td>
-            <td style="width: 50%; border: none; vertical-align: top; padding: 4px;">
-                <b>Ketua Auditor</b><br><br><br><br>
-                ( <b>{{ $ketua ? ($ketua->nama_lengkap ?: $ketua->name) : '................................' }}</b> )<br>
-                Tanda Tangan: ..............................
+            <td style="border: none; padding: 0; text-align: right; font-size: 8.5pt; color: #333;">
+                Palembang, {{ $tanggalAuditFormatted }}
             </td>
         </tr>
     </table>
-    <div style="margin-top: 15px; padding-top: 10px; border-top: 1px dashed #999;">
-        <b>Direview oleh :</b><br>
-        <b>Penjamin Mutu Audit</b><br><br><br><br>
-        ( <b>{{ $auditSesi->penjamin_mutu ?: '................................' }}</b> )<br>
-        Tanda Tangan: ..............................
-    </div>
+
+    <table style="width: 100%; border: none;">
+        <tr>
+            <td style="width: 50%; border: none; text-align: center; vertical-align: top; padding: 4px 15px;">
+                <div style="font-weight: bold; font-size: 8.5pt;">Pihak Auditi,</div>
+                <div style="font-size: 8pt; color: #555; margin-bottom: 48px;">{{ $unit->nama }}</div>
+                <div style="font-size: 9pt;">
+                    @if($namaAuditi)
+                        <u><b>{{ $namaAuditi }}</b></u>
+                    @else
+                        ( .................................................... )
+                    @endif
+                </div>
+                <div style="font-size: 7.5pt; color: #555; margin-top: 2px;">
+                    {{ $nipAuditi }}
+                </div>
+            </td>
+            <td style="width: 50%; border: none; text-align: center; vertical-align: top; padding: 4px 15px;">
+                <div style="font-weight: bold; font-size: 8.5pt;">Pihak Auditor,</div>
+                <div style="font-size: 8pt; color: #555; margin-bottom: 48px;">Ketua Tim Auditor Internal</div>
+                <div style="font-size: 9pt;">
+                    @if($namaAuditor)
+                        <u><b>{{ $namaAuditor }}</b></u>
+                    @else
+                        ( .................................................... )
+                    @endif
+                </div>
+                <div style="font-size: 7.5pt; color: #555; margin-top: 2px;">
+                    {{ $nipAuditor }}
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="border: none; text-align: center; vertical-align: top; padding-top: 12px;">
+                <div style="border-top: 1px dashed #94a3b8; margin: 0 40px 10px 40px;"></div>
+                <div style="font-size: 8pt; color: #475569; margin-bottom: 1px;">Direview oleh :</div>
+                <div style="font-weight: bold; font-size: 8.5pt;">Penjamin Mutu Audit</div>
+                <div style="font-size: 8pt; color: #555; margin-bottom: 48px;">Kepala Lembaga Penjaminan Mutu Akademik (LPMA)</div>
+                <div style="font-size: 9pt;">
+                    <u><b>{{ $namaPenjaminMutu }}</b></u>
+                </div>
+                <div style="font-size: 7.5pt; color: #555; margin-top: 2px;">
+                    NIDN: {{ $nidnPenjaminMutu }}
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 
 </body>
